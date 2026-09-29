@@ -18,4 +18,9 @@ describe('VoC UI 4.12', () => {
     assert.match(voc, /Como essa classificação foi feita/);
     assert.match(voc, /Resposta NPS completa/);
   });
+
+  it('informa valência analisada por IA', () => {
+    assert.match(voc, /valência de cada tema é analisada por IA/);
+    assert.match(voc, /Analisado por IA/);
+  });
 });

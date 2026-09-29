@@ -55,7 +55,7 @@ describe('Metodologia 4.13', () => {
 
   it('Valência independente da nota', () => {
     const v = buildMethodologyModel({}).sections.find((s) => s.id === 'valencia');
-    assert.match(v.simple, /independente/i);
+    assert.match(v.simple, /nota NPS não define a valência/i);
     assert.match(v.simple, /Promotor/);
   });
 

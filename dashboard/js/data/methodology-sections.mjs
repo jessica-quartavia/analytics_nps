@@ -188,10 +188,21 @@ export function buildMethodologyModel(ctx = {}) {
       title: 'Valência por tema',
       keywords: ['valência', 'positiva', 'negativa', 'neutra'],
       simple:
-        'Valência é independente da categoria NPS. Positiva = favorável ao tema; Neutra = descritivo/ambíguo; Negativa = crítica ou insatisfação local. Promotor 10 pode ter Resultados Negativa.',
-      technical: 'Valência inferida por cláusula/trecho, não pelo comentário inteiro nem pela nota automaticamente.',
-      source: 'lib/analytics/voc-classifier.mjs',
-      limitation: 'Automatizada — não substitui leitura humana em casos sensíveis.',
+        'A valência de cada tema é analisada por inteligência artificial. A IA considera o texto da resposta, o tema identificado e o contexto da pergunta para classificar a menção como Positiva, Neutra ou Negativa. A nota NPS não define a valência — um Promotor pode criticar um tema e um Detrator pode elogiar outro.',
+      technical: 'Valência por cláusula/pergunta-resposta; nota NPS só como contexto auxiliar no prompt.',
+      source: 'lib/analytics/voc-ai-classifier.mjs · data/processed/response_topics.json',
+      limitation: 'Automatizada — casos incertos podem ser marcados para revisão humana.',
+    },
+    {
+      id: 'valencia-ia',
+      title: 'Uso de Inteligência Artificial (valência VoC)',
+      keywords: ['gemini', 'ia', 'inteligência artificial', 'valência'],
+      simple:
+        'A IA (Gemini) classifica a valência de cada tema durante o pipeline analítico. O dashboard lê JSON processado — não envia comentários para a IA em tempo real. Regras determinísticas (rules_v2) permanecem como fallback se a IA falhar ou se a chave não estiver configurada.',
+      technical:
+        'GEMINI_API_KEY somente server-side (scripts/refresh). Cache em data/cache/voc_ai_classifications.json. classifier_source: gemini | rules_v2_fallback | human_review.',
+      source: 'scripts/classify-voc-ai.mjs · data/quality/voc_ai_classification_qa.json',
+      limitation: 'Nunca expor API key no frontend, dist ou repositório.',
     },
     {
       id: 'classificacao-voc',

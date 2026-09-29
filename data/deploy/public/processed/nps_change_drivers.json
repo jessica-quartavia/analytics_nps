@@ -599,91 +599,61 @@
     {
       "topic": "Resultados",
       "metric": "mechanisms_count_before_response",
-      "shown": true,
-      "n_negative": 24,
-      "n_rest": 57,
-      "comparison": {
-        "median_negative": 2,
-        "median_rest": 2,
-        "u": 613.5,
-        "p_value": 0.46589654232513045,
-        "n": 81,
-        "effect_size": -0.10307017543859653,
-        "median_a": 2,
-        "median_b": 2,
-        "difference": 0
-      }
-    },
-    {
-      "topic": "Agilidade",
-      "metric": "days_since_last_meeting",
       "shown": false,
       "reason": "n_insufficient",
       "n_negative": 4,
       "n_rest": 77
     },
     {
+      "topic": "Agilidade",
+      "metric": "days_since_last_meeting",
+      "shown": false,
+      "reason": "n_insufficient",
+      "n_negative": 0,
+      "n_rest": 81
+    },
+    {
       "topic": "Atendimento / relacionamento",
       "metric": "ep_changed",
-      "shown": true,
-      "n_negative": 11,
-      "n_rest": 70,
-      "comparison": {
-        "pct_true_negative": 9.090909090909092,
-        "pct_true_rest": 5.714285714285714,
-        "n_a": 11,
-        "n_b": 70,
-        "pct_a": 9.090909090909092,
-        "pct_b": 5.714285714285714,
-        "p_value": 0.5276245086371668,
-        "n": 81,
-        "test": "fisher"
-      }
+      "shown": false,
+      "reason": "n_insufficient",
+      "n_negative": 0,
+      "n_rest": 81
     },
     {
       "topic": "Oportunidades",
       "metric": "mechanisms_count_before_response",
-      "shown": true,
-      "n_negative": 9,
-      "n_rest": 72,
-      "comparison": {
-        "median_negative": 2,
-        "median_rest": 2,
-        "u": 283.5,
-        "p_value": 0.5427715995467364,
-        "n": 81,
-        "effect_size": 0.125,
-        "median_a": 2,
-        "median_b": 2,
-        "difference": 0
-      }
+      "shown": false,
+      "reason": "n_insufficient",
+      "n_negative": 2,
+      "n_rest": 79
     }
   ],
   "resultados_mechanisms": {
     "question": "Clientes que reclamam de resultados têm menos mecanismos implementados?",
     "resultados_negative": {
-      "n": 56,
+      "n": 10,
       "median_mechanisms": 2,
-      "pct_no_mechanism": 21.428571428571427,
-      "pct_one": 14.285714285714285,
-      "pct_two_plus": 64.28571428571429,
-      "nps": 57.142857142857146,
-      "mean_score": 8.428571428571429
+      "pct_no_mechanism": 30,
+      "pct_one": 10,
+      "pct_two_plus": 60,
+      "nps": -10,
+      "mean_score": 6.4
     },
     "others": {
-      "n": 197,
+      "n": 243,
       "median_mechanisms": 1,
-      "pct_no_mechanism": 42.13197969543147,
-      "pct_one": 18.781725888324875,
-      "pct_two_plus": 39.08629441624365,
-      "nps": 55.837563451776646,
-      "mean_score": 8.543147208121827
+      "pct_no_mechanism": 37.86008230452675,
+      "pct_one": 18.106995884773664,
+      "pct_two_plus": 44.03292181069959,
+      "nps": 58.84773662551441,
+      "mean_score": 8.604938271604938
     },
     "comparison": {
-      "u": 3850,
-      "p_value": 0.0005656080780744865,
+      "u": 1047,
+      "p_value": 0.4588363663478592,
       "n": 253,
-      "effect_size": -0.30203045685279184,
+      "effect_size": -0.1382716049382715,
       "median_a": 2,
       "median_b": 1,
       "difference": 1

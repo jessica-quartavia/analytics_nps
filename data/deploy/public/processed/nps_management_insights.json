@@ -105,9 +105,9 @@
       "title": "Resultados negativo e mecanismos",
       "statement": "Nos dados, clientes que mencionam Resultados negativamente não têm menos mecanismos; no ciclo atual, apresentam mediana maior e maior concentração em 2+ mecanismos antes da resposta.",
       "scope": "NPS-2026-SET-PHARUS",
-      "n": 56,
-      "effect": "mediana 2 vs 1 · 2+ 64% vs 39%",
-      "p_value": 0.0005656080780744865,
+      "n": 10,
+      "effect": "mediana 2 vs 1 · 2+ 60% vs 44%",
+      "p_value": 0.4588363663478592,
       "quality": "good",
       "source": [
         "processed/nps_change_drivers.json"
@@ -115,12 +115,12 @@
       "status": "highlight",
       "language": "evidence",
       "detail": {
-        "n_negative": 56,
-        "n_others": 197,
+        "n_negative": 10,
+        "n_others": 243,
         "median_negative": 2,
         "median_others": 1,
-        "pct_two_plus_negative": 64.28571428571429,
-        "pct_two_plus_others": 39.08629441624365,
+        "pct_two_plus_negative": 60,
+        "pct_two_plus_others": 44.03292181069959,
         "test": "mann_whitney"
       },
       "analysis_route": "movimento",
@@ -133,7 +133,7 @@
       "scope": "NPS-2026-SET-PHARUS",
       "n": 240,
       "effect": null,
-      "p_value": 0.7353671976479926,
+      "p_value": 0.7405423587735522,
       "quality": "good",
       "source": [
         "processed/nps_financial_profile.json"
@@ -149,9 +149,9 @@
       "title": "Resultados negativo × reserva",
       "statement": "Não foi identificada diferença estatisticamente sustentada na mediana de reserva entre Resultados negativo e demais.",
       "scope": "NPS-2026-SET-PHARUS",
-      "n": 56,
-      "effect": "mediana 200000 vs 148500",
-      "p_value": 0.23563759215416402,
+      "n": 10,
+      "effect": "mediana 152500 vs 150000",
+      "p_value": 0.7218838943484116,
       "quality": "partial",
       "source": [
         "processed/nps_financial_profile.json"
@@ -169,7 +169,7 @@
       "scope": "NPS-2026-SET-PHARUS",
       "n": 253,
       "effect": null,
-      "p_value": 0.46343096807466144,
+      "p_value": 0.9999999999999999,
       "quality": "good",
       "source": [
         "processed/nps_financial_profile.json"
@@ -259,9 +259,9 @@
       "title": "Aporte (campo ambíguo)",
       "statement": "Foi identificada diferença de distribuição do campo de aporte entre Resultados negativo e demais, mas a semântica de ultimo_aporte ainda precisa ser validada — não usar como insight principal.",
       "scope": "NPS-2026-SET-PHARUS",
-      "n": 56,
-      "effect": "medianas 5000 vs 5000 (IQR distintos)",
-      "p_value": 0.0145664002111634,
+      "n": 10,
+      "effect": "medianas 3000 vs 5000 (IQR distintos)",
+      "p_value": 0.5160123140069746,
       "quality": "partial",
       "source": [
         "processed/nps_financial_profile.json"

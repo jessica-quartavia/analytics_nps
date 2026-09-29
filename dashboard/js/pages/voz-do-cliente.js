@@ -21,12 +21,42 @@ let valenceChart = null;
 let tableState = { page: 1, pageSize: 25 };
 const VOC_REVIEW_STORAGE_KEY = 'analytics_nps_voc_review_queue';
 
+const VOC_AI_TOOLTIP =
+  'A IA interpreta se a menção a cada tema é positiva, neutra ou negativa. A nota NPS não determina essa classificação.';
+
+function vocAiBadgeHtml() {
+  return `<span class="badge badge--method voc-ai-badge" title="${escapeAttr(VOC_AI_TOOLTIP)}">Analisado por IA</span>`;
+}
+
+function responseUsesAiValence(topics, meta) {
+  if (meta?.voc_ai) return true;
+  return topics.some((t) => t.classifier_source === 'gemini' || t.classification_source === 'gemini');
+}
+
 function vocThemeListItem(t) {
-  const uncertain = t.confidence != null && Number(t.confidence) < 0.65;
+  const uncertain =
+    t.needs_human_review === true || (t.confidence != null && Number(t.confidence) < 0.65);
   const badge = uncertain
     ? ' <span class="badge badge--method voc-uncertain-badge">Classificação incerta</span>'
     : '';
   return `<li><strong>${escapeHtml(t.topic)}</strong> <span class="topic-chip__valence topic-chip__valence--${escapeAttr(t.valence)}">${escapeHtml(t.valence)}</span>${badge}</li>`;
+}
+
+function vocClassificationHowHtml(topics, meta) {
+  const primary = topics[0];
+  const src = primary?.classifier_source ?? primary?.classification_source ?? '—';
+  const isGemini = src === 'gemini';
+  const fallback = topics.some((t) => t.classifier_source === 'rules_v2_fallback');
+  return `
+    <p class="note-muted">Cada tema é detectado por palavras-chave; a valência vem do texto da cláusula e da pergunta — não da nota NPS.</p>
+    <dl class="drawer-meta-list">
+      <div><dt>Classificador</dt><dd>${isGemini ? 'IA' : escapeHtml(String(src))}</dd></div>
+      ${isGemini ? `<div><dt>Fornecedor</dt><dd>${escapeHtml(primary?.ai_provider ?? 'gemini')}</dd></div>` : ''}
+      ${primary?.classifier_version ? `<div><dt>Versão</dt><dd>${escapeHtml(primary.classifier_version)}</dd></div>` : ''}
+      ${primary?.confidence != null ? `<div><dt>Confiança (amostra)</dt><dd>${escapeHtml(String(primary.confidence))}</dd></div>` : ''}
+      ${primary?.evidence ? `<div><dt>Trecho utilizado</dt><dd>${escapeHtml(primary.evidence)}</dd></div>` : ''}
+      ${fallback ? `<div><dt>Fallback</dt><dd>rules_v2 (falha ou indisponibilidade da IA nesta resposta)</dd></div>` : ''}
+    </dl>`;
 }
 
 function pushVocReviewEntry(entry) {
@@ -77,7 +107,7 @@ function renderHero(cycle, summary) {
       <div>
         <p class="eyebrow">Voz do cliente</p>
         <h1 class="hero__title">O que os clientes estão dizindo</h1>
-        <p class="page-header__lead">Organiza os comentários por tema e tom para mostrar o que aparece com mais frequência.</p>
+        <p class="page-header__lead">Organiza os comentários por tema e tom para mostrar o que aparece com mais frequência. A valência de cada tema é analisada por IA a partir do conteúdo do comentário e do contexto da pergunta.</p>
       </div>
       <div class="chip-row">
         <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>
@@ -395,6 +425,8 @@ function openVocDrawer(responseId, cycleCode) {
   const r = responses.find((x) => x.response_id === responseId);
   if (!r) return;
   const topics = getResponseTopics(cycleCode).filter((t) => t.response_id === responseId);
+  const vocMeta = getVocClassificationMeta();
+  const showAi = responseUsesAiValence(topics, vocMeta);
   const backdrop = document.getElementById('voc-drawer-backdrop');
   const drawer = document.getElementById('voc-drawer');
   if (!drawer) return;
@@ -426,14 +458,14 @@ function openVocDrawer(responseId, cycleCode) {
         ${commentBlocks || '<p class="note-muted">Sem comentário.</p>'}
       </div>
       <div class="drawer-section">
-        <h3 class="drawer-section-title">Temas identificados ${valenceInfoIcon(VALENCE_HELP)} ${methodologyOpenButton('valencia', 'Metodologia')}</h3>
+        <h3 class="drawer-section-title">Temas identificados ${showAi ? vocAiBadgeHtml() : ''} ${valenceInfoIcon(VALENCE_HELP)} ${methodologyOpenButton('valencia', 'Metodologia')}</h3>
         <p class="note-muted voc-valence-help">${escapeHtml(VALENCE_HELP)}</p>
         <ul class="voc-theme-list">${topics.map((t) => vocThemeListItem(t)).join('')}</ul>
         <p class="note-muted"><button type="button" class="btn btn--ghost btn--sm" id="voc-flag-review">Marcar para revisão humana</button></p>
       </div>
       <details class="drawer-section voc-classification-how">
         <summary>Como essa classificação foi feita?</summary>
-        <p class="note-muted">Cada tema é detectado por palavras-chave no trecho da resposta; a valência (Positiva, Neutra ou Negativa) vem do texto da cláusula e da pergunta do formulário — não da nota NPS. Fonte: rules_v2 (parcial e auditável).</p>
+        ${vocClassificationHowHtml(topics, vocMeta)}
       </details>`,
   });
   drawer.classList.add('drawer--wide');

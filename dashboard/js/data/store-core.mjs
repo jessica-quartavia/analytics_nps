@@ -498,6 +498,14 @@ export function buildVocCommentRows(responses, responseTopics, cycleCode, filter
       analytical_cycle_code: r.analytical_cycle_code,
       confidence: t.confidence,
       classification_source: t.classification_source,
+      classifier_source: t.classifier_source ?? t.classification_source,
+      classifier_version: t.classifier_version,
+      ai_provider: t.ai_provider,
+      ai_model: t.ai_model,
+      evidence: t.evidence,
+      valence_reason: t.valence_reason,
+      needs_human_review: t.needs_human_review,
+      classified_at: t.classified_at,
       reviewed: t.reviewed,
     };
   }).filter(Boolean);

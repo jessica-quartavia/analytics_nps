@@ -4,6 +4,10 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+# Cache de classificação VoC IA (não versionar)
+data/cache/voc_ai_classifications.json
+!.env.example
 .DS_Store
 Thumbs.db
 

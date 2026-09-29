@@ -5294,107 +5294,107 @@
   "resultados_x_tier": {
     "question": "Clientes que reclamam de Resultados estão concentrados em algum Tier?",
     "resultados_negative": {
-      "n": 56,
+      "n": 10,
       "counts": {
-        "T1": 15,
-        "T2": 15,
-        "T3": 23,
+        "T1": 2,
+        "T2": 1,
+        "T3": 4,
         "T4": 3
       },
       "pct": {
-        "T1": 26.785714285714285,
-        "T2": 26.785714285714285,
-        "T3": 41.07142857142857,
-        "T4": 5.357142857142857
+        "T1": 20,
+        "T2": 10,
+        "T3": 40,
+        "T4": 30
       }
     },
     "others": {
-      "n": 184,
+      "n": 230,
       "counts": {
-        "T1": 52,
-        "T2": 33,
-        "T3": 75,
+        "T1": 65,
+        "T2": 47,
+        "T3": 94,
         "T4": 24
       },
       "pct": {
         "T1": 28.26086956521739,
-        "T2": 17.934782608695652,
-        "T3": 40.76086956521739,
-        "T4": 13.043478260869565
+        "T2": 20.434782608695652,
+        "T3": 40.869565217391305,
+        "T4": 10.434782608695652
       }
     },
     "association": {
-      "statistic": 3.9708156832771118,
-      "p_value": 0.7353671976479926,
+      "statistic": 4.018646783827093,
+      "p_value": 0.7405423587735522,
       "n": 240,
-      "effect_size": 0.1286276227992571,
-      "limitation": null,
+      "effect_size": 0.1294000061795963,
+      "limitation": "expected counts baixos; interpretar com cautela",
       "test": "chi_square"
     },
     "note": "Somente respondentes com Tier classificado (T1–T4)."
   },
   "resultados_x_reserve": {
-    "median_negative": 200000,
-    "median_others": 148500,
+    "median_negative": 152500,
+    "median_others": 150000,
     "iqr_negative": {
-      "q1": 83650.25,
-      "q3": 400000,
-      "iqr": 316349.75
+      "q1": 26466.75,
+      "q3": 395000,
+      "iqr": 368533.25
     },
     "iqr_others": {
-      "q1": 40000,
+      "q1": 50000,
       "q3": 400000,
-      "iqr": 360000
+      "iqr": 350000
     },
-    "n_negative": 56,
-    "n_others": 184,
+    "n_negative": 10,
+    "n_others": 230,
     "mann_whitney": {
-      "u": 4612.5,
-      "p_value": 0.23563759215416402,
+      "u": 1073.5,
+      "p_value": 0.7218838943484116,
       "n": 240,
-      "effect_size": -0.10471661490683237,
-      "median_a": 200000,
-      "median_b": 148500,
-      "difference": 51500
+      "effect_size": 0.0665217391304348,
+      "median_a": 152500,
+      "median_b": 150000,
+      "difference": 2500
     },
     "interpretation": "Sem evidência estatística convencional de diferença na mediana/IQR (p≥0,05 ou n insuficiente)."
   },
   "resultados_x_contribution": {
-    "median_negative": 5000,
+    "median_negative": 3000,
     "median_others": 5000,
     "iqr_negative": {
-      "q1": 3000,
-      "q3": 15000,
-      "iqr": 12000
+      "q1": 1275,
+      "q3": 8750,
+      "iqr": 7475
     },
     "iqr_others": {
       "q1": 2000,
       "q3": 10000,
       "iqr": 8000
     },
-    "n_negative": 56,
-    "n_others": 183,
+    "n_negative": 10,
+    "n_others": 229,
     "mann_whitney": {
-      "u": 4018,
-      "p_value": 0.0145664002111634,
+      "u": 1006,
+      "p_value": 0.5160123140069746,
       "n": 239,
-      "effect_size": -0.21584699453551903,
-      "median_a": 5000,
+      "effect_size": 0.12139737991266375,
+      "median_a": 3000,
       "median_b": 5000,
-      "difference": 0
+      "difference": -2000
     },
     "note": "Medianas iguais não implicam distribuições iguais; ultimo_aporte é proxy ambíguo (não garantido mensal)."
   },
   "resultados_x_debts": {
-    "n_negative": 56,
-    "n_others": 197,
-    "pct_debts_negative": 7.142857142857142,
-    "pct_debts_others": 11.16751269035533,
-    "n_a": 56,
-    "n_b": 197,
-    "pct_a": 7.142857142857142,
-    "pct_b": 11.16751269035533,
-    "p_value": 0.46343096807466144,
+    "n_negative": 10,
+    "n_others": 243,
+    "pct_debts_negative": 10,
+    "pct_debts_others": 10.2880658436214,
+    "n_a": 10,
+    "n_b": 243,
+    "pct_a": 10,
+    "pct_b": 10.2880658436214,
+    "p_value": 0.9999999999999999,
     "n": 253,
     "test": "fisher",
     "note": "Associação — não causalidade."
@@ -5490,40 +5490,9 @@
     "note": "Associação exploratória — snapshot financeiro atual (proxy)."
   },
   "resultados_x_tier_x_mechanisms": {
-    "shown": true,
+    "shown": false,
     "min_n": 5,
-    "cells": [
-      {
-        "tier": "T1",
-        "mechanism_bucket": "2+",
-        "resultados_negative_n": 11,
-        "shown": true
-      },
-      {
-        "tier": "T2",
-        "mechanism_bucket": "2+",
-        "resultados_negative_n": 11,
-        "shown": true
-      },
-      {
-        "tier": "T3",
-        "mechanism_bucket": "0",
-        "resultados_negative_n": 6,
-        "shown": true
-      },
-      {
-        "tier": "T3",
-        "mechanism_bucket": "1",
-        "resultados_negative_n": 5,
-        "shown": true
-      },
-      {
-        "tier": "T3",
-        "mechanism_bucket": "2+",
-        "resultados_negative_n": 12,
-        "shown": true
-      }
-    ],
+    "cells": [],
     "note": "Publicar apenas células com n suficiente."
   },
   "limitations": [
