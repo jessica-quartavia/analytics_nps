@@ -86,6 +86,10 @@ async function run() {
     if (bodyText.includes('Dataset ausente no deploy')) {
       throw new Error('Executivo mostra erro 404 de dataset');
     }
+    const hasLogo = await page.$('.sidebar__logo-img');
+    if (!hasLogo) throw new Error('Logo/favicon ausente no shell');
+    const hasTip = await page.$('.help-tip__btn');
+    if (!hasTip) throw new Error('Tooltips didáticos ausentes no Executivo');
     await browser.close();
     console.log('Smoke static OK — datasets HTTP 200 e Executivo renderizou');
   } finally {

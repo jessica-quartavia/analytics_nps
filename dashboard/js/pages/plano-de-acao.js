@@ -16,6 +16,7 @@ import {
 } from '../data/store-core.mjs';
 import { formatCsatAverage, formatDate } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
+import { sectionHead, TIPS, helpTip } from '../ui/help.js';
 const PRIORITIES = ['Alta', 'Média', 'Investigar', 'Aprendizado'];
 const STATUS_OPTIONS = [
   'Novo',
@@ -102,17 +103,17 @@ function renderTable(rows) {
           (r) => `
       <tr class="action-row" data-client-id="${escapeAttr(r.client_id)}" data-cycle="${escapeAttr(r.cycle_code)}" tabindex="0">
         <td>${priorityPill(r.priority)}</td>
-        <td>${escapeHtml(r.client_name ?? '—')}</td>
-        <td>${escapeHtml(r.ep_name ?? '—')}${epBadge(r.ep_resolution_confidence)}</td>
+        <td class="col-client">${escapeHtml(r.client_name ?? '—')}</td>
+        <td class="col-ep">${escapeHtml(r.ep_name ?? '—')}${epBadge(r.ep_resolution_confidence)}</td>
         <td class="num">${r.previous_score ?? '—'}</td>
         <td class="num">${r.current_score ?? '—'}</td>
         <td class="num">${r.score_delta ?? '—'}</td>
         <td>${escapeHtml(r.nps_migration ?? '—')}</td>
-        <td>${escapeHtml(r.primary_topic ?? '—')}</td>
-        <td class="num">${r.has_csat ? formatCsatAverage(r.csat_average) : '—'}</td>
-        <td class="reason-cell">${escapeHtml(r.reason ?? '—')}</td>
+        <td class="col-hide-md">${escapeHtml(r.primary_topic ?? '—')}</td>
+        <td class="num col-hide-md">${r.has_csat ? formatCsatAverage(r.csat_average) : '—'}</td>
+        <td class="reason-cell col-reason" title="${escapeAttr(r.reason ?? '')}">${escapeHtml(r.reason ?? '—')}</td>
         <td>${escapeHtml(r.status ?? 'Novo')}</td>
-        <td>${escapeHtml(r.owner || '—')}</td>
+        <td class="col-hide-md">${escapeHtml(r.owner || '—')}</td>
       </tr>`,
         )
         .join('')
@@ -137,20 +138,20 @@ function renderTable(rows) {
       <button type="button" class="btn btn--secondary" id="action-export-csv">Exportar CSV</button>
     </div>
     <div class="table-scroll">
-      <table class="data-table" id="action-plan-table">
+      <table class="data-table data-table--action" id="action-plan-table">
         <thead><tr>
-          <th data-sort="priority">Prioridade</th>
-          <th data-sort="client_name">Cliente</th>
-          <th data-sort="ep_name">EP</th>
+          <th data-sort="priority">${helpTip('Prioridade', TIPS.prioridadeAlta)}</th>
+          <th class="col-client" data-sort="client_name">Cliente</th>
+          <th class="col-ep" data-sort="ep_name">EP</th>
           <th class="num" data-sort="previous_score">Nota ant.</th>
           <th class="num" data-sort="current_score">Nota atual</th>
           <th class="num" data-sort="score_delta">Δ</th>
           <th data-sort="nps_migration">Migração</th>
-          <th>Tema principal</th>
-          <th class="num">CSAT</th>
-          <th data-sort="reason">Motivo</th>
+          <th class="col-hide-md">Tema principal</th>
+          <th class="num col-hide-md">CSAT</th>
+          <th class="col-reason" data-sort="reason">Motivo</th>
           <th data-sort="status">Status</th>
-          <th data-sort="owner">Responsável</th>
+          <th class="col-hide-md" data-sort="owner">Responsável</th>
         </tr></thead>
         <tbody>${body}</tbody>
       </table>
@@ -409,7 +410,7 @@ export function renderPlanoDeAcao(root, ctx = {}) {
       <div>
         <p class="eyebrow">Plano de Ação</p>
         <h1 class="hero__title">Plano de Ação</h1>
-        <p class="page-header__lead">Clientes priorizados a partir de movimento de nota, recorrência e sinais de experiência.</p>
+        <p class="page-header__lead">Lista clientes priorizados para acompanhamento com base nos sinais identificados.</p>
       </div>
       <div class="chip-row">
         <span class="chip-modern">Atualizado ${escapeHtml(cutoff)}</span>

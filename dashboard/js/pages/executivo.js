@@ -21,6 +21,7 @@ import {
   formatCsatAverageWithScale,
 } from '../utils/format.js';
 import { escapeHtml } from '../utils/escape-html.js';
+import { sectionLead, helpTip, TIPS } from '../ui/help.js';
 
 let charts = [];
 
@@ -86,7 +87,7 @@ function renderHero(currentCycle, currentSummary) {
       <div>
         <p class="eyebrow">Visão executiva</p>
         <h1 class="hero__title">NPS — Diagnóstico de Gestão</h1>
-        <p class="page-header__lead">Visão executiva da experiência dos clientes e da evolução entre ciclos.</p>
+        <p class="page-header__lead">Resumo geral do NPS, comparação com o ciclo anterior e principais sinais de atenção.</p>
       </div>
       <div class="chip-row">
         <span class="chip-modern">${escapeHtml(currentCycle?.cycle_name ?? '—')}</span>
@@ -113,17 +114,17 @@ function renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle) 
   return `
     <div class="metric-hero-grid">
       <article class="metric-hero metric-hero--primary">
-        <div class="metric-hero__label">NPS atual</div>
+        <div class="metric-hero__label">${helpTip('NPS atual', TIPS.npsAtual)}</div>
         <div class="metric-hero__value">${escapeHtml(formatNps(nps))}</div>
         <div class="metric-hero__note">${escapeHtml(currentCycle?.cycle_name ?? '—')}</div>
       </article>
       <article class="metric-hero">
-        <div class="metric-hero__label">NPS anterior</div>
+        <div class="metric-hero__label">${helpTip('NPS anterior', TIPS.npsAnterior)}</div>
         <div class="metric-hero__value">${escapeHtml(formatNps(prevNps))}</div>
         <div class="metric-hero__note">${escapeHtml(prevCycle?.cycle_name ?? '—')}</div>
       </article>
       <article class="${deltaClass}">
-        <div class="metric-hero__label">Variação</div>
+        <div class="metric-hero__label">${helpTip('Variação', TIPS.variacao)}</div>
         <div class="metric-hero__value">${escapeHtml(formatDeltaPts(nps, prevNps))}</div>
         <div class="metric-delta__hint">${escapeHtml(deltaHint(nps, prevNps))}</div>
       </article>
@@ -151,7 +152,7 @@ function renderSampleRow(currentSummary) {
         <div class="metric-context__value">${escapeHtml(rr)}</div>
       </div>
       <div class="metric-context">
-        <div class="metric-context__label">IC95 NPS</div>
+        <div class="metric-context__label">${helpTip('IC95 NPS', TIPS.ic95)}</div>
         <div class="metric-context__value">${escapeHtml(ci)}</div>
       </div>
     </div>`;
@@ -160,7 +161,7 @@ function renderSampleRow(currentSummary) {
 function compositionCard(label, count, pct, tone, widthPct) {
   return `
     <article class="composition-card composition-card--${tone}">
-      <div class="composition-card__label">${escapeHtml(label)}</div>
+      <div class="composition-card__label">${label === 'Promotores' ? helpTip(label, TIPS.promotores) : label === 'Neutros' ? helpTip(label, TIPS.neutros) : label === 'Detratores' ? helpTip(label, TIPS.detratores) : escapeHtml(label)}</div>
       <div class="composition-card__value">${escapeHtml(String(count))}</div>
       <div class="composition-card__pct">${escapeHtml(formatPct(pct))}</div>
       <div class="composition-bar"><span style="width:${widthPct}%"></span></div>
@@ -232,17 +233,20 @@ function renderExecutiveDiagnosisBlock(diagnosis) {
     )
     .join('');
   return `
-    <section class="exec-diagnosis card" aria-labelledby="exec-diagnosis-title">
-      <div>
+    <section class="exec-diagnosis card exec-reading" aria-labelledby="exec-diagnosis-title">
+      <div class="exec-reading__main">
         <h2 class="section-title section-title--flush" id="exec-diagnosis-title">Leitura executiva</h2>
+        ${sectionLead('Síntese automática com base nos mesmos arquivos do dashboard — sem alterar os números oficiais.')}
         <p class="exec-diagnosis__headline">${escapeHtml(diagnosis.headline?.text ?? '—')}</p>
         <ul class="exec-diagnosis__bullets">${bullets.join('') || '<li>Sem bullets para este ciclo.</li>'}</ul>
-        <button type="button" class="btn btn--secondary" id="btn-diagnosis-full">Ver diagnóstico completo</button>
+        <div class="exec-reading__actions">
+          <button type="button" class="btn btn--secondary" id="btn-diagnosis-full">Ver diagnóstico completo</button>
+        </div>
       </div>
-      <div>
+      <aside class="exec-reading__aside">
         <h3 class="section-title section-title--flush">Responder em 5 minutos</h3>
         <div class="mgmt-questions">${questions}</div>
-      </div>
+      </aside>
     </section>`;
 }
 
@@ -302,6 +306,7 @@ function renderTotalVsPaired(currentSummary, previousSummary, paired, reading, c
     <div class="section-head">
       <h2 class="section-title">Total × mesmos clientes</h2>
       <p class="section-subtitle">Denominadores distintos — interpretar cada bloco separadamente</p>
+      ${sectionLead('Aqui comparamos o resultado geral com o resultado de quem respondeu nos dois ciclos.')}
     </div>
     <div class="compare-hero">
       <div class="compare-hero__col">

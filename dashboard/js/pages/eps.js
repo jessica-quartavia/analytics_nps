@@ -81,7 +81,7 @@ function renderHero(cycle, summary) {
       <div>
         <p class="eyebrow">Carteiras</p>
         <h1 class="hero__title">Engenheiros Patrimoniais</h1>
-        <p class="page-header__lead">Experiência por carteira, com contexto de amostra, evolução pareada e qualidade do vínculo histórico.</p>
+        <p class="page-header__lead">Compara as carteiras dos engenheiros patrimoniais com foco em amostra, variação e sinais de atenção.</p>
       </div>
       <div class="chip-row">
         <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>

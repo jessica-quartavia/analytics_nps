@@ -17,7 +17,7 @@ import {
 } from '../data/store-core.mjs';
 import { formatNps, formatPct, formatCsatAverage, formatDate } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
-import { kpiCard } from '../components/kpi-card.js';
+import { sectionHead, sectionLead } from '../ui/help.js';
 
 const CATEGORIES = ['Detrator', 'Neutro', 'Promotor'];
 const POSITIVE_CELLS = new Set([
@@ -120,13 +120,37 @@ function renderFlow(matrix) {
     .join('')}</div>`;
 }
 
+const DELTA_BAND_HINTS = {
+  'Grande melhora': 'Clientes que aumentaram bastante a nota entre os ciclos.',
+  Melhora: 'Clientes que subiram a nota, sem ser uma mudança extrema.',
+  Estável: 'Clientes cuja nota ficou praticamente igual.',
+  Queda: 'Clientes que reduziram a nota.',
+  'Queda severa': 'Clientes com queda forte de nota entre os ciclos.',
+};
+
+const DELTA_BAND_CLASS = {
+  'Grande melhora': 'delta-band--up',
+  Melhora: 'delta-band--up',
+  Estável: 'delta-band--stable',
+  Queda: 'delta-band--down',
+  'Queda severa': 'delta-band--down',
+};
+
 function renderDeltaDist(rows) {
   const { dist, total } = evolutionDistribution(rows);
   if (!total) return '<p class="placeholder-note" role="status">Sem dados de evolução para os filtros atuais.</p>';
-  return `<div class="kpi-row kpi-row-secondary">${Object.entries(dist)
-    .map(([label, n]) =>
-      kpiCard(label, escapeHtml(String(n)), `${formatPct((n / total) * 100, 1)}`, { compact: true }),
-    )
+  return `<div class="delta-band-grid" role="list">${Object.entries(dist)
+    .map(([label, n]) => {
+      const pct = total ? (n / total) * 100 : 0;
+      const tone = DELTA_BAND_CLASS[label] ?? '';
+      return `<article class="delta-band ${tone}" role="listitem">
+        <div class="delta-band__title">${escapeHtml(label)}</div>
+        <div class="delta-band__value">${escapeHtml(String(n))}</div>
+        <div class="delta-band__pct">${escapeHtml(formatPct(pct, 1))}</div>
+        <div class="delta-band__bar" aria-hidden="true"><div class="delta-band__fill" style="width:${Math.max(pct, n ? 4 : 0)}%"></div></div>
+        <div class="delta-band__hint">${escapeHtml(DELTA_BAND_HINTS[label] ?? '')}</div>
+      </article>`;
+    })
     .join('')}</div>`;
 }
 
@@ -345,7 +369,7 @@ export function renderMovimento(root, ctx = {}) {
       <div>
         <p class="eyebrow">Movimento</p>
         <h1 class="hero__title">Quem mudou e em qual direção?</h1>
-        <p class="page-header__lead">Migração entre categorias, delta de nota e fila de ação por cliente.</p>
+        <p class="page-header__lead">Mostra como os clientes mudaram de nota ou de categoria entre um ciclo e outro.</p>
       </div>
     </header>
     <div class="metric-compact-grid">
@@ -354,11 +378,11 @@ export function renderMovimento(root, ctx = {}) {
       <article class="metric-compact"><div class="metric-compact__label">Estáveis</div><div class="metric-compact__value">${escapeHtml(String(kpis.stable))}</div></article>
       <article class="metric-compact"><div class="metric-compact__label">Pioraram</div><div class="metric-compact__value">${escapeHtml(String(kpis.declined + kpis.severe))}</div><div class="metric-compact__note">Queda severa: ${kpis.severe}</div></article>
     </div>
-    <h2 class="section-title">Matriz 3×3</h2>
+    ${sectionHead('Matriz 3×3', 'Promotor · Neutro · Detrator entre ciclos', 'Cada célula mostra quantos clientes foram de uma categoria para outra.')}
     ${renderMatrix(matrix, filters)}
-    <h2 class="section-title">Fluxo de categorias</h2>
+    ${sectionHead('Fluxo de categorias', null, 'Visão simplificada do fluxo entre grupos de clientes.')}
     <div class="card">${renderFlow(matrix)}</div>
-    <h2 class="section-title">Distribuição do delta de nota</h2>
+    ${sectionHead('Distribuição do delta de nota', 'Faixas de evolução da nota', 'Resumo de quantos clientes melhoraram, ficaram estáveis ou pioraram.')}
     ${renderDeltaDist(rows)}
     <h2 class="section-title">Maiores alterações</h2>
     ${renderTopLists(rows)}

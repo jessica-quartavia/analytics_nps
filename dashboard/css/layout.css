@@ -79,6 +79,7 @@
   background: var(--primary-soft);
   color: var(--primary-dark);
   font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--primary);
 }
 
 .sidebar-nav a.is-active .nav-icon {

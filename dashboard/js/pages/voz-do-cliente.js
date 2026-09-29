@@ -34,7 +34,7 @@ function renderEmptyState(cycleCode) {
       <div>
         <p class="eyebrow">Voz do cliente</p>
         <h1 class="hero__title">O que os clientes estão dizendo</h1>
-        <p class="page-header__lead">Temas, valência e evolução dos comentários ao longo dos ciclos.</p>
+        <p class="page-header__lead">Organiza os comentários por tema e tom para mostrar o que aparece com mais frequência.</p>
       </div>
     </header>
     <div class="quality-box">
@@ -52,7 +52,7 @@ function renderHero(cycle, summary) {
       <div>
         <p class="eyebrow">Voz do cliente</p>
         <h1 class="hero__title">O que os clientes estão dizindo</h1>
-        <p class="page-header__lead">Temas, valência e evolução dos comentários ao longo dos ciclos.</p>
+        <p class="page-header__lead">Organiza os comentários por tema e tom para mostrar o que aparece com mais frequência.</p>
       </div>
       <div class="chip-row">
         <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>

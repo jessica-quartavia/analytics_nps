@@ -10,6 +10,7 @@ import {
 import { getFilters, setFilter } from '../filters/global-filters.js';
 import { formatNps, formatPct, formatDate, cycleStatusLabel } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
+import { sectionHead, TIPS, helpTip } from '../ui/help.js';
 
 let tableState = { sortKey: 'relevance_score', filterOutcome: '', filterSig: '', filterQuality: '' };
 
@@ -21,7 +22,7 @@ function renderHero(cycle, summary) {
       <div>
         <p class="eyebrow">Drivers</p>
         <h1 class="hero__title">Drivers do NPS</h1>
-        <p class="page-header__lead">Fatores associados à nota, detratação e evolução dos clientes.</p>
+        <p class="page-header__lead">Mostra fatores associados às notas. Não significa causa, e sim relação observada na base.</p>
       </div>
       <div class="chip-row">
         <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>
@@ -57,27 +58,38 @@ function renderDriversTable(tests) {
   if (!rows.length) {
     return `<p class="quality-box">Não encontramos evidência estatística robusta após correção por múltiplos testes para os filtros atuais — isso é um resultado válido.</p>`;
   }
+  const qualityBadge = (q) => {
+    if (!q || q === '—') return '—';
+    const cls = /high|complete/i.test(q) ? 'quality-badge quality-badge--high' : 'quality-badge';
+    return `<span class="${cls}">${escapeHtml(q)}</span>`;
+  };
+
   return `
     <div class="table-scroll">
-      <table class="data-table" id="drivers-table">
+      <table class="data-table data-table--drivers" id="drivers-table">
         <thead><tr>
-          <th scope="col">Driver</th><th scope="col">Relação</th><th scope="col">Método</th>
-          <th class="num" scope="col">Efeito</th><th class="num" scope="col">n</th><th class="num" scope="col">p adj.</th>
-          <th scope="col">Qualidade</th><th scope="col">Leitura</th>
+          <th class="col-driver" scope="col">Driver</th>
+          <th scope="col">Relação</th>
+          <th class="col-method" scope="col">Método</th>
+          <th class="num col-compact" scope="col">Efeito</th>
+          <th class="num col-compact" scope="col">n</th>
+          <th class="num col-compact" scope="col">p adj.</th>
+          <th scope="col">Qualidade</th>
+          <th class="col-reading" scope="col">Leitura</th>
         </tr></thead>
         <tbody>
           ${rows
             .map(
               (t) => `
             <tr class="driver-row" data-driver-key="${escapeAttr(`${t.driver}-${t.outcome}-${t.universe}`)}" tabindex="0">
-              <td>${escapeHtml(t.driver)}</td>
-              <td>${escapeHtml(t.outcome)} (${escapeHtml(t.universe)})</td>
-              <td>${escapeHtml(t.method)}</td>
-              <td class="num">${t.effect_size != null ? t.effect_size.toFixed(2) : '—'} <span class="note-muted">${escapeHtml(t.effect_label ?? '')}</span></td>
+              <td class="col-driver">${escapeHtml(t.driver)}</td>
+              <td>${escapeHtml(t.outcome)} <span class="note-muted">(${escapeHtml(t.universe)})</span></td>
+              <td class="col-method">${escapeHtml(t.method)}</td>
+              <td class="num">${t.effect_size != null ? `<span class="effect-badge">${t.effect_size.toFixed(2)}</span>` : '—'} ${t.effect_label ? `<span class="note-muted">${escapeHtml(t.effect_label)}</span>` : ''}</td>
               <td class="num">${t.n ?? '—'}</td>
               <td class="num">${t.p_value_adjusted != null ? t.p_value_adjusted.toExponential(2) : '—'}</td>
-              <td>${escapeHtml(t.feature_quality ?? '—')}</td>
-              <td>${escapeHtml(t.reading_hint ?? '—')}</td>
+              <td>${qualityBadge(t.feature_quality)}</td>
+              <td class="col-reading">${escapeHtml(t.reading_hint ?? '—')}</td>
             </tr>`,
             )
             .join('')}
@@ -195,8 +207,9 @@ export function renderDrivers(host, { signal } = {}) {
     ${renderHero(cycle, cycleSummary)}
     ${renderKpis(summary, cycleCode)}
     <section class="section-block">
+      ${sectionHead('Ranking de associações', null, TIPS.drivers)}
       <div class="section-block__head">
-        <h2 class="section-title">Ranking de associações</h2>
+        <span class="visually-hidden">Filtros</span>
         <div class="filter-inline">
           <select id="drivers-filter-outcome" class="select-input" aria-label="Outcome">
             <option value="">Todos outcomes</option>

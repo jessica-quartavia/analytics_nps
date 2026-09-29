@@ -105,6 +105,12 @@ async function run() {
 
         const sidebar = await page.$('.sidebar-nav a[data-route="executivo"]');
         if (!sidebar) failures.push(`${width}px ${hash}: sidebar link executivo ausente`);
+        const logo = await page.$('.sidebar__logo-img');
+        if (!logo) failures.push(`${width}px ${hash}: logo/favicon no shell ausente`);
+        const helpTipEl = await page.$('.help-tip__btn');
+        if (hash === '#/executivo' && !helpTipEl) {
+          failures.push(`${width}px executivo: tooltips didáticos ausentes`);
+        }
 
         if (hash === '#/movimento') {
           const tableScroll = await page.$('#movimento-table-host .table-scroll');
@@ -120,10 +126,31 @@ async function run() {
 
           const matrix = await page.$('.migration-matrix');
           if (!matrix) failures.push(`${width}px movimento: matriz 3×3 ausente`);
+          const deltaBands = await page.$('.delta-band-grid');
+          if (!deltaBands) failures.push(`${width}px movimento: delta-band-grid ausente`);
+
+          if (width >= 768) {
+            await page.evaluate(() => {
+              const el = document.getElementById('filter-sticky-switch');
+              if (el) {
+                el.checked = true;
+                el.dispatchEvent(new Event('change', { bubbles: true }));
+              }
+            });
+            await sleep(200);
+            await page.evaluate(() => window.scrollBy(0, 400));
+            await sleep(200);
+            const stickyOn = await page.evaluate(() =>
+              document.getElementById('filters-bar')?.classList.contains('is-sticky'),
+            );
+            if (!stickyOn) failures.push(`${width}px movimento: Fixar filtros não aplicou is-sticky`);
+          }
 
           const row = await page.$('#clients-table tbody tr[data-client-id]');
           if (row) {
-            await row.click();
+            await page.evaluate(() => {
+              document.querySelector('#clients-table tbody tr[data-client-id]')?.click();
+            });
             await sleep(300);
             const drawerOpen = await page.evaluate(() =>
               document.getElementById('client-drawer')?.classList.contains('is-open'),
