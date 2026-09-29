@@ -218,7 +218,39 @@ async function run() {
           if (!tableWrap) failures.push(`${width}px eps: tabela sem .table-wrap`);
           const bubble = await page.$('#chart-ep-bubble');
           const emptyEp = await page.$('.gd-status');
-          if (!bubble && !emptyEp) failures.push(`${width}px eps: sem gráfico nem estado vazio`);
+          if (!bubble && !emptyEp) failures.push(`${width}px eps: sem gráfico nem estado vazio');
+
+          if (width >= 1280) {
+            const epRow = await page.$('#eps-table tbody tr[data-ep-name]');
+            if (epRow) {
+              await page.evaluate(() => {
+                document.querySelector('#eps-table tbody tr[data-ep-name]')?.click();
+              });
+              await sleep(350);
+              const epDrawerOpen = await page.evaluate(() =>
+                document.getElementById('ep-drawer')?.classList.contains('is-open'),
+              );
+              if (!epDrawerOpen) failures.push(`${width}px eps: drawer EP não abriu`);
+              const hasKpiGrid = await page.$('.ep-drawer-kpi-grid');
+              if (!hasKpiGrid) failures.push(`${width}px eps: grid KPI do drawer ausente`);
+              const clientCols = await page.evaluate(
+                () => document.querySelectorAll('.ep-drawer-clients-table thead th').length,
+              );
+              if (clientCols !== 7) {
+                failures.push(`${width}px eps: tabela clientes drawer esperava 7 colunas, got ${clientCols}`);
+              }
+              const drawerOverflow = await page.evaluate(() => {
+                const d = document.getElementById('ep-drawer');
+                if (!d) return 0;
+                return d.scrollWidth - d.clientWidth;
+              });
+              if (drawerOverflow > 4) {
+                failures.push(`${width}px eps: overflow horizontal no drawer EP (${drawerOverflow}px)`);
+              }
+              await page.evaluate(() => document.getElementById('ep-drawer-close')?.click());
+              await sleep(200);
+            }
+          }
         }
 
         if (hash === '#/drivers') {
@@ -248,6 +280,18 @@ async function run() {
         if (hash === '#/jornada-perfil' && width >= 1280) {
           const jHero = await page.$('.hero__title');
           if (!jHero) failures.push(`${width}px jornada: hero ausente`);
+          const journeyTable = await page.$('.jornada-journey-table colgroup col');
+          if (!journeyTable) failures.push(`${width}px jornada: colgroup etapa×NPS ausente`);
+          const stackCell = await page.$('.jornada-journey-table .cell-stack__primary');
+          if (!stackCell) failures.push(`${width}px jornada: stack numérico etapa×NPS ausente`);
+        }
+
+        if (hash === '#/movimento' && width >= 1280) {
+          const tierTable = await page.$('.resultados-tier-table colgroup col');
+          if (tierTable) {
+            const evidence = await page.$('.stat-evidence-block');
+            if (!evidence) failures.push(`${width}px movimento: bloco evidência estatística ausente`);
+          }
         }
       }
 

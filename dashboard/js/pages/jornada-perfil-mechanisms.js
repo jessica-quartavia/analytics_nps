@@ -60,7 +60,7 @@ export function renderJornadaMechanismsSection(filterCtx) {
     const catEntries = entries.filter((e) => e.nps_category === cat);
     const validCat = catEntries.filter((e) => mechanismBucket(e.mechanisms_count_before_response) != null);
     const denom = validCat.length;
-    catRows += `<tr><th scope="row">${escapeHtml(cat)}</th>`;
+    catRows += `<tr><th scope="row" class="col-label">${escapeHtml(cat)}</th>`;
     for (const b of ['0', '1', '2+']) {
       const nIn = validCat.filter((e) => mechanismBucket(e.mechanisms_count_before_response) === b).length;
       const pct = denom ? (nIn / denom) * 100 : null;
@@ -81,7 +81,7 @@ export function renderJornadaMechanismsSection(filterCtx) {
   let npsRows = '';
   for (const b of ['0', '1', '2+']) {
     const s = byBucket[b];
-    npsRows += `<tr><th scope="row">${escapeHtml(mechColLabel(b))}</th>`;
+    npsRows += `<tr><th scope="row" class="col-label col-mech-label">${escapeHtml(mechColLabel(b))}</th>`;
     npsRows += cellClients(s?.n ?? 0);
     npsRows += cellNpsStack(s?.nps, null, null);
     npsRows += cellPlainNum(s?.mean_score, 1);
@@ -97,7 +97,7 @@ export function renderJornadaMechanismsSection(filterCtx) {
     ${filterCtx?.recorteActive ? '<p class="filter-recorte-banner" role="status"><strong>Recorte ativo</strong> — agregados recalculados para clientes filtrados.</p>' : ''}
     <div class="grid grid--2">
       <article class="card"><h3>NPS por faixa de mecanismos</h3>
-        <div class="table-scroll"><table class="gd-table gd-table--compact"><thead><tr><th>Faixa</th><th class="num">Clientes</th><th class="num">NPS</th><th class="num">Nota média</th></tr></thead><tbody>${npsRows}</tbody></table></div>
+        <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table analytic-table--mech-nps"><thead><tr><th class="col-label col-mech-label">Faixa</th><th class="num col-number col-mech-num">Clientes</th><th class="num col-number col-mech-num">NPS</th><th class="num col-number col-mech-num">Nota média</th></tr></thead><tbody>${npsRows}</tbody></table></div>
       </article>
       <article class="card"><h3>Distribuição por categoria NPS</h3>
         ${helpTip(
@@ -105,7 +105,7 @@ export function renderJornadaMechanismsSection(filterCtx) {
           'Percentual calculado dentro de cada categoria NPS, considerando clientes com informação válida de mecanismos.',
         )}
         <p class="note-muted">${escapeHtml(validByCatNote)}</p>
-        <div class="table-scroll"><table class="gd-table gd-table--compact"><thead><tr><th>Categoria</th><th class="num">0 mecanismos</th><th class="num">1 mecanismo</th><th class="num">2+ mecanismos</th></tr></thead><tbody>${catRows}</tbody></table></div>
+        <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table"><thead><tr><th class="col-label">Categoria</th><th class="num col-percent col-category">0 mecanismos</th><th class="num col-percent col-category">1 mecanismo</th><th class="num col-percent col-category">2+ mecanismos</th></tr></thead><tbody>${catRows}</tbody></table></div>
       </article>
     </div>
     </section>`;

@@ -43,8 +43,8 @@ function coverageNote(qa, meta) {
 
 function renderMatrixTable(matrix, cycleCode, categoryDenoms) {
   if (!matrix?.length) return '<p class="placeholder-note">Matriz indisponível.</p>';
-  let html = `<div class="table-scroll"><table class="gd-table milestone-matrix-table jornada-marcos-table" data-cycle="${escapeAttr(cycleCode)}">
-    <thead><tr><th>Marco</th>${CATS.map((c) => `<th class="num">${escapeHtml(c)}</th>`).join('')}</tr></thead><tbody>`;
+  let html = `<div class="table-scroll"><table class="gd-table milestone-matrix-table jornada-marcos-table analytic-table" data-cycle="${escapeAttr(cycleCode)}">
+    <thead><tr><th class="col-label col-marco-label">Marco</th>${CATS.map((c) => `<th class="num col-number col-marco-cat">${escapeHtml(c)}</th>`).join('')}</tr></thead><tbody>`;
   for (const row of matrix) {
     const tip = MARCO_TIPS[row.milestone_key] ?? row.label;
     if (row.milestone_key === 'meetings_mean') {

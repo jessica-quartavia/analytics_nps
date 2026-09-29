@@ -1,6 +1,21 @@
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatNps, formatPct } from '../utils/format.js';
 
+/** Stack padronizado: valor forte + linha secundária (%, IC, etc.). */
+export function numericStackHtml(primary, secondary) {
+  const p = primary != null && primary !== '' ? String(primary) : '—';
+  const hasSec = secondary != null && secondary !== '';
+  return `<span class="cell-stack">
+    <span class="cell-stack__primary">${escapeHtml(p)}</span>
+    ${hasSec ? `<span class="cell-stack__meta">${escapeHtml(String(secondary))}</span>` : ''}
+  </span>`;
+}
+
+/** `<td>` com numericStackHtml. */
+export function tdNumericStack(primary, secondary, extraClass = 'num') {
+  return `<td class="${escapeAttr(extraClass)}">${numericStackHtml(primary, secondary)}</td>`;
+}
+
 /** Célula numérica: contagem de clientes (sem prefixo n=). */
 export function cellClients(n) {
   const v = n ?? 0;
@@ -25,7 +40,7 @@ export function cellNpsStack(nps, ciLow, ciHigh) {
   const primary = nps != null ? formatNps(nps) : '—';
   let sub = '';
   if (ciLow != null && ciHigh != null) {
-    sub = `<span class="cell-stack__sub">IC95 ${escapeHtml(formatNps(ciLow))}–${escapeHtml(formatNps(ciHigh))}</span>`;
+    sub = `<span class="cell-stack__sub cell-nowrap">IC95 ${escapeHtml(formatNps(ciLow))}\u2013${escapeHtml(formatNps(ciHigh))}</span>`;
   }
   return `<td class="num cell-stack">
     <span class="cell-stack__primary">${escapeHtml(primary)}</span>

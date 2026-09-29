@@ -3,7 +3,7 @@ import { filterFinancialDoc } from '../data/jornada-perfil-view.mjs';
 import { escapeHtml } from '../utils/escape-html.js';
 import { formatNps, formatPct } from '../utils/format.js';
 import { sectionHead, helpTip } from '../ui/help.js';
-import { cellClients, cellNpsStack, cellPlainNum } from '../ui/analytics-table.mjs';
+import { cellClients, cellNpsStack, cellPlainNum, tdNumericStack } from '../ui/analytics-table.mjs';
 
 const TIER_RULES_TIP =
   'T1: renda ≥ R$100 mil/mês OU aporte ≥ R$30 mil/mês OU reserva ≥ R$500 mil. ' +
@@ -37,7 +37,7 @@ function renderNpsByTier(npsByTier) {
   for (const t of tiers) {
     const s = npsByTier?.[t];
     if (!s?.n) continue;
-    rows += `<tr><th scope="row">${escapeHtml(t === 'unavailable' ? 'Unavailable' : t)}</th>`;
+    rows += `<tr><th scope="row" class="col-label col-tier-label">${escapeHtml(t === 'unavailable' ? 'Unavailable' : t)}</th>`;
     rows += cellClients(s.n);
     rows += cellNpsStack(s.nps, s.nps_ci_low, s.nps_ci_high);
     rows += cellPlainNum(s.mean_score, 1);
@@ -49,8 +49,8 @@ function renderNpsByTier(npsByTier) {
   return `
     <article class="card change-driver-card">
       <h3>NPS por Tier</h3>
-      <div class="table-scroll"><table class="gd-table gd-table--compact">
-        <thead><tr><th>Tier</th><th class="num">Clientes</th><th class="num">NPS</th><th class="num">Nota média</th><th class="num">Mediana</th><th class="num">Promotores</th><th class="num">Neutros</th><th class="num">Detratores</th></tr></thead>
+      <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table analytic-table--tier-nps">
+        <thead><tr><th class="col-label col-tier-label">Tier</th><th class="num col-number col-tier-num">Clientes</th><th class="num col-number col-tier-num">NPS</th><th class="num col-number col-tier-num">Nota média</th><th class="num col-number col-tier-num">Mediana</th><th class="num col-percent col-tier-num">Promotores</th><th class="num col-percent col-tier-num">Neutros</th><th class="num col-percent col-tier-num">Detratores</th></tr></thead>
         <tbody>${rows || '<tr><td colspan="8">Sem dados</td></tr>'}</tbody>
       </table></div>
     </article>`;
@@ -60,20 +60,34 @@ function renderResultadosTier(block) {
   const tiers = ['T1', 'T2', 'T3', 'T4'];
   let rows = '';
   for (const t of tiers) {
-    rows += `<tr><th scope="row">${t}</th>
-      <td class="num">${block?.resultados_negative?.counts?.[t] ?? 0} (${block?.resultados_negative?.pct?.[t] != null ? formatPct(block.resultados_negative.pct[t], 0) : '—'})</td>
-      <td class="num">${block?.others?.counts?.[t] ?? 0} (${block?.others?.pct?.[t] != null ? formatPct(block.others.pct[t], 0) : '—'})</td></tr>`;
+    const negN = block?.resultados_negative?.counts?.[t] ?? 0;
+    const negPct =
+      block?.resultados_negative?.pct?.[t] != null ? formatPct(block.resultados_negative.pct[t], 0) : '—';
+    const othN = block?.others?.counts?.[t] ?? 0;
+    const othPct = block?.others?.pct?.[t] != null ? formatPct(block.others.pct[t], 0) : '—';
+    rows += `<tr><th scope="row" class="col-label col-tier">${t}</th>`;
+    rows += tdNumericStack(negN, negPct, 'num col-number col-percent col-resultados');
+    rows += tdNumericStack(othN, othPct, 'num col-number col-percent col-demais');
+    rows += '</tr>';
   }
   const p = block?.association?.p_value;
+  const testName = block?.association?.test ?? '—';
+  const testLabel =
+    testName.toLowerCase().includes('chi') ? 'Qui-quadrado' : testName;
   return `
     <article class="card change-driver-card">
       <h3>Resultados × Tier</h3>
       <p class="note-muted">${escapeHtml(block?.question ?? '')}</p>
-      <div class="table-scroll"><table class="gd-table gd-table--compact">
-        <thead><tr><th>Tier</th><th>Resultados neg. n (%)</th><th>Demais n (%)</th></tr></thead>
+      <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table resultados-tier-table"><colgroup>
+        <col style="width:24%" /><col style="width:38%" /><col style="width:38%" />
+      </colgroup>
+        <thead><tr><th class="col-label col-tier">Tier</th><th class="num col-number col-resultados">Resultados negativo</th><th class="num col-number col-demais">Demais</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
-      <p class="note-muted">Teste: ${escapeHtml(block?.association?.test ?? '—')} · p≈${fmtP(p)} · n neg=${block?.resultados_negative?.n ?? 0} · demais=${block?.others?.n ?? 0}</p>
+      <div class="stat-evidence-block" role="note">
+        <h4 class="stat-evidence-block__title">Evidência estatística</h4>
+        <p class="stat-evidence-block__body">${escapeHtml(testLabel)} · p = ${fmtP(p)} · n neg=${block?.resultados_negative?.n ?? 0} · demais=${block?.others?.n ?? 0}</p>
+      </div>
     </article>`;
 }
 
@@ -81,8 +95,8 @@ function renderReserveContribution(reserve, contribution) {
   return `
     <article class="card change-driver-card">
       <h3>Reserva e aporte (Resultados negativo vs demais)</h3>
-      <div class="table-scroll"><table class="gd-table gd-table--compact">
-        <thead><tr><th>Métrica</th><th>Mediana neg.</th><th>Mediana demais</th><th>IQR neg.</th><th>IQR demais</th><th>p (MWU)</th></tr></thead>
+      <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table">
+        <thead><tr><th class="col-label">Métrica</th><th class="col-number">Mediana neg.</th><th class="col-number">Mediana demais</th><th class="col-number">IQR neg.</th><th class="col-number">IQR demais</th><th class="col-number">p (MWU)</th></tr></thead>
         <tbody>
           <tr><th scope="row">Reserva</th>
             <td class="num">${fmtMed(reserve?.median_negative)}</td>
@@ -118,8 +132,8 @@ function renderDebts(debtsVs, resultadosDebts) {
     <article class="card change-driver-card">
       <h3>${helpTip('Débitos', DEBTS_RULES_TIP, 'debitos')}</h3>
       <p class="debts-card__lead">Indicador baseado em sinais financeiros cadastrados.</p>
-      <div class="table-scroll"><table class="gd-table gd-table--compact">
-        <thead><tr><th>Grupo</th><th class="num">Clientes</th><th class="num">NPS</th><th class="num">Nota média</th><th class="num">Promotores</th><th class="num">Detratores</th></tr></thead>
+      <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table">
+        <thead><tr><th class="col-label">Grupo</th><th class="num col-number">Clientes</th><th class="num col-number">NPS</th><th class="num col-number">Nota média</th><th class="num col-percent">Promotores</th><th class="num col-percent">Detratores</th></tr></thead>
         <tbody>
           ${debtRow('Com indicador de débito', t)}
           ${debtRow('Sem indicador de débito', f)}
@@ -145,8 +159,8 @@ function renderTierMechanisms(block) {
     <article class="card change-driver-card">
       <h3>Tier × mecanismos</h3>
       <p class="note-muted">${escapeHtml(block.note ?? '')}</p>
-      <div class="table-scroll"><table class="gd-table gd-table--compact">
-        <thead><tr><th>Tier</th><th class="num">Clientes</th><th class="num">0 mecanismos</th><th class="num">1 mecanismo</th><th class="num">2+ mecanismos</th></tr></thead>
+      <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table">
+        <thead><tr><th class="col-label">Tier</th><th class="num col-number">Clientes</th><th class="num col-percent">0 mecanismos</th><th class="num col-percent">1 mecanismo</th><th class="num col-percent">2+ mecanismos</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
     </article>`;

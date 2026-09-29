@@ -269,7 +269,7 @@ function renderCommentsTable(rows, page, pageSize, meta = {}) {
     ${meta.toolbar ?? ''}
     <p class="note-muted voc-comments-count">${escapeHtml(countLabel)}</p>
     <div class="table-scroll" id="voc-comments-host">
-      <table class="data-table voc-comments-table" id="voc-comments-table">
+      <table class="data-table voc-comments-table analytic-table" id="voc-comments-table">
         <thead>
           <tr>
             <th scope="col" class="voc-col-client">Cliente</th>

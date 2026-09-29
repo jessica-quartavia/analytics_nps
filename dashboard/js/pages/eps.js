@@ -4,7 +4,6 @@ import {
   getEpResponses,
   getCycleSummary,
   getCycles,
-  getActionQueue,
   getDataState,
 } from '../data/analytics-store.js';
 import { getFilters, setFilter } from '../filters/global-filters.js';
@@ -14,13 +13,12 @@ import {
   sortEpSummariesByName,
   computeEpPageKpis,
   epQualityLabel,
-  filterResponses,
   isClientRecorteActive,
 } from '../data/store-core.mjs';
-import { getPairedCycles } from '../data/analytics-store.js';
 import { formatNps, formatPct, formatDeltaPts, formatDate, cycleStatusLabel } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
-import { openClientDrawer, closeDrawer as closeClientDrawer } from './movimento.js';
+import { closeDrawer as closeClientDrawer } from './movimento.js';
+import { openEpDrawerFromUI, closeEpDrawerFromUI } from '../ui/ep-drawer.js';
 
 let bubbleChart = null;
 let tableState = { page: 1, pageSize: 25, sortKey: 'ep_name', sortDir: 'asc' };
@@ -266,19 +264,19 @@ function renderEpTable(entries, minSample, filters) {
       const rr =
         e.response_rate != null ? formatPct(e.response_rate * 100, 1) : '—';
       const ci =
-        e.nps_ci_low != null ? `${formatNps(e.nps_ci_low)} – ${formatNps(e.nps_ci_high)}` : '—';
+        e.nps_ci_low != null ? `${formatNps(e.nps_ci_low)}\u2013${formatNps(e.nps_ci_high)}` : '—';
       return `<tr data-ep-id="${escapeAttr(e.ep_id ?? '')}" data-ep-name="${escapeAttr(e.ep_name)}" tabindex="0">
-        <td>${escapeHtml(e.ep_name)} ${smallSampleBadge(e, minSample)}</td>
-        <td class="num">${escapeHtml(formatNps(e.nps))}</td>
-        <td class="num">${escapeHtml(formatNps(e.previous_nps_paired))}</td>
-        <td class="num">${escapeHtml(formatDeltaPts(e.current_nps_paired, e.previous_nps_paired))}</td>
-        <td class="num">${e.valid_responses}</td>
-        <td class="num">${e.promoters}</td>
-        <td class="num">${e.detractors}</td>
-        <td class="num">${escapeHtml(rr)}</td>
-        <td class="num">${escapeHtml(ci)}</td>
-        <td class="num">${e.paired_clients}</td>
-        <td>${escapeHtml(epQualityLabel(e))} ${epReconstructBadge(e)}</td>
+        <td class="col-label">${escapeHtml(e.ep_name)} ${smallSampleBadge(e, minSample)}</td>
+        <td class="num col-number">${escapeHtml(formatNps(e.nps))}</td>
+        <td class="num col-number">${escapeHtml(formatNps(e.previous_nps_paired))}</td>
+        <td class="num col-number">${escapeHtml(formatDeltaPts(e.current_nps_paired, e.previous_nps_paired))}</td>
+        <td class="num col-number">${e.valid_responses}</td>
+        <td class="num col-number">${e.promoters}</td>
+        <td class="num col-number">${e.detractors}</td>
+        <td class="num col-number">${escapeHtml(rr)}</td>
+        <td class="num col-number cell-nowrap">${escapeHtml(ci)}</td>
+        <td class="num col-number">${e.paired_clients}</td>
+        <td class="col-small">${escapeHtml(epQualityLabel(e))} ${epReconstructBadge(e)}</td>
       </tr>`;
     })
     .join('');
@@ -294,19 +292,19 @@ function renderEpTable(entries, minSample, filters) {
       </label>
     </div>
     <div class="table-wrap">
-      <table class="gd-table" id="eps-table">
+      <table class="gd-table analytic-table" id="eps-table">
         <thead><tr>
-          <th data-sort="ep_name" scope="col">EP</th>
-          <th class="num" data-sort="nps" scope="col">NPS atual</th>
-          <th class="num" scope="col">NPS anterior pareado</th>
-          <th class="num" data-sort="delta_nps_paired" scope="col">Δ pareado</th>
-          <th class="num" data-sort="valid_responses" scope="col">n</th>
-          <th class="num" scope="col">Promotores</th>
-          <th class="num" scope="col">Detratores</th>
-          <th class="num" scope="col">Taxa de resposta</th>
-          <th class="num" scope="col">IC95</th>
-          <th class="num" data-sort="paired_clients" scope="col">Pareados</th>
-          <th scope="col">Qualidade EP</th>
+          <th class="col-label" data-sort="ep_name" scope="col">EP</th>
+          <th class="num col-number" data-sort="nps" scope="col">NPS atual</th>
+          <th class="num col-number" scope="col">NPS anterior pareado</th>
+          <th class="num col-number" data-sort="delta_nps_paired" scope="col">Δ pareado</th>
+          <th class="num col-number" data-sort="valid_responses" scope="col">n</th>
+          <th class="num col-number" scope="col">Promotores</th>
+          <th class="num col-number" scope="col">Detratores</th>
+          <th class="num col-number" scope="col">Taxa de resposta</th>
+          <th class="num col-number" scope="col">IC95</th>
+          <th class="num col-number" data-sort="paired_clients" scope="col">Pareados</th>
+          <th class="col-small" scope="col">Qualidade EP</th>
         </tr></thead>
         <tbody>${body || '<tr><td colspan="11"><span class="placeholder-note">Nenhuma carteira neste recorte.</span></td></tr>'}</tbody>
       </table>
@@ -321,11 +319,7 @@ function renderEpTable(entries, minSample, filters) {
 }
 
 export function closeEpDrawer() {
-  document.getElementById('ep-drawer-backdrop')?.classList.remove('is-open');
-  document.getElementById('ep-drawer')?.classList.remove('is-open');
-  document.getElementById('ep-drawer-backdrop')?.setAttribute('aria-hidden', 'true');
-  document.getElementById('ep-drawer-backdrop')?.setAttribute('aria-expanded', 'false');
-  document.getElementById('ep-drawer')?.setAttribute('aria-hidden', 'true');
+  closeEpDrawerFromUI();
 }
 
 function openEpDrawer(entry) {
@@ -333,82 +327,7 @@ function openEpDrawer(entry) {
   const filters = getFilters();
   const cycleCode = filters.cycleCode;
   const minSample = getDataState()?.epSummaryDoc?.min_ep_sample ?? 5;
-  let rows = getEpResponses(cycleCode, entry.ep_id ?? entry.ep_name);
-  const paired = getPairedCycles(cycleCode);
-  const pairedSet =
-    filters.base === 'paired' ? new Set(paired?.paired_client_ids ?? []) : null;
-  rows = filterResponses(rows, { ...filters, ep: '' }, { pairedClientIds: pairedSet });
-  const actionQueue = getActionQueue(cycleCode);
-
-  const backdrop = document.getElementById('ep-drawer-backdrop');
-  const drawer = document.getElementById('ep-drawer');
-
-  const recPct =
-    entry.recovered_detractors_denominator > 0
-      ? `${entry.recovered_detractors} de ${entry.recovered_detractors_denominator}`
-      : '—';
-  const detPct =
-    entry.deteriorated_promoters_denominator > 0
-      ? `${entry.deteriorated_promoters} de ${entry.deteriorated_promoters_denominator}`
-      : '—';
-
-  drawer.innerHTML = `
-    <button type="button" class="drawer__close" id="ep-drawer-close" aria-label="Fechar painel">×</button>
-    <h2>${escapeHtml(entry.ep_name)}</h2>
-    ${smallSampleBadge(entry, minSample)}
-    ${epReconstructBadge(entry)}
-    <p><strong>NPS:</strong> ${escapeHtml(formatNps(entry.nps))} · <strong>IC95:</strong> ${escapeHtml(formatNps(entry.nps_ci_low))} – ${escapeHtml(formatNps(entry.nps_ci_high))}</p>
-    <p><strong>n:</strong> ${entry.valid_responses} · <strong>Taxa de resposta:</strong> ${entry.response_rate != null ? escapeHtml(formatPct(entry.response_rate * 100, 1)) : '—'}</p>
-    <h3>Composição</h3>
-    <p>Promotores: ${entry.promoters} · Neutros: ${entry.passives} · Detratores: ${entry.detractors}</p>
-    <h3>Base pareada</h3>
-    <p>Anterior: ${escapeHtml(formatNps(entry.previous_nps_paired))} · Atual: ${escapeHtml(formatNps(entry.current_nps_paired))} · Δ: ${escapeHtml(formatDeltaPts(entry.current_nps_paired, entry.previous_nps_paired))}</p>
-    <p>n pareado: ${entry.paired_clients}</p>
-    <h3>Movimentos</h3>
-    <p>Detratores recuperados: ${escapeHtml(recPct)}</p>
-    <p>Promotores deteriorados: ${escapeHtml(detPct)}</p>
-    <h3>Qualidade do vínculo EP</h3>
-    <p>Alta: ${entry.ep_high_confidence} · Média: ${entry.ep_medium_confidence} · Baixa: ${entry.ep_low_confidence}</p>
-    <h3>Clientes da carteira</h3>
-    <div class="table-scroll" id="ep-drawer-clients"></div>
-  `;
-
-  const clientRows = rows
-    .map((r) => {
-      const pr = actionQueue.find((a) => a.client_id === r.client_id)?.priority ?? '—';
-      return `<tr data-client-id="${escapeAttr(r.client_id)}" tabindex="0">
-        <td>${escapeHtml(r.client_name ?? '—')}</td>
-        <td class="num">${escapeHtml(r.score)}</td>
-        <td>${escapeHtml(r.nps_category)}</td>
-        <td class="num">${escapeHtml(r.previous_score ?? '—')}</td>
-        <td class="num">${escapeHtml(r.score_delta ?? '—')}</td>
-        <td>${escapeHtml(r.nps_migration ?? '—')}</td>
-        <td>${escapeHtml(r.evolution_status ?? '—')}</td>
-        <td>${escapeHtml(pr)}</td>
-      </tr>`;
-    })
-    .join('');
-
-  drawer.querySelector('#ep-drawer-clients').innerHTML = `
-    <table class="gd-table"><thead><tr>
-      <th>Cliente</th><th class="num">Nota</th><th>Categoria</th><th class="num">Nota ant.</th><th class="num">Delta</th><th>Migração</th><th>Evolução</th><th>Prioridade</th>
-    </tr></thead><tbody>${clientRows || '<tr><td colspan="8">Sem clientes no recorte.</td></tr>'}</tbody></table>`;
-
-  backdrop.classList.add('is-open');
-  drawer.classList.add('is-open');
-  backdrop.setAttribute('aria-hidden', 'false');
-  backdrop.setAttribute('aria-expanded', 'true');
-  drawer.setAttribute('aria-hidden', 'false');
-  drawer.focus();
-
-  drawer.querySelector('#ep-drawer-close')?.addEventListener('click', closeEpDrawer);
-  backdrop.addEventListener('click', closeEpDrawer);
-  drawer.querySelectorAll('tbody tr[data-client-id]').forEach((tr) => {
-    tr.addEventListener('click', () => {
-      closeEpDrawer();
-      openClientDrawer(tr.dataset.clientId, rows, actionQueue);
-    });
-  });
+  openEpDrawerFromUI(entry, { cycleCode, filters, minSample });
 }
 
 function bindTable(entries, minSample, signal) {

@@ -29,6 +29,7 @@
     "status": "node scripts/status.mjs",
     "validate": "node scripts/validate.mjs",
     "audit:population": "node scripts/nps-population-audit.mjs",
+    "audit:active-clients": "node scripts/active-clients-audit.mjs",
     "generate:nps-milestones": "node scripts/generate-nps-milestones.mjs",
     "generate:nps-change-drivers": "node scripts/generate-nps-change-drivers.mjs",
     "generate:nps-financial-profile": "node scripts/generate-nps-financial-profile.mjs",

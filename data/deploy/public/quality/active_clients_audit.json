@@ -1,0 +1,302 @@
+{
+  "generated_at": "2026-09-29T17:13:21.116Z",
+  "rule_version": "analytical-active-client_v1",
+  "sources": {
+    "clients": "C:\\Users\\jessi\\OneDrive\\Área de Trabalho\\Projetos\\NPS\\analytics-nps\\data\\ingest\\partials\\clients.json",
+    "raw_snapshot_dir": "C:\\Users\\jessi\\OneDrive\\Área de Trabalho\\Projetos\\NPS\\analytics-nps\\data\\raw\\2026-09-28T21-06-04",
+    "effective_cancellation_fields": [
+      "cancellations.churn_efetivado_at",
+      "cancellations.data_churn"
+    ],
+    "churn_request_fields": [
+      "cancellations.intencao_registrada_at",
+      "cancellations.data_pedido"
+    ],
+    "freeze_fields": [
+      "freeze_change_requests",
+      "clients.status",
+      "clients.data_congelamento"
+    ],
+    "base_qv": "BASE QV (somente leitura)"
+  },
+  "program_scope": "PHARUS",
+  "summary": {
+    "total_clients_considered": 1034,
+    "raw_status_active": 986,
+    "analytical_active": 986,
+    "excluded_frozen": 33,
+    "excluded_effective_cancellation": 1,
+    "raw_active_but_cancelled": 0,
+    "raw_active_but_frozen": 0,
+    "status_missing": 0,
+    "conflicts": 0
+  },
+  "raw_active_but_cancelled": [],
+  "frozen_clients": [
+    {
+      "client_id": "d695736b-7389-4967-88b1-718c15bad9c9",
+      "client_name": "Gisele Perroud Sampaio",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "74ccbe84-e3a9-468a-bf7d-00e69bf6beae",
+      "client_name": "Rodrigo de Andrade Venticinque",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "e1a04353-e4ee-402d-8b13-6759c89b905c",
+      "client_name": "Solange Sousa Tonassi",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "99efa1e4-a694-41af-98fb-9a9fd77d63e0",
+      "client_name": "Isadora Resende Mendes",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "11151df2-cae1-4972-94ec-c50ecf79c2ca",
+      "client_name": "Julio Sassi",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "6b6fe1cc-2265-42e4-93d5-d56f636b4f92",
+      "client_name": "Catia Simionato",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "4c63674b-219a-4317-9dfa-3da09c12944f",
+      "client_name": "Vinicius Moraes Sanches",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "38515a81-be15-4fd5-80af-3ad4336f73e2",
+      "client_name": "Flávia Takeda",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "54aae3a0-3ac9-40d6-920e-4daecd2dd259",
+      "client_name": "Hermes Rojas Zayas",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "61c1eeda-5d3d-4e50-aaf1-ea339f20a17b",
+      "client_name": "Haroldo Almeida Sousa",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "23dde147-5d4e-4696-9bba-638464cab68c",
+      "client_name": "Hugo Cardoso Albuquerque",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "128c0774-5d63-47a4-ae65-b1a5566e666a",
+      "client_name": "Anderson Leal Ribeiro",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "4a735d33-9f57-48da-9fba-93ecadfeda17",
+      "client_name": "Thiago Augusto dos Santos Carvalho",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "6fece925-1787-4165-b432-7db0aed3d871",
+      "client_name": "Marcos Henrique César Cavalcanti Clemente",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "65c7b3ba-2eab-4e37-929f-d1b392ef0377",
+      "client_name": "Jean Meire Bastos Macedo Junior",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "eb37b41e-2a75-4122-b5ac-7eade4455d55",
+      "client_name": "Julio Fratantonio Filho",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "6c8c1a84-1472-4365-9bd8-c33ec3bdd308",
+      "client_name": "Matheus Gonçalves Lima Ferreira",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "07643f2a-50df-4be7-99d8-1f60063728a1",
+      "client_name": "Roberto Missiatto Filho",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "29b050d3-ff47-472d-87a0-d40d89debaf0",
+      "client_name": "Sylvia Maria Antunes Faria",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "bc9a6a60-edc1-4995-b045-46dd4ba96482",
+      "client_name": "Camila Gomes Linck",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "b74df550-15c8-41b6-8eba-6d03fb44c006",
+      "client_name": "Celso Candido de Almeida Neto",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "bd42e0dd-a59e-4d56-b4f7-468fcc3dbdd2",
+      "client_name": "Viviane Gregorio",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "9e8eaf71-a4b4-460d-be61-f7291f1620e3",
+      "client_name": "Jorge de Paula Monteiro Junior",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "b943011b-aed8-4db9-943f-cc59b7e51377",
+      "client_name": "Ricardo Maldonado Niffinegger",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "4b2e6150-e99f-41df-9f7c-072dafc40acd",
+      "client_name": "Carla Andrea de Azevedo Miranda",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "c1b6aeba-18d9-482d-8765-74cc86eacde3",
+      "client_name": "Rosimery Brandão Barbosa",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "1e4549ce-714f-42e3-97da-18cd3dea1347",
+      "client_name": "Bianca Vieira Canedo",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "228df93f-2daf-492b-a468-894e589bff78",
+      "client_name": "Anderson Carlos Santos Santiago",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "2ddd52fa-d29d-40ba-b108-2d2e59780177",
+      "client_name": "Júlio César Panizzon",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "00df8ea6-d066-46b9-9015-da27406f8666",
+      "client_name": "Rodrigo Orlando Martins",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "f741be42-52ac-4720-b2a7-b30bc6e71735",
+      "client_name": "Mariana Lopes Machado",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "76858571-5e0f-455d-a0af-813e9db64471",
+      "client_name": "Pedro Henrique Quintão de Sá Soares",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    },
+    {
+      "client_id": "06d97140-3e69-491b-b233-6f90620f505d",
+      "client_name": "Selma Maria dos Santos",
+      "raw_status": "congelado",
+      "freeze_status": "congelado",
+      "freeze_date": null,
+      "final_analytical_status": "Inativo (congelado)"
+    }
+  ],
+  "note": "População de campanha NPS (clientes com envio / respondentes) não é filtrada por esta regra. Use analytical_active apenas para métricas de carteira atual."
+}

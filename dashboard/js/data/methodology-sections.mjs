@@ -267,6 +267,20 @@ export function buildMethodologyModel(ctx = {}) {
       limitation: 'Snapshot pode divergir do momento da resposta NPS.',
     },
     {
+      id: 'cliente-ativo',
+      title: 'Cliente ativo',
+      keywords: ['ativo', 'carteira', 'congelado', 'cancelamento', 'churn efetivo'],
+      simple:
+        'É um cliente que ainda faz parte da carteira. Contamos quem tem status analítico Ativo. Cancelamentos efetivos retiram o cliente da base ativa e clientes congelados não entram.',
+      technical:
+        'resolveAnalyticalActiveClient (lib/analytics/analytical-active-client.mjs): precedência cancellations.churn_efetivado_at / data_churn > congelamento (freeze_change_requests ou clients.status/data_congelamento) > status cadastral. Pedido de churn (intencao_registrada_at / data_pedido) sem efetivação não remove da base ativa. Auditoria: data/quality/active_clients_audit.json.',
+      source: 'BASE QV · clients · cancellations · freeze_change_requests',
+      limitation:
+        'Não reescreve respondentes históricos do NPS. População de campanha (clientes com envio) permanece separada da base ativa atual.',
+      extraHtml:
+        '<p class="note-muted">Exemplo: se João aparece como Ativo no cadastro, mas já possui distrato confirmado (churn_efetivado_at), ele não é contado como cliente ativo.</p>',
+    },
+    {
       id: 'tier',
       title: 'Tier derivado',
       keywords: ['tier', 't1', 't2', 'renda'],

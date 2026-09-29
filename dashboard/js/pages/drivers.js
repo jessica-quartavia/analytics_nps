@@ -89,10 +89,10 @@ function renderDriversSection(title, tests, emptyMsg) {
   return `
     <h3 class="section-subtitle">${escapeHtml(title)}</h3>
     <div class="table-scroll">
-      <table class="data-table data-table--drivers">
+      <table class="data-table data-table--drivers analytic-table">
         <thead><tr>
-          <th scope="col">Fator</th><th scope="col">Relação</th><th class="num" scope="col">Efeito</th>
-          <th class="num" scope="col">Amostra</th><th scope="col">Evidência</th><th scope="col">Qualidade</th><th scope="col">Ação</th>
+          <th scope="col" class="col-label">Fator</th><th scope="col" class="col-label">Relação</th><th class="num col-number" scope="col">Efeito</th>
+          <th class="num col-number" scope="col">Amostra</th><th scope="col" class="col-small">Evidência</th><th scope="col" class="col-small">Qualidade</th><th scope="col" class="col-small">Ação</th>
         </tr></thead>
         <tbody>${rows.slice(0, 40).map(renderDriverRow).join('')}</tbody>
       </table>
@@ -106,10 +106,10 @@ function renderCommentDriversTable(cycleCode) {
   if (!rows.length) return '<p class="note-muted">Sem testes de tema para este ciclo.</p>';
   return `
     <div class="table-scroll">
-      <table class="data-table">
+      <table class="data-table analytic-table">
         <thead><tr>
-          <th>Tema</th><th>Valência</th><th class="num">NPS com</th><th class="num">NPS sem</th>
-          <th class="num">Delta</th><th class="num">Amostra</th><th>Evidência</th>
+          <th class="col-label">Tema</th><th class="col-label">Valência</th><th class="num col-number">NPS com</th><th class="num col-number">NPS sem</th>
+          <th class="num col-number">Delta</th><th class="num col-number">Amostra</th><th class="col-small">Evidência</th>
         </tr></thead>
         <tbody>
           ${rows

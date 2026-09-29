@@ -57,4 +57,6 @@ export const TIPS = {
     'Clientes PHARUS para os quais a pesquisa NPS deste ciclo foi enviada. Cada cliente é contado uma única vez.',
   validResponses:
     'Clientes PHARUS com resposta válida no ciclo, após validação e tratamento de respostas duplicadas.',
+  clientesAtivos:
+    'Status analítico: exclui clientes congelados e clientes com cancelamento efetivo confirmado, mesmo que o cadastro ainda mostre Ativo.',
 };

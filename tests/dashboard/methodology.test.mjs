@@ -15,6 +15,7 @@ const REQUIRED_IDS = [
   'base-pareada',
   'valencia',
   'classificacao-voc',
+  'cliente-ativo',
   'tier',
   'debitos',
   'drivers',
