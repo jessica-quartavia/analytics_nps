@@ -1,0 +1,28 @@
+{
+  "refresh_id": "698391f9-42ff-4e10-9f4f-d160921d1ea5",
+  "generated_at": "2026-09-29T00:06:05.428Z",
+  "data_cutoff": "2026-09-29T00:06:04.705Z",
+  "cycle_code": "NPS-2026-SET-PHARUS",
+  "status": "success",
+  "raw_snapshot": "2026-09-28T21-06-04",
+  "methodology": {
+    "nps_method_version": "1.0",
+    "voc_classifier_version": "rules_v1",
+    "action_priority_version": "1.0",
+    "drivers_version": "1.0",
+    "csat_method_version": "1.0",
+    "executive_diagnosis_version": "1.0"
+  },
+  "artifacts": {
+    "cycle_summary": "data/processed/cycle_summary.json",
+    "responses": "data/processed/responses.json",
+    "paired_cycles": "data/processed/paired_cycles.json",
+    "ep_summary": "data/processed/ep_summary.json",
+    "topic_summary": "data/processed/topic_summary.json",
+    "csat_summary": "data/processed/csat_summary.json",
+    "drivers_summary": "data/processed/drivers_summary.json",
+    "action_queue_enriched": "data/processed/action_queue_enriched.json",
+    "executive_diagnosis": "data/processed/executive_diagnosis.json",
+    "action_queue": "data/outputs/action_queue.json"
+  }
+}

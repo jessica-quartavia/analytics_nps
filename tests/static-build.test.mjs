@@ -4,24 +4,20 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildStatic, auditDistSecurity } from '../scripts/build-static.mjs';
+import { REQUIRED_PUBLIC_DATASETS } from '../lib/deploy/public-datasets.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
 
 describe('build estático Vercel', () => {
-  it('gera dist com index, css, js e datasets', () => {
+  it('gera dist com index, css, js e todos datasets obrigatórios', () => {
     buildStatic();
     assert.ok(existsSync(join(dist, 'index.html')), 'dist/index.html');
     assert.ok(existsSync(join(dist, 'css')), 'dist/css');
     assert.ok(existsSync(join(dist, 'js')), 'dist/js');
-    assert.ok(
-      existsSync(join(dist, 'data/processed/cycle_summary.json')),
-      'dist/data/processed/cycle_summary.json',
-    );
-    assert.ok(
-      existsSync(join(dist, 'data/snapshots/latest.json')),
-      'dist/data/snapshots/latest.json',
-    );
+    for (const rel of REQUIRED_PUBLIC_DATASETS) {
+      assert.ok(existsSync(join(dist, 'data', rel)), `dist/data/${rel}`);
+    }
   });
 
   it('não publica .env, raw ou imports em dist', () => {

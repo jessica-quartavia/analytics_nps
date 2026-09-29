@@ -14,6 +14,9 @@ screenshots/
 *.local.json
 imports/
 
+# Bundle versionado para Vercel (NÃO ignorar data/deploy/public/)
+# Atualizar com: npm run sync:deploy-public
+
 # Dados analíticos locais (gerados pelo refresh)
 data/raw/**/*
 !data/raw/.gitkeep

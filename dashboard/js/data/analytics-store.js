@@ -50,16 +50,61 @@ const PATHS = {
   executiveDiagnosis: '/data/processed/executive_diagnosis.json',
 };
 
+function logStoreError(message, detail) {
+  console.error(`[analytics-store] ${message}`, detail ?? '');
+}
+
 async function fetchJson(url) {
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Falha ao carregar ${url} (${res.status})`);
-  return res.json();
+  let res;
+  try {
+    res = await fetch(url, { cache: 'no-store' });
+  } catch (cause) {
+    logStoreError(`Failed to load ${url}`, 'fetch blocked or network error');
+    const err = new Error(`[analytics-store] Failed to load ${url} (network)`);
+    err.code = 'FETCH_BLOCKED';
+    err.url = url;
+    err.cause = cause;
+    throw err;
+  }
+  if (!res.ok) {
+    logStoreError(`Failed to load ${url}`, `HTTP ${res.status}`);
+    const err = new Error(`[analytics-store] Failed to load ${url} HTTP ${res.status}`);
+    err.code = res.status === 404 ? 'DATASET_NOT_FOUND' : 'HTTP_ERROR';
+    err.url = url;
+    err.status = res.status;
+    throw err;
+  }
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch (parseErr) {
+    logStoreError(`Invalid JSON ${url}`, parseErr.message);
+    const err = new Error(`[analytics-store] Invalid JSON ${url}`);
+    err.code = 'INVALID_JSON';
+    err.url = url;
+    err.cause = parseErr;
+    throw err;
+  }
 }
 
 async function fetchJsonOptional(url) {
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) return null;
-  return res.json();
+  let res;
+  try {
+    res = await fetch(url, { cache: 'no-store' });
+  } catch {
+    logStoreError(`Optional load failed ${url}`, 'network');
+    return null;
+  }
+  if (!res.ok) {
+    logStoreError(`Optional load ${url}`, `HTTP ${res.status}`);
+    return null;
+  }
+  try {
+    return await res.json();
+  } catch {
+    logStoreError(`Optional invalid JSON ${url}`, '');
+    return null;
+  }
 }
 
 export async function loadAnalyticsData() {

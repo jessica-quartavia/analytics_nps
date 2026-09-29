@@ -28,7 +28,9 @@
     "status": "node scripts/status.mjs",
     "validate": "node scripts/validate.mjs",
     "build": "node scripts/build-static.mjs",
-    "preview:static": "node scripts/preview-static.mjs"
+    "sync:deploy-public": "node scripts/sync-deploy-public.mjs",
+    "preview:static": "node scripts/preview-static.mjs",
+    "smoke:static": "node scripts/smoke-static-dist.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

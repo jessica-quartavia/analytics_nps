@@ -1,0 +1,791 @@
+{
+  "cycle_code": "NPS-2026-SET-PHARUS",
+  "cycle_name": "Set/2026",
+  "generated_at": "2026-09-29T00:06:05.400Z",
+  "data_cutoff": "2026-09-29T00:06:04.705Z",
+  "status": "open",
+  "previous_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+  "headline": {
+    "text": "NPS caiu 12,1 pontos em Set/2026.",
+    "current_nps": 56.126482213438734,
+    "previous_nps": 68.23529411764706,
+    "delta_nps": -12.108811904208324,
+    "direction": "worsened",
+    "source_artifacts": [
+      "cycle_summary.json"
+    ]
+  },
+  "overall": {
+    "current_nps": 56.126482213438734,
+    "previous_nps": 68.23529411764706,
+    "delta_nps": -12.108811904208324,
+    "valid_responses": 253,
+    "eligible_clients": 967,
+    "response_rate": 0.26163391933815927,
+    "response_rate_quality": "partial",
+    "ci95": {
+      "low": 47.03557312252965,
+      "high": 64.82213438735178,
+      "method": "bootstrap_percentile_95"
+    },
+    "promoters": 174,
+    "passives": 47,
+    "detractors": 32,
+    "promoter_pct": 68.77470355731225,
+    "passive_pct": 18.57707509881423,
+    "detractor_pct": 12.648221343873518,
+    "source_artifacts": [
+      "cycle_summary.json"
+    ]
+  },
+  "paired": {
+    "available": true,
+    "paired_clients": 81,
+    "previous_nps_paired": 93.82716049382715,
+    "current_nps_paired": 77.77777777777779,
+    "delta_nps_paired": -16.049382716049365,
+    "previous_average_score": 9.567901234567902,
+    "current_average_score": 9.308641975308642,
+    "average_score_delta": -0.2592592592592595,
+    "comparison_text": "Movimento também aparece entre os mesmos clientes.",
+    "direction_total": "worsened",
+    "direction_paired": "worsened",
+    "source_artifacts": [
+      "paired_cycles.json",
+      "cycle_summary.json"
+    ]
+  },
+  "movement": {
+    "available": true,
+    "improved_clients": 1,
+    "stable_clients": 67,
+    "worsened_clients": 13,
+    "positive_migrations": 1,
+    "negative_migrations": 13,
+    "top_movements": [
+      {
+        "migration": "Promotor → Neutro",
+        "count": 12,
+        "pct_of_origin": 15.384615384615385
+      },
+      {
+        "migration": "Detrator → Neutro",
+        "count": 1,
+        "pct_of_origin": 50
+      },
+      {
+        "migration": "Promotor → Detrator",
+        "count": 1,
+        "pct_of_origin": 1.282051282051282
+      }
+    ],
+    "reading": "Entre 81 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
+    "source_artifacts": [
+      "migration_matrix.json"
+    ]
+  },
+  "eps": {
+    "available": true,
+    "eps_attention": [
+      {
+        "ep_name": "Felipe Aleixo",
+        "n": 28,
+        "current_nps": 64.28571428571429,
+        "delta_nps_paired": -45.45454545454546,
+        "paired_clients": 11,
+        "response_rate": 0.5384615384615384,
+        "sample_warning": false,
+        "low_confidence_pct": 89.28571428571429,
+        "reason_codes": [
+          "low_ep_confidence",
+          "nps_decline",
+          "promoter_deterioration"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      },
+      {
+        "ep_name": "Rodrigo Amorim",
+        "n": 17,
+        "current_nps": 70.58823529411765,
+        "delta_nps_paired": -33.33333333333334,
+        "paired_clients": 6,
+        "response_rate": 0.3269230769230769,
+        "sample_warning": false,
+        "low_confidence_pct": 94.11764705882352,
+        "reason_codes": [
+          "low_ep_confidence",
+          "nps_decline",
+          "promoter_deterioration"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      },
+      {
+        "ep_name": "Abner Braga",
+        "n": 21,
+        "current_nps": 57.14285714285714,
+        "delta_nps_paired": -33.33333333333334,
+        "paired_clients": 6,
+        "response_rate": 0.35,
+        "sample_warning": false,
+        "low_confidence_pct": 90.47619047619048,
+        "reason_codes": [
+          "low_ep_confidence",
+          "nps_decline",
+          "promoter_deterioration"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      },
+      {
+        "ep_name": "Gustavo Papeschi Mariano",
+        "n": 13,
+        "current_nps": 76.92307692307693,
+        "delta_nps_paired": -27.272727272727266,
+        "paired_clients": 11,
+        "response_rate": 0.38235294117647056,
+        "sample_warning": false,
+        "low_confidence_pct": 84.61538461538461,
+        "reason_codes": [
+          "low_ep_confidence",
+          "nps_decline",
+          "promoter_deterioration"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      },
+      {
+        "ep_name": "Thiago Henrique Trova",
+        "n": 11,
+        "current_nps": 36.36363636363637,
+        "delta_nps_paired": -25,
+        "paired_clients": 4,
+        "response_rate": 0.16417910447761194,
+        "sample_warning": false,
+        "low_confidence_pct": 90.9090909090909,
+        "reason_codes": [
+          "low_ep_confidence",
+          "nps_decline",
+          "promoter_deterioration"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      },
+      {
+        "ep_name": "Andrieli Campesato",
+        "n": 17,
+        "current_nps": 70.58823529411765,
+        "delta_nps_paired": -12.5,
+        "paired_clients": 8,
+        "response_rate": 0.3269230769230769,
+        "sample_warning": false,
+        "low_confidence_pct": 70.58823529411765,
+        "reason_codes": [
+          "low_ep_confidence",
+          "nps_decline"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      },
+      {
+        "ep_name": "Tales Salinas Rozo",
+        "n": 12,
+        "current_nps": 41.66666666666667,
+        "delta_nps_paired": 0,
+        "paired_clients": 1,
+        "response_rate": 0.14814814814814814,
+        "sample_warning": false,
+        "low_confidence_pct": 100,
+        "reason_codes": [
+          "low_ep_confidence",
+          "high_detractor_share"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      },
+      {
+        "ep_name": "Rodrigo Lunardi",
+        "n": 9,
+        "current_nps": 66.66666666666666,
+        "delta_nps_paired": 0,
+        "paired_clients": 2,
+        "response_rate": 0.15517241379310345,
+        "sample_warning": false,
+        "low_confidence_pct": 88.88888888888889,
+        "reason_codes": [
+          "low_ep_confidence"
+        ],
+        "source_artifacts": [
+          "ep_summary.json"
+        ]
+      }
+    ],
+    "small_sample_count": 6,
+    "min_sample": 5,
+    "source_artifacts": [
+      "ep_summary.json"
+    ]
+  },
+  "voc": {
+    "available": true,
+    "top_topics": [
+      {
+        "topic": "Resultados",
+        "responses_with_topic": 151,
+        "pct_responses": 59.683794466403164
+      },
+      {
+        "topic": "Atendimento / relacionamento",
+        "responses_with_topic": 83,
+        "pct_responses": 32.80632411067194
+      },
+      {
+        "topic": "Oportunidades",
+        "responses_with_topic": 81,
+        "pct_responses": 32.015810276679844
+      },
+      {
+        "topic": "Valor percebido",
+        "responses_with_topic": 81,
+        "pct_responses": 32.015810276679844
+      },
+      {
+        "topic": "Plano patrimonial",
+        "responses_with_topic": 66,
+        "pct_responses": 26.08695652173913
+      }
+    ],
+    "top_negative_topics": [
+      {
+        "topic": "Resultados",
+        "negative_pct": 37.086092715231786,
+        "pct_responses": 59.683794466403164
+      },
+      {
+        "topic": "Valor percebido",
+        "negative_pct": 34.5679012345679,
+        "pct_responses": 32.015810276679844
+      },
+      {
+        "topic": "Clareza / comunicação",
+        "negative_pct": 32,
+        "pct_responses": 19.76284584980237
+      },
+      {
+        "topic": "Plano patrimonial",
+        "negative_pct": 31.818181818181817,
+        "pct_responses": 26.08695652173913
+      },
+      {
+        "topic": "Agilidade",
+        "negative_pct": 30.23255813953488,
+        "pct_responses": 16.99604743083004
+      }
+    ],
+    "top_positive_topics": [
+      {
+        "topic": "Agilidade",
+        "positive_pct": 23.25581395348837,
+        "pct_responses": 16.99604743083004
+      },
+      {
+        "topic": "Engenheiro Patrimonial",
+        "positive_pct": 19.565217391304348,
+        "pct_responses": 18.181818181818183
+      },
+      {
+        "topic": "Oportunidades",
+        "positive_pct": 17.28395061728395,
+        "pct_responses": 32.015810276679844
+      },
+      {
+        "topic": "Valor percebido",
+        "positive_pct": 16.049382716049383,
+        "pct_responses": 32.015810276679844
+      },
+      {
+        "topic": "Atendimento / relacionamento",
+        "positive_pct": 15.66265060240964,
+        "pct_responses": 32.80632411067194
+      }
+    ],
+    "emerging_pains": [],
+    "recurring_pains": [],
+    "improving_topics": [
+      {
+        "topic": "Clareza / comunicação",
+        "pct_previous": 42.745098039215684,
+        "pct_current": 19.76284584980237,
+        "mention_pct_delta": -22.982252189413312,
+        "predominant_valence": "Neutra"
+      },
+      {
+        "topic": "Engenheiro Patrimonial",
+        "pct_previous": 63.921568627450974,
+        "pct_current": 18.181818181818183,
+        "mention_pct_delta": -45.739750445632794,
+        "predominant_valence": "Neutra"
+      }
+    ],
+    "positive_emerging": [],
+    "executive_lines": [
+      "Resultados apareceu em 59,7% dos comentários classificados e concentrou 37,1% de valência negativa entre menções ao tema."
+    ],
+    "classification": {
+      "comments_total": 508,
+      "comments_with_text": 508,
+      "comments_classified": 489,
+      "comments_with_topic": 489,
+      "pct_coverage": 96.25984251968504,
+      "pct_reviewed": 0,
+      "confidence_mean": 0.7328475486903947,
+      "confidence_buckets": {
+        "high": 725,
+        "medium": 764,
+        "low": 0
+      },
+      "topic_rows": 1489,
+      "multitopic_responses": 418,
+      "pct_multitopic": 85.48057259713701,
+      "sources": {
+        "rules_v1": 1489
+      }
+    },
+    "source_artifacts": [
+      "topic_summary.json"
+    ]
+  },
+  "drivers": {
+    "available": true,
+    "executive_drivers": [
+      {
+        "driver": "positive_topics_count",
+        "outcome": "score",
+        "method": "spearman",
+        "effect_size": 0.42546102191771484,
+        "effect_label": "moderado",
+        "n": 253,
+        "p_value_adjusted": 7.042940505912776e-12,
+        "feature_quality": "partial",
+        "text": "Maior positive_topics_count associado a notas mais alta na amostra (cycle).",
+        "source_artifacts": [
+          "drivers_summary.json",
+          "driver_tests.json"
+        ]
+      },
+      {
+        "driver": "meetings_count",
+        "outcome": "score",
+        "method": "spearman",
+        "effect_size": 0.5757470163067562,
+        "effect_label": "forte",
+        "n": 253,
+        "p_value_adjusted": 7.689105308831701e-23,
+        "feature_quality": "unavailable",
+        "text": "Maior meetings_count associado a notas mais alta na amostra (cycle).",
+        "source_artifacts": [
+          "drivers_summary.json",
+          "driver_tests.json"
+        ]
+      },
+      {
+        "driver": "meetings_last_90d",
+        "outcome": "score",
+        "method": "spearman",
+        "effect_size": 0.5757470163067562,
+        "effect_label": "forte",
+        "n": 253,
+        "p_value_adjusted": 7.689105308831701e-23,
+        "feature_quality": "unavailable",
+        "text": "Maior meetings_last_90d associado a notas mais alta na amostra (cycle).",
+        "source_artifacts": [
+          "drivers_summary.json",
+          "driver_tests.json"
+        ]
+      },
+      {
+        "driver": "mechanisms_count",
+        "outcome": "score",
+        "method": "spearman",
+        "effect_size": 0.5757470163067562,
+        "effect_label": "forte",
+        "n": 253,
+        "p_value_adjusted": 7.689105308831701e-23,
+        "feature_quality": "unavailable",
+        "text": "Maior mechanisms_count associado a notas mais alta na amostra (cycle).",
+        "source_artifacts": [
+          "drivers_summary.json",
+          "driver_tests.json"
+        ]
+      }
+    ],
+    "tests_count": 48,
+    "significant_fdr_count": 22,
+    "average_feature_coverage": 0.7312992125984252,
+    "message": null,
+    "source_artifacts": [
+      "drivers_summary.json"
+    ],
+    "comment_drivers": {
+      "available": true,
+      "associated_negative": [
+        {
+          "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+          "universe": "cycle",
+          "topic": "Agilidade",
+          "valence": "Neutra",
+          "responses_with_topic": 20,
+          "responses_without_topic": 233,
+          "nps_with": 5,
+          "nps_without": 60.51502145922747,
+          "delta_nps": -55.51502145922747,
+          "average_score_with": 7.3,
+          "average_score_without": 8.622317596566523,
+          "detractor_pct_with": 30,
+          "detractor_pct_without": 11.158798283261802,
+          "promoter_pct_with": 35,
+          "promoter_pct_without": 71.67381974248927,
+          "method": "mann_whitney_score",
+          "p_value_raw": 0.005154979047931718,
+          "effect_size": 0.3770386266094421,
+          "effect_label": "moderado",
+          "n": 253,
+          "p_value_adjusted": 0.038662342859487886,
+          "significant_fdr_05": true
+        },
+        {
+          "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+          "universe": "cycle",
+          "topic": "Expectativa",
+          "valence": "Neutra",
+          "responses_with_topic": 24,
+          "responses_without_topic": 229,
+          "nps_with": 8.333333333333332,
+          "nps_without": 61.135371179039296,
+          "delta_nps": -52.80203784570597,
+          "average_score_with": 6.5,
+          "average_score_without": 8.729257641921397,
+          "detractor_pct_with": 33.33333333333333,
+          "detractor_pct_without": 10.480349344978166,
+          "promoter_pct_with": 41.66666666666667,
+          "promoter_pct_without": 71.61572052401746,
+          "method": "mann_whitney_score",
+          "p_value_raw": 0.004995955183102918,
+          "effect_size": 0.3484352256186317,
+          "effect_label": "moderado",
+          "n": 253,
+          "p_value_adjusted": 0.038662342859487886,
+          "significant_fdr_05": true
+        },
+        {
+          "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+          "universe": "cycle",
+          "topic": "Valor percebido",
+          "valence": "Neutra",
+          "responses_with_topic": 40,
+          "responses_without_topic": 213,
+          "nps_with": 15,
+          "nps_without": 63.84976525821596,
+          "delta_nps": -48.84976525821596,
+          "average_score_with": 7.425,
+          "average_score_without": 8.72300469483568,
+          "detractor_pct_with": 25,
+          "detractor_pct_without": 10.328638497652582,
+          "promoter_pct_with": 40,
+          "promoter_pct_without": 74.17840375586854,
+          "method": "mann_whitney_score",
+          "p_value_raw": 0.003635552648584728,
+          "effect_size": 0.289906103286385,
+          "effect_label": "pequeno",
+          "n": 253,
+          "p_value_adjusted": 0.038662342859487886,
+          "significant_fdr_05": true
+        }
+      ],
+      "associated_positive": [
+        {
+          "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+          "universe": "cycle",
+          "topic": "Atendimento / relacionamento",
+          "valence": "Neutra",
+          "responses_with_topic": 47,
+          "responses_without_topic": 206,
+          "nps_with": 85.1063829787234,
+          "nps_without": 49.51456310679612,
+          "delta_nps": 35.591819871927285,
+          "average_score_with": 9.46808510638298,
+          "average_score_without": 8.300970873786408,
+          "detractor_pct_with": 0,
+          "detractor_pct_without": 15.53398058252427,
+          "promoter_pct_with": 85.1063829787234,
+          "promoter_pct_without": 65.0485436893204,
+          "method": "mann_whitney_score",
+          "p_value_raw": 0.008057172104764643,
+          "effect_size": -0.2477793844247056,
+          "effect_label": "pequeno",
+          "n": 253,
+          "p_value_adjusted": 0.048343032628587856,
+          "significant_fdr_05": true
+        }
+      ],
+      "source_artifacts": [
+        "comment_drivers.json"
+      ]
+    }
+  },
+  "csat": {
+    "available": false,
+    "source_artifacts": [
+      "csat_summary.json"
+    ]
+  },
+  "actions": {
+    "available": true,
+    "high_priority": 4,
+    "medium_priority": 13,
+    "investigate": 37,
+    "learning": 44,
+    "pending": 98,
+    "in_progress": 0,
+    "completed": 0,
+    "priority_follow_up": 17,
+    "top_action_reasons": [
+      {
+        "label": "Alta prioridade",
+        "count": 4
+      },
+      {
+        "label": "Média prioridade",
+        "count": 13
+      },
+      {
+        "label": "Investigar",
+        "count": 37
+      },
+      {
+        "label": "Aprendizado",
+        "count": 44
+      }
+    ],
+    "executive_line": "17 clientes demandam acompanhamento prioritário (Alta + Média).",
+    "source_artifacts": [
+      "action_queue_enriched.json",
+      "operational/action_tracking.json"
+    ]
+  },
+  "quality": {
+    "data_quality_status": "attention",
+    "warnings_count": 835,
+    "ep_current_proxy_count": 197,
+    "ep_current_proxy_pct": 0.7786561264822134,
+    "voc_classification_coverage": 96.25984251968504,
+    "voc_reviewed_pct": 0,
+    "voc_average_confidence": 0.7328475486903947,
+    "csat_rule_ambiguous": true,
+    "paired_sample_size": 81,
+    "driver_features_coverage": 0.7312992125984252,
+    "flags": [
+      "partial_cycle",
+      "high_ep_proxy",
+      "voc_unreviewed",
+      "csat_rule_ambiguous"
+    ],
+    "source_artifacts": [
+      "quality/data_quality.json",
+      "responses.json",
+      "topic_summary.json"
+    ]
+  },
+  "executive_summary": [
+    {
+      "text": "NPS de Set/2026 foi 56,1, queda de 12,1 pontos frente ao ciclo anterior.",
+      "source_artifacts": [
+        "executive_diagnosis.json"
+      ]
+    },
+    {
+      "text": "Entre os 81 clientes presentes nos dois ciclos, o NPS caiu 16,0 pontos.",
+      "source_artifacts": [
+        "executive_diagnosis.json"
+      ]
+    },
+    {
+      "text": "Entre 81 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
+      "source_artifacts": [
+        "executive_diagnosis.json"
+      ]
+    },
+    {
+      "text": "17 clientes estão em prioridade Alta ou Média para acompanhamento.",
+      "source_artifacts": [
+        "executive_diagnosis.json"
+      ]
+    },
+    {
+      "text": "Resultados apareceu em 59,7% dos comentários classificados e concentrou 37,1% de valência negativa entre menções ao tema.",
+      "source_artifacts": [
+        "executive_diagnosis.json"
+      ]
+    },
+    {
+      "text": "Associações estatísticas aparecem em variáveis operacionais e temas — não devem ser interpretadas causalmente.",
+      "source_artifacts": [
+        "executive_diagnosis.json"
+      ]
+    },
+    {
+      "text": "8 carteiras EP com sinais de atenção (amostra ou movimento pareado).",
+      "source_artifacts": [
+        "executive_diagnosis.json"
+      ]
+    }
+  ],
+  "management_questions": [
+    {
+      "id": "nps_direction",
+      "question": "O NPS melhorou ou piorou?",
+      "answer": "O NPS em Set/2026 recuou 12,1 pontos frente ao ciclo anterior.",
+      "supporting_metrics": {
+        "current_nps": 56.126482213438734,
+        "previous_nps": 68.23529411764706,
+        "delta_nps": -12.108811904208324
+      },
+      "source_artifacts": [
+        "cycle_summary.json"
+      ]
+    },
+    {
+      "id": "paired_confirmation",
+      "question": "O mesmo movimento aparece entre os mesmos clientes?",
+      "answer": "Movimento também aparece entre os mesmos clientes.",
+      "supporting_metrics": {
+        "delta_nps_paired": -16.049382716049365,
+        "paired_clients": 81
+      },
+      "source_artifacts": [
+        "paired_cycles.json"
+      ]
+    },
+    {
+      "id": "who_changed",
+      "question": "Quem mudou?",
+      "answer": "Entre 81 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
+      "supporting_metrics": {
+        "worsened_clients": 13,
+        "improved_clients": 1,
+        "stable_clients": 67
+      },
+      "source_artifacts": [
+        "migration_matrix.json"
+      ]
+    },
+    {
+      "id": "ep_attention",
+      "question": "Quais carteiras merecem atenção?",
+      "answer": "Identificadas 8 carteiras com sinais de atenção (queda pareada, amostra ou confiança EP).",
+      "supporting_metrics": {
+        "eps_attention": [
+          "Felipe Aleixo",
+          "Rodrigo Amorim",
+          "Abner Braga",
+          "Gustavo Papeschi Mariano",
+          "Thiago Henrique Trova",
+          "Andrieli Campesato",
+          "Tales Salinas Rozo",
+          "Rodrigo Lunardi"
+        ]
+      },
+      "source_artifacts": [
+        "ep_summary.json"
+      ]
+    },
+    {
+      "id": "voc_negative",
+      "question": "Quais temas aparecem com maior frequência negativa?",
+      "answer": "Resultados apareceu em 59,7% dos comentários classificados e concentrou 37,1% de valência negativa entre menções ao tema.",
+      "supporting_metrics": {
+        "top_negative_topics": [
+          {
+            "topic": "Resultados",
+            "negative_pct": 37.086092715231786,
+            "pct_responses": 59.683794466403164
+          },
+          {
+            "topic": "Valor percebido",
+            "negative_pct": 34.5679012345679,
+            "pct_responses": 32.015810276679844
+          },
+          {
+            "topic": "Clareza / comunicação",
+            "negative_pct": 32,
+            "pct_responses": 19.76284584980237
+          },
+          {
+            "topic": "Plano patrimonial",
+            "negative_pct": 31.818181818181817,
+            "pct_responses": 26.08695652173913
+          },
+          {
+            "topic": "Agilidade",
+            "negative_pct": 30.23255813953488,
+            "pct_responses": 16.99604743083004
+          }
+        ]
+      },
+      "source_artifacts": [
+        "topic_summary.json"
+      ]
+    },
+    {
+      "id": "drivers_investigate",
+      "question": "Quais associações merecem investigação?",
+      "answer": "4 associações estatísticas (FDR) selecionadas para leitura executiva — interpretar como hipóteses, não causas.",
+      "supporting_metrics": {
+        "drivers": [
+          "positive_topics_count",
+          "meetings_count",
+          "meetings_last_90d",
+          "mechanisms_count"
+        ]
+      },
+      "source_artifacts": [
+        "drivers_summary.json"
+      ]
+    },
+    {
+      "id": "action_count",
+      "question": "Quantos clientes precisam de ação?",
+      "answer": "17 clientes demandam acompanhamento prioritário (Alta + Média).",
+      "supporting_metrics": {
+        "priority_follow_up": 17,
+        "pending": 98
+      },
+      "source_artifacts": [
+        "action_queue_enriched.json"
+      ]
+    }
+  ],
+  "methodology_notes": [
+    "Diagnóstico determinístico gerado no pipeline analítico — sem LLM.",
+    "NPS estável quando |Δ| < 1 ponto.",
+    "Associações em drivers descrevem relações na amostra, não causalidade individual.",
+    "CSAT agrega todas as respostas válidas por ciclo, sem dedupe por cliente.",
+    "Destaques EP exigem n ≥ 5 salvo bloco de qualidade."
+  ],
+  "methodology": {
+    "nps_method_version": "1.0",
+    "voc_classifier_version": "rules_v1",
+    "action_priority_version": "1.0",
+    "drivers_version": "1.0",
+    "csat_method_version": "1.0",
+    "executive_diagnosis_version": "1.0"
+  }
+}

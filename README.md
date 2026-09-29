@@ -96,9 +96,13 @@ Gera/atualiza artefatos em `data/quality/` (calibração da fila, consistência 
 ## Deploy Vercel
 
 ```bash
-npm run build          # gera dist/ (dashboard + data públicos)
-npm run preview:static # http://localhost:4173/#/executivo
+npm run sync:deploy-public  # após refresh — copia JSON para data/deploy/public/ (commitar p/ Vercel)
+npm run build               # gera dist/ (data/ local ou fallback deploy/public)
+npm run preview:static      # http://localhost:4173/#/executivo
+npm run smoke:static        # HTTP 200 nos datasets + Executivo
 ```
+
+A Vercel **não** recebe `data/processed/*.json` (gitignore). O build usa `data/deploy/public/` versionado; se faltar dataset, **`npm run build` falha**.
 
 `vercel.json` usa `outputDirectory: dist` e `buildCommand: npm run build`. A raiz `/` serve `dist/index.html`.
 

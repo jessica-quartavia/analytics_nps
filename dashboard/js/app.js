@@ -291,10 +291,20 @@ async function boot() {
     renderPage();
   } catch (err) {
     console.error(err);
-    showState(
-      'error',
-      'Os dados analíticos ainda não foram gerados. Execute o refresh do NPS (<code>npm run refresh:nps</code>).',
-    );
+    let message;
+    if (err?.code === 'DATASET_NOT_FOUND' && err.url) {
+      message = `<strong>Dataset ausente no deploy (404):</strong> <code>${escapeHtml(err.url)}</code>. Verifique <code>npm run build</code> e se <code>data/deploy/public/</code> está no repositório.`;
+    } else if (err?.code === 'INVALID_JSON' && err.url) {
+      message = `<strong>JSON inválido:</strong> <code>${escapeHtml(err.url)}</code>.`;
+    } else if (err?.code === 'FETCH_BLOCKED') {
+      message = `<strong>Fetch bloqueado</strong> ao carregar datasets. Abra via HTTP (<code>npm run dev</code> ou deploy), não <code>file://</code>.`;
+    } else if (err?.code === 'HTTP_ERROR' && err.url) {
+      message = `<strong>Erro HTTP ${escapeHtml(String(err.status ?? ''))}:</strong> <code>${escapeHtml(err.url)}</code>.`;
+    } else {
+      message =
+        'Os dados analíticos ainda não foram gerados. Execute o refresh do NPS (<code>npm run refresh:nps</code>) e <code>npm run sync:deploy-public</code> antes do build.';
+    }
+    showState('error', message);
   }
 }
 

@@ -1,0 +1,52 @@
+{
+  "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+  "current_cycle": "NPS-2026-SET-PHARUS",
+  "paired_clients": 81,
+  "cells": [
+    {
+      "key": "Detrator -> Detrator",
+      "count": 1,
+      "pct_of_origin": 50
+    },
+    {
+      "key": "Detrator -> Neutro",
+      "count": 1,
+      "pct_of_origin": 50
+    },
+    {
+      "key": "Detrator -> Promotor",
+      "count": 0,
+      "pct_of_origin": 0
+    },
+    {
+      "key": "Neutro -> Detrator",
+      "count": 0,
+      "pct_of_origin": 0
+    },
+    {
+      "key": "Neutro -> Neutro",
+      "count": 1,
+      "pct_of_origin": 100
+    },
+    {
+      "key": "Neutro -> Promotor",
+      "count": 0,
+      "pct_of_origin": 0
+    },
+    {
+      "key": "Promotor -> Detrator",
+      "count": 1,
+      "pct_of_origin": 1.282051282051282
+    },
+    {
+      "key": "Promotor -> Neutro",
+      "count": 12,
+      "pct_of_origin": 15.384615384615385
+    },
+    {
+      "key": "Promotor -> Promotor",
+      "count": 65,
+      "pct_of_origin": 83.33333333333334
+    }
+  ]
+}

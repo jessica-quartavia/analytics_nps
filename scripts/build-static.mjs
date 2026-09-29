@@ -13,35 +13,14 @@ import {
 } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  REQUIRED_PUBLIC_DATASETS,
+  OPTIONAL_PUBLIC_DATASETS,
+} from '../lib/deploy/public-datasets.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
-
-const PROCESSED_ARTIFACTS = [
-  'cycles.json',
-  'responses.json',
-  'cycle_summary.json',
-  'eligible_clients.json',
-  'paired_cycles.json',
-  'migration_matrix.json',
-  'ep_summary.json',
-  'response_topics.json',
-  'topic_summary.json',
-  'csat_summary.json',
-  'client_satisfaction_summary.json',
-  'driver_tests.json',
-  'drivers_summary.json',
-  'comment_drivers.json',
-  'action_queue_enriched.json',
-  'executive_diagnosis.json',
-];
-
-const DATA_FILES = [
-  { src: 'data/outputs/action_queue.json', dest: 'data/outputs/action_queue.json' },
-  { src: 'data/snapshots/latest.json', dest: 'data/snapshots/latest.json' },
-  { src: 'data/quality/data_quality.json', dest: 'data/quality/data_quality.json' },
-  { src: 'data/operational/action_tracking.json', dest: 'data/operational/action_tracking.json' },
-];
+const DEPLOY_PUBLIC = join(ROOT, 'data/deploy/public');
 
 const FORBIDDEN_PATH_SEGMENTS = [
   '.env',
@@ -57,13 +36,35 @@ const FORBIDDEN_CONTENT = [
   /eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/,
 ];
 
-function copyIfExists(srcRel, destRel) {
-  const src = join(ROOT, srcRel);
-  if (!existsSync(src)) return false;
-  const dest = join(DIST, destRel);
+function resolveDatasetSource(dataRel) {
+  const live = join(ROOT, 'data', dataRel);
+  if (existsSync(live)) return live;
+  const bundled = join(DEPLOY_PUBLIC, dataRel);
+  if (existsSync(bundled)) return bundled;
+  return null;
+}
+
+function copyDataset(dataRel) {
+  const src = resolveDatasetSource(dataRel);
+  if (!src) return false;
+  const dest = join(DIST, 'data', dataRel);
   mkdirSync(dirname(dest), { recursive: true });
   cpSync(src, dest);
   return true;
+}
+
+function assertRequiredDatasetsInDist() {
+  const missing = [];
+  for (const rel of REQUIRED_PUBLIC_DATASETS) {
+    if (!existsSync(join(DIST, 'data', rel))) missing.push(rel);
+  }
+  if (missing.length) {
+    throw new Error(
+      `Build incompleto — datasets obrigatórios ausentes em dist/data/:\n${missing.map((m) => `  - ${m}`).join('\n')}\n` +
+        'Local: npm run refresh:nps && npm run sync:deploy-public\n' +
+        'Commit data/deploy/public/ para a Vercel receber os JSON.',
+    );
+  }
 }
 
 function walkFiles(dir, files = []) {
@@ -118,18 +119,24 @@ export function buildStatic() {
 
   cpSync(join(ROOT, 'dashboard'), DIST, { recursive: true });
 
-  mkdirSync(join(DIST, 'data/processed'), { recursive: true });
-  const copiedProcessed = [];
-  for (const name of PROCESSED_ARTIFACTS) {
-    if (copyIfExists(`data/processed/${name}`, `data/processed/${name}`)) {
-      copiedProcessed.push(name);
-    }
+  const copiedData = [];
+  const missingSource = [];
+  for (const rel of REQUIRED_PUBLIC_DATASETS) {
+    if (!resolveDatasetSource(rel)) missingSource.push(rel);
+    else if (copyDataset(rel)) copiedData.push(`data/${rel}`);
+  }
+  for (const rel of OPTIONAL_PUBLIC_DATASETS) {
+    if (copyDataset(rel)) copiedData.push(`data/${rel}`);
   }
 
-  const copiedData = [];
-  for (const { src, dest } of DATA_FILES) {
-    if (copyIfExists(src, dest)) copiedData.push(dest);
+  if (missingSource.length) {
+    throw new Error(
+      `Build abortado — datasets obrigatórios não encontrados em data/ nem data/deploy/public/:\n${missingSource.map((m) => `  - ${m}`).join('\n')}\n` +
+        'Execute: npm run sync:deploy-public (após refresh) e commit data/deploy/public/.',
+    );
   }
+
+  assertRequiredDatasetsInDist();
 
   const securityErrors = auditDistSecurity(DIST);
   if (securityErrors.length) {
@@ -138,7 +145,6 @@ export function buildStatic() {
 
   return {
     dist: DIST,
-    copiedProcessed,
     copiedData,
     indexHtml: join(DIST, 'index.html'),
   };
@@ -148,8 +154,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   try {
     const result = buildStatic();
     console.log('Build estático OK:', result.dist);
-    console.log(`  processed: ${result.copiedProcessed.length} arquivos`);
-    console.log(`  data extra: ${result.copiedData.join(', ') || '(nenhum)'}`);
+    console.log(`  datasets: ${result.copiedData.length} arquivos em dist/data/`);
     console.log(`  index: ${existsSync(result.indexHtml) ? 'dist/index.html' : 'AUSENTE'}`);
   } catch (err) {
     console.error(err.message ?? err);
