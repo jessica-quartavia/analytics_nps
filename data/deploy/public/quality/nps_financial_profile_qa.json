@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-09-29T14:47:18.847Z",
+  "cycle_code": "NPS-2026-SET-PHARUS",
+  "coverage": {
+    "respondents_total": 253,
+    "financial_rows": 253,
+    "financial_source_counts": {
+      "raw_snapshot": 0,
+      "fallback_export": 253,
+      "missing": 0
+    },
+    "coverage_among_available_financial_set_pct": 100,
+    "coverage_statement": "Percentual sobre respondentes Set com linha no conjunto financeiro disponível para esta análise (raw snapshot + fallback export).",
+    "all_clients_from_raw_snapshot": false,
+    "do_not_label_as_full_base_qv_snapshot": true,
+    "tier_classified": 240,
+    "tier_unavailable": 13,
+    "invalid_income": 0,
+    "invalid_contribution": 1,
+    "invalid_reserve": 0,
+    "coverage_pct": 100,
+    "coverage_quality": "good",
+    "tier_distribution": {
+      "T1": 67,
+      "T2": 48,
+      "T3": 98,
+      "T4": 27,
+      "unavailable": 13
+    },
+    "temporal_after_response_n": 40,
+    "temporal_after_response_pct": 15.810276679841898
+  },
+  "tier_counts": {
+    "T1": 67,
+    "T2": 48,
+    "T3": 98,
+    "T4": 27,
+    "unavailable": 13
+  },
+  "tier_reasons": {
+    "income": 181,
+    "reserve": 41,
+    "income+contribution": 3,
+    "income+reserve": 4,
+    "contribution": 3,
+    "income+contribution+reserve": 6,
+    "contribution+reserve": 2
+  },
+  "invalid_values": {
+    "income": 0,
+    "contribution": 1,
+    "reserve": 0
+  },
+  "null_values": {
+    "income": 13,
+    "contribution": 13,
+    "reserve": 13
+  },
+  "symbolic_anomaly_counts": {
+    "income": 0,
+    "contribution": 6,
+    "reserve": 4
+  },
+  "debts_counts": {
+    "true": 26,
+    "false": 214,
+    "unknown": 13
+  },
+  "temporal_quality": {
+    "prior_or_same_day": 200,
+    "current_proxy_after_response": 40,
+    "unknown": 13
+  },
+  "tier_quality": "current_proxy",
+  "aporte_semantics": "ambiguous",
+  "aporte_semantics_warning": "ultimo_aporte é o último valor registrado; o schema não garante periodicidade mensal. Tier T1 por aporte usa esse proxy até validação.",
+  "financial_source": "fallback_export",
+  "financial_source_counts": {
+    "raw_snapshot": 0,
+    "fallback_export": 253,
+    "missing": 0
+  },
+  "tier_qa": {
+    "actual": {
+      "T1": 67,
+      "T2": 48,
+      "T3": 98,
+      "T4": 27,
+      "unavailable": 13
+    },
+    "distribution_ok": true,
+    "total_respondents": 253,
+    "t1_criteria_overlap": {
+      "n_t1": 67,
+      "income_ge_100k": 21,
+      "reserve_ge_500k": 53,
+      "contribution_ge_30k": 14,
+      "note": "Um mesmo cliente pode atender mais de um critério."
+    }
+  },
+  "coverage_reconciliation": {
+    "mcp_audit": {
+      "with_row": 243,
+      "total_clients": 253,
+      "pct": 96.04743083003953,
+      "note": "default from etapa 4.6"
+    },
+    "pipeline_set": {
+      "financial_rows": 253,
+      "respondents_total": 253,
+      "pct": 100,
+      "financial_source_counts": {
+        "raw_snapshot": 0,
+        "fallback_export": 253,
+        "missing": 0
+      }
+    },
+    "nominal_explanation": "A auditoria MCP (join live) contabilizou 243/253 respondentes com linha em client_financial_data no momento do cruzamento. O pipeline 4.7 usa o export dedicado Set (quality/set_financial_export.json) até o snapshot raw incluir client_financial_data.json — por isso 253/253 no conjunto disponível local, sem alterar valores BASE QV. A diferença nominal (~10 clientes) reflete export batch vs. cruzamento pontual MCP, não recomputação de Tier.",
+    "language_rule": "Enquanto raw_snapshot não cobrir todos os respondentes, reportar \"100% no conjunto financeiro disponível para esta análise\", não \"100% BASE QV snapshot\"."
+  },
+  "limitations": [
+    "Tier derivado localmente — não histórico PIT para Jun–Jul.",
+    "Dados financeiros são snapshot; majoritariamente proxy na data da resposta."
+  ]
+}

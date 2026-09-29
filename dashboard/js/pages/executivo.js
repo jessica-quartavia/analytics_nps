@@ -8,8 +8,10 @@ import {
   hasCsatArtifacts,
   getExecutiveDiagnosis,
   hasExecutiveDiagnosis,
+  getGlobalFilterContext,
 } from '../data/analytics-store.js';
 import { getFilters } from '../filters/global-filters.js';
+import { renderFilterRecorteBanner } from '../filters/filter-context.mjs';
 import { buildExecutiveReading } from '../data/store-core.mjs';
 import {
   formatNps,
@@ -22,6 +24,9 @@ import {
 } from '../utils/format.js';
 import { escapeHtml } from '../utils/escape-html.js';
 import { sectionLead, helpTip, TIPS } from '../ui/help.js';
+import { EXECUTIVE_KPI_LABELS, POPULATION_TIPS } from '../data/population-transparency.mjs';
+import { bindRespondentsDrawer, closeRespondentsDrawer } from '../ui/respondents-drawer.js';
+import { renderExecutivoManagementInsightsSection } from './executivo-management-insights.js';
 
 let charts = [];
 
@@ -131,28 +136,37 @@ function renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle) 
     </div>`;
 }
 
-function renderSampleRow(currentSummary) {
+function renderSampleRow(currentSummary, officialSummary, recorteActive) {
+  const valid = currentSummary?.valid_responses ?? 0;
+  const eligible = officialSummary?.eligible_clients ?? 0;
   const rr =
-    currentSummary?.response_rate != null
-      ? formatPct(currentSummary.response_rate * 100, 1)
+    !recorteActive && officialSummary?.response_rate != null
+      ? formatPct(officialSummary.response_rate * 100, 1)
       : '—';
-  const ci = formatNpsRange(currentSummary?.nps_ci_low, currentSummary?.nps_ci_high);
+  const ci =
+    recorteActive || officialSummary?.nps_ci_low == null
+      ? '—'
+      : formatNpsRange(officialSummary?.nps_ci_low, officialSummary?.nps_ci_high);
+  const rateTip = recorteActive
+    ? 'Taxa de resposta oficial do ciclo — não se aplica ao recorte filtrado.'
+    : POPULATION_TIPS.responseRate(valid, eligible);
   return `
     <div class="metric-context-grid">
-      <div class="metric-context">
-        <div class="metric-context__label">Respostas válidas</div>
+      <div class="metric-context metric-context--with-action">
+        <div class="metric-context__label">${helpTip(EXECUTIVE_KPI_LABELS.validResponses, recorteActive ? 'Respostas no recorte atual.' : TIPS.validResponses)}</div>
         <div class="metric-context__value">${escapeHtml(String(currentSummary?.valid_responses ?? '—'))}</div>
+        <button type="button" class="link-button" id="btn-ver-respondentes">Ver respondentes</button>
       </div>
       <div class="metric-context">
-        <div class="metric-context__label">Base elegível</div>
-        <div class="metric-context__value">${escapeHtml(String(currentSummary?.eligible_clients ?? '—'))}</div>
+        <div class="metric-context__label">${helpTip(EXECUTIVE_KPI_LABELS.clientsWithSend, TIPS.clientsWithSend)}</div>
+        <div class="metric-context__value">${recorteActive ? '—' : escapeHtml(String(officialSummary?.eligible_clients ?? '—'))}</div>
       </div>
-      <div class="metric-context">
-        <div class="metric-context__label">Taxa de resposta</div>
+      <div class="metric-context" title="${escapeHtml(rateTip)}">
+        <div class="metric-context__label">${helpTip(EXECUTIVE_KPI_LABELS.responseRate, rateTip)}</div>
         <div class="metric-context__value">${escapeHtml(rr)}</div>
       </div>
       <div class="metric-context">
-        <div class="metric-context__label">${helpTip('IC95 NPS', TIPS.ic95)}</div>
+        <div class="metric-context__label">${helpTip('IC95 NPS', recorteActive ? 'IC95 só está definido para o ciclo oficial completo.' : TIPS.ic95)}</div>
         <div class="metric-context__value">${escapeHtml(ci)}</div>
       </div>
     </div>`;
@@ -299,20 +313,22 @@ function openDiagnosisDrawer(diagnosis) {
   backdrop?.addEventListener('click', closeDiagnosisDrawer, { once: true });
 }
 
-function renderTotalVsPaired(currentSummary, previousSummary, paired, reading, comparisonText) {
-  const pairedInsight =
-    comparisonText ?? reading.find((l) => l.includes('mesmos clientes') || l.includes('base pareada')) ?? '';
+function renderTotalVsPaired(currentSummary, previousSummary, paired, reading, comparisonText, recorteActive) {
+  const pairedInsight = recorteActive
+    ? ''
+    : comparisonText ?? reading.find((l) => l.includes('mesmos clientes') || l.includes('base pareada')) ?? '';
   return `
     <div class="section-head">
       <h2 class="section-title">Total × mesmos clientes</h2>
-      <p class="section-subtitle">Denominadores distintos — interpretar cada bloco separadamente</p>
-      ${sectionLead('Aqui comparamos o resultado geral com o resultado de quem respondeu nos dois ciclos.')}
+      <p class="section-subtitle">${recorteActive ? 'Recorte atual vs mesmos clientes no recorte (com nota anterior)' : 'Denominadores distintos — interpretar cada bloco separadamente'}</p>
+      ${sectionLead(recorteActive ? 'Com filtros ativos, ambos os blocos usam o mesmo conjunto de clientes do recorte.' : 'Aqui comparamos o resultado geral com o resultado de quem respondeu nos dois ciclos.')}
     </div>
     <div class="compare-hero">
       <div class="compare-hero__col">
-        <div class="compare-hero__title">Base total</div>
+        <div class="compare-hero__title">${recorteActive ? 'Recorte (atual)' : 'Base total'}</div>
         <div class="compare-hero__flow">${escapeHtml(formatNps(previousSummary?.nps))} → ${escapeHtml(formatNps(currentSummary?.nps))}</div>
         <div class="compare-hero__delta">${escapeHtml(formatDeltaPts(currentSummary?.nps, previousSummary?.nps))}</div>
+        ${recorteActive ? `<div class="compare-hero__meta">n = ${escapeHtml(String(currentSummary?.valid_responses ?? 0))}</div>` : ''}
       </div>
       <div class="compare-hero__col">
         <div class="compare-hero__title">Mesmos clientes</div>
@@ -476,25 +492,37 @@ function mountHistoryChart(canvas) {
 export function renderExecutivo(root, ctx = {}) {
   destroyCharts();
   closeDiagnosisDrawer();
+  closeRespondentsDrawer();
   const signal = ctx.signal;
   const filters = getFilters();
+  const filterCtx = getGlobalFilterContext(filters.cycleCode, filters);
   const currentCycle = getCycles().find((c) => c.cycle_code === filters.cycleCode);
-  const currentSummary = getCycleSummary(filters.cycleCode);
+  const officialSummary = filterCtx?.officialSummary ?? getCycleSummary(filters.cycleCode);
+  const currentSummary = filterCtx?.displaySummary ?? officialSummary;
   const prevCycle = getPreviousCycle(filters.cycleCode);
-  const previousSummary = prevCycle ? getCycleSummary(prevCycle.cycle_code) : null;
-  const paired = getPairedCycles(filters.cycleCode);
+  const previousSummary = filterCtx?.displayPrevious ?? (prevCycle ? getCycleSummary(prevCycle.cycle_code) : null);
+  const paired = filterCtx?.recorteActive
+    ? filterCtx.pairedDisplay
+    : getPairedCycles(filters.cycleCode);
+  const recorteActive = filterCtx?.recorteActive ?? false;
   const diagnosis = hasExecutiveDiagnosis(filters.cycleCode)
     ? getExecutiveDiagnosis(filters.cycleCode)
     : null;
 
-  if (!currentSummary) {
+  if (!officialSummary) {
     root.innerHTML = `
       ${renderHero(currentCycle, null)}
       <div class="gd-status" role="status"><p>Resumo indisponível para o ciclo selecionado.</p></div>`;
     return;
   }
 
-  const reading = buildExecutiveReading({ currentSummary, previousSummary, paired });
+  const reading = recorteActive
+    ? []
+    : buildExecutiveReading({
+        currentSummary: officialSummary,
+        previousSummary: prevCycle ? getCycleSummary(prevCycle.cycle_code) : null,
+        paired: getPairedCycles(filters.cycleCode),
+      });
   const stackedSection = previousSummary
     ? `<div class="section-head"><h2 class="section-title">Composição comparada</h2><p class="section-subtitle">Detratores, neutros e promotores — empilhado por ciclo</p></div>
     <article class="chart-card"><div class="chart-wrap"><canvas id="chart-stack" aria-label="Composição NPS empilhada"></canvas></div></article>`
@@ -502,13 +530,15 @@ export function renderExecutivo(root, ctx = {}) {
     <p class="placeholder-note" role="status">Comparativo empilhado disponível a partir do segundo ciclo analítico.</p>`;
 
   root.innerHTML = `
-    ${renderHero(currentCycle, currentSummary)}
+    ${renderHero(currentCycle, officialSummary)}
+    ${renderFilterRecorteBanner(filterCtx)}
     ${renderExecutiveDiagnosisBlock(diagnosis)}
+    ${renderExecutivoManagementInsightsSection()}
     ${renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle)}
-    ${renderSampleRow(currentSummary)}
+    ${renderSampleRow(currentSummary, officialSummary, recorteActive)}
     ${renderCsatComplementary(filters.cycleCode)}
     ${renderComposition(currentSummary)}
-    ${renderTotalVsPaired(currentSummary, previousSummary, paired, reading, diagnosis?.paired?.comparison_text)}
+    ${renderTotalVsPaired(currentSummary, previousSummary, paired, reading, diagnosis?.paired?.comparison_text, recorteActive)}
     <div class="section-head"><h2 class="section-title">Distribuição das notas</h2><p class="section-subtitle">Frequência de cada nota de 0 a 10</p></div>
     <article class="chart-card"><div class="chart-wrap"><canvas id="chart-dist" aria-label="Distribuição das notas"></canvas></div></article>
     ${stackedSection}
@@ -522,7 +552,7 @@ export function renderExecutivo(root, ctx = {}) {
       <ul>${reading.map((l) => `<li>${escapeHtml(l)}</li>`).join('') || '<li>Sem leitura automática para os filtros atuais.</li>'}</ul>
     </div>`
     }
-    ${renderQualityNotes(currentSummary, previousSummary)}
+    ${renderQualityNotes(officialSummary, prevCycle ? getCycleSummary(prevCycle.cycle_code) : null)}
   `;
 
   const opts = signal ? { signal } : undefined;
@@ -531,9 +561,13 @@ export function renderExecutivo(root, ctx = {}) {
     () => openDiagnosisDrawer(diagnosis),
     opts,
   );
+  bindRespondentsDrawer(filters.cycleCode, signal);
   if (signal) {
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeDiagnosisDrawer();
+      if (e.key === 'Escape') {
+        closeDiagnosisDrawer();
+        closeRespondentsDrawer();
+      }
     }, { signal });
   }
 

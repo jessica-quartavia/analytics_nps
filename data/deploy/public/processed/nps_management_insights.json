@@ -1,0 +1,320 @@
+{
+  "meta": {
+    "etapa": "4.8",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "generated_at": "2026-09-29T00:06:04.705Z",
+    "methodology_note": "Consolidação gerencial 4.3–4.7 — sem novas fontes ou hipóteses."
+  },
+  "cross_check": {
+    "ok": true,
+    "errors": []
+  },
+  "insights": [
+    {
+      "id": "A_nps_total_decline",
+      "title": "NPS total vs ciclo anterior",
+      "statement": "Nos dados, o NPS PHARUS Set/2026 (56.1) ficou abaixo de Jun–Jul (68.2).",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 253,
+      "effect": "-12.1 pts",
+      "p_value": null,
+      "quality": "good",
+      "source": [
+        "processed/cycle_summary.json"
+      ],
+      "status": "highlight",
+      "language": "evidence",
+      "detail": null,
+      "analysis_route": "executivo",
+      "analysis_anchor": null
+    },
+    {
+      "id": "B_paired_decline",
+      "title": "Base pareada também piorou",
+      "statement": "Nos dados, entre 81 clientes comparáveis, o NPS pareado caiu -16.0 pts (93.8 → 77.8).",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 81,
+      "effect": "-16.0 pts",
+      "p_value": null,
+      "quality": "good",
+      "source": [
+        "processed/paired_cycles.json"
+      ],
+      "status": "highlight",
+      "language": "evidence",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "paired"
+    },
+    {
+      "id": "C_promotor_neutro",
+      "title": "Principal deterioração na migração",
+      "statement": "Nos dados, a transição mais frequente entre promotores que saíram da zona promotora é Promotor → Neutro (n=12), acima de Promotor → Detrator (n=1).",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 81,
+      "effect": "P→N n=12",
+      "p_value": null,
+      "quality": "good",
+      "source": [
+        "processed/nps_change_drivers.json"
+      ],
+      "status": "highlight",
+      "language": "evidence",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "migration"
+    },
+    {
+      "id": "D_ep_no_association",
+      "title": "Troca de EP e queda",
+      "statement": "Não foi identificada diferença estatisticamente sustentada entre queda e troca de EP entre ciclos (proporção de EP trocado similar).",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 81,
+      "effect": null,
+      "p_value": 1,
+      "quality": "good",
+      "source": [
+        "processed/nps_change_drivers.json"
+      ],
+      "status": "insufficient_evidence",
+      "language": "no_evidence",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "change-drivers"
+    },
+    {
+      "id": "E_meetings_no_robust",
+      "title": "Reuniões e queda",
+      "statement": "Não foi identificada diferença estatisticamente sustentada na mediana de reuniões entre ciclos ao comparar queda vs melhora (Mann-Whitney).",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 30,
+      "effect": "Δ mediana -2",
+      "p_value": 0.26739946743272736,
+      "quality": "good",
+      "source": [
+        "processed/nps_change_drivers.json"
+      ],
+      "status": "insufficient_evidence",
+      "language": "no_evidence",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "change-drivers"
+    },
+    {
+      "id": "F_resultados_more_mechanisms",
+      "title": "Resultados negativo e mecanismos",
+      "statement": "Nos dados, clientes que mencionam Resultados negativamente não têm menos mecanismos; no ciclo atual, apresentam mediana maior e maior concentração em 2+ mecanismos antes da resposta.",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 56,
+      "effect": "mediana 2 vs 1 · 2+ 64% vs 39%",
+      "p_value": 0.0005656080780744865,
+      "quality": "good",
+      "source": [
+        "processed/nps_change_drivers.json"
+      ],
+      "status": "highlight",
+      "language": "evidence",
+      "detail": {
+        "n_negative": 56,
+        "n_others": 197,
+        "median_negative": 2,
+        "median_others": 1,
+        "pct_two_plus_negative": 64.28571428571429,
+        "pct_two_plus_others": 39.08629441624365,
+        "test": "mann_whitney"
+      },
+      "analysis_route": "movimento",
+      "analysis_anchor": "change-drivers"
+    },
+    {
+      "id": "G_resultados_not_tier_concentrated",
+      "title": "Resultados negativo × Tier",
+      "statement": "Não foi identificada concentração estatisticamente sustentada de Resultados negativo em um Tier específico (qui-quadrado).",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 240,
+      "effect": null,
+      "p_value": 0.7353671976479926,
+      "quality": "good",
+      "source": [
+        "processed/nps_financial_profile.json"
+      ],
+      "status": "insufficient_evidence",
+      "language": "no_evidence",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "financial-profile"
+    },
+    {
+      "id": "H_resultados_not_lower_reserve",
+      "title": "Resultados negativo × reserva",
+      "statement": "Não foi identificada diferença estatisticamente sustentada na mediana de reserva entre Resultados negativo e demais.",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 56,
+      "effect": "mediana 200000 vs 148500",
+      "p_value": 0.23563759215416402,
+      "quality": "partial",
+      "source": [
+        "processed/nps_financial_profile.json"
+      ],
+      "status": "insufficient_evidence",
+      "language": "no_evidence",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "financial-profile"
+    },
+    {
+      "id": "I_debts_no_clear_association",
+      "title": "Resultados negativo × débitos",
+      "statement": "Não foi identificada diferença estatisticamente sustentada na proporção com débitos entre Resultados negativo e demais.",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 253,
+      "effect": null,
+      "p_value": 0.46343096807466144,
+      "quality": "good",
+      "source": [
+        "processed/nps_financial_profile.json"
+      ],
+      "status": "insufficient_evidence",
+      "language": "no_evidence",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "financial-profile"
+    },
+    {
+      "id": "J_tier_not_monotonic_nps",
+      "title": "Tier e NPS",
+      "statement": "Nos dados, o NPS varia entre Tiers, mas sem padrão crescente ou decrescente monotônico com capacidade financeira (proxy).",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 253,
+      "effect": "T1 n=67 NPS=49 · T2 69 · T3 53 · T4 67",
+      "p_value": null,
+      "quality": "partial",
+      "source": [
+        "processed/nps_financial_profile.json"
+      ],
+      "status": "context",
+      "language": "evidence",
+      "detail": {
+        "T1": {
+          "n": 67,
+          "nps": 49.25373134328358,
+          "mean_score": 8.238805970149254,
+          "median_score": 10,
+          "pct_promoters": 68.65671641791045,
+          "pct_neutrals": 11.940298507462686,
+          "pct_detractors": 19.402985074626866,
+          "nps_ci_low": 29.850746268656714,
+          "nps_ci_high": 68.65671641791045
+        },
+        "T2": {
+          "n": 48,
+          "nps": 68.75,
+          "mean_score": 9,
+          "median_score": 10,
+          "pct_promoters": 72.91666666666666,
+          "pct_neutrals": 22.916666666666664,
+          "pct_detractors": 4.166666666666666,
+          "nps_ci_low": 52.083333333333336,
+          "nps_ci_high": 83.33333333333334
+        },
+        "T3": {
+          "n": 98,
+          "nps": 53.06122448979592,
+          "mean_score": 8.418367346938776,
+          "median_score": 9,
+          "pct_promoters": 67.3469387755102,
+          "pct_neutrals": 18.367346938775512,
+          "pct_detractors": 14.285714285714285,
+          "nps_ci_low": 38.775510204081634,
+          "nps_ci_high": 67.3469387755102
+        },
+        "T4": {
+          "n": 27,
+          "nps": 66.66666666666666,
+          "mean_score": 8.851851851851851,
+          "median_score": 10,
+          "pct_promoters": 70.37037037037037,
+          "pct_neutrals": 25.925925925925924,
+          "pct_detractors": 3.7037037037037033,
+          "nps_ci_low": 44.44444444444444,
+          "nps_ci_high": 85.18518518518519
+        },
+        "unavailable": {
+          "n": 13,
+          "nps": 46.15384615384615,
+          "mean_score": 8.23076923076923,
+          "median_score": 9,
+          "pct_promoters": 61.53846153846154,
+          "pct_neutrals": 23.076923076923077,
+          "pct_detractors": 15.384615384615385,
+          "nps_ci_low": 0,
+          "nps_ci_high": 84.61538461538461
+        }
+      },
+      "analysis_route": "movimento",
+      "analysis_anchor": "financial-profile"
+    },
+    {
+      "id": "K_aporte_distribution_context",
+      "title": "Aporte (campo ambíguo)",
+      "statement": "Foi identificada diferença de distribuição do campo de aporte entre Resultados negativo e demais, mas a semântica de ultimo_aporte ainda precisa ser validada — não usar como insight principal.",
+      "scope": "NPS-2026-SET-PHARUS",
+      "n": 56,
+      "effect": "medianas 5000 vs 5000 (IQR distintos)",
+      "p_value": 0.0145664002111634,
+      "quality": "partial",
+      "source": [
+        "processed/nps_financial_profile.json"
+      ],
+      "status": "context",
+      "language": "hypothesis",
+      "detail": null,
+      "analysis_route": "movimento",
+      "analysis_anchor": "financial-profile"
+    }
+  ],
+  "executive_cards": [
+    {
+      "card_id": "exec_paired_decline",
+      "title": "Queda também na base comparável",
+      "statement": "A queda de NPS também aparece entre clientes que responderam nos dois ciclos (base pareada), não apenas no total do ciclo.",
+      "insight_id": "B_paired_decline",
+      "analysis_route": "movimento",
+      "analysis_anchor": "paired"
+    },
+    {
+      "card_id": "exec_promotor_neutro",
+      "title": "Principal deterioração: Promotor → Neutro",
+      "statement": "A maior parte da saída da zona promotora foi para neutro, não para detrator.",
+      "insight_id": "C_promotor_neutro",
+      "analysis_route": "movimento",
+      "analysis_anchor": "migration"
+    },
+    {
+      "card_id": "exec_resultados_mechanisms",
+      "title": "Resultados e mecanismos",
+      "statement": "A insatisfação com Resultados não se concentra em clientes com menos mecanismos; no ciclo atual, quem menciona o tema tende a ter mais mecanismos implementados.",
+      "insight_id": "F_resultados_more_mechanisms",
+      "analysis_route": "movimento",
+      "analysis_anchor": "change-drivers"
+    },
+    {
+      "card_id": "exec_tier_not_explanation",
+      "title": "Tier não explica sozinho",
+      "statement": "Tier e capacidade financeira (proxy) não isolam a insatisfação com Resultados nem explicam monotonicamente o NPS.",
+      "insight_id": "G_resultados_not_tier_concentrated",
+      "analysis_route": "movimento",
+      "analysis_anchor": "financial-profile"
+    }
+  ],
+  "language_legend": {
+    "evidence": "Nos dados…",
+    "hypothesis": "Pode indicar…",
+    "no_evidence": "Não foi identificada diferença estatisticamente sustentada…"
+  },
+  "quality_gate_legend": {
+    "highlight": "Boa cobertura, n adequado, efeito relevante, proxy não dominante",
+    "context": "Proxy ou limitação moderada",
+    "insufficient_evidence": "n pequeno, cobertura baixa, p sem suporte ou fonte partial"
+  }
+}

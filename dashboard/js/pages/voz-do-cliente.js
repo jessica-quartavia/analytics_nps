@@ -9,10 +9,13 @@ import {
   getCycles,
   getResponses,
   getDataState,
+  getTopicFilterOptions,
 } from '../data/analytics-store.js';
-import { getFilters, setFilter, setFilters } from '../filters/global-filters.js';
+import { getFilters, setFilter, setFilters, getEpOptions } from '../filters/global-filters.js';
 import { formatNps, formatPct, formatDate, cycleStatusLabel } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
+import { drawerShell, drawerMetaGrid, drawerTopicChips, drawerQaBlock } from '../ui/drawer-layout.mjs';
+import { methodologyOpenButton } from '../ui/methodology-drawer.js';
 
 let valenceChart = null;
 let tableState = { page: 1, pageSize: 25 };
@@ -119,7 +122,15 @@ function renderMatrix(entries) {
   return `
     <div class="table-scroll">
       <table class="data-table voc-matrix" id="voc-matrix">
-        <thead><tr><th scope="col">Tema</th>${valences.map((v) => `<th class="num" scope="col">${escapeHtml(v)}</th>`).join('')}</tr></thead>
+        <thead><tr><th scope="col">Tema</th>${valences
+          .map((v) => {
+            const tip =
+              v === 'Neutra'
+                ? 'Avalia se o comentário sobre aquele tema foi positivo, neutro ou negativo. É independente da categoria NPS.'
+                : '';
+            return `<th class="num" scope="col">${escapeHtml(v)}${tip ? ` ${valenceInfoIcon(tip)}` : ''}</th>`;
+          })
+          .join('')}</tr></thead>
         <tbody>
           ${active
             .map((t) => {
@@ -209,35 +220,95 @@ function paginateRows(rows, page, pageSize) {
   return { slice: rows.slice(start, start + pageSize), page: p, pages, total };
 }
 
-function renderCommentsTable(rows, page, pageSize) {
-  const { slice, page: p, pages, total } = paginateRows(rows, page, pageSize);
+const VALENCE_HELP =
+  'A valência é atribuída ao trecho do comentário relacionado a cada tema, e não à nota NPS do cliente. Por isso, um Promotor pode mencionar um tema negativamente e um Detrator pode elogiar algum aspecto específico.';
+
+function valenceInfoIcon(title) {
+  return `<span class="info-tip" tabindex="0" aria-label="${escapeAttr(title)}" title="${escapeAttr(title)}">ⓘ</span>`;
+}
+
+function renderTopicChipsCell(topics, maxVisible = 2) {
+  if (!topics?.length) return '<span class="note-muted">—</span>';
+  const visible = topics.slice(0, maxVisible);
+  const rest = topics.length - visible.length;
+  let html = visible
+    .map(
+      (t) =>
+        `<span class="topic-chip topic-chip--inline topic-chip--${escapeAttr(t.valence ?? 'Neutra')}"><span class="topic-chip__name">${escapeHtml(t.topic)}</span><span class="topic-chip__valence">${escapeHtml(t.valence)}</span></span>`,
+    )
+    .join('');
+  if (rest > 0) html += `<span class="note-muted">+${rest} temas</span>`;
+  return html;
+}
+
+function renderCommentsToolbar(filters, topicOptions) {
   return `
+    <div class="voc-comments-toolbar drawer-filters">
+      <input class="text-input" id="voc-comments-search" type="search" placeholder="Buscar cliente" value="${escapeAttr(filters.search ?? '')}" aria-label="Buscar cliente" />
+      <select class="select-input" id="voc-comments-ep" aria-label="EP"><option value="">Todos EP</option></select>
+      <select class="select-input" id="voc-comments-category" aria-label="Categoria">
+        <option value="">Todas categorias</option>
+        ${['Promotor', 'Neutro', 'Detrator'].map((c) => `<option value="${c}" ${filters.category === c ? 'selected' : ''}>${escapeHtml(c)}</option>`).join('')}
+      </select>
+      <select class="select-input" id="voc-comments-topic" aria-label="Tema">
+        <option value="">Todos temas</option>
+        ${topicOptions.map((t) => `<option value="${escapeAttr(t)}" ${filters.topic === t ? 'selected' : ''}>${escapeHtml(t)}</option>`).join('')}
+      </select>
+      <select class="select-input" id="voc-comments-valence" aria-label="Valência">
+        <option value="">Todas valências</option>
+        ${['Positiva', 'Neutra', 'Negativa'].map((v) => `<option value="${v}" ${filters.valence === v ? 'selected' : ''}>${escapeHtml(v)}</option>`).join('')}
+      </select>
+    </div>`;
+}
+
+function renderCommentsTable(rows, page, pageSize, meta = {}) {
+  const { slice, page: p, pages, total } = paginateRows(rows, page, pageSize);
+  const classCount = rows.reduce((acc, r) => acc + (r.classification_count ?? r.topics?.length ?? 0), 0);
+  const countLabel = `${total} clientes · ${classCount} temas classificados`;
+  return `
+    ${meta.toolbar ?? ''}
+    <p class="note-muted voc-comments-count">${escapeHtml(countLabel)}</p>
     <div class="table-scroll" id="voc-comments-host">
-      <table class="data-table" id="voc-comments-table">
+      <table class="data-table voc-comments-table" id="voc-comments-table">
         <thead>
           <tr>
-            <th scope="col">Cliente</th><th scope="col">EP</th><th class="num" scope="col">Nota</th><th scope="col">Categoria</th>
-            <th scope="col">Tema</th><th scope="col">Valência</th><th scope="col">Comentário</th><th scope="col">Ciclo</th>
+            <th scope="col" class="voc-col-client">Cliente</th>
+            <th scope="col" class="voc-col-ep">EP</th>
+            <th class="num voc-col-score" scope="col">Nota</th>
+            <th scope="col" class="voc-col-cat">Categoria</th>
+            <th scope="col" class="voc-col-themes">Temas ${valenceInfoIcon(VALENCE_HELP)}</th>
+            <th scope="col" class="voc-col-cycle">Ciclo</th>
+            <th scope="col" class="voc-col-action">Ação</th>
           </tr>
         </thead>
         <tbody>
           ${slice
             .map(
               (r) => `
-            <tr data-response-id="${escapeAttr(r.response_id)}" class="voc-comment-row">
-              <td>${escapeHtml(r.client_name ?? '—')}</td>
+            <tr data-response-id="${escapeAttr(r.response_id)}" class="voc-comment-row voc-comment-row--clickable" tabindex="0" role="button" aria-label="Ver resposta de ${escapeAttr(r.client_name ?? 'cliente')}">
+              <td class="voc-comment-row__client">${escapeHtml(r.client_name ?? '—')}</td>
               <td>${escapeHtml(r.ep_name ?? '—')}</td>
               <td class="num">${escapeHtml(String(r.score ?? '—'))}</td>
               <td>${escapeHtml(r.nps_category ?? '—')}</td>
-              <td>${escapeHtml(r.topic)}</td>
-              <td>${escapeHtml(r.valence)}</td>
-              <td class="voc-comment-snippet">${escapeHtml((r.comment ?? '').slice(0, 120))}${(r.comment?.length ?? 0) > 120 ? '…' : ''}</td>
+              <td class="voc-col-themes">${renderTopicChipsCell(r.topics)}</td>
               <td>${escapeHtml(r.cycle_name ?? '—')}</td>
+              <td><button type="button" class="btn btn--ghost btn--sm voc-open-response" data-response-id="${escapeAttr(r.response_id)}" aria-label="Ver resposta">↗</button></td>
             </tr>`,
             )
             .join('')}
         </tbody>
       </table>
+    </div>
+    <div class="voc-comments-cards">
+      ${slice
+        .map(
+          (r) => `<article class="voc-comment-card voc-comment-row--clickable" data-response-id="${escapeAttr(r.response_id)}" tabindex="0" role="button">
+          <h4>${escapeHtml(r.client_name ?? '—')}</h4>
+          <p class="note-muted">${escapeHtml(r.ep_name ?? '—')} · Nota ${r.score ?? '—'} · ${escapeHtml(r.nps_category ?? '—')}</p>
+          <div>${renderTopicChipsCell(r.topics, 4)}</div>
+        </article>`,
+        )
+        .join('')}
     </div>
     <div class="table-pagination">
       <label>Por página
@@ -245,9 +316,9 @@ function renderCommentsTable(rows, page, pageSize) {
           ${[25, 50, 100].map((n) => `<option value="${n}" ${n === pageSize ? 'selected' : ''}>${n}</option>`).join('')}
         </select>
       </label>
-      <span>${total} linha(s) · página ${p}/${pages}</span>
-      <button type="button" class="btn-ghost" id="voc-prev" ${p <= 1 ? 'disabled' : ''}>Anterior</button>
-      <button type="button" class="btn-ghost" id="voc-next" ${p >= pages ? 'disabled' : ''}>Próxima</button>
+      <span>Página ${p}/${pages}</span>
+      <button type="button" class="btn btn--ghost" id="voc-prev" ${p <= 1 ? 'disabled' : ''}>Anterior</button>
+      <button type="button" class="btn btn--ghost" id="voc-next" ${p >= pages ? 'disabled' : ''}>Próxima</button>
     </div>`;
 }
 
@@ -306,16 +377,48 @@ function openVocDrawer(responseId, cycleCode) {
   const drawer = document.getElementById('voc-drawer');
   if (!drawer) return;
 
-  drawer.innerHTML = `
-    <button type="button" class="drawer__close" id="voc-drawer-close" aria-label="Fechar">×</button>
-    <h2>${escapeHtml(r.client_name ?? 'Cliente')}</h2>
-    <p>EP: ${escapeHtml(r.ep_name ?? '—')}</p>
-    <p>Ciclo: ${escapeHtml(r.analytical_cycle_name ?? '—')}</p>
-    <p>Nota: ${escapeHtml(String(r.score ?? '—'))} · ${escapeHtml(r.nps_category ?? '—')}</p>
-    <p class="drawer-comment">${escapeHtml(r.comment ?? '')}</p>
-    <h3>Temas</h3>
-    <ul>${topics.map((t) => `<li>${escapeHtml(t.topic)} — ${escapeHtml(t.valence)} <span class="note-muted">conf. ${t.confidence ?? '—'} · ${escapeHtml(t.classification_source ?? '')}${t.reviewed ? ' · revisado' : ''}</span></li>`).join('')}</ul>
-  `;
+  const commentBlocks = (r.comment ?? '')
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .map((block) => {
+      const lines = block.split('\n');
+      if (lines.length >= 2) {
+        return drawerQaBlock(lines[0], lines.slice(1).join('\n'));
+      }
+      return `<div class="drawer-comment-block"><p class="drawer-qa__a">${escapeHtml(block)}</p></div>`;
+    })
+    .join('');
+
+  drawer.innerHTML = drawerShell({
+    title: r.client_name ?? 'Cliente',
+    closeId: 'voc-drawer-close',
+    bodyHtml: `
+      ${drawerMetaGrid([
+        { label: 'EP', value: r.ep_name ?? '—' },
+        { label: 'Ciclo', value: r.analytical_cycle_name ?? '—' },
+        { label: 'Nota', value: `${r.score ?? '—'} · ${r.nps_category ?? '—'}` },
+      ])}
+      <div class="drawer-section">
+        <h3 class="drawer-section-title">Resposta NPS completa</h3>
+        ${commentBlocks || '<p class="note-muted">Sem comentário.</p>'}
+      </div>
+      <div class="drawer-section">
+        <h3 class="drawer-section-title">Temas identificados ${valenceInfoIcon(VALENCE_HELP)} ${methodologyOpenButton('valencia', 'Metodologia')}</h3>
+        <p class="note-muted voc-valence-help">${escapeHtml(VALENCE_HELP)}</p>
+        <ul class="voc-theme-list">${topics
+          .map(
+            (t) =>
+              `<li><strong>${escapeHtml(t.topic)}</strong> <span class="topic-chip__valence topic-chip__valence--${escapeAttr(t.valence)}">${escapeHtml(t.valence)}</span></li>`,
+          )
+          .join('')}</ul>
+      </div>
+      <details class="drawer-section voc-classification-how">
+        <summary>Como essa classificação foi feita?</summary>
+        <p class="note-muted">Cada tema é detectado por palavras-chave no trecho da resposta; a valência (Positiva, Neutra ou Negativa) vem do texto da cláusula e da pergunta do formulário — não da nota NPS. Fonte: rules_v1 (parcial e auditável).</p>
+      </details>`,
+  });
+  drawer.classList.add('drawer--wide');
 
   backdrop?.classList.add('is-open');
   drawer.classList.add('is-open');
@@ -347,13 +450,69 @@ function bindInteractions(host, cycleCode, entries, filters, signal) {
     );
   });
 
-  host.querySelectorAll('.voc-comment-row').forEach((row) => {
-    row.addEventListener(
+  const openRow = (responseId) => {
+    if (responseId) openVocDrawer(responseId, cycleCode);
+  };
+
+  host.querySelectorAll('.voc-open-response').forEach((btn) => {
+    btn.addEventListener(
       'click',
-      () => openVocDrawer(row.dataset.responseId, cycleCode),
+      (e) => {
+        e.stopPropagation();
+        openRow(btn.dataset.responseId);
+      },
       { signal },
     );
   });
+
+  host.querySelectorAll('.voc-comment-row--clickable').forEach((row) => {
+    row.addEventListener(
+      'click',
+      (e) => {
+        if (e.target.closest('button, a, input, select, label')) return;
+        openRow(row.dataset.responseId);
+      },
+      { signal },
+    );
+    row.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openRow(row.dataset.responseId);
+        }
+      },
+      { signal },
+    );
+  });
+
+  host.querySelector('#voc-comments-search')?.addEventListener(
+    'change',
+    (e) => {
+      setFilter('search', e.target.value);
+    },
+    { signal },
+  );
+  host.querySelector('#voc-comments-topic')?.addEventListener(
+    'change',
+    (e) => setFilter('topic', e.target.value),
+    { signal },
+  );
+  host.querySelector('#voc-comments-valence')?.addEventListener(
+    'change',
+    (e) => setFilter('valence', e.target.value),
+    { signal },
+  );
+  host.querySelector('#voc-comments-category')?.addEventListener(
+    'change',
+    (e) => setFilter('category', e.target.value),
+    { signal },
+  );
+  host.querySelector('#voc-comments-ep')?.addEventListener(
+    'change',
+    (e) => setFilter('ep', e.target.value),
+    { signal },
+  );
 
   host.querySelector('#voc-prev')?.addEventListener('click', () => {
     tableState.page = Math.max(1, tableState.page - 1);
@@ -390,7 +549,7 @@ export function renderVozDoCliente(host, { signal } = {}) {
 
   const entries = getTopicSummary(cycleCode);
   const meta = getVocClassificationMeta();
-  const kpis = getVocPageKpis(cycleCode);
+  const kpis = getVocPageKpis(cycleCode, filters);
   const tableFilters = {
     topic: filters.topic,
     valence: filters.valence,
@@ -399,6 +558,12 @@ export function renderVozDoCliente(host, { signal } = {}) {
     search: filters.search,
   };
   const commentRows = getVocCommentTableRows(cycleCode, tableFilters);
+  const topicOptions = getTopicFilterOptions(cycleCode);
+  const epOptions = getEpOptions(getResponses(cycleCode));
+  const toolbar = renderCommentsToolbar(tableFilters, topicOptions).replace(
+    '<option value="">Todos EP</option>',
+    `<option value="">Todos EP</option>${epOptions.map((ep) => `<option value="${escapeAttr(ep)}" ${filters.ep === ep ? 'selected' : ''}>${escapeHtml(ep)}</option>`).join('')}`,
+  );
   const sortMode = filters.vocSort || 'volume';
 
   host.innerHTML = `
@@ -422,6 +587,11 @@ export function renderVozDoCliente(host, { signal } = {}) {
     <section class="section-block">
       <h2 class="section-title">Matriz tema × valência</h2>
       ${renderMatrix(entries)}
+      ${
+        filters.topic && filters.valence
+          ? `<p class="voc-profile-link"><a class="btn btn--ghost" href="#/jornada-perfil?tema=${encodeURIComponent(filters.topic)}&valencia=${encodeURIComponent(filters.valence)}#jornada-temas">Ver perfil desses clientes →</a></p>`
+          : '<p class="note-muted">Selecione uma célula da matriz (ou use os filtros Tema/Valência) para cruzar com perfil e jornada.</p>'
+      }
     </section>
     <section class="section-block">
       <h2 class="section-title">Como os temas mudaram</h2>
@@ -429,7 +599,7 @@ export function renderVozDoCliente(host, { signal } = {}) {
     </section>
     <section class="section-block">
       <h2 class="section-title">Comentários classificados</h2>
-      ${renderCommentsTable(commentRows, tableState.page, tableState.pageSize)}
+      ${renderCommentsTable(commentRows, tableState.page, tableState.pageSize, { toolbar })}
     </section>
     ${renderQuality(meta)}
   `;

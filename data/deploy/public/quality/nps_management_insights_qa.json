@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-09-29T00:06:04.705Z",
+  "cycle_code": "NPS-2026-SET-PHARUS",
+  "cross_check": {
+    "ok": true,
+    "errors": []
+  },
+  "insight_count": 11,
+  "executive_card_count": 4,
+  "highlights": [
+    "A_nps_total_decline",
+    "B_paired_decline",
+    "C_promotor_neutro",
+    "F_resultados_more_mechanisms"
+  ],
+  "failed": false
+}

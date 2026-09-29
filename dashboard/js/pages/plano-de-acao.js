@@ -7,7 +7,7 @@ import {
   getTopicFilterOptions,
   patchLocalActionTracking,
 } from '../data/analytics-store.js';
-import { getFilters, setFilter } from '../filters/global-filters.js';
+import { getFilters } from '../filters/global-filters.js';
 import {
   filterActionPlanRows,
   computeActionPlanKpis,
@@ -34,6 +34,7 @@ let tableState = {
   sortDir: 'desc',
   actionStatus: '',
   search: '',
+  priorityFilter: '',
 };
 let tableController = null;
 let selectedRow = null;
@@ -48,16 +49,23 @@ function priorityPill(p) {
   return `<span class="priority-pill priority-pill--${escapeAttr(p)}">${escapeHtml(p)}</span>`;
 }
 
+function qualitativeBadge(row) {
+  if (!row.qualitative_signal) return '';
+  return `<span class="qualitative-badge">${helpTip('Sinal qualitativo', TIPS.sinalQualitativo)}</span>`;
+}
+
 function epBadge(confidence) {
   if (confidence !== 'low') return '';
   return '<span class="ep-badge" title="EP reconstruído (proxy).">EP aproximado</span>';
 }
 
-function buildFilteredRows(cycleCode, filters) {
+function buildFilteredRows(cycleCode, filters, { includePriority = true } = {}) {
   const all = getActionPlanRows(cycleCode);
-  return filterActionPlanRows(all, filters, {
+  const planFilters = { ...filters, priority: '' };
+  return filterActionPlanRows(all, planFilters, {
     actionStatus: tableState.actionStatus,
     search: tableState.search,
+    priority: includePriority && tableState.priorityFilter ? tableState.priorityFilter : '',
   });
 }
 
@@ -89,6 +97,24 @@ function renderFunnel(kpis, total) {
     </div>`;
 }
 
+function renderPrioritySegments(allRows) {
+  const kpis = computeActionPlanKpis(allRows);
+  const total = allRows.length;
+  const items = [
+    ...PRIORITIES.map((p) => ({ key: p, label: p, count: kpis[p] ?? 0 })),
+    { key: '', label: 'Todas', count: total },
+  ];
+  const active = tableState.priorityFilter || '';
+  return `<div class="action-priority-segment" id="action-priority-chips" role="group" aria-label="Filtrar prioridade na fila nominal">
+    ${items
+      .map(
+        ({ key, label, count }) =>
+          `<button type="button" class="action-priority-segment__btn ${active === key ? 'is-active' : ''}" data-priority="${escapeAttr(key)}">${escapeHtml(label)} <span class="action-priority-segment__count">${count}</span></button>`,
+      )
+      .join('')}
+  </div>`;
+}
+
 function renderTable(rows) {
   const sorted = sortActionPlanRows(rows, tableState.sortKey, tableState.sortDir);
   const total = sorted.length;
@@ -102,7 +128,7 @@ function renderTable(rows) {
         .map(
           (r) => `
       <tr class="action-row" data-client-id="${escapeAttr(r.client_id)}" data-cycle="${escapeAttr(r.cycle_code)}" tabindex="0">
-        <td>${priorityPill(r.priority)}</td>
+        <td class="col-priority">${priorityPill(r.priority)}${qualitativeBadge(r)}</td>
         <td class="col-client">${escapeHtml(r.client_name ?? '—')}</td>
         <td class="col-ep">${escapeHtml(r.ep_name ?? '—')}${epBadge(r.ep_resolution_confidence)}</td>
         <td class="num">${r.previous_score ?? '—'}</td>
@@ -117,7 +143,11 @@ function renderTable(rows) {
       </tr>`,
         )
         .join('')
-    : '<tr><td colspan="12" class="placeholder-note">Nenhum cliente neste recorte.</td></tr>';
+    : `<tr><td colspan="12" class="placeholder-note">${escapeHtml(
+        tableState.priorityFilter
+          ? `Nenhum cliente classificado como ${tableState.priorityFilter} neste ciclo.`
+          : 'Nenhum cliente neste recorte.',
+      )}</td></tr>`;
 
   return `
     <div class="table-toolbar">
@@ -174,7 +204,8 @@ function openActionDrawer(row) {
   const backdrop = document.getElementById('action-drawer-backdrop');
   if (!drawer) return;
 
-  const rules = (row.priority_rules ?? []).map((r) => `<li>${escapeHtml(r)}</li>`).join('');
+  const priorityWhy = (row.priority_rules ?? []).map((r) => `<li>${escapeHtml(r)}</li>`).join('');
+  const otherSignals = (row.other_signals ?? []).map((r) => `<li>${escapeHtml(r)}</li>`).join('');
   const topics = (row.topics ?? [])
     .map((t) => `<li>${escapeHtml(t.topic)} · ${escapeHtml(t.valence)}</li>`)
     .join('');
@@ -195,9 +226,14 @@ function openActionDrawer(row) {
         <li>Migração: ${escapeHtml(row.nps_migration ?? '—')}</li>
         <li>Evolução: ${escapeHtml(row.evolution_status ?? '—')}</li>
       </ul>
-      <h3>Por que entrou na fila</h3>
-      <ul class="drawer-list">${rules || `<li>${escapeHtml(row.reason ?? '—')}</li>`}</ul>
-      <p><strong>Prioridade resultante:</strong> ${priorityPill(row.priority)}</p>
+      <h3>Por que está nesta prioridade</h3>
+      <ul class="drawer-list">${priorityWhy || `<li>${escapeHtml(row.reason ?? '—')}</li>`}</ul>
+      <p><strong>Prioridade resultante:</strong> ${priorityPill(row.priority)}${qualitativeBadge(row)}</p>
+      ${
+        otherSignals
+          ? `<h3>Outros sinais observados</h3><ul class="drawer-list">${otherSignals}</ul>`
+          : ''
+      }
       <h3>Comentário</h3>
       <p class="drawer-comment">${escapeHtml(row.comment ?? 'Sem comentário.')}</p>
       <h3>Temas</h3>
@@ -216,21 +252,23 @@ function openActionDrawer(row) {
       }
       ${quality ? `<h3>Qualidade</h3><ul class="drawer-list">${quality}</ul>` : ''}
       <h3>Acompanhamento operacional</h3>
-      <form id="action-tracking-form">
-        <label>Status
-          <select class="select-input" name="status" id="track-status">
-            ${STATUS_OPTIONS.map((s) => `<option value="${escapeAttr(s)}" ${row.status === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
-          </select>
-        </label>
-        <label>Responsável
-          <input class="text-input" name="owner" id="track-owner" value="${escapeAttr(row.owner ?? '')}" />
-        </label>
-        <label>Notas
-          <textarea class="text-input" name="action_notes" id="track-notes" rows="4">${escapeHtml(row.action_notes ?? '')}</textarea>
-        </label>
-        <p class="note-muted" id="track-save-hint">Alterações são salvas localmente em data/operational/action_tracking.json (servidor dev).</p>
-        <button type="submit" class="btn btn--primary">Salvar acompanhamento</button>
-      </form>
+      <div class="action-tracking action-tracking--disabled" aria-disabled="true">
+        <p class="note-muted">Funcionalidade operacional em implementação.</p>
+        <form id="action-tracking-form">
+          <label>Status
+            <select class="select-input" name="status" id="track-status" disabled>
+              ${STATUS_OPTIONS.map((s) => `<option value="${escapeAttr(s)}" ${row.status === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
+            </select>
+          </label>
+          <label>Responsável
+            <input class="text-input" name="owner" id="track-owner" value="${escapeAttr(row.owner ?? '')}" disabled />
+          </label>
+          <label>Notas
+            <textarea class="text-input" name="action_notes" id="track-notes" rows="4" disabled>${escapeHtml(row.action_notes ?? '')}</textarea>
+          </label>
+          <button type="button" class="btn btn--primary" disabled tabindex="-1">Salvar acompanhamento</button>
+        </form>
+      </div>
     </div>`;
 
   drawer.classList.add('is-open');
@@ -372,36 +410,39 @@ export function renderPlanoDeAcao(root, ctx = {}) {
   const dataState = getDataState();
   const cutoff = formatDate(summary?.data_cutoff ?? dataState?.dataCutoff);
   const allRows = getActionPlanRows(cycleCode);
-  const filtered = buildFilteredRows(cycleCode, filters);
-  const kpis = computeActionPlanKpis(filtered);
+  const queueKpis = computeActionPlanKpis(allRows);
   const meta = getActionPlanMeta(cycleCode);
+
+  function bindPriorityChips(host, chipSignal, onRefresh) {
+    if (!host) return;
+    const chipOpts = chipSignal ? { signal: chipSignal } : undefined;
+    host.querySelectorAll('[data-priority]').forEach((btn) => {
+      btn.addEventListener(
+        'click',
+        () => {
+          tableState.priorityFilter = btn.dataset.priority ?? '';
+          tableState.page = 1;
+          onRefresh();
+        },
+        chipOpts,
+      );
+    });
+  }
 
   const rerenderTable = () => {
     const tableSignal = beginTableBindings();
     const f = getFilters();
     const rows = buildFilteredRows(f.cycleCode, f);
     const host = document.getElementById('action-table-host');
-    const k = computeActionPlanKpis(rows);
     if (host) {
       host.innerHTML = renderTable(rows);
       bindTable(rows, tableSignal, rerenderTable);
       bindDrawer(tableSignal, rerenderTable);
     }
-    const kpiHost = document.getElementById('action-kpi-host');
-    if (kpiHost) {
-      kpiHost.innerHTML = `
-        <div class="metric-compact-grid">
-          <article class="metric-compact"><div class="metric-compact__label">Alta prioridade</div><div class="metric-compact__value">${k.Alta}</div></article>
-          <article class="metric-compact"><div class="metric-compact__label">Média prioridade</div><div class="metric-compact__value">${k.Média}</div></article>
-          <article class="metric-compact"><div class="metric-compact__label">Investigar</div><div class="metric-compact__value">${k.Investigar}</div></article>
-          <article class="metric-compact"><div class="metric-compact__label">Aprendizado</div><div class="metric-compact__value">${k.Aprendizado}</div></article>
-          <article class="metric-compact"><div class="metric-compact__label">Ação pendente</div><div class="metric-compact__value">${k.pending}</div></article>
-        </div>`;
-    }
-    const funnelHost = document.getElementById('action-funnel-host');
-    if (funnelHost) {
-      const total = rows.length || 1;
-      funnelHost.innerHTML = renderFunnel(k, total);
+    const chipsHost = document.getElementById('action-priority-chips');
+    if (chipsHost) {
+      chipsHost.outerHTML = renderPrioritySegments(getActionPlanRows(f.cycleCode));
+      bindPriorityChips(document.getElementById('action-priority-chips'), tableSignal, rerenderTable);
     }
   };
 
@@ -419,23 +460,17 @@ export function renderPlanoDeAcao(root, ctx = {}) {
     </header>
     <div id="action-kpi-host">
       <div class="metric-compact-grid">
-        <article class="metric-compact"><div class="metric-compact__label">Alta prioridade</div><div class="metric-compact__value">${kpis.Alta}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Média prioridade</div><div class="metric-compact__value">${kpis.Média}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Investigar</div><div class="metric-compact__value">${kpis.Investigar}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Aprendizado</div><div class="metric-compact__value">${kpis.Aprendizado}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Ação pendente</div><div class="metric-compact__value">${kpis.pending}</div></article>
+        <article class="metric-compact"><div class="metric-compact__label">Alta prioridade</div><div class="metric-compact__value">${queueKpis.Alta}</div></article>
+        <article class="metric-compact"><div class="metric-compact__label">Média prioridade</div><div class="metric-compact__value">${queueKpis.Média}</div></article>
+        <article class="metric-compact"><div class="metric-compact__label">Investigar</div><div class="metric-compact__value">${queueKpis.Investigar}</div></article>
+        <article class="metric-compact"><div class="metric-compact__label">Aprendizado</div><div class="metric-compact__value">${queueKpis.Aprendizado}</div></article>
+        <article class="metric-compact"><div class="metric-compact__label">Ação pendente</div><div class="metric-compact__value">${queueKpis.pending}</div></article>
       </div>
     </div>
     <h2 class="section-title">Composição da fila</h2>
-    <div id="action-funnel-host">${renderFunnel(kpis, filtered.length || 1)}</div>
-    ${renderInvestigateSection(kpis)}
-    <div class="action-chips" id="action-priority-chips" role="group" aria-label="Filtrar prioridade">
-      ${PRIORITIES.map(
-        (p) =>
-          `<button type="button" class="chip ${filters.priority === p ? 'is-active' : ''}" data-priority="${escapeAttr(p)}">${escapeHtml(p)}</button>`,
-      ).join('')}
-      <button type="button" class="chip ${!filters.priority ? 'is-active' : ''}" data-priority="">Todas</button>
-    </div>
+    <div id="action-funnel-host">${renderFunnel(queueKpis, allRows.length || 1)}</div>
+    ${renderInvestigateSection(queueKpis)}
+    ${renderPrioritySegments(allRows)}
     <h2 class="section-title">Fila nominal</h2>
     <div id="action-table-host"></div>
     <div class="quality-box">
@@ -448,14 +483,7 @@ export function renderPlanoDeAcao(root, ctx = {}) {
     </div>
   `;
 
-  const opts = signal ? { signal } : undefined;
-  document.querySelectorAll('#action-priority-chips [data-priority]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      setFilter('priority', btn.dataset.priority);
-      tableState.page = 1;
-      renderPlanoDeAcao(root, ctx);
-    }, opts);
-  });
+  bindPriorityChips(document.getElementById('action-priority-chips'), signal, rerenderTable);
 
   if (signal) {
     document.addEventListener('keydown', (e) => {

@@ -16,13 +16,16 @@ import {
   getResponseTopicsForCycle,
   getTopicOptions,
   buildVocCommentRows,
+  buildVocGroupedCommentRows,
   sortTopicSummaries,
   computeVocPageKpis,
+  computeVocPageKpisForFilters,
   buildClientSatMap,
   getCsatSummaryForCycle,
   getActionQueueEnrichedForCycle,
   mergeActionTrackingIntoQueue,
 } from './store-core.mjs';
+import { buildGlobalFilterContext } from '../filters/filter-context.mjs';
 
 let state = null;
 let summaryMap = null;
@@ -48,6 +51,17 @@ const PATHS = {
   actionQueueEnriched: '/data/processed/action_queue_enriched.json',
   actionTracking: '/data/operational/action_tracking.json',
   executiveDiagnosis: '/data/processed/executive_diagnosis.json',
+  populationAudit: '/data/quality/nps_population_audit.json',
+  npsClientMilestones: '/data/processed/nps_client_milestones.json',
+  npsMilestonesSummary: '/data/processed/nps_milestones_summary.json',
+  npsBetweenCycleEvents: '/data/processed/nps_between_cycle_events.json',
+  npsMilestonesQa: '/data/quality/nps_milestones_qa.json',
+  npsChangeDrivers: '/data/processed/nps_change_drivers.json',
+  npsChangeDriversQa: '/data/quality/nps_change_drivers_qa.json',
+  npsFinancialProfile: '/data/processed/nps_financial_profile.json',
+  npsFinancialProfileQa: '/data/quality/nps_financial_profile_qa.json',
+  npsManagementInsights: '/data/processed/nps_management_insights.json',
+  npsManagementInsightsQa: '/data/quality/nps_management_insights_qa.json',
 };
 
 function logStoreError(message, detail) {
@@ -129,6 +143,14 @@ export async function loadAnalyticsData() {
     actionQueueEnrichedDoc,
     actionTrackingDoc,
     executiveDiagnosisDoc,
+    populationAuditDoc,
+    npsClientMilestonesDoc,
+    npsMilestonesSummaryDoc,
+    npsBetweenCycleEventsDoc,
+    npsMilestonesQaDoc,
+    npsChangeDriversDoc,
+    npsFinancialProfileDoc,
+    npsManagementInsightsDoc,
   ] = await Promise.all([
     fetchJson(PATHS.cycles),
     fetchJson(PATHS.responses),
@@ -150,6 +172,14 @@ export async function loadAnalyticsData() {
     fetchJsonOptional(PATHS.actionQueueEnriched),
     fetchJsonOptional(PATHS.actionTracking),
     fetchJsonOptional(PATHS.executiveDiagnosis),
+    fetchJsonOptional(PATHS.populationAudit),
+    fetchJsonOptional(PATHS.npsClientMilestones),
+    fetchJsonOptional(PATHS.npsMilestonesSummary),
+    fetchJsonOptional(PATHS.npsBetweenCycleEvents),
+    fetchJsonOptional(PATHS.npsMilestonesQa),
+    fetchJsonOptional(PATHS.npsChangeDrivers),
+    fetchJsonOptional(PATHS.npsFinancialProfile),
+    fetchJsonOptional(PATHS.npsManagementInsights),
   ]);
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -184,6 +214,14 @@ export async function loadAnalyticsData() {
       : null,
     actionTrackingDoc: trackingNormalized,
     executiveDiagnosisDoc: executiveDiagnosisDoc ?? null,
+    populationAuditDoc: populationAuditDoc ?? null,
+    npsClientMilestonesDoc: npsClientMilestonesDoc ?? null,
+    npsMilestonesSummaryDoc: npsMilestonesSummaryDoc ?? null,
+    npsBetweenCycleEventsDoc: npsBetweenCycleEventsDoc ?? null,
+    npsMilestonesQaDoc: npsMilestonesQaDoc ?? null,
+    npsChangeDriversDoc: npsChangeDriversDoc ?? null,
+    npsFinancialProfileDoc: npsFinancialProfileDoc ?? null,
+    npsManagementInsightsDoc: npsManagementInsightsDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -277,15 +315,43 @@ export function getTopicFilterOptions(cycleCode) {
 }
 
 export function getVocCommentTableRows(cycleCode, filters) {
-  return buildVocCommentRows(state?.responses ?? [], state?.responseTopics ?? [], cycleCode, filters);
+  return buildVocGroupedCommentRows(
+    state?.responses ?? [],
+    state?.responseTopics ?? [],
+    cycleCode,
+    filters,
+  );
 }
 
 export function getSortedTopicSummaries(cycleCode, sortKey, dir) {
   return sortTopicSummaries(getTopicSummary(cycleCode), sortKey, dir);
 }
 
-export function getVocPageKpis(cycleCode) {
-  return computeVocPageKpis(state?.responses ?? [], state?.responseTopics ?? [], cycleCode);
+export function getVocPageKpis(cycleCode, filters = null) {
+  const f = filters ?? {};
+  return computeVocPageKpisForFilters(
+    state?.responses ?? [],
+    state?.responseTopics ?? [],
+    cycleCode,
+    f,
+  );
+}
+
+export function getGlobalFilterContext(cycleCode, filters) {
+  if (!state) return null;
+  const prevCode = getPreviousCycleCode(state.cycles ?? [], cycleCode);
+  return buildGlobalFilterContext({
+    cycleCode,
+    filters,
+    responses: state.responses ?? [],
+    cycles: state.cycles ?? [],
+    pairedDoc: state.pairedCycles,
+    migrationDoc: state.migrationMatrix,
+    actionQueue: state.actionQueue ?? [],
+    clientSatMap: state.clientSatMap,
+    officialSummary: getCycleSummary(cycleCode),
+    previousOfficialSummary: prevCode ? getCycleSummary(prevCode) : null,
+  });
 }
 
 export function hasCsatArtifacts() {
@@ -350,6 +416,54 @@ export function getExecutiveDiagnosis(cycleCode) {
 
 export function hasExecutiveDiagnosis(cycleCode) {
   return getExecutiveDiagnosis(cycleCode) != null;
+}
+
+export function getPopulationAudit() {
+  return state?.populationAuditDoc ?? null;
+}
+
+export function hasNpsMilestones() {
+  return Array.isArray(state?.npsClientMilestonesDoc?.entries);
+}
+
+export function getNpsClientMilestones() {
+  return state?.npsClientMilestonesDoc?.entries ?? [];
+}
+
+export function getNpsMilestonesSummary() {
+  return state?.npsMilestonesSummaryDoc ?? null;
+}
+
+export function getNpsBetweenCycleEvents() {
+  return state?.npsBetweenCycleEventsDoc?.entries ?? [];
+}
+
+export function getNpsMilestonesQa() {
+  return state?.npsMilestonesQaDoc ?? null;
+}
+
+export function hasNpsChangeDrivers() {
+  return state?.npsChangeDriversDoc?.meta?.current_cycle != null;
+}
+
+export function getNpsChangeDrivers() {
+  return state?.npsChangeDriversDoc ?? null;
+}
+
+export function hasNpsFinancialProfile() {
+  return (state?.npsFinancialProfileDoc?.entries?.length ?? 0) > 0;
+}
+
+export function getNpsFinancialProfile() {
+  return state?.npsFinancialProfileDoc ?? null;
+}
+
+export function hasNpsManagementInsights() {
+  return (state?.npsManagementInsightsDoc?.insights?.length ?? 0) > 0;
+}
+
+export function getNpsManagementInsights() {
+  return state?.npsManagementInsightsDoc ?? null;
 }
 
 export function patchLocalActionTracking(entry) {

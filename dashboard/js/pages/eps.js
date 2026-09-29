@@ -15,6 +15,7 @@ import {
   computeEpPageKpis,
   epQualityLabel,
   filterResponses,
+  isClientRecorteActive,
 } from '../data/store-core.mjs';
 import { getPairedCycles } from '../data/analytics-store.js';
 import { formatNps, formatPct, formatDeltaPts, formatDate, cycleStatusLabel } from '../utils/format.js';
@@ -38,10 +39,15 @@ function destroyBubbleChart() {
 
 function clientFilterActive(filters) {
   return (
-    filters.category ||
-    (filters.scoreMin != null && filters.scoreMin !== '') ||
-    (filters.scoreMax != null && filters.scoreMax !== '')
+    isClientRecorteActive(filters) &&
+    (filters.category ||
+      filterFieldActive(filters.scoreMin) ||
+      filterFieldActive(filters.scoreMax))
   );
+}
+
+function filterFieldActive(value) {
+  return value != null && value !== '';
 }
 
 function resolveTableEntries(cycleCode, filters, allEntries) {

@@ -11,10 +11,14 @@ import {
   hasVocArtifacts,
   getTopicFilterOptions,
   hasCsatArtifacts,
+  getPopulationAudit,
+  getPairedCycles,
+  getNpsChangeDrivers,
 } from './data/analytics-store.js';
 import {
   subscribeFilters,
   setFilter,
+  setFilters,
   getFilters,
   initDefaultCycle,
   getEpOptions,
@@ -25,6 +29,7 @@ import { renderEps, closeEpDrawer } from './pages/eps.js';
 import { renderVozDoCliente, closeVocDrawer } from './pages/voz-do-cliente.js';
 import { renderDrivers, closeDriverDrawer } from './pages/drivers.js';
 import { renderPlanoDeAcao, closeActionDrawer } from './pages/plano-de-acao.js';
+import { renderJornadaPerfil } from './pages/jornada-perfil.js';
 import { beginFilterBindings, beginPageBindings } from './utils/page-bindings.js';
 import { escapeHtml, escapeAttr } from './utils/escape-html.js';
 import { formatDate, cycleStatusLabel } from './utils/format.js';
@@ -35,6 +40,7 @@ import {
   mountFilterScrollWatch,
 } from './utils/sticky-filters.js';
 import { bindMethodologyTrigger, closeMethodologyDrawer } from './ui/methodology-drawer.js';
+import { setThemeProfileFilters } from './filters/theme-profile-filters.mjs';
 
 const ROUTES = {
   executivo: { title: 'Executivo', topbar: 'Visão executiva', render: renderExecutivo },
@@ -45,6 +51,11 @@ const ROUTES = {
     topbar: 'Voz do Cliente',
     render: renderVozDoCliente,
   },
+  'jornada-perfil': {
+    title: 'Jornada & Perfil',
+    topbar: 'Jornada & Perfil',
+    render: renderJornadaPerfil,
+  },
   drivers: { title: 'Drivers', topbar: 'Drivers do NPS', render: renderDrivers },
   'plano-de-acao': {
     title: 'Plano de Ação',
@@ -53,13 +64,44 @@ const ROUTES = {
   },
 };
 
+function parseHashRoute() {
+  const raw = location.hash.replace(/^#\/?/, '') || 'executivo';
+  const [pathPart] = raw.split('#');
+  const [routeKey, queryString] = pathPart.split('?');
+  const route = ROUTES[routeKey] ? routeKey : 'executivo';
+  const params = new URLSearchParams(queryString ?? '');
+  return { route, params };
+}
+
 function getRoute() {
-  const hash = location.hash.replace(/^#\/?/, '') || 'executivo';
-  return ROUTES[hash] ? hash : 'executivo';
+  return parseHashRoute().route;
+}
+
+function applyHashQueryToFilters() {
+  const { route, params } = parseHashRoute();
+  const tema = params.get('tema') || params.get('topic');
+  const valencia = params.get('valencia') || params.get('valence');
+  if (route === 'jornada-perfil' && (tema || valencia)) {
+    setThemeProfileFilters({
+      ...(tema ? { theme: tema } : {}),
+      valence: valencia || 'Todas',
+    });
+    return;
+  }
+  if (tema || valencia) {
+    setFilters({
+      ...(tema ? { topic: tema } : {}),
+      ...(valencia ? { valence: valencia } : {}),
+    });
+  }
 }
 
 function isVocRoute() {
   return getRoute() === 'voz-do-cliente';
+}
+
+function showTopicValenceFilters(route) {
+  return route === 'voz-do-cliente' && hasVocArtifacts();
 }
 
 function setNavActive(route) {
@@ -80,6 +122,18 @@ function updateTopbar(route) {
   const snapshot = getSnapshot();
   const cutoff = formatDate(summary?.data_cutoff ?? dataState?.dataCutoff ?? snapshot?.data_cutoff);
   const status = cycleStatusLabel(summary?.status);
+  const currentCycle = getCycles().find((c) => c.cycle_code === filters.cycleCode);
+  const cycleEndLabel = formatDate(currentCycle?.ends_at);
+  let statusTitle = '';
+  if (summary?.status === 'open') {
+    statusTitle = cycleEndLabel
+      ? `Ciclo em coleta até ${cycleEndLabel} (fim do dia, horário de Brasília). Indicadores podem mudar.`
+      : 'Ciclo ainda em coleta — indicadores podem mudar.';
+  } else if (summary?.status === 'closed') {
+    statusTitle = cycleEndLabel
+      ? `Ciclo encerrado em ${cycleEndLabel} (horário de Brasília).`
+      : 'Ciclo encerrado.';
+  }
   const meth = snapshot?.methodology?.nps_method_version ?? '—';
   const staleHint =
     snapshot?.status && snapshot.status !== 'success'
@@ -90,7 +144,7 @@ function updateTopbar(route) {
     <span class="topbar-chip" title="Dados atualizados até ${escapeAttr(cutoff)}">Atualizado ${escapeHtml(cutoff)}</span>
     <span class="topbar-chip" title="Versões em data/config/methodology.json">Metodologia v${escapeHtml(String(meth))}</span>
     ${staleHint}
-    <span class="topbar-chip topbar-chip--status">${escapeHtml(status)}</span>
+    <span class="topbar-chip topbar-chip--status" title="${escapeAttr(statusTitle)}">${escapeHtml(status)}</span>
   `;
 }
 
@@ -104,8 +158,7 @@ function renderFiltersBar() {
   const eps = getEpOptions(responses);
   const stickyOn = stickyFiltersEnabled();
   const route = getRoute();
-  const topicOptions =
-    isVocRoute() && hasVocArtifacts() ? getTopicFilterOptions(filters.cycleCode) : [];
+  const topicOptions = showTopicValenceFilters(route) ? getTopicFilterOptions(filters.cycleCode) : [];
   const showTopicValence = topicOptions.length > 0;
 
   host.innerHTML = `
@@ -247,6 +300,10 @@ function renderFiltersBar() {
 
 function renderPage() {
   const route = getRoute();
+  if (route === 'jornada-perfil') {
+    const f = getFilters();
+    if (f.topic || f.valence) setFilters({ topic: '', valence: '' });
+  }
   setNavActive(route);
   document.title = `NPS · ${ROUTES[route].title}`;
   updateTopbar(route);
@@ -261,7 +318,12 @@ function renderPage() {
   if (!content) return;
   const signal = beginPageBindings();
   mountFilterScrollWatch(signal);
-  ROUTES[route].render(content, { signal });
+  try {
+    ROUTES[route].render(content, { signal });
+  } catch (err) {
+    console.error(`[dashboard] render failed (${route})`, err);
+    content.innerHTML = `<div class="gd-status gd-status--error" role="alert"><p><strong>Não foi possível renderizar esta página.</strong></p><p class="note-muted">${escapeHtml(err?.message ?? String(err))}</p><p class="note-muted">Veja o Console do navegador para o stack trace.</p></div>`;
+  }
 }
 
 function showState(kind, messageHtml) {
@@ -273,12 +335,21 @@ async function boot() {
   showState('loading', escapeHtml('Carregando dados analíticos…'));
   try {
     await loadAnalyticsData();
-    bindMethodologyTrigger(() => ({
-      snapshot: getSnapshot(),
-      executiveDiagnosisDoc: getExecutiveDiagnosis(getFilters()?.cycleCode),
-    }));
+    bindMethodologyTrigger(() => {
+      const cycleCode = getFilters()?.cycleCode;
+      return {
+        snapshot: getSnapshot(),
+        executiveDiagnosisDoc: getExecutiveDiagnosis(cycleCode),
+        cycleSummary: getCycleSummary(cycleCode),
+        populationAudit: getPopulationAudit(),
+        cycleCode,
+        paired: getPairedCycles(cycleCode),
+        changeDrivers: getNpsChangeDrivers(),
+      };
+    });
     const latest = getLatestCycle();
     initDefaultCycle(latest?.cycle_code);
+    applyHashQueryToFilters();
     applyStickyFiltersDom();
     renderFiltersBar();
     mountFilterScrollWatch();
@@ -287,7 +358,10 @@ async function boot() {
       updateTopbar(getRoute());
       renderPage();
     });
-    window.addEventListener('hashchange', renderPage);
+    window.addEventListener('hashchange', () => {
+      applyHashQueryToFilters();
+      renderPage();
+    });
     renderPage();
   } catch (err) {
     console.error(err);

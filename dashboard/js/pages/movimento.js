@@ -1,23 +1,21 @@
 import {
-  getResponses,
-  getMigrationMatrix,
   getActionQueue,
-  getPairedCycles,
-  getClientSatisfaction,
-  getClientSatMap,
+  getGlobalFilterContext,
 } from '../data/analytics-store.js';
 import { getFilters, setFilter } from '../filters/global-filters.js';
 import {
-  filterResponses,
   movementKpis,
   evolutionDistribution,
   topScoreChanges,
   countActionPriorities,
   migrationCellKey,
 } from '../data/store-core.mjs';
+import { renderFilterRecorteBanner } from '../filters/filter-context.mjs';
+import { renderMovimentoBetweenCyclesSection, bindMovimentoBetweenCycles } from './movimento-jornada.js';
 import { formatNps, formatPct, formatCsatAverage, formatDate } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { sectionHead, sectionLead } from '../ui/help.js';
+import { drawerShell, drawerMetaGrid } from '../ui/drawer-layout.mjs';
 
 const CATEGORIES = ['Detrator', 'Neutro', 'Promotor'];
 const POSITIVE_CELLS = new Set([
@@ -55,22 +53,13 @@ function epBadgeHtml(r) {
 }
 
 function buildFilterContext(cycleCode, filters) {
-  const all = getResponses(cycleCode);
-  const paired = getPairedCycles(cycleCode);
-  const pairedSet = new Set(paired?.paired_client_ids ?? []);
+  const ctx = getGlobalFilterContext(cycleCode, filters);
   const actionQueue = getActionQueue(cycleCode);
-  let priorityClientIds = null;
-  if (filters.priority) {
-    priorityClientIds = new Set(
-      actionQueue.filter((a) => a.priority === filters.priority).map((a) => a.client_id),
-    );
-  }
-  const rows = filterResponses(all, { ...filters, withPreviousOnly: true }, {
-    pairedClientIds: filters.base === 'paired' ? pairedSet : null,
-    priorityClientIds,
-    clientSatById: getClientSatMap(),
-  });
-  return { rows, actionQueue, pairedSet };
+  return {
+    rows: ctx?.rowsMovement ?? [],
+    actionQueue,
+    pairedSet: ctx?.options?.pairedSet ?? new Set(),
+  };
 }
 
 function renderMatrix(matrix, filters) {
@@ -273,21 +262,28 @@ export function openClientDrawer(clientId, rows, actionQueue) {
   const backdrop = document.getElementById('drawer-backdrop');
   const drawer = document.getElementById('client-drawer');
   const reason = reasonForClient(actionQueue, r.client_id);
-  drawer.innerHTML = `
-    <button type="button" class="drawer__close" id="drawer-close" aria-label="Fechar painel">×</button>
-    <h2>${escapeHtml(r.client_name ?? 'Cliente')}</h2>
-    <p>${escapeHtml(r.ep_name ?? '—')}${r.ep_resolution_confidence === 'low' ? ' <span class="ep-badge">EP aproximado</span>' : ''}</p>
-    <h3>Ciclo anterior</h3>
-    <p>Nota: ${escapeHtml(r.previous_score ?? '—')} · ${escapeHtml(r.previous_category ?? '—')}</p>
-    <h3>Ciclo atual</h3>
-    <p>Nota: ${escapeHtml(r.score)} · ${escapeHtml(r.nps_category)}</p>
-    <p>Delta: ${escapeHtml(r.score_delta ?? '—')} · Migração: ${escapeHtml(r.nps_migration ?? '—')}</p>
-    <p>Evolução: ${escapeHtml(r.evolution_status ?? '—')} · Prioridade: ${escapeHtml(priorityForClient(actionQueue, r.client_id))}</p>
-    ${reason ? `<p><strong>Fila de ação:</strong> ${escapeHtml(reason)}</p>` : ''}
-    <h3>Comentário atual</h3>
-    <p class="drawer-comment">${escapeHtml(r.comment || 'Sem comentário.')}</p>
-    ${renderDrawerSatisfaction(clientId, r)}
-  `;
+  const epHtml = `${escapeHtml(r.ep_name ?? '—')}${r.ep_resolution_confidence === 'low' ? ' <span class="ep-badge">EP aproximado</span>' : ''}`;
+  drawer.innerHTML = drawerShell({
+    title: r.client_name ?? 'Cliente',
+    subtitle: r.nps_migration ? `Migração: ${r.nps_migration}` : undefined,
+    closeId: 'drawer-close',
+    bodyHtml: `
+      ${drawerMetaGrid([
+        { label: 'EP', html: epHtml },
+        { label: 'Ciclo atual', value: `${r.score ?? '—'} · ${r.nps_category ?? '—'}` },
+        { label: 'Ciclo anterior', value: `${r.previous_score ?? '—'} · ${r.previous_category ?? '—'}` },
+        { label: 'Delta', value: r.score_delta ?? '—' },
+        { label: 'Evolução', value: r.evolution_status ?? '—' },
+        { label: 'Prioridade', value: priorityForClient(actionQueue, r.client_id) },
+      ])}
+      ${reason ? `<p class="note-muted"><strong>Fila de ação:</strong> ${escapeHtml(reason)}</p>` : ''}
+      <div class="drawer-comment-block">
+        <h3 class="drawer-section-title">Comentário</h3>
+        <p class="drawer-comment">${escapeHtml(r.comment || 'Sem comentário.')}</p>
+      </div>
+      <div class="drawer-section">${renderDrawerSatisfaction(clientId, r)}</div>`,
+  });
+  drawer.classList.add('drawer--wide');
   backdrop.classList.add('is-open');
   drawer.classList.add('is-open');
   backdrop.setAttribute('aria-hidden', 'false');
@@ -347,10 +343,13 @@ function bindTableControls(onRefresh, signal) {
 export function renderMovimento(root, ctx = {}) {
   const signal = ctx.signal;
   const filters = getFilters();
-  const matrix = getMigrationMatrix(filters.cycleCode);
+  const filterCtx = getGlobalFilterContext(filters.cycleCode, filters);
+  const matrix = filterCtx?.migrationMatrix ?? null;
   const { rows, actionQueue } = buildFilterContext(filters.cycleCode, filters);
   const kpis = movementKpis(rows);
-  const priorities = countActionPriorities(getActionQueue(filters.cycleCode));
+  const priorities = countActionPriorities(
+    filters.priority ? actionQueue.filter((a) => a.priority === filters.priority) : actionQueue,
+  );
 
   const rerenderTable = () => {
     const tableSignal = beginTableBindings();
@@ -368,10 +367,11 @@ export function renderMovimento(root, ctx = {}) {
     <header class="page-header">
       <div>
         <p class="eyebrow">Movimento</p>
-        <h1 class="hero__title">Quem mudou e em qual direção?</h1>
-        <p class="page-header__lead">Mostra como os clientes mudaram de nota ou de categoria entre um ciclo e outro.</p>
+        <h1 class="hero__title">Quem mudou e o que aconteceu entre os ciclos?</h1>
+        <p class="page-header__lead">Migração de categorias, evolução de nota e eventos observados entre respostas consecutivas (base pareada).</p>
       </div>
     </header>
+    ${renderFilterRecorteBanner(filterCtx)}
     <div class="metric-compact-grid">
       <article class="metric-compact"><div class="metric-compact__label">Clientes pareados</div><div class="metric-compact__value">${escapeHtml(String(kpis.paired))}</div></article>
       <article class="metric-compact"><div class="metric-compact__label">Melhoraram</div><div class="metric-compact__value">${escapeHtml(String(kpis.improved))}</div></article>
@@ -386,6 +386,7 @@ export function renderMovimento(root, ctx = {}) {
     ${renderDeltaDist(rows)}
     <h2 class="section-title">Maiores alterações</h2>
     ${renderTopLists(rows)}
+    <div id="movimento-between-cycles-host">${renderMovimentoBetweenCyclesSection(filterCtx)}</div>
     <h2 class="section-title">Ações geradas por movimento</h2>
     <div class="action-chips" id="priority-chips" role="group" aria-label="Filtrar por prioridade da fila de ação">
       ${['Alta', 'Média', 'Aprendizado', 'Investigar']
@@ -431,4 +432,5 @@ export function renderMovimento(root, ctx = {}) {
   }
 
   rerenderTable();
+  bindMovimentoBetweenCycles(root, filterCtx, signal);
 }

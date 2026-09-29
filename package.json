@@ -17,6 +17,7 @@
     "dev": "node scripts/dev-server.mjs",
     "test:dashboard": "node --test tests/dashboard/**/*.test.mjs",
     "smoke:dashboard": "node scripts/smoke-dashboard-visual.mjs",
+    "smoke:dashboard-filters": "node scripts/smoke-dashboard-filters.mjs",
     "generate:ep-summary": "node scripts/generate-ep-summary.mjs",
     "generate:voc": "node scripts/generate-voc.mjs",
     "generate:csat": "node scripts/generate-csat.mjs",
@@ -27,6 +28,13 @@
     "healthcheck": "node scripts/healthcheck.mjs",
     "status": "node scripts/status.mjs",
     "validate": "node scripts/validate.mjs",
+    "audit:population": "node scripts/nps-population-audit.mjs",
+    "generate:nps-milestones": "node scripts/generate-nps-milestones.mjs",
+    "generate:nps-change-drivers": "node scripts/generate-nps-change-drivers.mjs",
+    "generate:nps-financial-profile": "node scripts/generate-nps-financial-profile.mjs",
+    "generate:nps-management-insights": "node scripts/generate-nps-management-insights.mjs",
+    "audit:financial-sources": "node scripts/audit-financial-sources.mjs",
+    "export:milestone-sources": "node scripts/export-milestone-sources.mjs",
     "build": "node scripts/build-static.mjs",
     "sync:deploy-public": "node scripts/sync-deploy-public.mjs",
     "preview:static": "node scripts/preview-static.mjs",
@@ -35,5 +43,8 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
     "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "pg": "^8.23.0"
   }
 }

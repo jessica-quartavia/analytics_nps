@@ -20,12 +20,16 @@ export function sectionHead(title, subtitle, lead) {
  * @param {string} label — texto visível (pode ser vazio se só ícone)
  * @param {string} tip
  */
-export function helpTip(label, tip) {
-  if (!tip) return escapeHtml(label ?? '');
-  const safeTip = escapeAttr(tip);
+export function helpTip(label, tip, methodologySectionId = null) {
+  if (!tip && !methodologySectionId) return escapeHtml(label ?? '');
+  const safeTip = escapeAttr(tip ?? 'Ver metodologia');
+  const methBtn = methodologySectionId
+    ? `<button type="button" class="help-tip__meth methodology-open" data-meth-section="${escapeAttr(methodologySectionId)}" aria-label="Ver metodologia: ${escapeHtml(label ?? '')}">Metodologia</button>`
+    : '';
   return `<span class="help-tip">
     ${label ? `<span class="help-tip__label">${escapeHtml(label)}</span>` : ''}
-    <button type="button" class="help-tip__btn" aria-label="${safeTip}" data-tip="${safeTip}">?</button>
+    ${tip ? `<button type="button" class="help-tip__btn" aria-label="${safeTip}" data-tip="${safeTip}">?</button>` : ''}
+    ${methBtn}
   </span>`;
 }
 
@@ -47,4 +51,10 @@ export const TIPS = {
   valencia: 'Indica se o comentário sobre um tema foi positivo, neutro ou negativo.',
   prioridadeAlta: 'Clientes que exigem atenção mais imediata.',
   investigar: 'Clientes com sinais que merecem olhar mais cuidadoso.',
+  sinalQualitativo:
+    'O cliente mantém avaliação positiva, mas mencionou um ponto que pode valer acompanhamento. Não representa necessariamente deterioração.',
+  clientsWithSend:
+    'Clientes PHARUS para os quais a pesquisa NPS deste ciclo foi enviada. Cada cliente é contado uma única vez.',
+  validResponses:
+    'Clientes PHARUS com resposta válida no ciclo, após validação e tratamento de respostas duplicadas.',
 };

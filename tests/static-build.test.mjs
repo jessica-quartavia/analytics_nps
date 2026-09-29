@@ -33,6 +33,7 @@ describe('build estático Vercel', () => {
     buildStatic();
     const html = readFileSync(join(dist, 'index.html'), 'utf8');
     assert.match(html, /href="\/css\//);
+    assert.match(html, /visual-system\.css/);
     assert.match(html, /src="\/js\/app\.js"/);
     assert.doesNotMatch(html, /\/dashboard\//);
   });

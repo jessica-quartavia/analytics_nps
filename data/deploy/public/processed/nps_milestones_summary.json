@@ -1,0 +1,665 @@
+{
+  "meta": {
+    "data_cutoff": "2026-09-29T00:06:04.705Z",
+    "raw_snapshot_dir": "data\\raw\\2026-09-28T21-06-04",
+    "sources_loaded": {
+      "clients.json": 1251,
+      "client_journeys.json": 1269,
+      "journey_stages.json": 8,
+      "engenheiro_transfer_logs.json": 423,
+      "client_meetings.json": 5690,
+      "manual_meetings.json": 1383,
+      "client_mecanismos.json": 1641,
+      "cancellations.json": 20,
+      "client_engajamento_history.json": 1117
+    },
+    "coverage_by_field": {
+      "meetings": {
+        "coverage_pct": 100,
+        "point_in_time_pct": 100,
+        "current_proxy_pct": 0
+      },
+      "mechanisms": {
+        "coverage_pct": 65.94488188976378,
+        "point_in_time_pct": 65.94488188976378,
+        "current_proxy_pct": 0
+      },
+      "ep": {
+        "coverage_pct": 19.094488188976378,
+        "point_in_time_pct": 19.094488188976378,
+        "current_proxy_pct": 0
+      },
+      "freeze": {
+        "coverage_pct": 100,
+        "point_in_time_pct": 0,
+        "current_proxy_pct": 100
+      },
+      "churn": {
+        "coverage_pct": 100,
+        "point_in_time_pct": 100,
+        "current_proxy_pct": 0
+      },
+      "journey": {
+        "coverage_pct": 98.4251968503937,
+        "point_in_time_pct": 0,
+        "current_proxy_pct": 98.4251968503937
+      },
+      "engagement": {
+        "coverage_pct": 3.149606299212598,
+        "point_in_time_pct": 3.149606299212598,
+        "current_proxy_pct": 0
+      },
+      "app": {
+        "coverage_pct": 0,
+        "point_in_time_pct": 0,
+        "current_proxy_pct": 0
+      }
+    }
+  },
+  "cycles": [
+    {
+      "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+      "categories": {
+        "Promotor": {
+          "n": 199,
+          "meetings_mean": 3.4824120603015074,
+          "meetings_median": 3,
+          "days_since_last_meeting_mean": 20.986842105263158,
+          "days_since_last_meeting_median": 13.5,
+          "pct_has_mechanism": 23.115577889447238,
+          "pct_2plus_mechanisms": 17.587939698492463,
+          "pct_changed_ep": 0,
+          "pct_ever_changed_ep": 6.532663316582915,
+          "pct_ever_frozen": 0,
+          "pct_frozen_at_response": 10.050251256281408,
+          "pct_churn_requested": 0.5025125628140703,
+          "pct_app_access": 0,
+          "engagement_distribution": {
+            "(sem dado)": 199
+          },
+          "journey_stage_distribution": {
+            "Otimização": 179,
+            "(sem dado)": 4,
+            "Preparação": 2,
+            "Implementação": 13,
+            "Onboarding": 1
+          }
+        },
+        "Neutro": {
+          "n": 31,
+          "meetings_mean": 3.4193548387096775,
+          "meetings_median": 2,
+          "days_since_last_meeting_mean": 19.041666666666668,
+          "days_since_last_meeting_median": 11,
+          "pct_has_mechanism": 22.58064516129032,
+          "pct_2plus_mechanisms": 9.67741935483871,
+          "pct_changed_ep": 0,
+          "pct_ever_changed_ep": 16.129032258064516,
+          "pct_ever_frozen": 0,
+          "pct_frozen_at_response": 19.35483870967742,
+          "pct_churn_requested": 0,
+          "pct_app_access": 0,
+          "engagement_distribution": {
+            "(sem dado)": 31
+          },
+          "journey_stage_distribution": {
+            "Otimização": 27,
+            "Implementação": 2,
+            "Onboarding": 2
+          }
+        },
+        "Detrator": {
+          "n": 25,
+          "meetings_mean": 2.8,
+          "meetings_median": 2,
+          "days_since_last_meeting_mean": 22.555555555555557,
+          "days_since_last_meeting_median": 16.5,
+          "pct_has_mechanism": 28.000000000000004,
+          "pct_2plus_mechanisms": 20,
+          "pct_changed_ep": 0,
+          "pct_ever_changed_ep": 8,
+          "pct_ever_frozen": 0,
+          "pct_frozen_at_response": 12,
+          "pct_churn_requested": 8,
+          "pct_app_access": 0,
+          "engagement_distribution": {
+            "(sem dado)": 25
+          },
+          "journey_stage_distribution": {
+            "Preparação": 3,
+            "Otimização": 18,
+            "(sem dado)": 1,
+            "Implementação": 1,
+            "Onboarding": 2
+          }
+        }
+      },
+      "milestone_matrix": [
+        {
+          "milestone_key": "has_mechanism",
+          "label": "Tem mecanismo (até a resposta)",
+          "categories": {
+            "Promotor": {
+              "n": 46,
+              "pct": 23.115577889447238
+            },
+            "Neutro": {
+              "n": 7,
+              "pct": 22.58064516129032
+            },
+            "Detrator": {
+              "n": 7,
+              "pct": 28.000000000000004
+            }
+          }
+        },
+        {
+          "milestone_key": "mechanisms_2plus",
+          "label": "2+ mecanismos",
+          "categories": {
+            "Promotor": {
+              "n": 35,
+              "pct": 17.587939698492463
+            },
+            "Neutro": {
+              "n": 3,
+              "pct": 9.67741935483871
+            },
+            "Detrator": {
+              "n": 5,
+              "pct": 20
+            }
+          }
+        },
+        {
+          "milestone_key": "ever_changed_ep",
+          "label": "Já trocou de EP",
+          "categories": {
+            "Promotor": {
+              "n": 13,
+              "pct": 6.532663316582915
+            },
+            "Neutro": {
+              "n": 5,
+              "pct": 16.129032258064516
+            },
+            "Detrator": {
+              "n": 2,
+              "pct": 8
+            }
+          }
+        },
+        {
+          "milestone_key": "changed_ep_since_prev",
+          "label": "Trocou EP desde resposta anterior",
+          "categories": {
+            "Promotor": {
+              "n": 0,
+              "pct": 0
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 0,
+              "pct": 0
+            }
+          }
+        },
+        {
+          "milestone_key": "ever_frozen",
+          "label": "Já congelou",
+          "categories": {
+            "Promotor": {
+              "n": 0,
+              "pct": 0
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 0,
+              "pct": 0
+            }
+          }
+        },
+        {
+          "milestone_key": "frozen_now",
+          "label": "Estava congelado na resposta",
+          "categories": {
+            "Promotor": {
+              "n": 20,
+              "pct": 10.050251256281408
+            },
+            "Neutro": {
+              "n": 6,
+              "pct": 19.35483870967742
+            },
+            "Detrator": {
+              "n": 3,
+              "pct": 12
+            }
+          }
+        },
+        {
+          "milestone_key": "churn_requested",
+          "label": "Já solicitou churn",
+          "categories": {
+            "Promotor": {
+              "n": 1,
+              "pct": 0.5025125628140703
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 2,
+              "pct": 8
+            }
+          }
+        },
+        {
+          "milestone_key": "app_access",
+          "label": "Usa App PHARUS (proxy)",
+          "categories": {
+            "Promotor": {
+              "n": 0,
+              "pct": 0
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 0,
+              "pct": 0
+            }
+          }
+        },
+        {
+          "milestone_key": "meetings_stats",
+          "label": "Reuniões (até a resposta)",
+          "categories": {
+            "Promotor": {
+              "mean": 3.4824120603015074,
+              "median": 3,
+              "days_since_mean": 20.986842105263158,
+              "days_since_median": 13.5
+            },
+            "Neutro": {
+              "mean": 3.4193548387096775,
+              "median": 2,
+              "days_since_mean": 19.041666666666668,
+              "days_since_median": 11
+            },
+            "Detrator": {
+              "mean": 2.8,
+              "median": 2,
+              "days_since_mean": 22.555555555555557,
+              "days_since_median": 16.5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+      "categories": {
+        "Promotor": {
+          "n": 174,
+          "meetings_mean": 6.626436781609195,
+          "meetings_median": 6,
+          "days_since_last_meeting_mean": 19.428571428571427,
+          "days_since_last_meeting_median": 13,
+          "pct_has_mechanism": 64.9425287356322,
+          "pct_2plus_mechanisms": 49.42528735632184,
+          "pct_changed_ep": 2.8735632183908044,
+          "pct_ever_changed_ep": 17.81609195402299,
+          "pct_ever_frozen": 0,
+          "pct_frozen_at_response": 0.5747126436781609,
+          "pct_churn_requested": 0.5747126436781609,
+          "pct_app_access": 0,
+          "engagement_distribution": {
+            "(sem dado)": 160,
+            "engajado": 13,
+            "inativo": 1
+          },
+          "journey_stage_distribution": {
+            "Otimização": 140,
+            "(sem dado)": 2,
+            "Implementação": 15,
+            "Onboarding": 10,
+            "Preparação": 7
+          }
+        },
+        "Neutro": {
+          "n": 47,
+          "meetings_mean": 5.680851063829787,
+          "meetings_median": 5,
+          "days_since_last_meeting_mean": 19.844444444444445,
+          "days_since_last_meeting_median": 11,
+          "pct_has_mechanism": 55.319148936170215,
+          "pct_2plus_mechanisms": 40.42553191489361,
+          "pct_changed_ep": 0,
+          "pct_ever_changed_ep": 17.02127659574468,
+          "pct_ever_frozen": 0,
+          "pct_frozen_at_response": 0,
+          "pct_churn_requested": 2.127659574468085,
+          "pct_app_access": 0,
+          "engagement_distribution": {
+            "(sem dado)": 47
+          },
+          "journey_stage_distribution": {
+            "Otimização": 35,
+            "Onboarding": 5,
+            "Preparação": 5,
+            "Implementação": 2
+          }
+        },
+        "Detrator": {
+          "n": 32,
+          "meetings_mean": 5.5,
+          "meetings_median": 6,
+          "days_since_last_meeting_mean": 24.24,
+          "days_since_last_meeting_median": 23,
+          "pct_has_mechanism": 59.375,
+          "pct_2plus_mechanisms": 25,
+          "pct_changed_ep": 0,
+          "pct_ever_changed_ep": 37.5,
+          "pct_ever_frozen": 0,
+          "pct_frozen_at_response": 0,
+          "pct_churn_requested": 3.125,
+          "pct_app_access": 0,
+          "engagement_distribution": {
+            "(sem dado)": 30,
+            "engajado": 2
+          },
+          "journey_stage_distribution": {
+            "Otimização": 23,
+            "Implementação": 4,
+            "Onboarding": 3,
+            "Preparação": 1,
+            "(sem dado)": 1
+          }
+        }
+      },
+      "milestone_matrix": [
+        {
+          "milestone_key": "has_mechanism",
+          "label": "Tem mecanismo (até a resposta)",
+          "categories": {
+            "Promotor": {
+              "n": 113,
+              "pct": 64.9425287356322
+            },
+            "Neutro": {
+              "n": 26,
+              "pct": 55.319148936170215
+            },
+            "Detrator": {
+              "n": 19,
+              "pct": 59.375
+            }
+          }
+        },
+        {
+          "milestone_key": "mechanisms_2plus",
+          "label": "2+ mecanismos",
+          "categories": {
+            "Promotor": {
+              "n": 86,
+              "pct": 49.42528735632184
+            },
+            "Neutro": {
+              "n": 19,
+              "pct": 40.42553191489361
+            },
+            "Detrator": {
+              "n": 8,
+              "pct": 25
+            }
+          }
+        },
+        {
+          "milestone_key": "ever_changed_ep",
+          "label": "Já trocou de EP",
+          "categories": {
+            "Promotor": {
+              "n": 31,
+              "pct": 17.81609195402299
+            },
+            "Neutro": {
+              "n": 8,
+              "pct": 17.02127659574468
+            },
+            "Detrator": {
+              "n": 12,
+              "pct": 37.5
+            }
+          }
+        },
+        {
+          "milestone_key": "changed_ep_since_prev",
+          "label": "Trocou EP desde resposta anterior",
+          "categories": {
+            "Promotor": {
+              "n": 5,
+              "pct": 2.8735632183908044
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 0,
+              "pct": 0
+            }
+          }
+        },
+        {
+          "milestone_key": "ever_frozen",
+          "label": "Já congelou",
+          "categories": {
+            "Promotor": {
+              "n": 0,
+              "pct": 0
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 0,
+              "pct": 0
+            }
+          }
+        },
+        {
+          "milestone_key": "frozen_now",
+          "label": "Estava congelado na resposta",
+          "categories": {
+            "Promotor": {
+              "n": 1,
+              "pct": 0.5747126436781609
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 0,
+              "pct": 0
+            }
+          }
+        },
+        {
+          "milestone_key": "churn_requested",
+          "label": "Já solicitou churn",
+          "categories": {
+            "Promotor": {
+              "n": 1,
+              "pct": 0.5747126436781609
+            },
+            "Neutro": {
+              "n": 1,
+              "pct": 2.127659574468085
+            },
+            "Detrator": {
+              "n": 1,
+              "pct": 3.125
+            }
+          }
+        },
+        {
+          "milestone_key": "app_access",
+          "label": "Usa App PHARUS (proxy)",
+          "categories": {
+            "Promotor": {
+              "n": 0,
+              "pct": 0
+            },
+            "Neutro": {
+              "n": 0,
+              "pct": 0
+            },
+            "Detrator": {
+              "n": 0,
+              "pct": 0
+            }
+          }
+        },
+        {
+          "milestone_key": "meetings_stats",
+          "label": "Reuniões (até a resposta)",
+          "categories": {
+            "Promotor": {
+              "mean": 6.626436781609195,
+              "median": 6,
+              "days_since_mean": 19.428571428571427,
+              "days_since_median": 13
+            },
+            "Neutro": {
+              "mean": 5.680851063829787,
+              "median": 5,
+              "days_since_mean": 19.844444444444445,
+              "days_since_median": 11
+            },
+            "Detrator": {
+              "mean": 5.5,
+              "median": 6,
+              "days_since_mean": 24.24,
+              "days_since_median": 23
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "migration_analysis": {
+    "current_cycle": "NPS-2026-SET-PHARUS",
+    "paired_transitions": 81,
+    "comparisons": [
+      {
+        "migration_a": "Promotor → Neutro",
+        "migration_b": "Promotor → Promotor",
+        "n_a": 12,
+        "n_b": 65,
+        "small_sample": false,
+        "metrics": [
+          {
+            "metric_key": "ep_changed",
+            "label": "Trocou EP entre ciclos",
+            "n_a": 12,
+            "n_b": 65,
+            "pct_a": 0,
+            "pct_b": 7.6923076923076925,
+            "p_value": 1,
+            "n": 77,
+            "test": "fisher",
+            "p_adjusted": 1
+          },
+          {
+            "metric_key": "meetings_between",
+            "label": "Reuniões entre respostas (média)",
+            "test": "mann_whitney",
+            "mean_a": 5.25,
+            "mean_b": 3.8615384615384616,
+            "median_a": 5,
+            "median_b": 3,
+            "p_value": 0.06895408204583542,
+            "effect_size": -0.332051282051282,
+            "n_a": 12,
+            "n_b": 65,
+            "p_adjusted": 0.4137244922750125
+          },
+          {
+            "metric_key": "days_since_last_meeting",
+            "label": "Dias desde última reunião (resposta atual)",
+            "test": "mann_whitney",
+            "mean_a": 13,
+            "mean_b": 21.375,
+            "median_a": 9,
+            "median_b": 13,
+            "p_value": 0.5449028134197862,
+            "effect_size": 0.11067708333333337,
+            "n_a": 12,
+            "n_b": 64,
+            "p_adjusted": 0.8173542201296793
+          }
+        ]
+      },
+      {
+        "migration_a": "Promotor → Detrator",
+        "migration_b": "Promotor → Promotor",
+        "n_a": 1,
+        "n_b": 65,
+        "small_sample": true,
+        "metrics": [
+          {
+            "metric_key": "ep_changed",
+            "label": "Trocou EP entre ciclos",
+            "n_a": 1,
+            "n_b": 65,
+            "pct_a": 0,
+            "pct_b": 7.6923076923076925,
+            "p_value": 1,
+            "n": 66,
+            "test": "fisher",
+            "p_adjusted": 1
+          },
+          {
+            "metric_key": "meetings_between",
+            "label": "Reuniões entre respostas (média)",
+            "test": "mann_whitney",
+            "mean_a": 1,
+            "mean_b": 3.8615384615384616,
+            "median_a": 1,
+            "median_b": 3,
+            "p_value": 0.23757134300094251,
+            "effect_size": 0.6923076923076923,
+            "n_a": 1,
+            "n_b": 65,
+            "p_adjusted": 0.47514268600188503
+          },
+          {
+            "metric_key": "days_since_last_meeting",
+            "label": "Dias desde última reunião (resposta atual)",
+            "test": "mann_whitney",
+            "mean_a": 41,
+            "mean_b": 21.375,
+            "median_a": 41,
+            "median_b": 13,
+            "p_value": 0.210368125752334,
+            "effect_size": -0.734375,
+            "n_a": 1,
+            "n_b": 64,
+            "p_adjusted": 0.47514268600188503
+          }
+        ]
+      }
+    ]
+  }
+}

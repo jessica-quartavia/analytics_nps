@@ -2,6 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildVocCommentRows,
+  buildVocGroupedCommentRows,
   hasVocData,
   computeVocPageKpis,
   getTopicOptions,
@@ -59,5 +60,53 @@ describe('voc store-core', () => {
     const k = computeVocPageKpis(responses, topics, 'C1');
     assert.equal(k.commentsAnalyzed, 1);
     assert.equal(k.commentsWithTopic, 1);
+  });
+
+  it('agrupa múltiplos temas por cliente', () => {
+    const multiTopics = [
+      ...topics,
+      {
+        response_id: 'r1',
+        analytical_cycle_code: 'C1',
+        topic: 'Resultados',
+        valence: 'Neutra',
+      },
+      {
+        response_id: 'r1',
+        analytical_cycle_code: 'C1',
+        topic: 'Agilidade',
+        valence: 'Neutra',
+      },
+    ];
+    const flat = buildVocCommentRows(responses, multiTopics, 'C1', {});
+    assert.equal(flat.length, 3);
+    const grouped = buildVocGroupedCommentRows(responses, multiTopics, 'C1', {});
+    assert.equal(grouped.length, 1);
+    assert.equal(grouped[0].topics.length, 3);
+    const ids = new Set(grouped.map((g) => g.response_id));
+    assert.equal(ids.size, grouped.length);
+  });
+
+  it('filtro tema+valência mantém uma linha por cliente', () => {
+    const multiTopics = [
+      {
+        response_id: 'r1',
+        analytical_cycle_code: 'C1',
+        topic: 'Resultados',
+        valence: 'Negativa',
+      },
+      {
+        response_id: 'r1',
+        analytical_cycle_code: 'C1',
+        topic: 'Agilidade',
+        valence: 'Neutra',
+      },
+    ];
+    const grouped = buildVocGroupedCommentRows(responses, multiTopics, 'C1', {
+      topic: 'Resultados',
+      valence: 'Negativa',
+    });
+    assert.equal(grouped.length, 1);
+    assert.ok(grouped[0].topics.some((t) => t.topic === 'Agilidade'));
   });
 });

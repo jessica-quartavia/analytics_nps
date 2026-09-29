@@ -87,6 +87,7 @@ async function run() {
         '#/voz-do-cliente',
         '#/drivers',
         '#/plano-de-acao',
+        '#/jornada-perfil',
       ]) {
         await page.goto(`${BASE}${hash}`, { waitUntil: 'load', timeout: 60000 });
         await sleep(500);
@@ -97,6 +98,33 @@ async function run() {
           if (!stickySwitch) failures.push(`${width}px: switch Fixar filtros ausente`);
           const execRead = await page.$('#exec-diagnosis-title, .exec-diagnosis .section-title');
           if (!execRead) failures.push(`${width}px executivo: leitura executiva ausente`);
+          if (width >= 1280) {
+            const labelOk = await page.evaluate(() =>
+              [...document.querySelectorAll('.help-tip__label, .metric-context__label')].some((el) =>
+                el.textContent?.includes('Clientes com envio'),
+              ),
+            );
+            if (!labelOk) failures.push(`${width}px executivo: KPI Clientes com envio ausente`);
+            const btn = await page.$('#btn-ver-respondentes');
+            if (!btn) failures.push(`${width}px executivo: Ver respondentes ausente`);
+            else {
+              await page.evaluate(() => document.getElementById('btn-ver-respondentes')?.click());
+              await sleep(300);
+              const open = await page.evaluate(() =>
+                document.getElementById('respondents-drawer')?.classList.contains('is-open'),
+              );
+              if (!open) failures.push(`${width}px executivo: drawer respondentes não abriu`);
+              const rowCount = await page.evaluate(
+                () => document.querySelectorAll('#respondents-table tbody tr').length,
+              );
+              if (rowCount !== 25) {
+                failures.push(`${width}px executivo: tabela respondentes esperava 25 linhas/página, got ${rowCount}`);
+              }
+              await page.evaluate(() => {
+                document.getElementById('respondents-drawer-close')?.click();
+              });
+            }
+          }
         }
 
         if (await hasHorizontalOverflow(page)) {
@@ -138,12 +166,17 @@ async function run() {
               }
             });
             await sleep(200);
-            await page.evaluate(() => window.scrollBy(0, 400));
-            await sleep(200);
-            const stickyOn = await page.evaluate(() =>
-              document.getElementById('filters-bar')?.classList.contains('is-sticky'),
-            );
-            if (!stickyOn) failures.push(`${width}px movimento: Fixar filtros não aplicou is-sticky`);
+            await page.evaluate(() => window.scrollTo(0, 1000));
+            await sleep(300);
+            const stickyOk = await page.evaluate(() => {
+              const bar = document.getElementById('filters-bar');
+              if (!bar?.classList.contains('is-sticky')) return false;
+              const rect = bar.getBoundingClientRect();
+              const topbar = document.querySelector('.topbar')?.getBoundingClientRect();
+              const expectedTop = topbar ? topbar.bottom : 56;
+              return rect.top >= expectedTop - 4 && rect.top <= expectedTop + 8;
+            });
+            if (!stickyOk) failures.push(`${width}px movimento: Fixar filtros — barra não sticky após 1000px`);
           }
 
           const row = await page.$('#clients-table tbody tr[data-client-id]');
@@ -211,6 +244,32 @@ async function run() {
             if (!matrix) failures.push(`${width}px voz: KPIs ou matriz ausentes`);
           }
         }
+
+        if (hash === '#/jornada-perfil' && width >= 1280) {
+          const jHero = await page.$('.hero__title');
+          if (!jHero) failures.push(`${width}px jornada: hero ausente`);
+        }
+      }
+
+      if (width >= 1280) {
+        await page.goto(`${BASE}#/executivo`, { waitUntil: 'load', timeout: 60000 });
+        await sleep(400);
+        await waitForDashboard(page);
+        await page.evaluate(() => document.getElementById('open-methodology')?.click());
+        await sleep(400);
+        const methOpen = await page.evaluate(() => {
+          const d = document.getElementById('methodology-drawer');
+          return d?.classList.contains('is-open') && d.getAttribute('aria-hidden') === 'false';
+        });
+        if (!methOpen) failures.push(`${width}px: drawer Metodologia não abriu (is-open)`);
+        const methTitle = await page.evaluate(() =>
+          document.querySelector('#methodology-drawer .drawer__title')?.textContent?.trim(),
+        );
+        if (methTitle !== 'Metodologia do Analytics NPS') {
+          failures.push(`${width}px: título metodologia inesperado: ${methTitle ?? 'ausente'}`);
+        }
+        await page.evaluate(() => document.getElementById('methodology-close')?.click());
+        await sleep(200);
       }
 
       const focusRing = await page.evaluate(() => {

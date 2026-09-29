@@ -1,6 +1,101 @@
 /**
- * Lógica pura do store (testável em Node). Não recalcula NPS — consome summaries processados.
+ * Lógica pura do store (testável em Node e browser). Summaries oficiais vêm de cycle_summary;
+ * funções de recorte recalculam NPS apenas para exibição filtrada no dashboard.
  */
+
+function isValidNpsScore(score) {
+  return Number.isInteger(score) && score >= 0 && score <= 10;
+}
+
+function calculateNpsSummaryFromRows(rows) {
+  const valid = (rows ?? []).filter((r) => isValidNpsScore(r.score));
+  const total = valid.length;
+  if (!total) {
+    return {
+      total: 0,
+      promoters: 0,
+      passives: 0,
+      detractors: 0,
+      promoterPct: 0,
+      passivePct: 0,
+      detractorPct: 0,
+      nps: null,
+    };
+  }
+  let promoters = 0;
+  let passives = 0;
+  let detractors = 0;
+  for (const r of valid) {
+    if (r.score <= 6) detractors++;
+    else if (r.score <= 8) passives++;
+    else promoters++;
+  }
+  const pct = (n) => (n / total) * 100;
+  return {
+    total,
+    promoters,
+    passives,
+    detractors,
+    promoterPct: pct(promoters),
+    passivePct: pct(passives),
+    detractorPct: pct(detractors),
+    nps: ((promoters - detractors) / total) * 100,
+  };
+}
+
+function buildScoreDistributionFromRows(rows) {
+  const dist = Object.fromEntries([...Array(11).keys()].map((k) => [String(k), 0]));
+  for (const r of rows ?? []) {
+    if (!isValidNpsScore(r.score)) continue;
+    dist[String(r.score)]++;
+  }
+  return dist;
+}
+
+const MIGRATION_CATEGORIES = ['Detrator', 'Neutro', 'Promotor'];
+const MIGRATION_CELL_KEYS = MIGRATION_CATEGORIES.flatMap((from) =>
+  MIGRATION_CATEGORIES.map((to) => `${from} -> ${to}`),
+);
+
+function buildMigrationMatrixFromResponses(previousCycleCode, currentCycleCode, responses) {
+  const byClient = new Map();
+  for (const r of responses ?? []) {
+    if (!r.client_id) continue;
+    if (r.analytical_cycle_code !== previousCycleCode && r.analytical_cycle_code !== currentCycleCode) {
+      continue;
+    }
+    if (!byClient.has(r.client_id)) byClient.set(r.client_id, {});
+    byClient.get(r.client_id)[r.analytical_cycle_code] = r.nps_category;
+  }
+  const counts = Object.fromEntries(MIGRATION_CELL_KEYS.map((k) => [k, 0]));
+  let paired = 0;
+  for (const [, cats] of byClient) {
+    const prev = cats[previousCycleCode];
+    const curr = cats[currentCycleCode];
+    if (!prev || !curr) continue;
+    paired++;
+    counts[`${prev} -> ${curr}`]++;
+  }
+  const originTotals = Object.fromEntries(MIGRATION_CATEGORIES.map((c) => [c, 0]));
+  for (const [, cats] of byClient) {
+    const prev = cats[previousCycleCode];
+    const curr = cats[currentCycleCode];
+    if (!prev || !curr) continue;
+    originTotals[prev]++;
+  }
+  const cells = MIGRATION_CELL_KEYS.map((key) => {
+    const count = counts[key];
+    const from = key.split(' -> ')[0];
+    const pct_of_origin = originTotals[from] ? (count / originTotals[from]) * 100 : 0;
+    return { key, count, pct_of_origin };
+  });
+  return {
+    previous_cycle: previousCycleCode,
+    current_cycle: currentCycleCode,
+    paired_clients: paired,
+    cells,
+  };
+}
 
 export function sortCyclesBySequence(cycles) {
   return [...(cycles ?? [])].sort((a, b) => (a.sequence ?? 0) - (b.sequence ?? 0));
@@ -376,7 +471,7 @@ export function getTopicOptions(responseTopics, cycleCode) {
   return [...set].sort((a, b) => a.localeCompare(b, 'pt-BR'));
 }
 
-/** Linhas da tabela VoC (uma por tema atribuído). */
+/** Linhas expandidas (uma por tema) — uso interno / KPIs. */
 export function buildVocCommentRows(responses, responseTopics, cycleCode, filters = {}) {
   const cycleResponses = getResponsesForCycle(responses, cycleCode);
   const byId = new Map(cycleResponses.map((r) => [r.response_id, r]));
@@ -390,6 +485,7 @@ export function buildVocCommentRows(responses, responseTopics, cycleCode, filter
     if (!r) return null;
     return {
       response_id: t.response_id,
+      client_id: r.client_id,
       client_name: r.client_name,
       client_code: r.client_code,
       ep_name: r.ep_name,
@@ -420,6 +516,54 @@ export function buildVocCommentRows(responses, responseTopics, cycleCode, filter
   }
 
   return rows;
+}
+
+/** Uma linha por resposta (cliente × ciclo), temas agregados. */
+export function buildVocGroupedCommentRows(responses, responseTopics, cycleCode, filters = {}) {
+  const flat = buildVocCommentRows(responses, responseTopics, cycleCode, filters);
+  const matchIds = new Set(flat.map((r) => r.response_id));
+  const cycleResponses = getResponsesForCycle(responses, cycleCode);
+  const byId = new Map(cycleResponses.map((r) => [r.response_id, r]));
+  const allTopics = getResponseTopicsForCycle(responseTopics, cycleCode);
+  const topicsByResponse = new Map();
+  for (const t of allTopics) {
+    if (!topicsByResponse.has(t.response_id)) topicsByResponse.set(t.response_id, []);
+    topicsByResponse.get(t.response_id).push({ topic: t.topic, valence: t.valence });
+  }
+
+  const rows = [];
+  for (const rid of matchIds) {
+    const r = byId.get(rid);
+    if (!r) continue;
+    rows.push({
+      response_id: rid,
+      client_id: r.client_id,
+      client_name: r.client_name,
+      client_code: r.client_code,
+      ep_name: r.ep_name,
+      score: r.score,
+      nps_category: r.nps_category,
+      comment: r.comment,
+      cycle_name: r.analytical_cycle_name,
+      analytical_cycle_code: r.analytical_cycle_code,
+      topics: dedupeTopics(topicsByResponse.get(rid) ?? []),
+      classification_count: flat.filter((x) => x.response_id === rid).length,
+    });
+  }
+  rows.sort((a, b) => (a.client_name ?? '').localeCompare(b.client_name ?? '', 'pt-BR'));
+  return rows;
+}
+
+function dedupeTopics(topics) {
+  const seen = new Set();
+  const out = [];
+  for (const t of topics) {
+    const key = `${t.topic}\0${t.valence}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(t);
+  }
+  return out.sort((a, b) => a.topic.localeCompare(b.topic, 'pt-BR'));
 }
 
 function hasCommentText(comment) {
@@ -511,7 +655,9 @@ export function getActionQueueEnrichedForCycle(doc, cycleCode) {
 export function filterActionPlanRows(rows, filters, local = {}) {
   let out = [...(rows ?? [])];
 
-  if (filters.priority) {
+  if (local.priority) {
+    out = out.filter((r) => r.priority === local.priority);
+  } else if (filters.priority) {
     out = out.filter((r) => r.priority === filters.priority);
   }
   if (filters.ep) {
@@ -619,4 +765,138 @@ export function buildActionPlanCsv(rows) {
     );
   }
   return lines.join('\n');
+}
+
+function filterFieldActive(value) {
+  return value != null && value !== '';
+}
+
+/** Filtros que exigem recorte sobre responses (não usar cycle_summary global). */
+export function isClientRecorteActive(filters) {
+  if (!filters) return false;
+  if (filters.ep) return true;
+  if (filters.category) return true;
+  if (filterFieldActive(filters.scoreMin)) return true;
+  if (filterFieldActive(filters.scoreMax)) return true;
+  if (filterFieldActive(filters.deltaMin)) return true;
+  if (filterFieldActive(filters.deltaMax)) return true;
+  if (filters.base === 'paired') return true;
+  if (filters.migrationCell) return true;
+  if (filters.priority) return true;
+  if (filters.hasCsat) return true;
+  return false;
+}
+
+export function isVocRecorteActive(filters) {
+  if (!filters) return false;
+  if (filters.topic || filters.valence || filters.search) return true;
+  return isClientRecorteActive(filters);
+}
+
+export function buildFilterOptionsForCycle({ pairedDoc, actionQueue, clientSatMap, cycleCode, filters }) {
+  const paired = getPairedCyclesForCurrent(pairedDoc, cycleCode);
+  const pairedSet = new Set(paired?.paired_client_ids ?? []);
+  let priorityClientIds = null;
+  if (filters.priority) {
+    priorityClientIds = new Set(
+      getActionQueueForCycle(actionQueue, cycleCode)
+        .filter((a) => a.priority === filters.priority)
+        .map((a) => a.client_id),
+    );
+  }
+  return {
+    pairedClientIds: filters.base === 'paired' ? pairedSet : null,
+    priorityClientIds,
+    clientSatById: clientSatMap ?? null,
+    pairedSet,
+  };
+}
+
+export function filterCycleResponses(responses, cycleCode, filters, options = {}, extra = {}) {
+  const rows = getResponsesForCycle(responses, cycleCode);
+  return filterResponses(rows, { ...filters, ...extra }, options);
+}
+
+/** Summary no formato cycle_summary a partir de linhas filtradas (sem IC95 / elegíveis). */
+export function summaryLikeFromResponses(rows, template = {}) {
+  const calc = calculateNpsSummaryFromRows(rows);
+  const dist = buildScoreDistributionFromRows(rows);
+  return {
+    ...template,
+    valid_responses: calc.total,
+    promoters: calc.promoters,
+    passives: calc.passives,
+    detractors: calc.detractors,
+    promoter_pct: calc.promoterPct,
+    passive_pct: calc.passivePct,
+    detractor_pct: calc.detractorPct,
+    nps: calc.nps,
+    score_distribution: dist,
+    nps_ci_low: null,
+    nps_ci_high: null,
+    response_rate: null,
+    eligible_clients: null,
+  };
+}
+
+export function buildFilteredMigrationMatrix(
+  previousCycleCode,
+  currentCycleCode,
+  allResponses,
+  filteredCurrentRows,
+) {
+  const clientIds = new Set(filteredCurrentRows.map((r) => r.client_id).filter(Boolean));
+  if (!clientIds.size) {
+    return buildMigrationMatrixFromResponses(previousCycleCode, currentCycleCode, []);
+  }
+  const subset = (allResponses ?? []).filter(
+    (r) =>
+      clientIds.has(r.client_id) &&
+      (r.analytical_cycle_code === previousCycleCode || r.analytical_cycle_code === currentCycleCode),
+  );
+  return buildMigrationMatrixFromResponses(previousCycleCode, currentCycleCode, subset);
+}
+
+export function pairedNpsFromMovementRows(rows) {
+  const withPrev = rows.filter(
+    (r) =>
+      r.previous_score != null && isValidNpsScore(r.score) && isValidNpsScore(r.previous_score),
+  );
+  if (!withPrev.length) {
+    return { paired_clients: 0, current_nps_paired: null, previous_nps_paired: null, delta_nps_paired: null };
+  }
+  const current = calculateNpsSummaryFromRows(withPrev);
+  const prev = calculateNpsSummaryFromRows(withPrev.map((r) => ({ score: r.previous_score })));
+  const delta =
+    current.nps != null && prev.nps != null ? current.nps - prev.nps : null;
+  return {
+    paired_clients: withPrev.length,
+    current_nps_paired: current.nps,
+    previous_nps_paired: prev.nps,
+    delta_nps_paired: delta,
+  };
+}
+
+export function shouldUseFilteredMigrationMatrix(filters) {
+  if (!filters) return false;
+  const matrixFilters = { ...filters, migrationCell: '' };
+  return isClientRecorteActive(matrixFilters);
+}
+
+export function computeVocPageKpisForFilters(responses, responseTopics, cycleCode, filters) {
+  if (!isVocRecorteActive(filters)) {
+    return computeVocPageKpis(responses, responseTopics, cycleCode);
+  }
+  const commentRows = buildVocCommentRows(responses, responseTopics, cycleCode, filters);
+  const responseIds = new Set(commentRows.map((r) => r.response_id));
+  const cycleResponses = getResponsesForCycle(responses, cycleCode).filter((r) =>
+    responseIds.has(r.response_id),
+  );
+  const topicRows = getResponseTopicsForCycle(responseTopics, cycleCode).filter((t) => {
+    if (!responseIds.has(t.response_id)) return false;
+    if (filters.topic && t.topic !== filters.topic) return false;
+    if (filters.valence && t.valence !== filters.valence) return false;
+    return true;
+  });
+  return computeVocPageKpis(cycleResponses, topicRows, cycleCode);
 }

@@ -7,12 +7,23 @@ import {
   getDataState,
   hasDriversArtifacts,
 } from '../data/analytics-store.js';
-import { getFilters, setFilter } from '../filters/global-filters.js';
+import { getFilters } from '../filters/global-filters.js';
 import { formatNps, formatPct, formatDate, cycleStatusLabel } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
-import { sectionHead, TIPS, helpTip } from '../ui/help.js';
+import { sectionHead, TIPS } from '../ui/help.js';
+import { methodologyOpenButton } from '../ui/methodology-drawer.js';
+import { drawerShell } from '../ui/drawer-layout.mjs';
+import {
+  driverFriendlyName,
+  qualityFriendlyLabel,
+  qualityBadgeClass,
+  formatPAdjusted,
+  formatEffectLabel,
+  partitionDriverTests,
+  driverInterpretation,
+} from '../data/drivers-view.mjs';
 
-let tableState = { sortKey: 'relevance_score', filterOutcome: '', filterSig: '', filterQuality: '' };
+let tableState = { filterOutcome: '', filterSig: '' };
 
 function renderHero(cycle, summary) {
   const dataState = getDataState();
@@ -22,7 +33,7 @@ function renderHero(cycle, summary) {
       <div>
         <p class="eyebrow">Drivers</p>
         <h1 class="hero__title">Drivers do NPS</h1>
-        <p class="page-header__lead">Mostra fatores associados às notas. Não significa causa, e sim relação observada na base.</p>
+        <p class="page-header__lead">Fatores associados às notas — relação observada, não causalidade.</p>
       </div>
       <div class="chip-row">
         <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>
@@ -34,94 +45,83 @@ function renderHero(cycle, summary) {
 
 function renderKpis(summary, cycleCode) {
   const tests = getDriverTests(cycleCode);
+  const { ranking } = partitionDriverTests(tests);
   return `
     <div class="metric-compact-grid">
       <article class="metric-compact"><div class="metric-compact__label">Drivers testados</div><div class="metric-compact__value">${summary?.tests_count ?? tests.length}</div></article>
-      <article class="metric-compact"><div class="metric-compact__label">Associações relevantes (FDR)</div><div class="metric-compact__value">${summary?.significant_fdr_count ?? 0}</div></article>
-      <article class="metric-compact"><div class="metric-compact__label">Base analisada</div><div class="metric-compact__value">${escapeHtml(cycleCode?.slice(-8) ?? '—')}</div><div class="metric-compact__note">Ciclo selecionado</div></article>
-      <article class="metric-compact"><div class="metric-compact__label">Cobertura média features</div><div class="metric-compact__value">${escapeHtml(formatPct((summary?.average_feature_coverage ?? 0) * 100, 0))}</div></article>
+      <article class="metric-compact"><div class="metric-compact__label">Associações utilizáveis</div><div class="metric-compact__value">${ranking.length}</div></article>
+      <article class="metric-compact"><div class="metric-compact__label">Significativos (FDR)</div><div class="metric-compact__value">${summary?.significant_fdr_count ?? 0}</div></article>
+      <article class="metric-compact"><div class="metric-compact__label">Cobertura média</div><div class="metric-compact__value">${escapeHtml(formatPct((summary?.average_feature_coverage ?? 0) * 100, 0))}</div></article>
     </div>`;
 }
 
-function filterTests(tests) {
+function applyTableFilters(tests) {
   let out = [...tests];
   if (tableState.filterOutcome) out = out.filter((t) => t.outcome === tableState.filterOutcome);
   if (tableState.filterSig === 'yes') out = out.filter((t) => t.significant_fdr_05);
   if (tableState.filterSig === 'no') out = out.filter((t) => !t.significant_fdr_05);
-  if (tableState.filterQuality) out = out.filter((t) => t.feature_quality === tableState.filterQuality);
-  out.sort((a, b) => (b.relevance_score ?? 0) - (a.relevance_score ?? 0));
   return out;
 }
 
-function renderDriversTable(tests) {
-  const rows = filterTests(tests).slice(0, 50);
-  if (!rows.length) {
-    return `<p class="quality-box">Não encontramos evidência estatística robusta após correção por múltiplos testes para os filtros atuais — isso é um resultado válido.</p>`;
-  }
-  const qualityBadge = (q) => {
-    if (!q || q === '—') return '—';
-    const cls = /high|complete/i.test(q) ? 'quality-badge quality-badge--high' : 'quality-badge';
-    return `<span class="${cls}">${escapeHtml(q)}</span>`;
-  };
+function renderDriverRow(t) {
+  const key = `${t.driver}-${t.outcome}-${t.universe}`;
+  const qLabel = qualityFriendlyLabel(t.feature_quality);
+  const qCls = qualityBadgeClass(t.feature_quality);
+  const effectStack =
+    t.effect_size != null
+      ? `<span class="cell-stack__primary">${t.effect_size.toFixed(2).replace('.', ',')}</span><span class="cell-stack__meta">${escapeHtml(formatEffectLabel(t.effect_label))}</span>`
+      : '—';
+  const evidence = t.significant_fdr_05 ? 'Sustentada' : 'Exploratória';
+  return `<tr class="driver-row" data-driver-key="${escapeAttr(key)}" tabindex="0">
+    <td>${escapeHtml(driverFriendlyName(t.driver))}</td>
+    <td>${escapeHtml(t.outcome)} <span class="note-muted">(${escapeHtml(t.universe)})</span></td>
+    <td class="num cell-stack">${effectStack}</td>
+    <td class="num">${t.n ?? '—'}</td>
+    <td>${escapeHtml(evidence)}</td>
+    <td><span class="badge ${qCls}">${escapeHtml(qLabel)}</span></td>
+    <td><button type="button" class="btn btn--ghost btn--sm driver-open-detail" data-driver-key="${escapeAttr(key)}">Detalhe</button></td>
+  </tr>`;
+}
 
+function renderDriversSection(title, tests, emptyMsg) {
+  const rows = applyTableFilters(tests);
+  if (!rows.length) return `<h3 class="section-subtitle">${escapeHtml(title)}</h3><p class="note-muted">${escapeHtml(emptyMsg)}</p>`;
   return `
+    <h3 class="section-subtitle">${escapeHtml(title)}</h3>
     <div class="table-scroll">
-      <table class="data-table data-table--drivers" id="drivers-table">
+      <table class="data-table data-table--drivers">
         <thead><tr>
-          <th class="col-driver" scope="col">Driver</th>
-          <th scope="col">Relação</th>
-          <th class="col-method" scope="col">Método</th>
-          <th class="num col-compact" scope="col">Efeito</th>
-          <th class="num col-compact" scope="col">n</th>
-          <th class="num col-compact" scope="col">p adj.</th>
-          <th scope="col">Qualidade</th>
-          <th class="col-reading" scope="col">Leitura</th>
+          <th scope="col">Fator</th><th scope="col">Relação</th><th class="num" scope="col">Efeito</th>
+          <th class="num" scope="col">Amostra</th><th scope="col">Evidência</th><th scope="col">Qualidade</th><th scope="col">Ação</th>
         </tr></thead>
-        <tbody>
-          ${rows
-            .map(
-              (t) => `
-            <tr class="driver-row" data-driver-key="${escapeAttr(`${t.driver}-${t.outcome}-${t.universe}`)}" tabindex="0">
-              <td class="col-driver">${escapeHtml(t.driver)}</td>
-              <td>${escapeHtml(t.outcome)} <span class="note-muted">(${escapeHtml(t.universe)})</span></td>
-              <td class="col-method">${escapeHtml(t.method)}</td>
-              <td class="num">${t.effect_size != null ? `<span class="effect-badge">${t.effect_size.toFixed(2)}</span>` : '—'} ${t.effect_label ? `<span class="note-muted">${escapeHtml(t.effect_label)}</span>` : ''}</td>
-              <td class="num">${t.n ?? '—'}</td>
-              <td class="num">${t.p_value_adjusted != null ? t.p_value_adjusted.toExponential(2) : '—'}</td>
-              <td>${qualityBadge(t.feature_quality)}</td>
-              <td class="col-reading">${escapeHtml(t.reading_hint ?? '—')}</td>
-            </tr>`,
-            )
-            .join('')}
-        </tbody>
+        <tbody>${rows.slice(0, 40).map(renderDriverRow).join('')}</tbody>
       </table>
     </div>`;
 }
 
 function renderCommentDriversTable(cycleCode) {
-  const rows = getCommentDrivers(cycleCode).sort(
-    (a, b) => Math.abs(b.delta_nps ?? 0) - Math.abs(a.delta_nps ?? 0),
-  ).slice(0, 30);
+  const rows = getCommentDrivers(cycleCode)
+    .sort((a, b) => Math.abs(b.delta_nps ?? 0) - Math.abs(a.delta_nps ?? 0))
+    .slice(0, 30);
   if (!rows.length) return '<p class="note-muted">Sem testes de tema para este ciclo.</p>';
   return `
     <div class="table-scroll">
       <table class="data-table">
         <thead><tr>
           <th>Tema</th><th>Valência</th><th class="num">NPS com</th><th class="num">NPS sem</th>
-          <th class="num">Delta</th><th class="num">n</th><th class="num">p adj.</th>
+          <th class="num">Delta</th><th class="num">Amostra</th><th>Evidência</th>
         </tr></thead>
         <tbody>
           ${rows
             .map(
-              (r) => `
-            <tr>
+              (r) => `<tr>
               <td>${escapeHtml(r.topic)}</td>
               <td>${escapeHtml(r.valence)}</td>
               <td class="num">${r.nps_with != null ? formatNps(r.nps_with) : '—'}</td>
               <td class="num">${r.nps_without != null ? formatNps(r.nps_without) : '—'}</td>
               <td class="num">${r.delta_nps != null ? formatNps(r.delta_nps) : '—'}</td>
               <td class="num">${r.n ?? '—'}</td>
-              <td class="num">${r.p_value_adjusted != null ? r.p_value_adjusted.toExponential(2) : '—'}</td>
+              <td>${r.p_value_adjusted != null ? escapeHtml(formatPAdjusted(r.p_value_adjusted)) : '—'}</td>
             </tr>`,
             )
             .join('')}
@@ -138,9 +138,7 @@ function renderInterpretation(summary) {
       <ul>
         <li>${escapeHtml(summary?.interpretation ?? 'Associação ≠ causalidade.')}</li>
         <li>Correção Benjamini-Hochberg (FDR α=${summary?.fdr_alpha ?? 0.05}).</li>
-        <li>${escapeHtml(summary?.relevance_formula ?? '')}</li>
-        <li>Proxies (EP atual, engajamento snapshot) reduzem qualidade temporal.</li>
-        <li>Reuniões via CSAT parcial quando calendário não carregado.</li>
+        <li>Variáveis com qualidade <strong>Indisponível</strong> não entram no ranking principal.</li>
       </ul>
     </div>`;
 }
@@ -154,18 +152,27 @@ function openDriverDrawer(test) {
   const drawer = document.getElementById('driver-drawer');
   const backdrop = document.getElementById('driver-drawer-backdrop');
   if (!drawer || !test) return;
-  drawer.innerHTML = `
-    <button type="button" class="drawer__close" id="driver-drawer-close">×</button>
-    <h2>${escapeHtml(test.driver)}</h2>
-    <p>Outcome: ${escapeHtml(test.outcome)} · Universo: ${escapeHtml(test.universe)}</p>
-    <p>Método: ${escapeHtml(test.method)} · n=${test.n}</p>
-    <p>Efeito: ${test.effect_size?.toFixed(3) ?? '—'} (${escapeHtml(test.effect_label ?? '')})</p>
-    <p>p bruto: ${test.p_value_raw?.toExponential(3) ?? '—'} · p ajustado: ${test.p_value_adjusted?.toExponential(3) ?? '—'}</p>
-    <p>IC: ${test.ci_low != null ? test.ci_low.toFixed(3) : '—'} – ${test.ci_high != null ? test.ci_high.toFixed(3) : '—'}</p>
-    <p>Qualidade feature: ${escapeHtml(test.feature_quality ?? '—')}</p>
-    <p>${escapeHtml((test.limitations ?? []).join('; ') || 'Sem limitações adicionais registradas.')}</p>
-    <p><em>${escapeHtml(test.reading_hint ?? '')}</em></p>
-  `;
+  const unavailable = test.feature_quality === 'unavailable';
+  drawer.innerHTML = drawerShell({
+    title: driverFriendlyName(test.driver),
+    closeId: 'driver-drawer-close',
+    bodyHtml: `
+      ${unavailable ? '<p class="quality-box" role="note">Este resultado não deve ser usado como evidência gerencial, pois a qualidade da variável está marcada como indisponível.</p>' : ''}
+      <p class="note-muted"><strong>Variável técnica:</strong> ${escapeHtml(test.driver)}</p>
+      <div class="drawer-meta">
+        <div class="drawer-meta__item"><span class="drawer-meta__label">Outcome</span><span class="drawer-meta__value">${escapeHtml(test.outcome)}</span></div>
+        <div class="drawer-meta__item"><span class="drawer-meta__label">Método</span><span class="drawer-meta__value">${escapeHtml(String(test.method ?? '—'))}</span></div>
+        <div class="drawer-meta__item"><span class="drawer-meta__label">Amostra</span><span class="drawer-meta__value">${test.n ?? '—'}</span></div>
+        <div class="drawer-meta__item"><span class="drawer-meta__label">Efeito</span><span class="drawer-meta__value">${test.effect_size?.toFixed(3) ?? '—'}</span></div>
+        <div class="drawer-meta__item"><span class="drawer-meta__label">Classificação</span><span class="drawer-meta__value">${escapeHtml(formatEffectLabel(test.effect_label))}</span></div>
+        <div class="drawer-meta__item"><span class="drawer-meta__label">Qualidade</span><span class="drawer-meta__value">${escapeHtml(qualityFriendlyLabel(test.feature_quality))}</span></div>
+      </div>
+      <p><strong>p ajustado:</strong> ${test.p_value_adjusted?.toExponential(6) ?? '—'}</p>
+      <p><strong>IC95:</strong> ${test.ci_low != null ? test.ci_low.toFixed(3) : '—'} – ${test.ci_high != null ? test.ci_high.toFixed(3) : '—'}</p>
+      <p>${escapeHtml(driverInterpretation(test))}</p>
+      <p class="note-muted">${escapeHtml((test.limitations ?? []).join('; ') || (test.reading_hint ?? ''))}</p>`,
+  });
+  drawer.classList.add('drawer--wide');
   backdrop?.classList.add('is-open');
   drawer.classList.add('is-open');
   drawer.querySelector('#driver-drawer-close')?.addEventListener('click', closeDriverDrawer);
@@ -173,18 +180,31 @@ function openDriverDrawer(test) {
 }
 
 function bind(host, tests, signal) {
-  host.querySelector('#drivers-filter-outcome')?.addEventListener('change', (e) => {
-    tableState.filterOutcome = e.target.value;
-    renderDrivers(host, { signal });
-  }, { signal });
-  host.querySelector('#drivers-filter-sig')?.addEventListener('change', (e) => {
-    tableState.filterSig = e.target.value;
-    renderDrivers(host, { signal });
-  }, { signal });
-  host.querySelectorAll('.driver-row').forEach((row) => {
-    const key = row.dataset.driverKey;
-    const test = tests.find((t) => `${t.driver}-${t.outcome}-${t.universe}` === key);
-    row.addEventListener('click', () => openDriverDrawer(test), { signal });
+  host.querySelector('#drivers-filter-outcome')?.addEventListener(
+    'change',
+    (e) => {
+      tableState.filterOutcome = e.target.value;
+      renderDrivers(host, { signal });
+    },
+    { signal },
+  );
+  host.querySelector('#drivers-filter-sig')?.addEventListener(
+    'change',
+    (e) => {
+      tableState.filterSig = e.target.value;
+      renderDrivers(host, { signal });
+    },
+    { signal },
+  );
+  host.querySelectorAll('.driver-row, .driver-open-detail').forEach((el) => {
+    const open = () => {
+      const key = el.dataset.driverKey;
+      const test = tests.find((t) => `${t.driver}-${t.outcome}-${t.universe}` === key);
+      openDriverDrawer(test);
+    };
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('.driver-open-detail') || el.classList.contains('driver-row')) open();
+    }, { signal });
   });
 }
 
@@ -200,6 +220,7 @@ export function renderDrivers(host, { signal } = {}) {
 
   const summary = getDriversSummary();
   const tests = getDriverTests(cycleCode);
+  const { ranking, caveat, insufficient } = partitionDriverTests(tests);
   const cycle = getCycles().find((c) => c.cycle_code === cycleCode);
   const cycleSummary = getCycleSummary(cycleCode);
 
@@ -207,9 +228,9 @@ export function renderDrivers(host, { signal } = {}) {
     ${renderHero(cycle, cycleSummary)}
     ${renderKpis(summary, cycleCode)}
     <section class="section-block">
-      ${sectionHead('Ranking de associações', null, TIPS.drivers)}
+      ${sectionHead('Associações estatísticas', null, TIPS.drivers)}
+      <p class="methodology-inline-link">${methodologyOpenButton('drivers', 'Ver metodologia — Drivers')}</p>
       <div class="section-block__head">
-        <span class="visually-hidden">Filtros</span>
         <div class="filter-inline">
           <select id="drivers-filter-outcome" class="select-input" aria-label="Outcome">
             <option value="">Todos outcomes</option>
@@ -222,7 +243,9 @@ export function renderDrivers(host, { signal } = {}) {
           </select>
         </div>
       </div>
-      ${renderDriversTable(tests)}
+      ${renderDriversSection('Associações utilizáveis', ranking, 'Nenhuma associação com qualidade adequada para ranking principal.')}
+      ${renderDriversSection('Associações com ressalva', caveat, 'Nenhuma associação com proxy parcial neste recorte.')}
+      ${renderDriversSection('Dados insuficientes / não utilizáveis', insufficient, 'Nenhum driver marcado como indisponível neste recorte.')}
     </section>
     <section class="section-block">
       <h2 class="section-title">Temas associados à satisfação</h2>

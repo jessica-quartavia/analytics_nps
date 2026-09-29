@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-09-29T00:06:04.705Z",
+  "current_cycle": "NPS-2026-SET-PHARUS",
+  "paired_transitions": 81,
+  "coverage": {
+    "fields": {
+      "meetings_between": {
+        "pct": 100,
+        "quality": "good"
+      },
+      "days_since_last_meeting": {
+        "pct": 98.76543209876543,
+        "quality": "good"
+      },
+      "mechanisms_before_response": {
+        "pct": 100,
+        "quality": "good"
+      },
+      "mechanism_added_between": {
+        "pct": 100,
+        "quality": "good"
+      },
+      "ep_changed": {
+        "pct": 100,
+        "quality": "good"
+      },
+      "churn": {
+        "pct": 100,
+        "quality": "good"
+      },
+      "evolution_status": {
+        "pct": 100,
+        "quality": "good"
+      }
+    },
+    "milestone_by_field": {
+      "meetings": {
+        "coverage_pct": 100,
+        "point_in_time_pct": 100,
+        "current_proxy_pct": 0
+      },
+      "mechanisms": {
+        "coverage_pct": 65.94488188976378,
+        "point_in_time_pct": 65.94488188976378,
+        "current_proxy_pct": 0
+      },
+      "ep": {
+        "coverage_pct": 19.094488188976378,
+        "point_in_time_pct": 19.094488188976378,
+        "current_proxy_pct": 0
+      },
+      "freeze": {
+        "coverage_pct": 100,
+        "point_in_time_pct": 0,
+        "current_proxy_pct": 100
+      },
+      "churn": {
+        "coverage_pct": 100,
+        "point_in_time_pct": 100,
+        "current_proxy_pct": 0
+      },
+      "journey": {
+        "coverage_pct": 98.4251968503937,
+        "point_in_time_pct": 0,
+        "current_proxy_pct": 98.4251968503937
+      },
+      "engagement": {
+        "coverage_pct": 3.149606299212598,
+        "point_in_time_pct": 3.149606299212598,
+        "current_proxy_pct": 0
+      },
+      "app": {
+        "coverage_pct": 0,
+        "point_in_time_pct": 0,
+        "current_proxy_pct": 0
+      }
+    }
+  },
+  "auto_insights_count": 0,
+  "churn_quality": "partial",
+  "limitations": [
+    "Resultados descrevem coocorrência na população pareada, não efeito de intervenções.",
+    "Fonte de cancelamentos incompleta — bloco churn com quality partial; sem conclusão gerencial."
+  ]
+}
