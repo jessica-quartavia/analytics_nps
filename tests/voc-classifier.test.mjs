@@ -36,7 +36,7 @@ describe('voc-classifier', () => {
     ]);
     assert.ok(rows.length >= 2);
     assert.ok(rows.every((r) => r.response_id === 'r1'));
-    assert.equal(rows[0].classification_source, 'rules_v1');
+    assert.equal(rows[0].classification_source, 'rules_v2');
   });
 
   it('comentário vazio não gera linhas', () => {

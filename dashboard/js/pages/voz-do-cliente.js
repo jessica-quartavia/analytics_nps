@@ -19,6 +19,28 @@ import { methodologyOpenButton } from '../ui/methodology-drawer.js';
 
 let valenceChart = null;
 let tableState = { page: 1, pageSize: 25 };
+const VOC_REVIEW_STORAGE_KEY = 'analytics_nps_voc_review_queue';
+
+function vocThemeListItem(t) {
+  const uncertain = t.confidence != null && Number(t.confidence) < 0.65;
+  const badge = uncertain
+    ? ' <span class="badge badge--method voc-uncertain-badge">Classificação incerta</span>'
+    : '';
+  return `<li><strong>${escapeHtml(t.topic)}</strong> <span class="topic-chip__valence topic-chip__valence--${escapeAttr(t.valence)}">${escapeHtml(t.valence)}</span>${badge}</li>`;
+}
+
+function pushVocReviewEntry(entry) {
+  try {
+    const raw = localStorage.getItem(VOC_REVIEW_STORAGE_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    if (!list.some((x) => x.response_id === entry.response_id && x.cycleCode === entry.cycleCode)) {
+      list.push({ ...entry, flagged_at: new Date().toISOString() });
+      localStorage.setItem(VOC_REVIEW_STORAGE_KEY, JSON.stringify(list.slice(-200)));
+    }
+  } catch {
+    /* ignore */
+  }
+}
 
 function destroyCharts() {
   valenceChart?.destroy();
@@ -406,16 +428,12 @@ function openVocDrawer(responseId, cycleCode) {
       <div class="drawer-section">
         <h3 class="drawer-section-title">Temas identificados ${valenceInfoIcon(VALENCE_HELP)} ${methodologyOpenButton('valencia', 'Metodologia')}</h3>
         <p class="note-muted voc-valence-help">${escapeHtml(VALENCE_HELP)}</p>
-        <ul class="voc-theme-list">${topics
-          .map(
-            (t) =>
-              `<li><strong>${escapeHtml(t.topic)}</strong> <span class="topic-chip__valence topic-chip__valence--${escapeAttr(t.valence)}">${escapeHtml(t.valence)}</span></li>`,
-          )
-          .join('')}</ul>
+        <ul class="voc-theme-list">${topics.map((t) => vocThemeListItem(t)).join('')}</ul>
+        <p class="note-muted"><button type="button" class="btn btn--ghost btn--sm" id="voc-flag-review">Marcar para revisão humana</button></p>
       </div>
       <details class="drawer-section voc-classification-how">
         <summary>Como essa classificação foi feita?</summary>
-        <p class="note-muted">Cada tema é detectado por palavras-chave no trecho da resposta; a valência (Positiva, Neutra ou Negativa) vem do texto da cláusula e da pergunta do formulário — não da nota NPS. Fonte: rules_v1 (parcial e auditável).</p>
+        <p class="note-muted">Cada tema é detectado por palavras-chave no trecho da resposta; a valência (Positiva, Neutra ou Negativa) vem do texto da cláusula e da pergunta do formulário — não da nota NPS. Fonte: rules_v2 (parcial e auditável).</p>
       </details>`,
   });
   drawer.classList.add('drawer--wide');
@@ -424,6 +442,20 @@ function openVocDrawer(responseId, cycleCode) {
   drawer.classList.add('is-open');
   drawer.querySelector('#voc-drawer-close')?.addEventListener('click', closeVocDrawer);
   backdrop?.addEventListener('click', closeVocDrawer, { once: true });
+  drawer.querySelector('#voc-flag-review')?.addEventListener('click', () => {
+    pushVocReviewEntry({
+      response_id: responseId,
+      cycleCode,
+      client_name: r.client_name,
+      score: r.score,
+      topics: topics.map((t) => ({ topic: t.topic, valence: t.valence, confidence: t.confidence })),
+    });
+    const btn = drawer.querySelector('#voc-flag-review');
+    if (btn) {
+      btn.textContent = 'Marcado para revisão';
+      btn.setAttribute('disabled', 'true');
+    }
+  });
 }
 
 function bindInteractions(host, cycleCode, entries, filters, signal) {

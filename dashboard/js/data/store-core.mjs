@@ -528,7 +528,12 @@ export function buildVocGroupedCommentRows(responses, responseTopics, cycleCode,
   const topicsByResponse = new Map();
   for (const t of allTopics) {
     if (!topicsByResponse.has(t.response_id)) topicsByResponse.set(t.response_id, []);
-    topicsByResponse.get(t.response_id).push({ topic: t.topic, valence: t.valence });
+    topicsByResponse.get(t.response_id).push({
+      topic: t.topic,
+      valence: t.valence,
+      confidence: t.confidence,
+      valence_reason: t.valence_reason,
+    });
   }
 
   const rows = [];

@@ -195,9 +195,9 @@ export function buildMethodologyModel(ctx = {}) {
     },
     {
       id: 'classificacao-voc',
-      title: 'Classificação VoC (rules_v1)',
-      keywords: ['rules_v1', 'classificador', 'keyword'],
-      simple: 'Classificador rules_v1: keywords por tema, janela de cláusula, sinais positivos/negativos, negação, contexto da pergunta do formulário, multi-label.',
+      title: 'Classificação VoC (rules_v2)',
+      keywords: ['rules_v2', 'rules_v1', 'classificador', 'keyword'],
+      simple: 'Classificador rules_v2: keywords por tema, janela de cláusula, sinais positivos/negativos com escopo de negação, respostas prospectivas (continuar), contexto da pergunta, multi-label.',
       technical:
         'classifyCommentWithRules + buildResponseTopicsRows. Nota NPS só como contexto secundário em ambiguidade (ex.: pergunta de elogio), nunca sobrescreve texto claro.',
       source: 'lib/analytics/voc-classifier.mjs · data/config/methodology.json voc_classifier_version',
