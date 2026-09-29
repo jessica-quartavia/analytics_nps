@@ -26,7 +26,9 @@
     "qa:final": "node scripts/run-qa-final.mjs",
     "healthcheck": "node scripts/healthcheck.mjs",
     "status": "node scripts/status.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/build-static.mjs",
+    "preview:static": "node scripts/preview-static.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

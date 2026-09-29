@@ -30,6 +30,9 @@ async function resolvePath(urlPath) {
   if (clean.startsWith('/data/')) {
     return join(ROOT, clean.slice(1));
   }
+  if (clean.startsWith('/css/') || clean.startsWith('/js/')) {
+    return join(ROOT, 'dashboard', clean.slice(1));
+  }
   if (clean.startsWith('/dashboard/')) {
     return join(ROOT, clean.slice(1));
   }

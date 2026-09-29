@@ -93,9 +93,18 @@ npm run qa:final
 
 Gera/atualiza artefatos em `data/quality/` (calibração da fila, consistência entre páginas, amostra VoC, QA metodológico). Blocker de publicação se `cross_page_consistency.json` → `fail`.
 
+## Deploy Vercel
+
+```bash
+npm run build          # gera dist/ (dashboard + data públicos)
+npm run preview:static # http://localhost:4173/#/executivo
+```
+
+`vercel.json` usa `outputDirectory: dist` e `buildCommand: npm run build`. A raiz `/` serve `dist/index.html`.
+
 ## Fluxo de deploy
 
-Publicar **somente**:
+Publicar **somente** (ou deixar o build copiar para `dist/`):
 
 - `dashboard/**`
 - `data/processed/**` (e `data/outputs/**` necessários à UI)
