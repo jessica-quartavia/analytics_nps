@@ -1,0 +1,27 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# Temporários, capturas, exports sensíveis
+temp/
+tmp/
+screenshots/
+*.local.json
+imports/
+
+# Dados analíticos locais (gerados pelo refresh)
+data/raw/**/*
+!data/raw/.gitkeep
+data/processed/*.json
+data/outputs/*.json
+data/snapshots/*.json
+data/snapshots/runs/*.json
+data/quality/*.json
+!data/processed/.gitkeep
+!data/outputs/.gitkeep
+!data/snapshots/.gitkeep
+!data/snapshots/runs/.gitkeep
+!data/quality/.gitkeep

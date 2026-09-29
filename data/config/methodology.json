@@ -1,0 +1,8 @@
+{
+  "nps_method_version": "1.0",
+  "voc_classifier_version": "rules_v1",
+  "action_priority_version": "1.0",
+  "drivers_version": "1.0",
+  "csat_method_version": "1.0",
+  "executive_diagnosis_version": "1.0"
+}

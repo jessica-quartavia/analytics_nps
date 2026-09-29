@@ -1,0 +1,35 @@
+[
+  {
+    "cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+    "cycle_name": "Jun–Jul/2026",
+    "program": "PHARUS",
+    "sequence": 1,
+    "type": "historical_reconstruction",
+    "starts_at": "2026-06-16T00:00:00+00:00",
+    "ends_at": null,
+    "ends_at_source_cycle_name": "NPS 2026-T2",
+    "ends_at_source_field": "ends_at",
+    "source_cycle_ids": ["5d1bb5b4-43b2-4ad0-ba75-3430d21dfa6a"],
+    "source_cycle_names": ["NPS 2026-T2"],
+    "resolution_method": "historical_jun_jul_reconstruction",
+    "absorbs_source_cycle_pharus": true,
+    "historical_expected_responses": 262,
+    "reconstruction_status": "partial",
+    "reconstruction_confidence": "medium_high"
+  },
+  {
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "cycle_name": "Set/2026",
+    "program": "PHARUS",
+    "sequence": 2,
+    "type": "source_cycle",
+    "cycle_status": "open",
+    "starts_at": "2026-09-15T03:00:00+00:00",
+    "ends_at": null,
+    "source_cycle_ids": ["7f9f8b42-84ae-4e00-a408-d22bea7c4407"],
+    "source_cycle_names": ["NPS 2026-T3"],
+    "resolution_method": "source_cycle_window",
+    "absorbs_source_cycle_pharus": false,
+    "historical_expected_responses": null
+  }
+]

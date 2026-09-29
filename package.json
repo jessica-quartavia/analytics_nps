@@ -1,0 +1,35 @@
+{
+  "name": "analytics-nps",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/**/*.test.mjs",
+    "refresh:nps": "node scripts/refresh-nps.mjs",
+    "sync:cycles": "node scripts/sync-cycles.mjs",
+    "import:responses": "node scripts/import-responses.mjs",
+    "import:eligible": "node scripts/import-eligible-clients.mjs",
+    "derive:history": "node scripts/derive-history.mjs",
+    "build:actions": "node scripts/build-action-queue.mjs",
+    "validate:nps": "node scripts/validate-nps.mjs",
+    "diagnose:pre-t2": "node scripts/diagnose-pre-t2.mjs",
+    "reconcile:jun-jul": "node scripts/reconcile-jun-jul-2026.mjs",
+    "dev": "node scripts/dev-server.mjs",
+    "test:dashboard": "node --test tests/dashboard/**/*.test.mjs",
+    "smoke:dashboard": "node scripts/smoke-dashboard-visual.mjs",
+    "generate:ep-summary": "node scripts/generate-ep-summary.mjs",
+    "generate:voc": "node scripts/generate-voc.mjs",
+    "generate:csat": "node scripts/generate-csat.mjs",
+    "generate:drivers": "node scripts/generate-drivers.mjs",
+    "generate:action-enriched": "node scripts/generate-action-enriched.mjs",
+    "generate:diagnosis": "node scripts/generate-executive-diagnosis.mjs",
+    "qa:final": "node scripts/run-qa-final.mjs",
+    "healthcheck": "node scripts/healthcheck.mjs",
+    "status": "node scripts/status.mjs",
+    "validate": "node scripts/validate.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "dotenv": "^16.4.7"
+  }
+}

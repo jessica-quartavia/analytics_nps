@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NPS · Analytics QuartaVia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Ubuntu:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/dashboard/css/styles.css" />
+    <link rel="stylesheet" href="/dashboard/css/layout.css" />
+    <link rel="stylesheet" href="/dashboard/css/components.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-mark">Analytics QuartaVia</span>
+          <span class="sidebar__logo-sub">NPS · Diagnóstico</span>
+        </div>
+        <nav>
+          <ul class="sidebar-nav">
+            <li>
+              <a href="#/executivo" data-route="executivo">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/></svg>
+                Executivo
+              </a>
+            </li>
+            <li>
+              <a href="#/movimento" data-route="movimento">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17l5-5 5 5M7 7l5 5 5-5"/></svg>
+                Movimento
+              </a>
+            </li>
+            <li>
+              <a href="#/eps" data-route="eps">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                Eng. Patrimoniais
+              </a>
+            </li>
+            <li>
+              <a href="#/voz-do-cliente" data-route="voz-do-cliente">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                Voz do Cliente
+              </a>
+            </li>
+            <li>
+              <a href="#/drivers" data-route="drivers">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                Drivers
+              </a>
+            </li>
+            <li>
+              <a href="#/plano-de-acao" data-route="plano-de-acao">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                Plano de Ação
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <footer class="sidebar__footer">
+          <button type="button" class="sidebar__link-btn" id="open-methodology">Metodologia</button>
+        </footer>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <h1 class="topbar__title" id="topbar-title">Visão executiva</h1>
+          <div class="topbar__meta" id="topbar-meta"></div>
+        </header>
+        <section class="page-filters filter-shell" id="filters-bar" aria-label="Filtros globais"></section>
+        <div id="filter-scroll-sentinel" aria-hidden="true"></div>
+        <main class="page-content" id="page-content" tabindex="-1"></main>
+      </div>
+    </div>
+    <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true" aria-expanded="false"></div>
+    <aside class="drawer" id="client-drawer" role="dialog" aria-modal="true" aria-label="Detalhe do cliente" tabindex="-1"></aside>
+    <div class="drawer-backdrop" id="ep-drawer-backdrop" aria-hidden="true" aria-expanded="false"></div>
+    <aside class="drawer" id="ep-drawer" role="dialog" aria-modal="true" aria-label="Detalhe da carteira EP" tabindex="-1"></aside>
+    <div class="drawer-backdrop" id="voc-drawer-backdrop" aria-hidden="true"></div>
+    <aside class="drawer" id="voc-drawer" role="dialog" aria-modal="true" aria-label="Detalhe do comentário" tabindex="-1"></aside>
+    <div class="drawer-backdrop" id="driver-drawer-backdrop" aria-hidden="true"></div>
+    <aside class="drawer" id="driver-drawer" role="dialog" aria-modal="true" aria-label="Detalhe do driver" tabindex="-1"></aside>
+    <div class="drawer-backdrop" id="action-drawer-backdrop" aria-hidden="true"></div>
+    <aside class="drawer" id="action-drawer" role="dialog" aria-modal="true" aria-label="Detalhe do plano de ação" tabindex="-1"></aside>
+    <div class="drawer-backdrop" id="diagnosis-drawer-backdrop" aria-hidden="true"></div>
+    <aside class="drawer" id="diagnosis-drawer" role="dialog" aria-modal="true" aria-label="Diagnóstico executivo completo" tabindex="-1"></aside>
+    <div class="drawer-backdrop" id="methodology-drawer-backdrop" aria-hidden="true" hidden></div>
+    <aside class="drawer" id="methodology-drawer" role="dialog" aria-modal="true" aria-label="Metodologia" tabindex="-1" hidden></aside>
+    <script type="module" src="/dashboard/js/app.js"></script>
+  </body>
+</html>
