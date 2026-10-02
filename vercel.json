@@ -6,10 +6,14 @@
     "api/voc-sync.mjs": {
       "maxDuration": 300,
       "memory": 1024
+    },
+    "api/voc-sync/health.mjs": {
+      "maxDuration": 10
     }
   },
   "rewrites": [
-    { "source": "/api/voc-sync", "destination": "/api/voc-sync" }
+    { "source": "/api/voc-sync", "destination": "/api/voc-sync" },
+    { "source": "/api/voc-sync/health", "destination": "/api/voc-sync/health" }
   ],
   "headers": [
     {

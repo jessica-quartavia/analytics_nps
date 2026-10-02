@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { upsertTrackingEntry } from '../lib/analytics/action-tracking.mjs';
 import './load-dotenv.mjs';
 import { handleVocSyncVercel } from '../lib/persistence/voc-sync-http.mjs';
+import { handleVocSyncHealthVercel } from '../lib/persistence/voc-sync-health.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT) || 5173;
@@ -85,6 +86,16 @@ const server = http.createServer(async (req, res) => {
 
   if (req.method === 'POST' && urlPath === '/api/operational/action_tracking') {
     await handleTrackingPost(req, res);
+    return;
+  }
+
+  if (urlPath === '/api/voc-sync/health') {
+    try {
+      await handleVocSyncHealthVercel(req, res);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
     return;
   }
 
