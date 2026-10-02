@@ -2,6 +2,15 @@
   "framework": null,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/voc-sync.mjs": {
+      "maxDuration": 300,
+      "memory": 1024
+    }
+  },
+  "rewrites": [
+    { "source": "/api/voc-sync", "destination": "/api/voc-sync" }
+  ],
   "headers": [
     {
       "source": "/js/(.*)\\.mjs",

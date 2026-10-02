@@ -34,6 +34,10 @@
     "audit:voc-false-negative": "node scripts/voc-false-negative-audit.mjs",
     "classify:voc-ai": "node scripts/classify-voc-ai.mjs",
     "test:gemini": "node scripts/test-gemini.mjs",
+    "voc:sync": "node scripts/voc-incremental-sync.mjs",
+    "voc:db-smoke": "node scripts/voc-db-smoke.mjs",
+    "voc:golden-five": "node scripts/voc-golden-five-test.mjs",
+    "voc:migration:print": "node scripts/apply-voc-migration-business-data.mjs",
     "audit:voc-ai": "node scripts/audit-voc-ai.mjs",
     "generate:nps-milestones": "node scripts/generate-nps-milestones.mjs",
     "generate:nps-change-drivers": "node scripts/generate-nps-change-drivers.mjs",
@@ -48,7 +52,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "postgres": "^3.4.9"
   },
   "devDependencies": {
     "pg": "^8.23.0"
