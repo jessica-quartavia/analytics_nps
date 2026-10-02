@@ -3,6 +3,16 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
+    "api/voc-classify.mjs": {
+      "maxDuration": 300,
+      "memory": 1024
+    },
+    "api/voc-classify/health.mjs": {
+      "maxDuration": 10
+    },
+    "api/voc-prepare.mjs": {
+      "maxDuration": 60
+    },
     "api/voc-sync.mjs": {
       "maxDuration": 300,
       "memory": 1024
@@ -12,6 +22,9 @@
     }
   },
   "rewrites": [
+    { "source": "/api/voc-classify", "destination": "/api/voc-classify" },
+    { "source": "/api/voc-classify/health", "destination": "/api/voc-classify/health" },
+    { "source": "/api/voc-prepare", "destination": "/api/voc-prepare" },
     { "source": "/api/voc-sync", "destination": "/api/voc-sync" },
     { "source": "/api/voc-sync/health", "destination": "/api/voc-sync/health" }
   ],
