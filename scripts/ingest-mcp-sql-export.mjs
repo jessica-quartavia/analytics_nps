@@ -3,14 +3,6 @@
 import { readFileSync } from 'node:fs';
 import { writeJson } from '../lib/data/file-store.mjs';
 
-const [mcpOutputPath, snapshotId, destFile] = process.argv.slice(2);
-if (!mcpOutputPath || !snapshotId || !destFile) {
-  console.error('Uso: ingest-mcp-sql-export.mjs <mcp.txt> <snapshotId> <dest.json>');
-  process.exit(1);
-}
-
-const text = readFileSync(mcpOutputPath, 'utf8');
-
 export function extractRows(raw) {
   let payload = raw;
   try {
@@ -38,10 +30,18 @@ export function extractRows(raw) {
   return rows;
 }
 
-const rows = extractRows(text);
-if (!rows || !Array.isArray(rows)) {
-  console.error('JSON array não encontrado no arquivo MCP');
-  process.exit(1);
+const [mcpOutputPath, snapshotId, destFile] = process.argv.slice(2);
+if (process.argv[1]?.endsWith('ingest-mcp-sql-export.mjs')) {
+  if (!mcpOutputPath || !snapshotId || !destFile) {
+    console.error('Uso: ingest-mcp-sql-export.mjs <mcp.txt> <snapshotId> <dest.json>');
+    process.exit(1);
+  }
+  const text = readFileSync(mcpOutputPath, 'utf8');
+  const rows = extractRows(text);
+  if (!rows || !Array.isArray(rows)) {
+    console.error('JSON array não encontrado no arquivo MCP');
+    process.exit(1);
+  }
+  await writeJson(`raw/${snapshotId}/${destFile}`, rows);
+  console.log(JSON.stringify({ dest: destFile, rows: rows.length }, null, 2));
 }
-await writeJson(`raw/${snapshotId}/${destFile}`, rows);
-console.log(JSON.stringify({ dest: destFile, rows: rows.length }, null, 2));

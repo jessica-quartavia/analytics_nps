@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T02:00:22.211Z",
+  "generated_at": "2026-10-06T21:05:05.034Z",
   "safra_entry_field_chosen": "clients.data_inicio_ciclo",
   "safra_fallback_chain": [
     "clients.data_inicio_ciclo",
@@ -7,21 +7,23 @@
     "clients.created_at",
     "nps_historico.respostas.inicio_programa (somente se BASE QV indisponível por cliente)"
   ],
-  "pharus_clients_in_base": 1034,
-  "clients_analyzed": 1034,
-  "with_safra_trimestre": 1034,
-  "without_safra": 0,
+  "pharus_clients_in_base": 3152,
+  "clients_analyzed": 3152,
+  "with_safra_trimestre": 2922,
+  "without_safra": 230,
   "safra_source_counts": {
-    "base_qv": 1034
+    "pagamentos_programa.min": 2922,
+    "payment_entry_date": 203,
+    "unavailable": 27
   },
-  "data_inicio_ciclo_coverage_pct": 81,
-  "ever_answered_nps": 512,
-  "never_answered_nps": 522,
-  "pct_ever_answered": 49.5,
-  "merged_responses_total": 1077,
-  "current_responses_input": 508,
+  "data_inicio_ciclo_coverage_pct": 80.1,
+  "ever_answered_nps": 689,
+  "never_answered_nps": 2463,
+  "pct_ever_answered": 21.9,
+  "merged_responses_total": 1110,
+  "current_responses_input": 537,
   "historico_responses_input": 1067,
-  "historico_unmatched_to_client": 298,
+  "historico_unmatched_to_client": 89,
   "dedupe_rule": "Mesma response_key: respostas atuais (precedence 2) substituem histórico (1); chaves fortes = typeform/id_resposta/chave_import",
   "historico_official_medicoes": [
     {
@@ -55,26 +57,26 @@
       "nps": 59.6
     }
   ],
-  "app_source": "Nenhuma tabela App PHARUS encontrada nos schemas expostos (clusterizacao_pharus, public, analytics).",
+  "app_source": "not_configured",
   "app_clients_matched": 0,
-  "app_unknown": 1034,
+  "app_unknown": 3152,
   "app_match_status_counts": {
-    "not_found": 1034
+    "not_found": 3152
   },
   "nps_app_vs_no_app": {
     "with_app_n": 0,
     "without_app_n": 0,
     "with_app_nps": null,
-    "without_app_nps": 52.3,
+    "without_app_nps": 43.5,
     "note": "Associação descritiva; diferença não implica causalidade."
   },
   "days_entry_to_first_nps": {
-    "n_valid": 308,
-    "median": 97,
-    "mean": 122,
-    "p25": 56,
-    "p75": 165.25,
-    "n_invalid_negative": 4
+    "n_valid": 307,
+    "median": 116,
+    "mean": 181,
+    "p25": 82,
+    "p75": 234.5,
+    "n_invalid_negative": 1
   },
   "historico_field_coverage": {
     "historico.nota_estrategista": 1029,
@@ -94,5 +96,7 @@
     "historico.reunioes_realizadas": 64
   },
   "historico_rows": 1067,
-  "inicio_programa_filled": 87
+  "inicio_programa_filled": 87,
+  "payment_entry_rule": "1) MIN(base0.pagamentos_programa.data_pagamento) WHERE conta_como_programa=true AND base_qv_id matched; 2) fallback base0.clientes.data_pagamento_entrada",
+  "cohort_payment_as_of": "2026-10-06"
 }

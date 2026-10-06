@@ -198,27 +198,6 @@
     ],
     "other_signals": [],
     "qualitative_signal": false,
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "client_name": "Daniel Lin Santos",
-    "ep_name": "Cleuber Anicesio",
-    "previous_score": 10,
-    "current_score": 10,
-    "score_delta": 0,
-    "previous_category": "Promotor",
-    "current_category": "Promotor",
-    "nps_migration": "Promotor → Promotor",
-    "comment": "Qual o principal motivo da sua nota?: Poder fazer parte de um ecossistema de construção de riquezas e ter ganhos financeiros com isso\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Poder participar de investimentos de forma prática e simples\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Possibilidade de ingresso em novas frentes de investimento\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: A experiência tem sido muito positiva, com atendimento atencioso e célere às demandas que apresento ao analista",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "43e67f19-78da-44ab-ae57-6450dee42f59"
-  },
-  {
-    "priority": "Aprendizado",
-    "reason": "Promotor consistente em múltiplos ciclos",
-    "priority_reasons": [
-      "Promotor consistente em múltiplos ciclos"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
     "client_id": "38e29943-c013-44f3-aaa5-b3bc01d2f490",
     "client_name": "Vanessa Cristine Marcondes Espindola",
     "ep_name": "João Aliceda",
@@ -231,6 +210,27 @@
     "comment": "Qual o principal motivo da sua nota?: Acompanhamento com o engenheiro patrimonial e oportunidades de alavancagem.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Um ambiente que me sinto segura em investir\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Eu conseguir ter resultados significativos e determinantes com as estratégias.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Estou bastante satisfeita, só acrescentaria um relatórios semanal automático sobre como estão as estratégias que eu estou envolvida como o fundo imobiliário e o leilão sem eu precisar perguntar ao engenheiro patrimonial que sei que não é um detentor dessa informação.",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "8a1c14c8-5132-4122-9429-24f522ce9c65"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "0899e909-4949-4cfc-9f76-6ebb2bf62a81",
+    "client_name": "Daniel Antonio de Aquino Neto",
+    "ep_name": "Gabriel Oliveira",
+    "previous_score": 10,
+    "current_score": 10,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: A diversificação.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: .\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Eu ter mais tempo e implementar mais\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: .",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "a4b95de3-4c87-4c38-b9b5-6e82c69a9521"
   },
   {
     "priority": "Média",
@@ -282,6 +282,27 @@
     ],
     "other_signals": [],
     "qualitative_signal": false,
+    "client_id": "cbb09924-ca18-4b39-b497-6723364234a4",
+    "client_name": "Carina Vieira da Rocha",
+    "ep_name": "Cleuber Anicesio",
+    "previous_score": 9,
+    "current_score": 9,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: O mecanismo\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: O comprometimento\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Viver ganho prático. Hj ainda s recurso\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Gratidão 🙏",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "7896b5dd-8226-46c0-84fa-91ea30c9ea90"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
     "client_id": "c7b6ff1a-9ceb-4587-885d-68904d0803cb",
     "client_name": "Juliano Mosquera Simões",
     "ep_name": "Abner Braga",
@@ -294,6 +315,27 @@
     "comment": "Qual o principal motivo da sua nota?: Clareza e disponibilidade de tirar qualquer dúvida\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Apesar de ainda não estar tendo resultado, uma base está sendo formada e tenho acreditado no processo\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Um resultado mais rápido\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Horizontes foram  abertos e esperanças foram plantadas",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "721c2185-c6d8-463a-9367-56effd4507f4"
+  },
+  {
+    "priority": "Média",
+    "reason": "Queda relevante sem mudança de categoria",
+    "priority_reasons": [
+      "Queda relevante sem mudança de categoria"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+    "client_name": "Augusto Eduardo Goncalves Walter",
+    "ep_name": "Carlos Serafim",
+    "previous_score": 10,
+    "current_score": 9,
+    "score_delta": -1,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Conhecimento e clareza sobre os investimentos.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: A construção patrimonial e o acompanhamento.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Quero ter maior visibilidade sobre o meu progresso em relação aos meus investimentos, com uma forma mais clara e acessível de acompanhar o que já foi realizado e os resultados gerados ao longo da minha jornada.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Acredito que a jornada poderia ser pensada de forma mais contínua, sem a necessidade de uma renovação ao término dos 12 meses. Para clientes que ainda estão estruturando sua disciplina financeira, esse primeiro período poderia representar uma etapa de organização e reestruturação, criando os fundamentos necessários para uma evolução posterior em investimentos e construção patrimonial. Nesse processo, considero que uma maior proximidade dos sócios e da alta gestão também contribuiria para fortalecer a experiência.",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c"
   },
   {
     "priority": "Aprendizado",
@@ -336,6 +378,27 @@
     "comment": "Qual o principal motivo da sua nota?: Mudou muito minha visão em investimentos\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: A mudança da minha visão\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Aumentar mais ainda meu capital\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Muito boa",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "74d6e35f-d2ca-4ccb-ad51-f45915bf22e8"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "bd06e8af-e354-4967-b9c0-3bc76ac8d861",
+    "client_name": "Evelin Rosio Estevez Jimenez",
+    "ep_name": "Gabriel Oliveira",
+    "previous_score": 10,
+    "current_score": 10,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Atendimento do Gabriel e o cuidado por nós\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Gabriel sempre nos atendeu com muita felicidade, vemos que ele é feliz por nos ajudar. Ajudou a sair do aluguel e comprar nossa casa própria.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Futuramente quero estar no Davos . Porém quero que o Gabriel continue nos atendendo. Quero começar a aplicar as estratégias assim que minha empresa em Dubai começar a fluir\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "91eb2645-4a6c-44f5-8adc-51ea3a03f95b"
   },
   {
     "priority": "Aprendizado",
@@ -441,6 +504,27 @@
     "comment": "Qual o principal motivo da sua nota?: Estou muito satisfeito\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Disponibilidade e transferência\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Ter mentoria de qualidade\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "527efd03-a06a-4b02-a6e7-5f50345846a1"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "f3984645-e282-472d-bfaa-4560aae31d26",
+    "client_name": "João Marcos Castro Fagundes",
+    "ep_name": "Cleuber Anicesio",
+    "previous_score": 9,
+    "current_score": 9,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Bom\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Bom\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Cobrar um preço mais justo\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Nao",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "e4cc9777-3823-409f-9313-7c1ce8a8d275"
   },
   {
     "priority": "Média",
@@ -975,6 +1059,27 @@
     ],
     "other_signals": [],
     "qualitative_signal": false,
+    "client_id": "b8e2336a-b2b5-4b86-91d3-8a30a87524de",
+    "client_name": "Victor Alfredo Mirol",
+    "ep_name": "Abner Braga",
+    "previous_score": 10,
+    "current_score": 10,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Atendimento muito adequado à minha situação atual. Asesoramento muito bem informado e compreensível.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Adequação à situação política e económica do país\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: A confirmação, passo a passo, da linha de pensamento atual do sistema.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Somente reafirmar o que já comentei.",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "5be1bc98-b82b-48d9-9127-bc378f3f596a"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
     "client_id": "6ce80c20-678f-40a0-bf8e-f4ab6fcbec68",
     "client_name": "Andre Colombo Bermudez",
     "ep_name": "Tiago Junior",
@@ -1008,6 +1113,90 @@
     "comment": "Qual o principal motivo da sua nota?: As pessoas mais próximas a que eu indicaria, tem investimentos em imóveis e com bons rendimentos. O que não interessou quando falei sobre o Pharus.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Confiança na equipe\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Resultados mais consistentes no próximo ano.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Algumas vezes a ansiedade por ver os resultados logo atrapalha, mas vamos seguindo e implementando a medida do possível na minha realidade atual e aguardar o progresso que virá com certeza.",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "4fe5ea0d-ba2d-4af0-8adf-fc8816bc713b"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "666472e5-5243-42d7-8916-41668ec60d0c",
+    "client_name": "Paulo Sergio Lima dos Santos",
+    "ep_name": "Abner Braga",
+    "previous_score": 9,
+    "current_score": 10,
+    "score_delta": 1,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: satisfação com resultados obtidos até então\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: questão organizacional\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: manter os avanços que venho obtendo\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: não",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "e086cb39-cca7-43ce-98e9-0cf4a7ffbf8b"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "03ed7e77-4e5b-4309-9330-dd8d8b112db8",
+    "client_name": "Yoandrys Guerra Sánchez",
+    "ep_name": "Gabriel Oliveira",
+    "previous_score": 10,
+    "current_score": 10,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Ainda estou organizando fluxo, mas vejo potencial.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Ajuda\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Organizar meu caixa e começar a implementar\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "7c74244d-f54e-4bcf-8a9d-1625c803fc5a"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "74487388-4d09-487f-9a00-e5254b644f50",
+    "client_name": "Thiago Lara Vasques",
+    "ep_name": "Cleuber Anicesio",
+    "previous_score": 9,
+    "current_score": 9,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Confiabilidade\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: A parte de consultoria direcionada\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: A continuação do trabalho com resultado\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "b0d55e88-8977-45ad-9280-fc41a5f08e4f"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+    "client_name": "Fabrício Figueiredo de Alencar",
+    "ep_name": "Cleuber Anicesio",
+    "previous_score": 10,
+    "current_score": 10,
+    "score_delta": 0,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Confiança\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Atendimento, metodologia e transparência\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Conseguir implementar a metodologia e ver resultados\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Acredito que seria interessante produtos um pouco mais acessíveis, principalmente pro Pharus, pois assim a implementação poderia até ser mais consistente e os retornos poderiam ser mais rápidos mesmo que menores no início",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "abadfcf0-8367-45b0-8646-4411537807b9"
   },
   {
     "priority": "Aprendizado",
@@ -1071,6 +1260,27 @@
     "comment": "Qual o principal motivo da sua nota?: Trabalho sério e estruturado\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Possibilidade de investir em ativos reais e ter apoio de um estrategista financeiro.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Continuar vendo resultados sólidos.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: No momento não.",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "0e92c3ee-d793-4c58-8f87-3b9cc1720fe3"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+    "client_name": "Alessandra Girotto",
+    "ep_name": "Gustavo Papeschi Mariano",
+    "previous_score": 9,
+    "current_score": 10,
+    "score_delta": 1,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Para mim, esse cuidado próximo e humanizado, aliado à percepção de que tenho espaço para evoluir e construir meu patrimônio de forma mais estruturada, é um dos principais diferenciais da experiência com a Quarta Via.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: O que mais contribui para a minha percepção positiva é a proximidade e a constância do acompanhamento da equipe. Considero especialmente positivo ter profissionais que me procuram regularmente para entender como estou e me ajudar a organizar melhor minha vida financeira, trazendo direcionamento e mais clareza para as minhas decisões. É um tipo de suporte que eu nunca havia vivenciado em outros serviços.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Disciplina e acompanhamento, além dos resultados esperados.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não, já é o bastante",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "e10ddd0f-7d8f-44f3-b05c-bf960ddf5777"
   },
   {
     "priority": "Aprendizado",
@@ -1333,6 +1543,27 @@
     ],
     "other_signals": [],
     "qualitative_signal": false,
+    "client_id": "03493d05-bf24-4326-bce7-fd29ad2c242b",
+    "client_name": "Marilda Alves de Morais",
+    "ep_name": "Willian Oliveira Schimidt",
+    "previous_score": 9,
+    "current_score": 10,
+    "score_delta": 1,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Gostei da apresentação do Adrian. Confiei na apresentação e aderi ao plano.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Na apresentação que eu assisti das 5 aulas.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Eu continuarei tranquilamente desde que eu consiga implementar o meu plano.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Apenas quero dizer que estou acreditando. Estou empenhada em fazer com que dê certo! Acredito na viabilidade do que estou aprendendo. E estou fazendo o meu melhor para que dê certo.",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "911f0598-125b-4736-ba05-5c23cc6980c4"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
     "client_id": "31d2aa6a-e99a-4097-a1e8-c367b14e334d",
     "client_name": "Isabela Bezri Pennini",
     "ep_name": "Abner Braga",
@@ -1408,6 +1639,27 @@
     "comment": "Qual o principal motivo da sua nota?: Ainda não finalizei  todas as etapas da minha estratégia pra poder avaliar 100%\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Atendimento e os métodos\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Se  meu  planejamento der certo\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: No momento nada",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "78c51636-ea79-4192-afe4-dbe2785240b0"
+  },
+  {
+    "priority": "Aprendizado",
+    "reason": "Promotor consistente em múltiplos ciclos",
+    "priority_reasons": [
+      "Promotor consistente em múltiplos ciclos"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "568c1b39-cf89-4557-b3aa-09fa330ddbc2",
+    "client_name": "Danillo Ewerton Oliveira Amaral",
+    "ep_name": "Felipe Aleixo",
+    "previous_score": 9,
+    "current_score": 10,
+    "score_delta": 1,
+    "previous_category": "Promotor",
+    "current_category": "Promotor",
+    "nps_migration": "Promotor → Promotor",
+    "comment": "Qual o principal motivo da sua nota?: Acompanhamento\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: conhecimento do engenheiro e acompanhamento proximo\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: resultados\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: .",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "5916537b-fbac-4d85-90ac-38c903802e7f"
   },
   {
     "priority": "Média",
@@ -1602,6 +1854,28 @@
     "response_id": "1f9666ab-0528-4f43-905a-8fd30b137f08"
   },
   {
+    "priority": "Alta",
+    "reason": "Detrator recorrente (ciclos consecutivos); Sinal crítico de experiência",
+    "priority_reasons": [
+      "Detrator recorrente (ciclos consecutivos)",
+      "Sinal crítico de experiência"
+    ],
+    "other_signals": [],
+    "qualitative_signal": false,
+    "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+    "client_name": "Debora Fernanda Ventura",
+    "ep_name": "Felipe Aleixo",
+    "previous_score": 6,
+    "current_score": 5,
+    "score_delta": -1,
+    "previous_category": "Detrator",
+    "current_category": "Detrator",
+    "nps_migration": "Detrator → Detrator",
+    "comment": "Qual o principal motivo da sua nota?: Não percebo o retorno do investimento\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Entender de forma clara e objetiva o retorno do investimento\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Perceber o retorno e evolução do patrimonio\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+    "cycle_code": "NPS-2026-SET-PHARUS",
+    "response_id": "da539b88-6182-432e-905b-de4dffbb0dad"
+  },
+  {
     "priority": "Média",
     "reason": "Promotor → Neutro",
     "priority_reasons": [
@@ -1663,173 +1937,5 @@
     "comment": "Qual o principal motivo da sua nota?: O programa é bem estruturado\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Atendimento muito bom, demonstram conhecimento sobre o que estão fazendo\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Um bom equilíbrio entre investimento e retorno\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Nao",
     "cycle_code": "NPS-2026-SET-PHARUS",
     "response_id": "a2be7c79-c912-4eb5-bb05-5e6cb35e89a5"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "caa56555-db8a-4da0-87cd-a1715def96f5",
-    "client_name": "Renato Pansera Spiritus",
-    "ep_name": "Abner Braga",
-    "previous_score": null,
-    "current_score": 6,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Nao vi advanço\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Nao sei\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Atingir minhas metas de crescimento\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Quero e preciso de mais velocidade",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "2ee64307-0567-4355-a151-ea815a029fe2"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "9471273b-ab78-42ab-9be3-ed8393576b54",
-    "client_name": "Lejandre Karol Fortes Meneses",
-    "ep_name": "Gabriel Oliveira",
-    "previous_score": null,
-    "current_score": 6,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Entrei no plano em maio, estamos em setembro e Ainda não surgiram os empreendimentos prometidos  (leilões).\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Mais transparência nos investimentos. Por exemplo solicitei dados reais dos últimos leilões e demorou meses para me informarem 3 imóveis com os dados. Planilha desenvolvida para simular o aumento patrimonial é irrealista. Ela leva em conta sincronismo perfeito entre investimentos. Na prática pode esperar meses. E tempo é fundamental.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Ver na prática os resultados dos investimentos e ter considerável desconto na taxa de renovação.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Já era uma pessoa financeiramente organizada. Então para mim o que mais vale é o plano de aumento patrimonial em prática. No entanto os leilões em série prometidos estão demorando muito.",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "2267ba01-075d-4692-96ad-50563d7f53b3"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "33cb0d8a-1273-47d8-8bb5-71dfb19549fa",
-    "client_name": "Geiffer Matiello",
-    "ep_name": "Nelson Marques",
-    "previous_score": null,
-    "current_score": 2,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Baixo retorno sobre o investimento\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: O que foi apresentado e de fato executado está muito longe do apresentado e ao final do primeiro ano, teremos apenas prejuízo no negócio em si. A nota seria muito melhor se ao menos recebesse o valor para cobrir os custos mensais do grupo\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Resultados consistentes e que cobrissem o custo mensal\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não foi como esperava",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "8a66f940-2084-4960-aec5-e8252608d289"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "b20557d2-aa88-4a5f-9178-580525dac756",
-    "client_name": "Guilherme Almeida Francisco",
-    "ep_name": "Tiago Junior",
-    "previous_score": null,
-    "current_score": 1,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Até o presente momento não agregou em nada.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Precisa entregar o q prometeu\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Que possa mudar o quadro\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Preciso de atenção especial ou devolução do valor contratado",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "a81d7c0b-6993-4cfe-b021-8c3e1761cb86"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "1dc2e6a7-5d8d-47b0-9b7b-a89750d34cb8",
-    "client_name": "Weslley Gonçalves Cintra",
-    "ep_name": "Thiago Freire",
-    "previous_score": null,
-    "current_score": 0,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Pouca evolução, de 2 em 2 meses troca o engenheiro que não tem habilidade nem pra sugerir um investimento, bem fraco nao indico pra ninguém e nao vejo hora de sair desse prejuízo\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Entregar o que promete na venda, nao ficar trocando o engenheiro e ter um time mais qualificado\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Nada, não vejo a hora de terminar essa péssima experiência\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não merece comentários",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "6160cbde-f1f4-4791-b626-c07ea3753b27"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "cc4ad025-8f9e-4d36-8962-f48b4092229f",
-    "client_name": "Alexandre Martini Costa",
-    "ep_name": "Tales Salinas Rozo",
-    "previous_score": null,
-    "current_score": 5,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Por hora não me ajudou em nada, foi feita uma análise técnica, swot, etc, mas em termos reais quando precisei rever um empréstimo mais barato, foi algo super lento, burocrático, o que eu resolvi em 15 dias com o banco demoraram 3 meses para trazer solução. E por hora não vi nenhuma solução prática que mudou ou melhorou minha vida.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Trazer algum resultado para prático para minha vida. Faça esse consórcio de carro, compre da sua PJ o carro da sua PF, pegue o dinheiro x e quite o banco. Entre no consórcio x com tais quotas. O leilão de imóvel y vai ter um pefil que faz sentido pra vc, sei lá. Algo que de fato sirva financeiramente pra minha vida. Por hora não estou vendo aqui como vou me aposentar em 7 anos com renda passiva.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: ver na prática algum resultado\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: a pessoa de finanças que ficou de trazer alguma solução prática para eu pegar um empréstimo mais barato não serviu pra nada, só tomou meu tempo. Resolvi de outra forma.",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "30a7b4f3-9cce-4b0b-b7a7-15bffeb78cca"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "1c8340ea-f97a-4428-b21d-8801d44de08e",
-    "client_name": "Luiz Fernando Nascimento Benek",
-    "ep_name": "Nelson Marques",
-    "previous_score": null,
-    "current_score": 0,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Não tive resultado ainda para poder indicar para outros. No início foi um pouco desorganizado, e a estratégia aplicada de consórcios foi estudada de uma forma e aplicada de outra, onde o lance fidelidade proposta foi de 6 meses, porém depois 6 meses foi informado que o lance fidelidade seria a partir de 1 ano, alterando a estratégia inicial.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Maior transparência no leilão serial, pois só informam que não conseguiram arrematar nenhum imóvel, porém poderiam enviar um relatório com imóvel alvo, valor teto e valor que foi arrematado por terceiros. Fornecer acesso a conteúdos de conhecimento financeiro, maior organização nos grupos....\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Ter um retorno anual que compense o pagamento da anuidade.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Tinha expectativas melhores sobre o investimento realizado no projeto.",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "94acaf87-58ee-43e1-940c-e9d23f483be2"
-  },
-  {
-    "priority": "Investigar",
-    "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-    "priority_reasons": [
-      "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-    ],
-    "other_signals": [],
-    "qualitative_signal": false,
-    "client_id": "35b044c2-4669-4645-8a35-5f06fe20eb04",
-    "client_name": "Paula Costa",
-    "ep_name": "Tales Salinas Rozo",
-    "previous_score": null,
-    "current_score": 0,
-    "score_delta": null,
-    "previous_category": null,
-    "current_category": "Detrator",
-    "nps_migration": null,
-    "comment": "Qual o principal motivo da sua nota?: Comprometimento da equipe e a proposta de colecionador de ativos faz todo sentido\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Já tem a nota máxima\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Se eu conseguir implementar as recomendações do QuartaVia\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: As vezes penso que não são estratégias que vou conseguir implementar, mas converso com o meu estrategista e fico confiante novamente",
-    "cycle_code": "NPS-2026-SET-PHARUS",
-    "response_id": "1c7f40cb-7ad5-4da6-b4b0-b66754061a18"
   }
 ]

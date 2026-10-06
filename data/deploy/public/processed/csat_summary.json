@@ -1,96 +1,10 @@
 {
-  "cycles": [
-    {
-      "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
-      "valid_responses": 181,
-      "distinct_clients": 110,
-      "average_score": 4.795580110497237,
-      "median_score": 5,
-      "satisfied_responses": 173,
-      "satisfied_pct": 95.58011049723757,
-      "eligible_clients": 272,
-      "response_rate": 0.40441176470588236,
-      "response_rate_quality": "partial",
-      "score_distribution": {
-        "0": 0,
-        "1": 0,
-        "2": 0,
-        "3": 8,
-        "4": 21,
-        "5": 152
-      },
-      "aggregation": "all_valid_responses",
-      "satisfied_rule": {
-        "rule_id": "top2_box_0_5_score_gte_4",
-        "min_score": 4,
-        "scale": "0-5",
-        "description": "Percentual de respostas CSAT válidas com nota >= 4 (top-2 box em escala 0–5)."
-      },
-      "data_cutoff": "2026-09-29T00:06:04.705Z"
-    },
-    {
-      "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-      "valid_responses": 83,
-      "distinct_clients": 53,
-      "average_score": 4.831325301204819,
-      "median_score": 5,
-      "satisfied_responses": 81,
-      "satisfied_pct": 97.59036144578313,
-      "eligible_clients": 967,
-      "response_rate": 0.05480868665977249,
-      "response_rate_quality": "partial",
-      "score_distribution": {
-        "0": 0,
-        "1": 0,
-        "2": 0,
-        "3": 2,
-        "4": 10,
-        "5": 71
-      },
-      "aggregation": "all_valid_responses",
-      "satisfied_rule": {
-        "rule_id": "top2_box_0_5_score_gte_4",
-        "min_score": 4,
-        "scale": "0-5",
-        "description": "Percentual de respostas CSAT válidas com nota >= 4 (top-2 box em escala 0–5)."
-      },
-      "data_cutoff": "2026-09-29T00:06:04.705Z"
-    },
-    {
-      "analytical_cycle_code": null,
-      "operational_period": "outside_or_unmapped",
-      "valid_responses": 185,
-      "distinct_clients": 98,
-      "average_score": 4.4,
-      "median_score": 5,
-      "satisfied_responses": 160,
-      "satisfied_pct": 86.48648648648648,
-      "eligible_clients": null,
-      "response_rate": null,
-      "response_rate_quality": "unavailable",
-      "score_distribution": {
-        "0": 0,
-        "1": 13,
-        "2": 5,
-        "3": 7,
-        "4": 30,
-        "5": 130
-      },
-      "aggregation": "all_valid_responses",
-      "satisfied_rule": {
-        "rule_id": "top2_box_0_5_score_gte_4",
-        "min_score": 4,
-        "scale": "0-5",
-        "description": "Percentual de respostas CSAT válidas com nota >= 4 (top-2 box em escala 0–5)."
-      },
-      "data_cutoff": "2026-09-29T00:06:04.705Z"
-    }
-  ],
+  "cycles": [],
   "satisfied_rule": {
     "rule_id": "top2_box_0_5_score_gte_4",
     "min_score": 4,
     "scale": "0-5",
     "description": "Percentual de respostas CSAT válidas com nota >= 4 (top-2 box em escala 0–5)."
   },
-  "data_cutoff": "2026-09-29T00:06:04.705Z"
+  "data_cutoff": "2026-10-06T20:51:18.861Z"
 }

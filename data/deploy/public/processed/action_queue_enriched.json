@@ -143,15 +143,16 @@
         }
       ],
       "primary_topic": "Resultados (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": true,
       "recommended_action_type": "Contato imediato",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -308,6 +309,93 @@
         }
       ],
       "primary_topic": "Resultados (Negativa)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": true,
+      "recommended_action_type": "Contato imediato",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Alta",
+      "reason": "Sinal crítico de experiência",
+      "priority_rules": [
+        "Sinal crítico de experiência"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+      "client_name": "Debora Fernanda Ventura",
+      "ep_id": "e5e5011c-4324-4215-a285-dfa91cc04998",
+      "ep_name": "Felipe Aleixo",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "da539b88-6182-432e-905b-de4dffbb0dad",
+      "previous_score": 6,
+      "current_score": 5,
+      "score_delta": -1,
+      "previous_category": "Detrator",
+      "current_category": "Detrator",
+      "nps_migration": "Detrator → Detrator",
+      "evolution_status": "Queda",
+      "comment": "Qual o principal motivo da sua nota?: Não percebo o retorno do investimento\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Entender de forma clara e objetiva o retorno do investimento\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Perceber o retorno e evolução do patrimonio\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+      "topics": [
+        {
+          "topic": "Clareza / comunicação",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Oportunidades",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Plano patrimonial",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Valor percebido",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Clareza / comunicação",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Oportunidades",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Valor percebido",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Clareza / comunicação (Positiva)",
       "csat_average": null,
       "latest_csat_score": null,
       "has_csat": false,
@@ -927,6 +1015,103 @@
     },
     {
       "priority": "Média",
+      "reason": "Queda relevante sem mudança de categoria",
+      "priority_rules": [
+        "Queda relevante sem mudança de categoria"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+      "client_name": "Augusto Eduardo Goncalves Walter",
+      "ep_id": "c50439d7-5fca-47b1-a083-8970e3f6001a",
+      "ep_name": "Carlos Serafim",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+      "previous_score": 10,
+      "current_score": 9,
+      "score_delta": -1,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Queda",
+      "comment": "Qual o principal motivo da sua nota?: Conhecimento e clareza sobre os investimentos.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: A construção patrimonial e o acompanhamento.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Quero ter maior visibilidade sobre o meu progresso em relação aos meus investimentos, com uma forma mais clara e acessível de acompanhar o que já foi realizado e os resultados gerados ao longo da minha jornada.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Acredito que a jornada poderia ser pensada de forma mais contínua, sem a necessidade de uma renovação ao término dos 12 meses. Para clientes que ainda estão estruturando sua disciplina financeira, esse primeiro período poderia representar uma etapa de organização e reestruturação, criando os fundamentos necessários para uma evolução posterior em investimentos e construção patrimonial. Nesse processo, considero que uma maior proximidade dos sócios e da alta gestão também contribuiria para fortalecer a experiência.",
+      "topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Engenheiro Patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Clareza / comunicação",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Oportunidades",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Valor percebido",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Engenheiro Patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Clareza / comunicação",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Oportunidades",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Valor percebido",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Engenheiro Patrimonial (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Acompanhar",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Média",
       "reason": "Promotor → Neutro",
       "priority_rules": [
         "Promotor → Neutro"
@@ -1220,576 +1405,6 @@
       ]
     },
     {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "caa56555-db8a-4da0-87cd-a1715def96f5",
-      "client_name": "Renato Pansera Spiritus",
-      "ep_id": "8063484a-7c22-49f2-a526-c59605d82fe0",
-      "ep_name": "Abner Braga",
-      "ep_resolution_confidence": "low",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "2ee64307-0567-4355-a151-ea815a029fe2",
-      "previous_score": null,
-      "current_score": 6,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Nao vi advanço\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Nao sei\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Atingir minhas metas de crescimento\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Quero e preciso de mais velocidade",
-      "topics": [
-        {
-          "topic": "Resultados",
-          "valence": "Neutra",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [],
-      "positive_topics": [],
-      "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "9471273b-ab78-42ab-9be3-ed8393576b54",
-      "client_name": "Lejandre Karol Fortes Meneses",
-      "ep_id": "5c8fb2e6-968b-4eab-90e5-7a3e95499cf9",
-      "ep_name": "Gabriel Oliveira",
-      "ep_resolution_confidence": "low",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "2267ba01-075d-4692-96ad-50563d7f53b3",
-      "previous_score": null,
-      "current_score": 6,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Entrei no plano em maio, estamos em setembro e Ainda não surgiram os empreendimentos prometidos  (leilões).\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Mais transparência nos investimentos. Por exemplo solicitei dados reais dos últimos leilões e demorou meses para me informarem 3 imóveis com os dados. Planilha desenvolvida para simular o aumento patrimonial é irrealista. Ela leva em conta sincronismo perfeito entre investimentos. Na prática pode esperar meses. E tempo é fundamental.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Ver na prática os resultados dos investimentos e ter considerável desconto na taxa de renovação.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Já era uma pessoa financeiramente organizada. Então para mim o que mais vale é o plano de aumento patrimonial em prática. No entanto os leilões em série prometidos estão demorando muito.",
-      "topics": [
-        {
-          "topic": "Engenheiro Patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Resultados",
-          "valence": "Neutra",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Plano patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Agilidade",
-          "valence": "Negativa",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [
-        {
-          "topic": "Agilidade",
-          "valence": "Negativa",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "positive_topics": [
-        {
-          "topic": "Engenheiro Patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Plano patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Agilidade (Negativa)",
-      "csat_average": 4,
-      "latest_csat_score": 4,
-      "has_csat": true,
-      "csat_responses_count": 1,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "33cb0d8a-1273-47d8-8bb5-71dfb19549fa",
-      "client_name": "Geiffer Matiello",
-      "ep_id": "28939408-7ea5-44b3-8aaa-da39818bd606",
-      "ep_name": "Nelson Marques",
-      "ep_resolution_confidence": "high",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "8a66f940-2084-4960-aec5-e8252608d289",
-      "previous_score": null,
-      "current_score": 2,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Baixo retorno sobre o investimento\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: O que foi apresentado e de fato executado está muito longe do apresentado e ao final do primeiro ano, teremos apenas prejuízo no negócio em si. A nota seria muito melhor se ao menos recebesse o valor para cobrir os custos mensais do grupo\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Resultados consistentes e que cobrissem o custo mensal\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não foi como esperava",
-      "topics": [
-        {
-          "topic": "Resultados",
-          "valence": "Neutra",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Neutra",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [],
-      "positive_topics": [
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "b20557d2-aa88-4a5f-9178-580525dac756",
-      "client_name": "Guilherme Almeida Francisco",
-      "ep_id": "86b124ec-a1f1-4649-b80f-c9658f617c2f",
-      "ep_name": "Tiago Junior",
-      "ep_resolution_confidence": "high",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "a81d7c0b-6993-4cfe-b021-8c3e1761cb86",
-      "previous_score": null,
-      "current_score": 1,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Até o presente momento não agregou em nada.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Precisa entregar o q prometeu\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Que possa mudar o quadro\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Preciso de atenção especial ou devolução do valor contratado",
-      "topics": [
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [],
-      "positive_topics": [
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Expectativa (Positiva)",
-      "csat_average": 3.5,
-      "latest_csat_score": 4,
-      "has_csat": true,
-      "csat_responses_count": 2,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "1dc2e6a7-5d8d-47b0-9b7b-a89750d34cb8",
-      "client_name": "Weslley Gonçalves Cintra",
-      "ep_id": "c7b89ee5-9162-4fd3-bacd-70e4b2bf5b4f",
-      "ep_name": "Thiago Freire",
-      "ep_resolution_confidence": "high",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "6160cbde-f1f4-4791-b626-c07ea3753b27",
-      "previous_score": null,
-      "current_score": 0,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Pouca evolução, de 2 em 2 meses troca o engenheiro que não tem habilidade nem pra sugerir um investimento, bem fraco nao indico pra ninguém e nao vejo hora de sair desse prejuízo\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Entregar o que promete na venda, nao ficar trocando o engenheiro e ter um time mais qualificado\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Nada, não vejo a hora de terminar essa péssima experiência\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não merece comentários",
-      "topics": [
-        {
-          "topic": "Engenheiro Patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [],
-      "positive_topics": [
-        {
-          "topic": "Engenheiro Patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Engenheiro Patrimonial (Positiva)",
-      "csat_average": 4,
-      "latest_csat_score": 4,
-      "has_csat": true,
-      "csat_responses_count": 1,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "cc4ad025-8f9e-4d36-8962-f48b4092229f",
-      "client_name": "Alexandre Martini Costa",
-      "ep_id": "035636be-525d-47e7-a71f-e3b87d290059",
-      "ep_name": "Tales Salinas Rozo",
-      "ep_resolution_confidence": "low",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "30a7b4f3-9cce-4b0b-b7a7-15bffeb78cca",
-      "previous_score": null,
-      "current_score": 5,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Por hora não me ajudou em nada, foi feita uma análise técnica, swot, etc, mas em termos reais quando precisei rever um empréstimo mais barato, foi algo super lento, burocrático, o que eu resolvi em 15 dias com o banco demoraram 3 meses para trazer solução. E por hora não vi nenhuma solução prática que mudou ou melhorou minha vida.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Trazer algum resultado para prático para minha vida. Faça esse consórcio de carro, compre da sua PJ o carro da sua PF, pegue o dinheiro x e quite o banco. Entre no consórcio x com tais quotas. O leilão de imóvel y vai ter um pefil que faz sentido pra vc, sei lá. Algo que de fato sirva financeiramente pra minha vida. Por hora não estou vendo aqui como vou me aposentar em 7 anos com renda passiva.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: ver na prática algum resultado\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: a pessoa de finanças que ficou de trazer alguma solução prática para eu pegar um empréstimo mais barato não serviu pra nada, só tomou meu tempo. Resolvi de outra forma.",
-      "topics": [
-        {
-          "topic": "Resultados",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Agilidade",
-          "valence": "Neutra",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [],
-      "positive_topics": [
-        {
-          "topic": "Resultados",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Resultados (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "1c8340ea-f97a-4428-b21d-8801d44de08e",
-      "client_name": "Luiz Fernando Nascimento Benek",
-      "ep_id": "28939408-7ea5-44b3-8aaa-da39818bd606",
-      "ep_name": "Nelson Marques",
-      "ep_resolution_confidence": "high",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "94acaf87-58ee-43e1-940c-e9d23f483be2",
-      "previous_score": null,
-      "current_score": 0,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Não tive resultado ainda para poder indicar para outros. No início foi um pouco desorganizado, e a estratégia aplicada de consórcios foi estudada de uma forma e aplicada de outra, onde o lance fidelidade proposta foi de 6 meses, porém depois 6 meses foi informado que o lance fidelidade seria a partir de 1 ano, alterando a estratégia inicial.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Maior transparência no leilão serial, pois só informam que não conseguiram arrematar nenhum imóvel, porém poderiam enviar um relatório com imóvel alvo, valor teto e valor que foi arrematado por terceiros. Fornecer acesso a conteúdos de conhecimento financeiro, maior organização nos grupos....\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Ter um retorno anual que compense o pagamento da anuidade.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Tinha expectativas melhores sobre o investimento realizado no projeto.",
-      "topics": [
-        {
-          "topic": "Resultados",
-          "valence": "Negativa",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Plano patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [
-        {
-          "topic": "Resultados",
-          "valence": "Negativa",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "positive_topics": [
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Plano patrimonial",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Resultados (Negativa)",
-      "csat_average": 4,
-      "latest_csat_score": 4,
-      "has_csat": true,
-      "csat_responses_count": 1,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
-      "priority": "Investigar",
-      "reason": "CSAT recente favorável com NPS Detrator (sinal contraditório)",
-      "priority_rules": [
-        "CSAT recente favorável com NPS Detrator (sinal contraditório)"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "35b044c2-4669-4645-8a35-5f06fe20eb04",
-      "client_name": "Paula Costa",
-      "ep_id": "035636be-525d-47e7-a71f-e3b87d290059",
-      "ep_name": "Tales Salinas Rozo",
-      "ep_resolution_confidence": "low",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "1c7f40cb-7ad5-4da6-b4b0-b66754061a18",
-      "previous_score": null,
-      "current_score": 0,
-      "score_delta": null,
-      "previous_category": null,
-      "current_category": "Detrator",
-      "nps_migration": null,
-      "evolution_status": null,
-      "comment": "Qual o principal motivo da sua nota?: Comprometimento da equipe e a proposta de colecionador de ativos faz todo sentido\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Já tem a nota máxima\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Se eu conseguir implementar as recomendações do QuartaVia\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: As vezes penso que não são estratégias que vou conseguir implementar, mas converso com o meu estrategista e fico confiante novamente",
-      "topics": [
-        {
-          "topic": "Engenheiro Patrimonial",
-          "valence": "Neutra",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Plano patrimonial",
-          "valence": "Neutra",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [],
-      "positive_topics": [
-        {
-          "topic": "Expectativa",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Engenheiro Patrimonial (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
-      "critical_flag": false,
-      "recommended_action_type": "Investigar",
-      "quality_notes": [
-        "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
-      ]
-    },
-    {
       "priority": "Aprendizado",
       "reason": "Promotor consistente em múltiplos ciclos",
       "priority_rules": [
@@ -1916,15 +1531,16 @@
         }
       ],
       "primary_topic": "Engenheiro Patrimonial (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 2,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -2044,15 +1660,16 @@
         }
       ],
       "primary_topic": "Clareza / comunicação (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -2083,14 +1700,15 @@
       "negative_topics": [],
       "positive_topics": [],
       "primary_topic": null,
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
-        "EP reconstruído (proxy atual); interpretar com cautela."
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -2148,15 +1766,16 @@
         }
       ],
       "primary_topic": "Engenheiro Patrimonial (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 3,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -2300,88 +1919,6 @@
       "other_signals": [],
       "qualitative_signal": false,
       "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
-      "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-      "client_name": "Daniel Lin Santos",
-      "ep_id": "03dbdcfc-087a-4c9a-b2b6-84b57449cbfb",
-      "ep_name": "Cleuber Anicesio",
-      "ep_resolution_confidence": "low",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "response_id": "43e67f19-78da-44ab-ae57-6450dee42f59",
-      "previous_score": 10,
-      "current_score": 10,
-      "score_delta": 0,
-      "previous_category": "Promotor",
-      "current_category": "Promotor",
-      "nps_migration": "Promotor → Promotor",
-      "evolution_status": "Estável",
-      "comment": "Qual o principal motivo da sua nota?: Poder fazer parte de um ecossistema de construção de riquezas e ter ganhos financeiros com isso\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Poder participar de investimentos de forma prática e simples\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Possibilidade de ingresso em novas frentes de investimento\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: A experiência tem sido muito positiva, com atendimento atencioso e célere às demandas que apresento ao analista",
-      "topics": [
-        {
-          "topic": "Atendimento / relacionamento",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Tecnologia / plataforma",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "negative_topics": [],
-      "positive_topics": [
-        {
-          "topic": "Atendimento / relacionamento",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Oportunidades",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Tecnologia / plataforma",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        },
-        {
-          "topic": "Valor percebido",
-          "valence": "Positiva",
-          "classification_source": "rules_v2"
-        }
-      ],
-      "primary_topic": "Atendimento / relacionamento (Positiva)",
-      "csat_average": null,
-      "latest_csat_score": null,
-      "has_csat": false,
-      "csat_responses_count": 0,
-      "critical_flag": false,
-      "recommended_action_type": "Aprendizado",
-      "quality_notes": [
-        "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada).",
-        "Sem CSAT registrado para o cliente."
-      ]
-    },
-    {
-      "priority": "Aprendizado",
-      "reason": "Promotor consistente em múltiplos ciclos",
-      "priority_rules": [
-        "Promotor consistente em múltiplos ciclos"
-      ],
-      "other_signals": [],
-      "qualitative_signal": false,
-      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
       "client_id": "38e29943-c013-44f3-aaa5-b3bc01d2f490",
       "client_name": "Vanessa Cristine Marcondes Espindola",
       "ep_id": "a4f20a05-bf99-4229-9cff-b185233edfb8",
@@ -2459,6 +1996,58 @@
       "other_signals": [],
       "qualitative_signal": false,
       "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "0899e909-4949-4cfc-9f76-6ebb2bf62a81",
+      "client_name": "Daniel Antonio de Aquino Neto",
+      "ep_id": "5c8fb2e6-968b-4eab-90e5-7a3e95499cf9",
+      "ep_name": "Gabriel Oliveira",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "a4b95de3-4c87-4c38-b9b5-6e82c69a9521",
+      "previous_score": 10,
+      "current_score": 10,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: A diversificação.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: .\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Eu ter mais tempo e implementar mais\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: .",
+      "topics": [
+        {
+          "topic": "Oportunidades",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Oportunidades",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Oportunidades (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
       "client_id": "e53d5758-20a3-4f54-b295-4b335116c3a5",
       "client_name": "Marleno Litaiff Monteiro Jr.",
       "ep_id": "aba566cf-8302-4b12-aa75-e976cac0e9a4",
@@ -2500,6 +2089,58 @@
         }
       ],
       "primary_topic": "Resultados (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "cbb09924-ca18-4b39-b497-6723364234a4",
+      "client_name": "Carina Vieira da Rocha",
+      "ep_id": "03dbdcfc-087a-4c9a-b2b6-84b57449cbfb",
+      "ep_name": "Cleuber Anicesio",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "7896b5dd-8226-46c0-84fa-91ea30c9ea90",
+      "previous_score": 9,
+      "current_score": 9,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: O mecanismo\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: O comprometimento\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Viver ganho prático. Hj ainda s recurso\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Gratidão 🙏",
+      "topics": [
+        {
+          "topic": "Expectativa",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Expectativa",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Expectativa (Positiva)",
       "csat_average": null,
       "latest_csat_score": null,
       "has_csat": false,
@@ -2701,15 +2342,73 @@
         }
       ],
       "primary_topic": "Oportunidades (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "bd06e8af-e354-4967-b9c0-3bc76ac8d861",
+      "client_name": "Evelin Rosio Estevez Jimenez",
+      "ep_id": "5c8fb2e6-968b-4eab-90e5-7a3e95499cf9",
+      "ep_name": "Gabriel Oliveira",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "91eb2645-4a6c-44f5-8adc-51ea3a03f95b",
+      "previous_score": 10,
+      "current_score": 10,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: Atendimento do Gabriel e o cuidado por nós\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Gabriel sempre nos atendeu com muita felicidade, vemos que ele é feliz por nos ajudar. Ajudou a sair do aluguel e comprar nossa casa própria.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Futuramente quero estar no Davos . Porém quero que o Gabriel continue nos atendendo. Quero começar a aplicar as estratégias assim que minha empresa em Dubai começar a fluir\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+      "topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Plano patrimonial",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Atendimento / relacionamento (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -2843,15 +2542,16 @@
         }
       ],
       "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 2,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -2919,7 +2619,7 @@
       "client_name": "Charlles André Souza de Almeida",
       "ep_id": "05381833-a0cf-46d6-8f66-32804865b23c",
       "ep_name": "Nícolas Alves",
-      "ep_resolution_confidence": "low",
+      "ep_resolution_confidence": "high",
       "cycle_code": "NPS-2026-SET-PHARUS",
       "response_id": "527efd03-a06a-4b02-a6e7-5f50345846a1",
       "previous_score": 10,
@@ -2946,6 +2646,51 @@
         }
       ],
       "primary_topic": "Atendimento / relacionamento (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "f3984645-e282-472d-bfaa-4560aae31d26",
+      "client_name": "João Marcos Castro Fagundes",
+      "ep_id": "03dbdcfc-087a-4c9a-b2b6-84b57449cbfb",
+      "ep_name": "Cleuber Anicesio",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "e4cc9777-3823-409f-9313-7c1ce8a8d275",
+      "previous_score": 9,
+      "current_score": 9,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: Bom\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Bom\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Cobrar um preço mais justo\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Nao",
+      "topics": [
+        {
+          "topic": "Valor percebido",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [],
+      "primary_topic": "Valor percebido (Neutra)",
       "csat_average": null,
       "latest_csat_score": null,
       "has_csat": false,
@@ -2992,15 +2737,16 @@
       "negative_topics": [],
       "positive_topics": [],
       "primary_topic": "Plano patrimonial (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 2,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -3053,14 +2799,15 @@
         }
       ],
       "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -3108,15 +2855,16 @@
         }
       ],
       "primary_topic": "Atendimento / relacionamento (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -3487,15 +3235,16 @@
         }
       ],
       "primary_topic": "Atendimento / relacionamento (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -3815,6 +3564,63 @@
       "other_signals": [],
       "qualitative_signal": false,
       "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "b8e2336a-b2b5-4b86-91d3-8a30a87524de",
+      "client_name": "Victor Alfredo Mirol",
+      "ep_id": "8063484a-7c22-49f2-a526-c59605d82fe0",
+      "ep_name": "Abner Braga",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "5be1bc98-b82b-48d9-9127-bc378f3f596a",
+      "previous_score": 10,
+      "current_score": 10,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: Atendimento muito adequado à minha situação atual. Asesoramento muito bem informado e compreensível.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Adequação à situação política e económica do país\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: A confirmação, passo a passo, da linha de pensamento atual do sistema.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Somente reafirmar o que já comentei.",
+      "topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Tecnologia / plataforma",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Atendimento / relacionamento (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
       "client_id": "576fb0f8-6e72-4abf-8a58-058850cfb1be",
       "client_name": "Fabio Henrique Bentivoglio Pereira",
       "ep_id": "e008aa36-deb7-4a54-a1e4-0a60d9c7510d",
@@ -3871,14 +3677,188 @@
         }
       ],
       "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "03ed7e77-4e5b-4309-9330-dd8d8b112db8",
+      "client_name": "Yoandrys Guerra Sánchez",
+      "ep_id": "5c8fb2e6-968b-4eab-90e5-7a3e95499cf9",
+      "ep_name": "Gabriel Oliveira",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "7c74244d-f54e-4bcf-8a9d-1625c803fc5a",
+      "previous_score": 10,
+      "current_score": 10,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: Ainda estou organizando fluxo, mas vejo potencial.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Ajuda\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Organizar meu caixa e começar a implementar\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+      "topics": [],
+      "negative_topics": [],
+      "positive_topics": [],
+      "primary_topic": null,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "74487388-4d09-487f-9a00-e5254b644f50",
+      "client_name": "Thiago Lara Vasques",
+      "ep_id": "03dbdcfc-087a-4c9a-b2b6-84b57449cbfb",
+      "ep_name": "Cleuber Anicesio",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "b0d55e88-8977-45ad-9280-fc41a5f08e4f",
+      "previous_score": 9,
+      "current_score": 9,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: Confiabilidade\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: A parte de consultoria direcionada\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: A continuação do trabalho com resultado\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não",
+      "topics": [
+        {
+          "topic": "Engenheiro Patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Engenheiro Patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Engenheiro Patrimonial (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+      "client_name": "Fabrício Figueiredo de Alencar",
+      "ep_id": "03dbdcfc-087a-4c9a-b2b6-84b57449cbfb",
+      "ep_name": "Cleuber Anicesio",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "abadfcf0-8367-45b0-8646-4411537807b9",
+      "previous_score": 10,
+      "current_score": 10,
+      "score_delta": 0,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Estável",
+      "comment": "Qual o principal motivo da sua nota?: Confiança\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Atendimento, metodologia e transparência\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Conseguir implementar a metodologia e ver resultados\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Acredito que seria interessante produtos um pouco mais acessíveis, principalmente pro Pharus, pois assim a implementação poderia até ser mais consistente e os retornos poderiam ser mais rápidos mesmo que menores no início",
+      "topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Oportunidades",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Agilidade",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Confiança",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Confiança",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Atendimento / relacionamento (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -4434,15 +4414,16 @@
       "negative_topics": [],
       "positive_topics": [],
       "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -4910,15 +4891,16 @@
         }
       ],
       "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -4966,15 +4948,16 @@
         }
       ],
       "primary_topic": "Resultados (Neutra)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 1,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -5481,15 +5464,16 @@
         }
       ],
       "primary_topic": "Clareza / comunicação (Positiva)",
-      "csat_average": 4.666666666666667,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 3,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -5613,14 +5597,144 @@
         }
       ],
       "primary_topic": "Engenheiro Patrimonial (Positiva)",
-      "csat_average": 5,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 2,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "666472e5-5243-42d7-8916-41668ec60d0c",
+      "client_name": "Paulo Sergio Lima dos Santos",
+      "ep_id": "8063484a-7c22-49f2-a526-c59605d82fe0",
+      "ep_name": "Abner Braga",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "e086cb39-cca7-43ce-98e9-0cf4a7ffbf8b",
+      "previous_score": 9,
+      "current_score": 10,
+      "score_delta": 1,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Melhora",
+      "comment": "Qual o principal motivo da sua nota?: satisfação com resultados obtidos até então\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: questão organizacional\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: manter os avanços que venho obtendo\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: não",
+      "topics": [
+        {
+          "topic": "Resultados",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Resultados",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Resultados (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+      "client_name": "Alessandra Girotto",
+      "ep_id": "69edff63-b251-486a-9de3-32d6dad9ac74",
+      "ep_name": "Gustavo Papeschi Mariano",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "e10ddd0f-7d8f-44f3-b05c-bf960ddf5777",
+      "previous_score": 9,
+      "current_score": 10,
+      "score_delta": 1,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Melhora",
+      "comment": "Qual o principal motivo da sua nota?: Para mim, esse cuidado próximo e humanizado, aliado à percepção de que tenho espaço para evoluir e construir meu patrimônio de forma mais estruturada, é um dos principais diferenciais da experiência com a Quarta Via.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: O que mais contribui para a minha percepção positiva é a proximidade e a constância do acompanhamento da equipe. Considero especialmente positivo ter profissionais que me procuram regularmente para entender como estou e me ajudar a organizar melhor minha vida financeira, trazendo direcionamento e mais clareza para as minhas decisões. É um tipo de suporte que eu nunca havia vivenciado em outros serviços.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Disciplina e acompanhamento, além dos resultados esperados.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Não, já é o bastante",
+      "topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Clareza / comunicação",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Plano patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Atendimento / relacionamento",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Clareza / comunicação",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Plano patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Atendimento / relacionamento (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -5745,15 +5859,68 @@
         }
       ],
       "primary_topic": "Atendimento / relacionamento (Positiva)",
-      "csat_average": 4.666666666666667,
-      "latest_csat_score": 5,
-      "has_csat": true,
-      "csat_responses_count": 3,
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
       "critical_flag": false,
       "recommended_action_type": "Aprendizado",
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
-        "Temas classificados por rules automáticas (revisão humana recomendada)."
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "03493d05-bf24-4326-bce7-fd29ad2c242b",
+      "client_name": "Marilda Alves de Morais",
+      "ep_id": "aba566cf-8302-4b12-aa75-e976cac0e9a4",
+      "ep_name": "Willian Oliveira Schimidt",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "911f0598-125b-4736-ba05-5c23cc6980c4",
+      "previous_score": 9,
+      "current_score": 10,
+      "score_delta": 1,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Melhora",
+      "comment": "Qual o principal motivo da sua nota?: Gostei da apresentação do Adrian. Confiei na apresentação e aderi ao plano.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Na apresentação que eu assisti das 5 aulas.\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: Eu continuarei tranquilamente desde que eu consiga implementar o meu plano.\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: Apenas quero dizer que estou acreditando. Estou empenhada em fazer com que dê certo! Acredito na viabilidade do que estou aprendendo. E estou fazendo o meu melhor para que dê certo.",
+      "topics": [
+        {
+          "topic": "Plano patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Plano patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Plano patrimonial (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
       ]
     },
     {
@@ -5869,17 +6036,84 @@
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
       ]
+    },
+    {
+      "priority": "Aprendizado",
+      "reason": "Promotor consistente em múltiplos ciclos",
+      "priority_rules": [
+        "Promotor consistente em múltiplos ciclos"
+      ],
+      "other_signals": [],
+      "qualitative_signal": false,
+      "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+      "client_id": "568c1b39-cf89-4557-b3aa-09fa330ddbc2",
+      "client_name": "Danillo Ewerton Oliveira Amaral",
+      "ep_id": "e5e5011c-4324-4215-a285-dfa91cc04998",
+      "ep_name": "Felipe Aleixo",
+      "ep_resolution_confidence": "low",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "response_id": "5916537b-fbac-4d85-90ac-38c903802e7f",
+      "previous_score": 9,
+      "current_score": 10,
+      "score_delta": 1,
+      "previous_category": "Promotor",
+      "current_category": "Promotor",
+      "nps_migration": "Promotor → Promotor",
+      "evolution_status": "Melhora",
+      "comment": "Qual o principal motivo da sua nota?: Acompanhamento\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: conhecimento do engenheiro e acompanhamento proximo\n\nO que te faria continuar com a gente por mais 5 anos sem hesitar?: resultados\n\nVocê gostaria de adicionar algum outro comentário sobre a sua experiência com a QuartaVia?: .",
+      "topics": [
+        {
+          "topic": "Engenheiro Patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Proatividade",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Resultados",
+          "valence": "Neutra",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "negative_topics": [],
+      "positive_topics": [
+        {
+          "topic": "Engenheiro Patrimonial",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        },
+        {
+          "topic": "Proatividade",
+          "valence": "Positiva",
+          "classification_source": "rules_v2"
+        }
+      ],
+      "primary_topic": "Engenheiro Patrimonial (Positiva)",
+      "csat_average": null,
+      "latest_csat_score": null,
+      "has_csat": false,
+      "csat_responses_count": 0,
+      "critical_flag": false,
+      "recommended_action_type": "Aprendizado",
+      "quality_notes": [
+        "EP reconstruído (proxy atual); interpretar com cautela.",
+        "Temas classificados por rules automáticas (revisão humana recomendada).",
+        "Sem CSAT registrado para o cliente."
+      ]
     }
   ],
   "meta": {
     "cycle_code": "NPS-2026-SET-PHARUS",
-    "data_cutoff": "2026-09-29T00:06:04.705Z",
-    "total": 87,
+    "data_cutoff": "2026-10-06T20:51:18.861Z",
+    "total": 92,
     "counts_by_priority": {
-      "Alta": 4,
-      "Média": 13,
-      "Investigar": 8,
-      "Aprendizado": 62
+      "Alta": 5,
+      "Média": 14,
+      "Investigar": 0,
+      "Aprendizado": 73
     },
     "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle)."
   }

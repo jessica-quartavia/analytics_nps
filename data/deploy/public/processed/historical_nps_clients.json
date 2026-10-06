@@ -1,6 +1,70 @@
 {
   "clients": [
     {
+      "client_id": "56da492e-3f04-4617-bf3e-ed4a53dcd972",
+      "client_name": "Leandro de Almeida Botelho",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q1",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "0c4b71a1-4ede-4c4c-87e5-ad7be2a473e8",
+      "client_name": "Elias Eulosio Dalla Corte",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q2",
+      "ep": "Hendrick Ramos"
+    },
+    {
+      "client_id": "31aea149-865f-40f7-81f3-731bace46a47",
+      "client_name": "Daniela de Almeida Ochoa Cruz",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
+    },
+    {
+      "client_id": "dc05d98f-6e70-4feb-a932-055fb374379e",
+      "client_name": "Valmir Cezar Tottoli da Silva",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q4",
+      "ep": null
+    },
+    {
       "client_id": "f57758c1-c929-408a-adf2-a647be170206",
       "client_name": "Karina Venturini",
       "qtd_medicoes": 1,
@@ -13,7 +77,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Rafael Pracz"
     },
     {
@@ -29,8 +93,56 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Rafael Pracz"
+    },
+    {
+      "client_id": "92e0a6c9-6d73-4af5-80c8-58e09c7fc3dc",
+      "client_name": "Rafael Furquim Siqueira",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 7,
+      "delta": -1,
+      "media": 7.5,
+      "melhor_nota": 8,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Tiago Rodrigues"
+    },
+    {
+      "client_id": "62702dda-7737-476f-9e19-1037eeeb56b6",
+      "client_name": "JosÃ© Marcos Oliveira Itacaramby",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Junior Teixeira"
+    },
+    {
+      "client_id": "7b48e0f7-ff65-42d9-9427-1cada1268744",
+      "client_name": "Roselange GuimarÃ£es Goudinho",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 6,
+      "ultima_nota": 0,
+      "delta": -6,
+      "media": 3,
+      "melhor_nota": 6,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Ramos"
     },
     {
       "client_id": "25839f5f-1567-43c3-b22d-bcc0a8727c34",
@@ -45,8 +157,8 @@
       "melhor_nota": 8,
       "pior_nota": 3,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q1",
-      "ep": "Junior Teixeira"
+      "safra_trimestre": "2025-Q1",
+      "ep": "Nícolas Alves"
     },
     {
       "client_id": "462028cc-c8a2-4441-8c45-7650de080c2e",
@@ -61,8 +173,56 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Junior Teixeira"
+    },
+    {
+      "client_id": "a61e6921-ec6d-4d68-b68a-b11820adb6d8",
+      "client_name": "Wellington Flaubert Lima Xavier",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
+    },
+    {
+      "client_id": "c7e531a8-1af1-4124-a50d-3ef9fb18c29c",
+      "client_name": "Jackson Laskoski",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q1",
+      "ep": "Tiago Rodrigues"
+    },
+    {
+      "client_id": "7a3ca601-2d5d-4736-b6d2-9d824bc53518",
+      "client_name": "Luciene Rezende Vasconcelos",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
     },
     {
       "client_id": "1e311f99-a249-4e34-93bd-af0b9fac53de",
@@ -77,7 +237,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2027-Q3",
+      "safra_trimestre": "2024-Q2",
       "ep": "Hendrick Ramos"
     },
     {
@@ -93,24 +253,24 @@
       "melhor_nota": 8,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Tiago Rodrigues"
     },
     {
-      "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-      "client_name": "Daniel Lin Santos",
-      "qtd_medicoes": 5,
-      "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
+      "client_id": "34a3aede-572f-418a-9c49-7f077f85d30e",
+      "client_name": "DANIELLI BASTIANI RODRIGUES",
+      "qtd_medicoes": 3,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q1",
       "primeira_nota": 10,
-      "ultima_nota": 8,
-      "delta": -2,
-      "media": 9.6,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 9.67,
       "melhor_nota": 10,
-      "pior_nota": 8,
-      "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
-      "ep": "Cleuber Anicesio"
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q1",
+      "ep": "Gabriel Oliveira"
     },
     {
       "client_id": "3ea469c1-e7db-4601-b44a-5c08ad3ee42e",
@@ -125,8 +285,72 @@
       "melhor_nota": 7,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2024-Q2",
       "ep": "Junior Teixeira"
+    },
+    {
+      "client_id": "4fcc51cd-93e9-479f-bd06-e450363395b4",
+      "client_name": "Thyago Nogueira Dantas",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
+    },
+    {
+      "client_id": "d05d7dfa-0438-4c58-8495-56ba4a615b49",
+      "client_name": "Claudia Teixeira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q2",
+      "ep": "Tiago Rodrigues"
+    },
+    {
+      "client_id": "0b99bb19-bd4b-4d26-bc7c-57aec9715c7d",
+      "client_name": "Silvia Regina Strazzi",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "46061ad8-a1c5-4fd7-915c-b6ac01a5e5c6",
+      "client_name": "Eduardo Luiz Bittencourt",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 7,
+      "delta": -1,
+      "media": 7.5,
+      "melhor_nota": 8,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Cleuber Anicesio"
     },
     {
       "client_id": "acde9d73-12ba-41a2-b9a1-cb85ccecde65",
@@ -141,8 +365,152 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "d929723d-027b-48dd-8999-e81ae70d6b16",
+      "client_name": "Marcelo Ribeiro Donatao",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 3,
+      "ultima_nota": 3,
+      "delta": 0,
+      "media": 3,
+      "melhor_nota": 3,
+      "pior_nota": 3,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Junior Teixeira"
+    },
+    {
+      "client_id": "239736af-aa99-4417-a928-0121561d4bbc",
+      "client_name": "Thais Troll",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
+    },
+    {
+      "client_id": "28a03605-1b46-4475-a25d-26b6a0739225",
+      "client_name": "Sergio Dantas de Andrade",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "21aaa5d1-e6c7-40be-b5c8-f68ad0db7c5b",
+      "client_name": "Gabriel Nocera",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "809c9bf0-a43a-4704-b8e0-ba922164dc1f",
+      "client_name": "Rodrigo Rodrigues",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q2",
+      "ep": "Tiago Rodrigues"
+    },
+    {
+      "client_id": "74756cfd-9159-442d-90ae-0cd6631e2f8b",
+      "client_name": "Mariana Cardoso de Lima",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Junior Teixeira"
+    },
+    {
+      "client_id": "f0eea773-0066-4d4f-8cf9-7f4f50fd9cd4",
+      "client_name": "Eduardo Alencar Thomaziello",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "500793fc-2b15-46da-a8d3-91ccf15bff01",
+      "client_name": "Valdecir Augusto Ribeiro Ferreira",
+      "qtd_medicoes": 3,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 7,
+      "ultima_nota": 8,
+      "delta": 1,
+      "media": 7.67,
+      "melhor_nota": 8,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Ramos"
+    },
+    {
+      "client_id": "ac3e674e-c589-4f61-968d-709c0688d2e8",
+      "client_name": "Alexandre Salemme",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Luiz Henrique"
     },
     {
       "client_id": "0be14937-3859-4e13-84b0-b2bc66f9aad6",
@@ -157,7 +525,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Carlos Serafim"
     },
     {
@@ -173,8 +541,72 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2024-Q2",
       "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "2311c482-a99d-4916-8c6e-e48c97d24962",
+      "client_name": "Flavio Dias",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "6d1e7c02-3721-41c9-9c46-f0917df5d975",
+      "client_name": "Anderson da Silva AraÃºjo",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Ramos"
+    },
+    {
+      "client_id": "5668d1d1-92dc-45a1-93db-bc4612e26c61",
+      "client_name": "Fernanda Satie Ikeda",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": null,
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "d73cf8f2-b131-42f2-bcd5-05014a601d08",
+      "client_name": "Fabio Celestino de Almeida Dranka",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
     },
     {
       "client_id": "fe7cea59-5896-41f7-aed3-d40f852ff627",
@@ -189,8 +621,40 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "c642faac-635a-4516-a7bc-f585b59e8eb8",
+      "client_name": "Nelbia Pricilla de Aguiar Dambroz",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 2,
+      "ultima_nota": 0,
+      "delta": -2,
+      "media": 1,
+      "melhor_nota": 2,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "4f26d26b-76d2-4d96-b19a-4d2a4a10480d",
+      "client_name": "Evandro Garcia",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
     },
     {
       "client_id": "dba14861-b13f-4c6e-afc1-048521452dee",
@@ -209,6 +673,86 @@
       "ep": "Tiago Junior"
     },
     {
+      "client_id": "67108c31-1ad8-4c35-95c9-28b6c98c9813",
+      "client_name": "Rodrigo Seiki Kiyohara",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "1940a1fe-2aef-4910-9dcb-6cc6d3c0318c",
+      "client_name": "Ana Paula Barco GuimarÃ£es",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 9,
+      "ultima_nota": 10,
+      "delta": 1,
+      "media": 9.5,
+      "melhor_nota": 10,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "16d8793d-40da-4697-8e25-d4b81d585de8",
+      "client_name": "Fabiano Perondi",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Rafael Pracz"
+    },
+    {
+      "client_id": "e652106c-9e6a-4da3-b819-1e62c77586da",
+      "client_name": "Bianca Haddad Abi Faraj",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q2",
+      "ultima_resposta": "2025-Q2",
+      "primeira_nota": 6,
+      "ultima_nota": 6,
+      "delta": 0,
+      "media": 6,
+      "melhor_nota": 6,
+      "pior_nota": 6,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Ramos"
+    },
+    {
+      "client_id": "abb1f7bb-d2f7-46c9-9ba9-e16f582a446a",
+      "client_name": "Alan Raschke Immich Jardim",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Abner Braga"
+    },
+    {
       "client_id": "951cb145-5fe9-4bd0-a5f7-b5247ddf0713",
       "client_name": "MÃ¡rcio Watermann",
       "qtd_medicoes": 4,
@@ -221,7 +765,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Willian Sobral"
     },
     {
@@ -241,6 +785,22 @@
       "ep": "João Aliceda"
     },
     {
+      "client_id": "21dc60f5-871b-451a-831b-13fe0877b02c",
+      "client_name": "Fernando Armani Picetti",
+      "qtd_medicoes": 3,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 10,
+      "delta": 1,
+      "media": 9.33,
+      "melhor_nota": 10,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Dorner"
+    },
+    {
       "client_id": "303307a2-c117-4006-bc4b-0d3dbea34a0e",
       "client_name": "Saulo LourenÃ§o Siqueira",
       "qtd_medicoes": 3,
@@ -253,7 +813,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Tales Salinas Rozo"
     },
     {
@@ -269,8 +829,40 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
+    },
+    {
+      "client_id": "114bed8e-f2e4-43a9-9de7-e96b16325fe3",
+      "client_name": "Sarah de Sousa Freitas",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 10,
+      "delta": 2,
+      "media": 9,
+      "melhor_nota": 10,
+      "pior_nota": 8,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Tiago Junior"
+    },
+    {
+      "client_id": "a1fb276d-e5ce-44c1-92d8-ec9ed97dbd1a",
+      "client_name": "Daniel Felice Guerreiro Nascimento",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 9,
+      "delta": 1,
+      "media": 8.5,
+      "melhor_nota": 9,
+      "pior_nota": 8,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
     },
     {
       "client_id": "5fc11deb-8ebe-4dff-b2e8-345561627c86",
@@ -285,7 +877,7 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Tales Salinas Rozo"
     },
     {
@@ -301,7 +893,7 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q2",
       "ep": "Tiago Junior"
     },
     {
@@ -317,7 +909,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Tiago Junior"
     },
     {
@@ -333,7 +925,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Rodrigo Lunardi"
     },
     {
@@ -349,8 +941,24 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "00a9b906-3130-4513-a6d8-d7f48e20ece5",
+      "client_name": "Adriano JosÃ© da silva",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 7,
+      "ultima_nota": 9,
+      "delta": 2,
+      "media": 8,
+      "melhor_nota": 9,
+      "pior_nota": 7,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "4fd0d348-e13c-408c-b912-c2db2279119a",
@@ -365,7 +973,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Carlos Serafim"
     },
     {
@@ -381,8 +989,56 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2025-Q1",
       "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "a8451433-980c-4147-884a-422b05caa69a",
+      "client_name": "Janete de Queiroz Costa Pinheiro",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "d5961a82-e1d0-4a0a-8158-353c0d006e5d",
+      "client_name": "Rodrigo CÃ©sar Jarochinski e Santos",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 9,
+      "delta": 4,
+      "media": 7,
+      "melhor_nota": 9,
+      "pior_nota": 5,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "39883621-b217-4deb-8fe4-5c5a7646d94c",
+      "client_name": "William Leite Leme JÃºnior",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 9,
+      "delta": -1,
+      "media": 9.5,
+      "melhor_nota": 10,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
     },
     {
       "client_id": "7eb615b3-a4ac-436e-8d08-c2bfa9bd72fc",
@@ -397,8 +1053,56 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q2",
       "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "2bb714c9-1c25-4866-a9e3-63909286432f",
+      "client_name": "JosÃ© Wellington Pereira Viana",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Dorner"
+    },
+    {
+      "client_id": "6bde0ca5-3498-4fc6-850d-71ae58f105f4",
+      "client_name": "luciano cardoso de souza",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "e77726df-dac4-46eb-8d5b-389115467126",
+      "client_name": "Eliane Mara Gadelha",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 2,
+      "ultima_nota": 1,
+      "delta": -1,
+      "media": 1.5,
+      "melhor_nota": 2,
+      "pior_nota": 1,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
     },
     {
       "client_id": "2d4af4f9-e0d1-4fad-a743-d71195781eca",
@@ -413,7 +1117,7 @@
       "melhor_nota": 9,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q1",
+      "safra_trimestre": "2024-Q1",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -429,8 +1133,56 @@
       "melhor_nota": 10,
       "pior_nota": 6,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "40e9f100-8874-422b-9d65-c8a135de1886",
+      "client_name": "Janete Perin Turazzi",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 1,
+      "delta": -7,
+      "media": 4.5,
+      "melhor_nota": 8,
+      "pior_nota": 1,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Leonardo Palaver Pereira"
+    },
+    {
+      "client_id": "46b09471-b66e-448e-a18a-96c3576e2e92",
+      "client_name": "Milena De Locco Martins",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 6,
+      "ultima_nota": 6,
+      "delta": 0,
+      "media": 6,
+      "melhor_nota": 6,
+      "pior_nota": 6,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Abner Braga"
+    },
+    {
+      "client_id": "22489e3e-3257-4167-b00f-63e38fa77f03",
+      "client_name": "Flavia Vieira BrandÃ£o de Oliveira",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Abner Braga"
     },
     {
       "client_id": "a6e07c81-aa43-498b-9c63-a971f7f1d0e5",
@@ -445,8 +1197,24 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q3",
       "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "a914aa39-7ce6-4df7-9b29-c2e99bc08812",
+      "client_name": "Bruno Tubino Noronha",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 6,
+      "ultima_nota": 2,
+      "delta": -4,
+      "media": 4,
+      "melhor_nota": 6,
+      "pior_nota": 2,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2024-Q4",
+      "ep": null
     },
     {
       "client_id": "59fa02ab-73cf-47dc-96af-356580896ca5",
@@ -461,8 +1229,88 @@
       "melhor_nota": 10,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "d960f6e2-aadd-4f05-8e62-3e2f04c5e818",
+      "client_name": "Marcus Castilho Monteiro",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 9,
+      "delta": 1,
+      "media": 8.5,
+      "melhor_nota": 9,
+      "pior_nota": 8,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q3",
+      "ep": "Tiago Junior"
+    },
+    {
+      "client_id": "fcb2341a-00ed-4809-ad3c-98f4ca349935",
+      "client_name": "BÃ¡rbara Miroski De Oliveira Pinto",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 9,
+      "delta": 1,
+      "media": 8.5,
+      "melhor_nota": 9,
+      "pior_nota": 8,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q3",
+      "ep": "Willian Sobral"
+    },
+    {
+      "client_id": "e6a77b67-47f4-4024-a9ce-c12d9b90c782",
+      "client_name": "Nelson Muradian",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q3",
+      "ep": "Rodrigo Amorim"
+    },
+    {
+      "client_id": "9c95e022-3ba5-4f58-9729-dd6ad8bec27e",
+      "client_name": "JoÃ£o Pimenta",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 3,
+      "delta": -2,
+      "media": 4,
+      "melhor_nota": 5,
+      "pior_nota": 3,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "37995f06-b331-491c-a3ff-76869a3f725d",
+      "client_name": "Juliana Almeida Rezende Campos e Joao Vitor Medrado Nascimento",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": null,
+      "ep": "Hendrick Dorner"
     },
     {
       "client_id": "e38f8299-c11e-48f4-96e0-ef6a7f216ba5",
@@ -477,8 +1325,24 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "c8996bdd-cc8d-417b-ac26-1676c0aa42b4",
+      "client_name": "Ronilson Oliveira DurÃ£es",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 10,
+      "delta": 1,
+      "media": 9.5,
+      "melhor_nota": 10,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Cleuber Anicesio"
     },
     {
       "client_id": "8be0109d-7674-4cac-951e-5ddcbd0c6a4e",
@@ -493,8 +1357,24 @@
       "melhor_nota": 10,
       "pior_nota": 6,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Samuel Araújo"
+    },
+    {
+      "client_id": "b514b8fb-26a5-42e8-a75c-3d98d78404a5",
+      "client_name": "Marielly Machado",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q3",
+      "ep": null
     },
     {
       "client_id": "6f81fb66-f337-4863-8c3c-2e4025e8bcbf",
@@ -511,6 +1391,22 @@
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2025-Q3",
       "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "be443142-9c7f-44ba-b2d0-d71a6dd2bc30",
+      "client_name": "Roberto Pires Siles",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q3",
+      "ep": "Thiago Freire"
     },
     {
       "client_id": "88633a79-2d52-49ca-a97b-fa28e502fbf2",
@@ -541,8 +1437,40 @@
       "melhor_nota": 6,
       "pior_nota": 6,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2025-Q2",
       "ep": "Samuel AraÃºjo"
+    },
+    {
+      "client_id": "31fecbda-f94a-4b16-b102-3e3724f79fd1",
+      "client_name": "Pedro Rafael Carvalho de Lima",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q3",
+      "ultima_resposta": "2025-Q3",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Willian Sobral"
+    },
+    {
+      "client_id": "642c52d4-58bb-47b5-a192-936622c6b615",
+      "client_name": "Caique Pierre da Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
     },
     {
       "client_id": "92c0211f-e1dd-4a75-9cea-0942ccb5885a",
@@ -573,7 +1501,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q2",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -621,8 +1549,56 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Junior Teixeira"
+    },
+    {
+      "client_id": "7e569f96-8d72-4a6a-9f2c-25a347d23bf7",
+      "client_name": "Mateus De AraÃºJo Borges",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "NÃ­colas Alves"
+    },
+    {
+      "client_id": "9f776936-357a-4c8f-a097-230044502863",
+      "client_name": "Renato Martinez Geraci",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 3,
+      "ultima_nota": 3,
+      "delta": 0,
+      "media": 3,
+      "melhor_nota": 3,
+      "pior_nota": 3,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
+    },
+    {
+      "client_id": "bc7cf330-00fa-4f62-b3a5-355098a7f2cb",
+      "client_name": "Viviani Carla Cremasco Pinotti",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
     },
     {
       "client_id": "d5999b9a-e05d-4f68-9547-32c63c1a547b",
@@ -639,6 +1615,22 @@
       "ultima_categoria": "Neutro",
       "safra_trimestre": "2025-Q4",
       "ep": "Nícolas Alves"
+    },
+    {
+      "client_id": "6dac511d-50dd-4104-b768-22de63eac9d5",
+      "client_name": "Nagele de Sousa Lima",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q4",
+      "ep": "NÃ­colas Alves"
     },
     {
       "client_id": "42178ab8-6cd2-4bc7-a79f-bef575c61ac6",
@@ -673,6 +1665,38 @@
       "ep": "Gustavo Papeschi Mariano"
     },
     {
+      "client_id": "b64ab97b-977b-41b1-a86f-f7082bdb5ea0",
+      "client_name": "Anderson Marcio da Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q3",
+      "ep": "NÃ­colas Alves"
+    },
+    {
+      "client_id": "91c01b5b-0408-4b4d-ac0e-362d748bbf1e",
+      "client_name": "Elias Elioenai da Luz da Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
+    },
+    {
       "client_id": "e86094b8-dba8-4219-9e99-fe1389642ad2",
       "client_name": "Sergio de Rezende Sespede",
       "qtd_medicoes": 4,
@@ -705,6 +1729,22 @@
       "ep": "Gustavo Papeschi Mariano"
     },
     {
+      "client_id": "c7bb7433-8594-42e1-87b5-11c2be5b672f",
+      "client_name": "Sonia Estevam Merched",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
+    },
+    {
       "client_id": "29aba2d2-4dd0-4d98-ba27-4f488ff5177d",
       "client_name": "Victor Paes Fernandes",
       "qtd_medicoes": 3,
@@ -721,6 +1761,38 @@
       "ep": "Gustavo Papeschi Mariano"
     },
     {
+      "client_id": "11dc2544-0e36-49c2-b900-43c2a6a977cd",
+      "client_name": "Luiz Carlos Boruck Junior",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
+    },
+    {
+      "client_id": "c2049ffd-3ddd-4b2e-961c-c2eb16616d8d",
+      "client_name": "Karoline Moreira Rios",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q3",
+      "ep": "Gustavo Papeschi Mariano"
+    },
+    {
       "client_id": "fd8a5d2e-9314-4963-bed0-5ddcb19745a1",
       "client_name": "Paulo Ricardo da Costa Silva",
       "qtd_medicoes": 1,
@@ -733,8 +1805,56 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q1",
       "ep": "Hendrick Dorner"
+    },
+    {
+      "client_id": "a01f483a-7443-4cb8-9988-c529bd899522",
+      "client_name": "MichaÃ«l Vieira dos Santos",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q3",
+      "ep": "NÃ­colas Alves"
+    },
+    {
+      "client_id": "19872e30-0378-4be3-970e-cd1060dc9c83",
+      "client_name": "Silvio Liberato de Moura Filho",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
+    },
+    {
+      "client_id": "e1e21dfd-a9ee-4f64-9438-8a60e86ef29a",
+      "client_name": "Rita Maria BrÃ¡s TerÃªncio GonÃ§alves da Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
     },
     {
       "client_id": "918028dc-6c28-43a7-a533-4c7562ac50e0",
@@ -765,24 +1885,40 @@
       "melhor_nota": 5,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q4",
       "ep": "Eduardo Peroni"
     },
     {
       "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
       "client_name": "Alessandra Girotto",
-      "qtd_medicoes": 3,
+      "qtd_medicoes": 4,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 9,
       "ultima_nota": 10,
       "delta": 1,
-      "media": 9.33,
+      "media": 9.5,
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2025-Q4",
       "ep": "Gustavo Papeschi Mariano"
+    },
+    {
+      "client_id": "4acc8131-004f-4edf-8f6f-98468e0b6a5b",
+      "client_name": "Thiago Carvalho EscariÃ£o da NÃ³brega",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
     },
     {
       "client_id": "39d39ce5-8148-47ec-b82d-21e40b27c1e4",
@@ -801,9 +1937,57 @@
       "ep": "Cleuber Anicesio"
     },
     {
+      "client_id": "0d9cd0f8-e4b7-4c3c-93de-aafa5ea4cd0e",
+      "client_name": "Jean Louis Silveira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Hendrick Dorner"
+    },
+    {
+      "client_id": "be251e07-a637-4ff1-8a11-ace23b5a2e25",
+      "client_name": "Juliana Nascimento Santos",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 1,
+      "ultima_nota": 0,
+      "delta": -1,
+      "media": 0.5,
+      "melhor_nota": 1,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "04b2a13d-e7ed-424e-a986-011ca547b7a8",
+      "client_name": "AndrÃ© Luiz Alves Santana",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 6,
+      "ultima_nota": 6,
+      "delta": 0,
+      "media": 6,
+      "melhor_nota": 6,
+      "pior_nota": 6,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
+    },
+    {
       "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
       "client_name": "FabrÃ­cio Figueiredo de Alencar",
-      "qtd_medicoes": 4,
+      "qtd_medicoes": 5,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
@@ -813,7 +1997,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -835,18 +2019,50 @@
     {
       "client_id": "9801b267-b2e8-4d2d-95ab-2aa780d63311",
       "client_name": "AndrÃ© Noronha",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2025-Q4",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2025-Q4",
-      "primeira_nota": 8,
+      "primeira_nota": 9,
       "ultima_nota": 8,
-      "delta": 0,
-      "media": 8,
-      "melhor_nota": 8,
+      "delta": -1,
+      "media": 8.5,
+      "melhor_nota": 9,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
       "safra_trimestre": "2025-Q4",
       "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "144ed4c0-d1d2-4fcf-bf0a-49424c64f02b",
+      "client_name": "Mirian Cristina Vieira Otoni",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "955cdd9b-ce91-405a-bcd9-6acd329e1a5a",
+      "client_name": "Marcos Eduardo Garcia",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 6,
+      "ultima_nota": 6,
+      "delta": 0,
+      "media": 6,
+      "melhor_nota": 6,
+      "pior_nota": 6,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Hendrick Dorner"
     },
     {
       "client_id": "38e29943-c013-44f3-aaa5-b3bc01d2f490",
@@ -867,8 +2083,8 @@
     {
       "client_id": "1771598f-f3d1-49a8-94a8-df9c5eda8ab0",
       "client_name": "Thiago Franklin Boy de Sousa",
-      "qtd_medicoes": 2,
-      "primeira_resposta": "2025-Q4",
+      "qtd_medicoes": 3,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -941,8 +2157,24 @@
       "melhor_nota": 7,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "512373d7-0cd8-41ef-8882-8a2b25c96c04",
+      "client_name": "Diana Ferreira de Queiroz",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 7,
+      "delta": 7,
+      "media": 3.5,
+      "melhor_nota": 7,
+      "pior_nota": 0,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Cleuber Anicesio"
     },
     {
       "client_id": "ee04da9f-62e0-4305-929b-00f7e2070bcf",
@@ -973,7 +2205,7 @@
       "melhor_nota": 8,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Rodrigo Lunardi"
     },
     {
@@ -1005,7 +2237,7 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -1057,6 +2289,22 @@
       "ep": "Tales Salinas Rozo"
     },
     {
+      "client_id": "a6a9802f-d57e-4689-b966-697a99d2f430",
+      "client_name": "Marcio SimiÃ£o da ConceiÃ§Ã£o",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
+    },
+    {
       "client_id": "fb4f3c31-2b95-4b45-a390-7ab59a25baff",
       "client_name": "Rodrigo Afonso Goelzer",
       "qtd_medicoes": 3,
@@ -1069,7 +2317,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "João Aliceda"
     },
     {
@@ -1085,14 +2333,46 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q3",
       "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "22188a73-17b1-4493-a5cb-61452c7b3bb2",
+      "client_name": "Jomar Britto de Oliveira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q4",
+      "ep": null
+    },
+    {
+      "client_id": "33929e88-a2ff-4dfb-99e1-6459fd3b3120",
+      "client_name": "Rafael Martorano De Santis",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 4,
+      "ultima_nota": 4,
+      "delta": 0,
+      "media": 4,
+      "melhor_nota": 4,
+      "pior_nota": 4,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q3",
+      "ep": null
     },
     {
       "client_id": "4907afcc-e21d-498a-a208-751b24ac0f4b",
       "client_name": "Glysse De Moura Sousa",
-      "qtd_medicoes": 2,
-      "primeira_resposta": "2025-Q4",
+      "qtd_medicoes": 3,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -1101,8 +2381,56 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q3",
       "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "3e7b7a88-3941-4758-87b7-87df9b69cfd9",
+      "client_name": "Renato Augusto Soares Oliveira de Alcantara",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 2,
+      "ultima_nota": 2,
+      "delta": 0,
+      "media": 2,
+      "melhor_nota": 2,
+      "pior_nota": 2,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q3",
+      "ep": null
+    },
+    {
+      "client_id": "1231a6a3-d50e-4724-b5b9-adde29426a11",
+      "client_name": "Jorge Eliandro Bezerra",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": null,
+      "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "d5113fca-2874-41a9-a1c6-2944bff84f04",
+      "client_name": "Maria Augusta Rosa Kussaba",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "8bdb573e-37dd-420d-a914-143a8c37729b",
@@ -1117,7 +2445,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Rodrigo Lunardi"
     },
     {
@@ -1133,8 +2461,24 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "90f38747-262e-414f-acf5-4a36d3d6dff6",
+      "client_name": "Camila De Mattos GonÃ§alves",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
     },
     {
       "client_id": "82433712-aef1-4a1b-9fa2-f5aed1053a39",
@@ -1149,8 +2493,24 @@
       "melhor_nota": 9,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2024-Q1",
       "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "21bc2a47-58a5-4b98-9fe7-3a15af1842dd",
+      "client_name": "Pablo Resende Saa",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Tiago Junior"
     },
     {
       "client_id": "756e6955-2a8d-4c01-ad7f-57b95d605f00",
@@ -1165,8 +2525,88 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2024-Q2",
       "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "06cb94e5-f5d1-4737-aa4d-428fa482615b",
+      "client_name": "David Pessoa Morano",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2024-Q3",
+      "ep": null
+    },
+    {
+      "client_id": "8698975b-40f2-4ba1-a034-ab201306e4e4",
+      "client_name": "Rafael de Montier Pompeu Barroso",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": "JoÃ£o Aliceda"
+    },
+    {
+      "client_id": "870004d1-938a-4d15-968c-014111c7441e",
+      "client_name": "JoÃ£o Alfredo Kehl Spier",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "c5f2954d-ce5f-49c3-a2bd-0c1c0901a9fe",
+      "client_name": "Rodrigo Zabaglia",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "af38f499-c31d-402b-82b4-7cc2297a1dde",
+      "client_name": "Danilo Miguel de MendonÃ§a",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "77296983-4392-4de6-85c4-3579d974f571",
@@ -1187,17 +2627,17 @@
     {
       "client_id": "b8e2336a-b2b5-4b86-91d3-8a30a87524de",
       "client_name": "Victor Alfredo Mirol",
-      "qtd_medicoes": 4,
+      "qtd_medicoes": 5,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
       "delta": 0,
-      "media": 9.5,
+      "media": 9.6,
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -1213,8 +2653,40 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q2",
       "ep": "João Aliceda"
+    },
+    {
+      "client_id": "a36fdd6e-01b4-42bf-8bc7-d0cc541c7318",
+      "client_name": "Daniel Yoshio Kawahara",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Abner Braga"
+    },
+    {
+      "client_id": "e8ec9b87-6405-44bc-b0e0-801f0f9e7de4",
+      "client_name": "Marcelo Fernandes Lima",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2024-Q4",
+      "ep": null
     },
     {
       "client_id": "a374a894-0468-4d07-a633-e246d946449e",
@@ -1229,8 +2701,24 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "1151fb69-3982-4a3b-bec1-8cf46e2ab53c",
+      "client_name": "Sheila Vieira Lage",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 8,
+      "delta": -2,
+      "media": 9,
+      "melhor_nota": 10,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": "JoÃ£o Aliceda"
     },
     {
       "client_id": "a414a667-2d4e-4c80-926d-c0aad948c0f6",
@@ -1265,6 +2753,22 @@
       "ep": "Rodrigo Lunardi"
     },
     {
+      "client_id": "e8f30ae9-365a-45c2-bc4d-b240f4b1030a",
+      "client_name": "Heitor Parenti Junior",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
       "client_id": "4efce255-c163-40bf-adfb-203e9c02306a",
       "client_name": "AndrÃ© Augusto Lemos Vidal De Negreiros",
       "qtd_medicoes": 2,
@@ -1277,8 +2781,24 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Samuel Araújo"
+    },
+    {
+      "client_id": "744fd068-4e0c-49e7-84fb-f3441a0d2dfe",
+      "client_name": "Valquiria Alves MiguÃ©is Campos Cordeiro",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "67966ed0-3602-4e1f-b91e-7215a189fc24",
@@ -1293,24 +2813,88 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q2",
       "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "87efeb53-8ca4-4171-a250-e74af2f1069a",
+      "client_name": "Larissa de Aguiar Mesquita Xavier",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "ee53894a-493b-4740-8f74-8567499b06e0",
+      "client_name": "Carlos Alberto Nunes Lopes",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
+    },
+    {
+      "client_id": "2de29c68-0a58-4349-a5fd-2ce93831746f",
+      "client_name": "Daniel Borges Marras",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
     },
     {
       "client_id": "74487388-4d09-487f-9a00-e5254b644f50",
       "client_name": "Thiago Lara Vasques",
-      "qtd_medicoes": 4,
+      "qtd_medicoes": 5,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 9,
       "ultima_nota": 9,
       "delta": 0,
-      "media": 9.25,
+      "media": 9.2,
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2024-Q1",
       "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "13c18bcb-6004-4b73-bb65-c32a9213bcd2",
+      "client_name": "Enio Eduardo Lage",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "51f404fe-a33e-43e7-8303-3361247709c1",
@@ -1325,8 +2909,88 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Samuel Araújo"
+    },
+    {
+      "client_id": "cc117fb1-b272-4715-883f-afac4184aed5",
+      "client_name": "Pedro Crocamo",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "e1a987e7-48dd-4fc0-a51a-6ae632c5c853",
+      "client_name": "Diane Furtado dos Santos",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "4c329a6b-2901-4ffa-9e65-aad9c97ddf59",
+      "client_name": "Marcos Hernani Silva Santos",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 4,
+      "ultima_nota": 4,
+      "delta": 0,
+      "media": 4,
+      "melhor_nota": 4,
+      "pior_nota": 4,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Nelson Marques"
+    },
+    {
+      "client_id": "5d474ef1-9fef-4ecb-afeb-f9000879c87a",
+      "client_name": "Luiz Leonardo PÃ³voa Lobo",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "JoÃ£o GonÃ§alves"
+    },
+    {
+      "client_id": "7b1fdb70-c458-473e-a23e-68266d62f406",
+      "client_name": "Djin Augusto Caetano RebouÃ§as",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2024-Q4",
+      "ep": null
     },
     {
       "client_id": "535220df-04c5-4b91-ba66-56c820a54cb9",
@@ -1341,23 +3005,39 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Abner Braga"
+    },
+    {
+      "client_id": "056ac7c2-ba1e-44e0-8ed1-a5a9c1062876",
+      "client_name": "Fernando Silva Santos",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
     },
     {
       "client_id": "10be1de1-e8f5-434d-8379-3f19d10b7d93",
       "client_name": "Leandro AntÃ´nio De Oliveira Correia",
-      "qtd_medicoes": 3,
-      "primeira_resposta": "2025-Q4",
+      "qtd_medicoes": 4,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 3,
       "delta": -7,
-      "media": 7.67,
+      "media": 8.25,
       "melhor_nota": 10,
       "pior_nota": 3,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -1373,8 +3053,56 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2024-Q2",
       "ep": "Samuel Araújo"
+    },
+    {
+      "client_id": "481ce679-a7e8-43db-862f-c5df92ad25ba",
+      "client_name": "Renato Ponte Portela Aguiar",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
+    },
+    {
+      "client_id": "94498f8f-6a3f-4d4e-89d7-fde5c807562a",
+      "client_name": "Bruno Matias",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "87dd00a6-e64f-4dee-bd9b-f622b5d2a815",
+      "client_name": "Nadjaneyre Linhares",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q3",
+      "ep": "Hendrick Dorner"
     },
     {
       "client_id": "6c51da33-d342-4a05-b607-fab5493c7c80",
@@ -1389,8 +3117,40 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2027-Q2",
+      "safra_trimestre": "2024-Q1",
       "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "c1ffe9e8-caba-4f94-b6b4-b436047cc8fe",
+      "client_name": "Concetta Esposito",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Samuel AraÃºjo"
+    },
+    {
+      "client_id": "8d69f937-dc4c-4028-9487-b1f40a140a11",
+      "client_name": "Gustavo Henrique Nunes Damiati",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q2",
+      "ep": null
     },
     {
       "client_id": "5b00c8b5-0081-4a26-a848-0b7e60973c6d",
@@ -1405,7 +3165,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Hendrick Dorner"
     },
     {
@@ -1421,7 +3181,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q2",
       "ep": "Hendrick Dorner"
     },
     {
@@ -1437,7 +3197,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2025-Q2",
       "ep": "Hendrick Dorner"
     },
     {
@@ -1453,8 +3213,40 @@
       "melhor_nota": 7,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q2",
       "ep": "Ana Ãvalos"
+    },
+    {
+      "client_id": "02db9c9d-bb55-4f4f-aa51-9aa27ebbb816",
+      "client_name": "Claudio de Lima Vidal",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "2535b10b-c271-4f5c-be94-0719111d24c2",
+      "client_name": "Naiana Roriz E Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "623057f4-0c60-4c55-9a02-7bbda3162cda",
@@ -1469,8 +3261,24 @@
       "melhor_nota": 5,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Samuel AraÃºjo"
+    },
+    {
+      "client_id": "c5d01610-694d-4180-8b17-682e2d4e0bd6",
+      "client_name": "Frederico fonseca schuabb",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q3",
+      "ep": "Junior Teixeira"
     },
     {
       "client_id": "b532a6ff-5070-4f5c-9679-6fe0166df9d3",
@@ -1485,7 +3293,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q1",
       "ep": "Carlos Serafim"
     },
     {
@@ -1501,8 +3309,72 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q2",
       "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "af05f049-d47c-4f01-a1d7-4eb9afeef314",
+      "client_name": "DEUSIENE DE BRITO MENDES",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
+    },
+    {
+      "client_id": "4e9dc789-03b3-40ae-9ec8-56b69d965d40",
+      "client_name": "Elcia Maria Da Silva Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
+    },
+    {
+      "client_id": "a3062199-0dd2-4130-b84e-eb18760a866d",
+      "client_name": "Eizo Yabusame Matsumoto",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "NÃ­colas Alves"
+    },
+    {
+      "client_id": "a4f53f17-2a53-4822-a04c-ca32df88a86a",
+      "client_name": "Karine Koller",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": null
     },
     {
       "client_id": "4a9ce8f8-8775-4b42-b71a-db69191c1388",
@@ -1517,8 +3389,40 @@
       "melhor_nota": 7,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q3",
       "ep": "Abner Braga"
+    },
+    {
+      "client_id": "35ca4c02-15a8-4b9b-a718-c17a91f51af2",
+      "client_name": "Felipe Dias Martins",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 6,
+      "ultima_nota": 9,
+      "delta": 3,
+      "media": 7.5,
+      "melhor_nota": 9,
+      "pior_nota": 6,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Abner Braga"
+    },
+    {
+      "client_id": "0d341d4c-d60e-4e6a-acaa-68b714af03e9",
+      "client_name": "Fernanda Reis Gomes",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2024-Q3",
+      "ep": "JoÃ£o Aliceda"
     },
     {
       "client_id": "e8e333a4-b902-47e5-a8e0-eb31bf0b23cb",
@@ -1533,7 +3437,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "João Aliceda"
     },
     {
@@ -1549,7 +3453,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -1565,8 +3469,40 @@
       "melhor_nota": 7,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Pedro Goulart"
+    },
+    {
+      "client_id": "cd815b1a-2d3d-4bee-b9f8-b5946f89051a",
+      "client_name": "AntÃ´nio Campanile Neto",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 9,
+      "delta": 1,
+      "media": 8.5,
+      "melhor_nota": 9,
+      "pior_nota": 8,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "68ec55d5-19b9-4282-b3b8-47b43ac7f177",
+      "client_name": "Lenon Mazetto",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 4,
+      "ultima_nota": 4,
+      "delta": 0,
+      "media": 4,
+      "melhor_nota": 4,
+      "pior_nota": 4,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "66ccb471-5286-40a8-bef1-b01f63c022e9",
@@ -1581,8 +3517,24 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Willian Oliveira Schimidt"
+    },
+    {
+      "client_id": "cb949690-eb90-4621-ada4-6ceac137537d",
+      "client_name": "Leopoldo Alves Neto",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": null
     },
     {
       "client_id": "64c1aba4-e486-4498-bf40-572ecbecbda2",
@@ -1597,8 +3549,24 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Willian Oliveira Schimidt"
+    },
+    {
+      "client_id": "0459f931-cdf0-4909-b28e-35b7857eb381",
+      "client_name": "Gustavo Meneses de Barros",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2025-Q4",
+      "ultima_resposta": "2025-Q4",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": null
     },
     {
       "client_id": "537c1fcf-ab92-4f33-99fd-4bfb204d37d1",
@@ -1649,6 +3617,38 @@
       "ep": "Nícolas Alves"
     },
     {
+      "client_id": "e35217f4-c34f-4701-9c08-5619be84ee3c",
+      "client_name": "Dave Roberson Pinto Viana",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Leonardo Palaver Pereira"
+    },
+    {
+      "client_id": "67ede2d7-fd66-42b5-90f7-5028c6169bcc",
+      "client_name": "Samy JosÃ© Nogueira Zenun Messias",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Gustavo Papeschi Mariano"
+    },
+    {
       "client_id": "4d2dca4e-a6a3-4f28-88f1-246abca4b0ba",
       "client_name": "Claudinei Tome Gerhardt",
       "qtd_medicoes": 1,
@@ -1697,6 +3697,22 @@
       "ep": "Willian Sobral"
     },
     {
+      "client_id": "314cf422-9e7c-4088-a49d-698f5689a3db",
+      "client_name": "Yuri Duretti Pinho",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2026-Q1",
+      "ep": "NÃ­colas Alves"
+    },
+    {
       "client_id": "e7c359cd-8c05-486d-bcf8-76a338b96058",
       "client_name": "David Dotoli da Silva",
       "qtd_medicoes": 2,
@@ -1725,7 +3741,7 @@
       "melhor_nota": 10,
       "pior_nota": 2,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Hendrick Dorner"
     },
     {
@@ -1777,6 +3793,22 @@
       "ep": "João Aliceda"
     },
     {
+      "client_id": "923d0dad-2986-40ae-baa7-84a443b30741",
+      "client_name": "Francisco Antonio Cerqueira Amaral",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Leonardo Palaver Pereira"
+    },
+    {
       "client_id": "f53decbd-a8df-4269-9a6b-24290231dcfc",
       "client_name": "MaurÃ­cio Pelegrini",
       "qtd_medicoes": 3,
@@ -1805,6 +3837,22 @@
       "melhor_nota": 7,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "2a2f9cbb-994c-4cb3-bd15-fe40e68c4986",
+      "client_name": "Nelson Amado da Costa Pinto",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
       "safra_trimestre": "2025-Q4",
       "ep": "Gabriel Oliveira"
     },
@@ -1901,7 +3949,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q2",
       "ep": "Carlos Serafim"
     },
     {
@@ -1981,7 +4029,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Junior Teixeira"
     },
     {
@@ -1997,8 +4045,24 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2024-Q1",
       "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "f2326594-f870-467f-8d63-a9cd52dedc83",
+      "client_name": "Tayanni de Sousa Oliveira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q4",
+      "ep": "NÃ­colas Alves"
     },
     {
       "client_id": "e61530fe-83ed-4ecd-8a38-1635207941a4",
@@ -2061,7 +4125,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q3",
       "ep": "Tales Salinas Rozo"
     },
     {
@@ -2097,6 +4161,22 @@
       "ep": "Willian Oliveira Schimidt"
     },
     {
+      "client_id": "7df0f2b1-b0e4-49b4-a6aa-52f42539b8ed",
+      "client_name": "Raquel Rodrigues Carvalho",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2026-Q1",
+      "ep": "JoÃ£o GonÃ§alves"
+    },
+    {
       "client_id": "dda01b1a-3b7a-41db-86a1-71cea119eacb",
       "client_name": "Pedro Chandelier Haeser",
       "qtd_medicoes": 1,
@@ -2111,6 +4191,22 @@
       "ultima_categoria": "Detrator",
       "safra_trimestre": "2026-Q1",
       "ep": "Leonardo Palaver Pereira"
+    },
+    {
+      "client_id": "46253f15-65cd-4a36-810f-afd30d8db882",
+      "client_name": "Tatiane Bortolin Marmentini",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Samuel AraÃºjo"
     },
     {
       "client_id": "eedd4b83-8924-49b4-bbb3-a4ab8f2a2078",
@@ -2129,6 +4225,70 @@
       "ep": "Nelson Marques"
     },
     {
+      "client_id": "37f15e2e-53c9-449f-bbbd-122aa1e6f6f5",
+      "client_name": "Claudia Maria de Medeiros CÃ¢mara",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2026-Q3",
+      "ep": "Willian Sobral"
+    },
+    {
+      "client_id": "7b4f8a68-6ec3-4ea2-831a-83d886a6bb4e",
+      "client_name": "Paulo Henrique Miguel Medeiros",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 3,
+      "ultima_nota": 3,
+      "delta": 0,
+      "media": 3,
+      "melhor_nota": 3,
+      "pior_nota": 3,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Abner Braga"
+    },
+    {
+      "client_id": "75423ba2-3cc7-4e40-8b3a-0b6cb1ef4159",
+      "client_name": "Cristian Amaral Pereira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": null,
+      "ep": "Rodrigo Lunardi"
+    },
+    {
+      "client_id": "f6190745-2bc8-448e-b349-62300c1b929d",
+      "client_name": "Camilo de Souza Ferreira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Gabriel Oliveira"
+    },
+    {
       "client_id": "a769ee56-4ff7-4e77-8a9f-a2e1b3042565",
       "client_name": "Joao Wilkson Sena Taleires",
       "qtd_medicoes": 2,
@@ -2141,7 +4301,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Hendrick Dorner"
     },
     {
@@ -2157,7 +4317,7 @@
       "melhor_nota": 10,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -2173,7 +4333,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -2221,7 +4381,23 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Abner Braga"
+    },
+    {
+      "client_id": "49b8aad1-0893-4071-aec4-92d9275001e3",
+      "client_name": "Elisabete dos Reis Carneiro",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -2239,6 +4415,38 @@
       "ultima_categoria": "Detrator",
       "safra_trimestre": "2025-Q3",
       "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "0e0ea20e-5d8e-43ac-a680-e6232a4e1fd8",
+      "client_name": "Wilson BrandÃ£o Ribeiro GonÃ§alves",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Abner Braga"
+    },
+    {
+      "client_id": "0c4ae031-8b1d-449d-897b-485fe8af517b",
+      "client_name": "Adelia Zina Rosauro de Almeida",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Samuel AraÃºjo"
     },
     {
       "client_id": "dda8a0cf-466e-4322-939f-3bd060361ea0",
@@ -2269,8 +4477,24 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Willian Oliveira Schimidt"
+    },
+    {
+      "client_id": "85534ef1-4678-4d7a-af69-61c11d2d1eaf",
+      "client_name": "Daniel Augusto Gazzolo Durand",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": "JoÃ£o Aliceda"
     },
     {
       "client_id": "20eb028f-373f-4a63-a468-57fe9544f214",
@@ -2321,10 +4545,26 @@
       "ep": "Thiago Henrique Trova"
     },
     {
+      "client_id": "2fb3e59b-a7cd-45bf-add7-923b0c2141e4",
+      "client_name": "Bruno Santos Jales",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Dorner"
+    },
+    {
       "client_id": "f15fa5c4-9dfc-4bc0-9bf5-ab3845dab652",
       "client_name": "Robson Argolo",
-      "qtd_medicoes": 2,
-      "primeira_resposta": "2026-Q1",
+      "qtd_medicoes": 3,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -2333,7 +4573,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -2349,7 +4589,7 @@
       "melhor_nota": 9,
       "pior_nota": 7,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -2365,24 +4605,88 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q1",
+      "safra_trimestre": "2024-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
       "client_id": "0899e909-4949-4cfc-9f76-6ebb2bf62a81",
       "client_name": "Daniel Antonio de Aquino Neto",
-      "qtd_medicoes": 3,
+      "qtd_medicoes": 4,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
       "delta": 0,
-      "media": 9.67,
+      "media": 9.75,
       "melhor_nota": 10,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q3",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "f8233945-fa9d-4e29-a1e9-0cb2b0613b09",
+      "client_name": "Filipe Viglongo CorrÃªa Vilardo de Freitas",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2025-Q4",
       "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "00964dc3-c017-4536-9e71-f5784380e7de",
+      "client_name": "FabrÃ­cio Rebello Lignani Siqueira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "f4bc2085-e44e-4cee-9f96-0c289eb91e2b",
+      "client_name": "Ricardo Dias GonÃ§alves",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Hendrick Dorner"
+    },
+    {
+      "client_id": "51e38c6f-fe51-47af-936d-87ad933a6e09",
+      "client_name": "RogÃ©rio Matheus de Moraes JÃºnior",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q3",
+      "ep": "JoÃ£o GonÃ§alves"
     },
     {
       "client_id": "31d2aa6a-e99a-4097-a1e8-c367b14e334d",
@@ -2397,8 +4701,24 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
+    },
+    {
+      "client_id": "e2836d24-e646-40c5-8454-da2837d3c5f3",
+      "client_name": "Rene Carvalho Bayma",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Ariel Phelipe Zocoli"
     },
     {
       "client_id": "2e553b1c-8741-4a84-a9ea-201271cb9a3e",
@@ -2413,7 +4733,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Carlos Serafim"
     },
     {
@@ -2433,15 +4753,31 @@
       "ep": "Carlos Serafim"
     },
     {
+      "client_id": "38278bd4-716b-45aa-919b-6118014655d3",
+      "client_name": "Gustavo Coelho Navarro",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 6,
+      "ultima_nota": 6,
+      "delta": 0,
+      "media": 6,
+      "melhor_nota": 6,
+      "pior_nota": 6,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Carlos Serafim"
+    },
+    {
       "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
       "client_name": "Augusto Eduardo Goncalves Walter",
-      "qtd_medicoes": 3,
+      "qtd_medicoes": 4,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 9,
       "delta": -1,
-      "media": 9.67,
+      "media": 9.5,
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
@@ -2461,7 +4797,23 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Carlos Serafim"
+    },
+    {
+      "client_id": "7f723e1c-29dd-4ac8-a9c8-a96cc395d8b3",
+      "client_name": "Edson Luis Gomes",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
       "ep": "Carlos Serafim"
     },
     {
@@ -2481,6 +4833,118 @@
       "ep": "Carlos Serafim"
     },
     {
+      "client_id": "104ff582-fbed-4a48-a910-e485bd1b81c0",
+      "client_name": "Karina de Souza Weinmann",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": "JoÃ£o GonÃ§alves"
+    },
+    {
+      "client_id": "176f5abb-a8b7-47bf-8d93-70717112e304",
+      "client_name": "Douglas Hebert Coutinho JanuÃ¡rio",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Dorner"
+    },
+    {
+      "client_id": "a212b352-f31b-4084-ad52-97d0b193d7ab",
+      "client_name": "JosÃ© Elias Nogueira Alves",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "JoÃ£o Aliceda"
+    },
+    {
+      "client_id": "de0953c7-7b4f-43f3-9e4d-57bb7b2571e8",
+      "client_name": "Salma Bakhit",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q3",
+      "ep": "JoÃ£o GonÃ§alves"
+    },
+    {
+      "client_id": "22a2c84f-e1d1-41f1-b936-c8ba2eedff80",
+      "client_name": "Marcos Roberto Takimoto",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Junior Teixeira"
+    },
+    {
+      "client_id": "dffa590e-9f40-419e-9763-1ca4d5d2de47",
+      "client_name": "Igor Francielly De Medeiros Dantas",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Leonardo Palaver Pereira"
+    },
+    {
+      "client_id": "2d1070da-085f-4d46-bc69-d451dcfaab8e",
+      "client_name": "Paulo Ernesto Tofano Neto",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Carlos Serafim"
+    },
+    {
       "client_id": "63d2b712-0830-441d-b1dd-885743b0435f",
       "client_name": "Henrique Urakawa Mendes",
       "qtd_medicoes": 2,
@@ -2493,7 +4957,7 @@
       "melhor_nota": 10,
       "pior_nota": 0,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Samuel Araújo"
     },
     {
@@ -2511,6 +4975,22 @@
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2025-Q4",
       "ep": "Gustavo Papeschi Mariano"
+    },
+    {
+      "client_id": "ead3f4ce-2eca-4371-a5d2-7cae010f4236",
+      "client_name": "Beatriz de Almeida Cingi Siqueira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Gabriel Oliveira"
     },
     {
       "client_id": "be3ae586-7dbc-4065-9681-392a31c09775",
@@ -2541,8 +5021,40 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q2",
       "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "2ba108f7-a28b-47f2-814a-40721b083163",
+      "client_name": "Elisandra PatrÃ­cia Scariot Martins",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "f6c4863d-a768-41d1-ba31-1b8db51acd06",
+      "client_name": "JÃ´natas Daia da Costa",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Carlos Serafim"
     },
     {
       "client_id": "058a4277-60d9-4c79-b51c-3b06beeb504a",
@@ -2557,8 +5069,24 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2027-Q2",
+      "safra_trimestre": "2024-Q2",
       "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "cf09409b-bae0-48db-b374-65e817f31c70",
+      "client_name": "Denis Heringer Pereira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Hendrick Dorner"
     },
     {
       "client_id": "09ed4608-b617-40ce-b43a-88b99043e3b3",
@@ -2573,8 +5101,72 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "489b4d5b-5088-4521-b0bb-c0036ad887dd",
+      "client_name": "Guiomara Steinbach",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2024-Q4",
+      "ep": "Cleuber Anicesio"
+    },
+    {
+      "client_id": "60e2f2c0-4938-4d8e-b403-b4b21b0d8fed",
+      "client_name": "Neila Hagge Belloni de Medeiros",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Willian Sobral"
+    },
+    {
+      "client_id": "6e36352a-6ebd-4004-848a-de35e6d4e6ef",
+      "client_name": "Fabio Eduardo Scarabelot",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Tiago Junior"
+    },
+    {
+      "client_id": "7a9362e1-546d-4765-bf6f-6111480df87b",
+      "client_name": "Marcos Roberto Dos Santos",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Tiago Junior"
     },
     {
       "client_id": "fb85d41a-8f17-42d9-91cc-fa86420498b8",
@@ -2589,8 +5181,40 @@
       "melhor_nota": 9,
       "pior_nota": 8,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
+    },
+    {
+      "client_id": "2aa61ad6-ff28-4edd-803f-59644764ccf1",
+      "client_name": "Natalia Honorato Coelho Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Willian Oliveira Schimidt"
+    },
+    {
+      "client_id": "8bb4a5dd-14c1-43b4-a51d-109be7483af3",
+      "client_name": "Osvan De Sousa Rocha Junior",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Tiago Junior"
     },
     {
       "client_id": "58c20112-1865-4f7a-b423-fe5e8208071f",
@@ -2605,7 +5229,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Tales Salinas Rozo"
     },
     {
@@ -2641,6 +5265,22 @@
       "ep": "Hendrick Dorner"
     },
     {
+      "client_id": "0e8c5461-8d47-496b-96a1-044d46a64491",
+      "client_name": "Gisele Menezes Vilela Valente Rodrigues",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 0,
+      "ultima_nota": 0,
+      "delta": 0,
+      "media": 0,
+      "melhor_nota": 0,
+      "pior_nota": 0,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q4",
+      "ep": "Rodrigo Amorim"
+    },
+    {
       "client_id": "9997e796-7d06-4416-b88e-124798932ba3",
       "client_name": "Lenis Laura Alvarez Colpaert",
       "qtd_medicoes": 3,
@@ -2653,7 +5293,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -2669,8 +5309,40 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q2",
+      "safra_trimestre": null,
       "ep": "Willian Sobral"
+    },
+    {
+      "client_id": "cb0c51d4-fb1a-4a5b-8359-088cabdf40a4",
+      "client_name": "Luanna Rodrigues Dantas de Oliveira",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 1,
+      "ultima_nota": 1,
+      "delta": 0,
+      "media": 1,
+      "melhor_nota": 1,
+      "pior_nota": 1,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "JoÃ£o Aliceda"
+    },
+    {
+      "client_id": "85434dd4-77c2-4444-bebc-26ae73ad3a94",
+      "client_name": "Lucelia Campelo De Melo",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q3",
+      "ep": "JoÃ£o GonÃ§alves"
     },
     {
       "client_id": "814adabf-d36a-4086-8dd1-0eb515c63fed",
@@ -2685,7 +5357,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Rodrigo Lunardi"
     },
     {
@@ -2717,7 +5389,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -2737,8 +5409,8 @@
       "ep": "Willian Sobral"
     },
     {
-      "client_id": "85ffa87a-9fce-4313-b96e-d1005394437a",
-      "client_name": "Carlos Miguel Silva Ribeiro",
+      "client_id": "232bb107-5e8c-4211-b528-7ef3f20270b8",
+      "client_name": "AndrÃ© Felipe Moura",
       "qtd_medicoes": 1,
       "primeira_resposta": "2026-Q1",
       "ultima_resposta": "2026-Q1",
@@ -2749,8 +5421,40 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": null,
       "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "85ffa87a-9fce-4313-b96e-d1005394437a",
+      "client_name": "Carlos Miguel Silva Ribeiro",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Gabriel Oliveira"
+    },
+    {
+      "client_id": "372e4d1d-31b2-4fad-bb09-4ffe764384ee",
+      "client_name": "Flavia Lara Gomes Zapf",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 7,
+      "ultima_nota": 7,
+      "delta": 0,
+      "media": 7,
+      "melhor_nota": 7,
+      "pior_nota": 7,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2026-Q1",
+      "ep": "NÃ­colas Alves"
     },
     {
       "client_id": "2932a896-c9eb-4cf9-b634-819c45c0af8a",
@@ -2765,6 +5469,22 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
+      "safra_trimestre": "2026-Q1",
+      "ep": "Thiago Henrique Trova"
+    },
+    {
+      "client_id": "bdebd83b-d1c9-45ef-8995-d900ea5b99ce",
+      "client_name": "Mariliza Rodrigues da Silva Luz",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 4,
+      "ultima_nota": 4,
+      "delta": 0,
+      "media": 4,
+      "melhor_nota": 4,
+      "pior_nota": 4,
+      "ultima_categoria": "Detrator",
       "safra_trimestre": "2026-Q1",
       "ep": "Thiago Henrique Trova"
     },
@@ -2833,6 +5553,70 @@
       "ep": "Thiago Henrique Trova"
     },
     {
+      "client_id": "8b47f96a-f1b2-44bf-9d1d-efb035401da5",
+      "client_name": "Bruno Diego Longo",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2026-Q1",
+      "ep": "Thiago Henrique Trova"
+    },
+    {
+      "client_id": "d830892c-4099-4391-bd12-57357b6c22e3",
+      "client_name": "Fernando Carvalho Pedroso",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 5,
+      "ultima_nota": 5,
+      "delta": 0,
+      "media": 5,
+      "melhor_nota": 5,
+      "pior_nota": 5,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q1",
+      "ep": "Leonardo Palaver Pereira"
+    },
+    {
+      "client_id": "aa89c2b0-63aa-4601-a96e-8245270a7ff2",
+      "client_name": "Alexandre Mark Staviack",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 1,
+      "ultima_nota": 1,
+      "delta": 0,
+      "media": 1,
+      "melhor_nota": 1,
+      "pior_nota": 1,
+      "ultima_categoria": "Detrator",
+      "safra_trimestre": "2025-Q2",
+      "ep": "Samuel AraÃºjo"
+    },
+    {
+      "client_id": "ea67d354-9646-4ba5-9405-d2dcf2d42cd1",
+      "client_name": "Kleiton Holanda",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2026-Q1",
+      "ep": null
+    },
+    {
       "client_id": "809de693-705c-4822-994b-bc9d4227d03c",
       "client_name": "Ricardo Rodrigues Fernandes",
       "qtd_medicoes": 3,
@@ -2847,6 +5631,38 @@
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2026-Q1",
       "ep": "Thiago Henrique Trova"
+    },
+    {
+      "client_id": "c9397a84-9b13-4b5e-998c-154cd4bbf40a",
+      "client_name": "PlÃ­nio Marinho de Carvalho",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 8,
+      "ultima_nota": 8,
+      "delta": 0,
+      "media": 8,
+      "melhor_nota": 8,
+      "pior_nota": 8,
+      "ultima_categoria": "Neutro",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
+    },
+    {
+      "client_id": "4b158af8-bf5e-4e12-8675-2c2c56940e20",
+      "client_name": "Eduardo Filipe Mazzarolo Marques",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "2026-Q1",
+      "ultima_resposta": "2026-Q1",
+      "primeira_nota": 9,
+      "ultima_nota": 9,
+      "delta": 0,
+      "media": 9,
+      "melhor_nota": 9,
+      "pior_nota": 9,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2025-Q1",
+      "ep": null
     },
     {
       "client_id": "11151df2-cae1-4972-94ec-c50ecf79c2ca",
@@ -2893,7 +5709,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -3021,7 +5837,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q1",
       "ep": "Pedro Goulart"
     },
     {
@@ -3069,7 +5885,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": null,
       "ep": "Gabriel Oliveira"
     },
     {
@@ -3085,7 +5901,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": "2024-Q3",
       "ep": "Tales Salinas Rozo"
     },
     {
@@ -3133,7 +5949,7 @@
       "melhor_nota": 9,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -3165,13 +5981,13 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Willian Oliveira Schimidt"
     },
     {
       "client_id": "cbb09924-ca18-4b39-b497-6723364234a4",
       "client_name": "Carina Vieira da Rocha",
-      "qtd_medicoes": 2,
+      "qtd_medicoes": 3,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 9,
@@ -3245,7 +6061,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -3261,7 +6077,7 @@
       "melhor_nota": 4,
       "pior_nota": 4,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Nícolas Alves"
     },
     {
@@ -3277,7 +6093,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -3315,7 +6131,7 @@
     {
       "client_id": "bd06e8af-e354-4967-b9c0-3bc76ac8d861",
       "client_name": "Evelin Rosio Estevez Jimenez",
-      "qtd_medicoes": 2,
+      "qtd_medicoes": 3,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
@@ -3325,7 +6141,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -3373,7 +6189,7 @@
       "melhor_nota": 1,
       "pior_nota": 1,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": null,
       "ep": "Pedro Goulart"
     },
     {
@@ -3389,7 +6205,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -3405,7 +6221,7 @@
       "melhor_nota": 0,
       "pior_nota": 0,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -3443,7 +6259,7 @@
     {
       "client_id": "f3984645-e282-472d-bfaa-4560aae31d26",
       "client_name": "João Marcos Castro Fagundes",
-      "qtd_medicoes": 2,
+      "qtd_medicoes": 3,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 9,
@@ -3453,7 +6269,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -3533,7 +6349,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Rodrigo Amorim"
     },
     {
@@ -3645,7 +6461,7 @@
       "melhor_nota": 6,
       "pior_nota": 6,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q2",
       "ep": "Rodrigo Amorim"
     },
     {
@@ -3693,7 +6509,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": null,
       "ep": "Gustavo Papeschi Mariano"
     },
     {
@@ -3741,7 +6557,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Rodrigo Amorim"
     },
     {
@@ -3773,7 +6589,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -3805,7 +6621,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -3933,7 +6749,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2026-Q3",
       "ep": "Gustavo Papeschi Mariano"
     },
     {
@@ -3965,7 +6781,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Pedro Goulart"
     },
     {
@@ -3997,7 +6813,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -4029,7 +6845,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -4093,7 +6909,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Samuel Araújo"
     },
     {
@@ -4125,7 +6941,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Samuel Araújo"
     },
     {
@@ -4141,7 +6957,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -4173,7 +6989,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Samuel Araújo"
     },
     {
@@ -4189,7 +7005,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Samuel Araújo"
     },
     {
@@ -4253,7 +7069,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "Rodrigo Lunardi"
     },
     {
@@ -4275,17 +7091,17 @@
     {
       "client_id": "666472e5-5243-42d7-8916-41668ec60d0c",
       "client_name": "Paulo Sergio Lima dos Santos",
-      "qtd_medicoes": 2,
+      "qtd_medicoes": 3,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 9,
       "ultima_nota": 10,
       "delta": 1,
-      "media": 9.5,
+      "media": 9.67,
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -4301,7 +7117,7 @@
       "melhor_nota": 5,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Rodrigo Amorim"
     },
     {
@@ -4317,7 +7133,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2026-Q1",
       "ep": "Gustavo Papeschi Mariano"
     },
     {
@@ -4349,7 +7165,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q1",
       "ep": "Tales Salinas Rozo"
     },
     {
@@ -4365,13 +7181,13 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
       "client_id": "03ed7e77-4e5b-4309-9330-dd8d8b112db8",
       "client_name": "Yoandrys Guerra Sánchez",
-      "qtd_medicoes": 2,
+      "qtd_medicoes": 3,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
@@ -4381,7 +7197,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -4397,7 +7213,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -4429,7 +7245,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -4477,7 +7293,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2026-Q2",
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -4493,7 +7309,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2024-Q4",
       "ep": "Hendrick Dorner"
     },
     {
@@ -4509,7 +7325,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q2",
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -4525,7 +7341,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2024-Q4",
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -4717,7 +7533,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -4829,7 +7645,7 @@
       "melhor_nota": 4,
       "pior_nota": 4,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2026-Q2",
       "ep": "Gustavo Papeschi Mariano"
     },
     {
@@ -4877,7 +7693,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -4973,7 +7789,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -5005,19 +7821,19 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q3",
       "ep": "João Aliceda"
     },
     {
       "client_id": "03493d05-bf24-4326-bce7-fd29ad2c242b",
       "client_name": "Marilda Alves de Morais",
-      "qtd_medicoes": 2,
+      "qtd_medicoes": 3,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 9,
       "ultima_nota": 10,
       "delta": 1,
-      "media": 9.5,
+      "media": 9.67,
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
@@ -5053,7 +7869,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q1",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -5069,7 +7885,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -5101,7 +7917,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -5149,7 +7965,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2024-Q3",
       "ep": "Felipe Aleixo"
     },
     {
@@ -5213,7 +8029,7 @@
       "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -5229,7 +8045,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2025-Q3",
+      "safra_trimestre": null,
       "ep": "Willian Oliveira Schimidt"
     },
     {
@@ -5309,7 +8125,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Junior Teixeira"
     },
     {
@@ -5331,14 +8147,14 @@
     {
       "client_id": "568c1b39-cf89-4557-b3aa-09fa330ddbc2",
       "client_name": "Danillo Ewerton Oliveira Amaral",
-      "qtd_medicoes": 1,
+      "qtd_medicoes": 2,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
-      "ultima_resposta": "NPS-2026-JUN-JUL-PHARUS",
+      "ultima_resposta": "NPS-2026-SET-PHARUS",
       "primeira_nota": 9,
-      "ultima_nota": 9,
-      "delta": 0,
-      "media": 9,
-      "melhor_nota": 9,
+      "ultima_nota": 10,
+      "delta": 1,
+      "media": 9.5,
+      "melhor_nota": 10,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2026-Q2",
@@ -5501,7 +8317,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": null,
       "ep": "Felipe Aleixo"
     },
     {
@@ -5539,13 +8355,13 @@
     {
       "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
       "client_name": "Debora Fernanda Ventura",
-      "qtd_medicoes": 2,
+      "qtd_medicoes": 3,
       "primeira_resposta": "NPS-2026-JUN-JUL-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 6,
       "ultima_nota": 5,
       "delta": -1,
-      "media": 5.5,
+      "media": 5.33,
       "melhor_nota": 6,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
@@ -5629,7 +8445,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Hendrick Dorner"
     },
     {
@@ -5709,7 +8525,7 @@
       "melhor_nota": 0,
       "pior_nota": 0,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -5725,7 +8541,7 @@
       "melhor_nota": 0,
       "pior_nota": 0,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q4",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -5757,7 +8573,7 @@
       "melhor_nota": 5,
       "pior_nota": 5,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q3",
       "ep": "Felipe Aleixo"
     },
     {
@@ -5805,7 +8621,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q4",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -5853,7 +8669,7 @@
       "melhor_nota": 7,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Andrieli Campesato"
     },
     {
@@ -5869,7 +8685,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Rodrigo Amorim"
     },
     {
@@ -6077,7 +8893,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -6109,7 +8925,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Abner Braga"
     },
     {
@@ -6141,7 +8957,7 @@
       "melhor_nota": 8,
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q2",
       "ep": "Cleuber Anicesio"
     },
     {
@@ -6253,7 +9069,7 @@
       "melhor_nota": 0,
       "pior_nota": 0,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2026-Q2",
       "ep": "Samuel Araújo"
     },
     {
@@ -6269,7 +9085,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Nelson Marques"
     },
     {
@@ -6337,22 +9153,6 @@
       "ep": "Willian Sobral"
     },
     {
-      "client_id": "34167265-0061-4443-b631-9e0d60d1229d",
-      "client_name": "Joalicio de Almeida Honório Junior",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "NPS-2026-SET-PHARUS",
-      "ultima_resposta": "NPS-2026-SET-PHARUS",
-      "primeira_nota": 4,
-      "ultima_nota": 4,
-      "delta": 0,
-      "media": 4,
-      "melhor_nota": 4,
-      "pior_nota": 4,
-      "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q3",
-      "ep": "João Aliceda"
-    },
-    {
       "client_id": "e809b66d-22aa-4d83-8859-d6e801a23cdf",
       "client_name": "Daniele Christine Sena de Moura",
       "qtd_medicoes": 1,
@@ -6381,7 +9181,7 @@
       "melhor_nota": 6,
       "pior_nota": 6,
       "ultima_categoria": "Detrator",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Willian Sobral"
     },
     {
@@ -6557,7 +9357,7 @@
       "melhor_nota": 7,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Samuel Araújo"
     },
     {
@@ -6737,22 +9537,6 @@
       "ep": "Nícolas Alves"
     },
     {
-      "client_id": "c0e1b7a4-bf76-4842-bd39-fc70bdde1efe",
-      "client_name": "Abilio Bernardes Friques",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "NPS-2026-SET-PHARUS",
-      "ultima_resposta": "NPS-2026-SET-PHARUS",
-      "primeira_nota": 8,
-      "ultima_nota": 8,
-      "delta": 0,
-      "media": 8,
-      "melhor_nota": 8,
-      "pior_nota": 8,
-      "ultima_categoria": "Neutro",
-      "safra_trimestre": "2026-Q3",
-      "ep": "Carlos Serafim"
-    },
-    {
       "client_id": "697c7b8a-8d0b-4aef-beb5-34f45614a943",
       "client_name": "Gilberto Able de Rezende Chaves",
       "qtd_medicoes": 1,
@@ -6909,7 +9693,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Pedro Goulart"
     },
     {
@@ -6957,7 +9741,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q2",
       "ep": "João Aliceda"
     },
     {
@@ -6973,7 +9757,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Rodrigo Amorim"
     },
     {
@@ -6989,7 +9773,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2025-Q4",
+      "safra_trimestre": "2024-Q3",
       "ep": "Abner Braga"
     },
     {
@@ -7037,7 +9821,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2026-Q2",
       "ep": "João Aliceda"
     },
     {
@@ -7069,7 +9853,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2026-Q1",
       "ep": "Pedro Goulart"
     },
     {
@@ -7101,7 +9885,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2026-Q2",
       "ep": "Felipe Aleixo"
     },
     {
@@ -7229,7 +10013,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q2",
+      "safra_trimestre": "2025-Q2",
       "ep": "João Aliceda"
     },
     {
@@ -7453,7 +10237,7 @@
       "melhor_nota": 7,
       "pior_nota": 7,
       "ultima_categoria": "Neutro",
-      "safra_trimestre": "2025-Q2",
+      "safra_trimestre": "2024-Q1",
       "ep": "Gabriel Oliveira"
     },
     {
@@ -7485,7 +10269,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2026-Q1",
       "ep": "Nelson Marques"
     },
     {
@@ -7517,7 +10301,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q3",
       "ep": "Tales Salinas Rozo"
     },
     {
@@ -7629,7 +10413,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2025-Q3",
       "ep": "Nelson Marques"
     },
     {
@@ -7789,7 +10573,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2024-Q1",
       "ep": "Samuel Araújo"
     },
     {
@@ -7885,7 +10669,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2026-Q2",
       "ep": "Felipe Aleixo"
     },
     {
@@ -7933,7 +10717,7 @@
       "melhor_nota": 10,
       "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q3",
+      "safra_trimestre": "2026-Q2",
       "ep": "Abner Braga"
     },
     {
@@ -7949,7 +10733,7 @@
       "melhor_nota": 9,
       "pior_nota": 9,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q1",
       "ep": "Hendrick Dorner"
     },
     {
@@ -8003,8 +10787,8 @@
     {
       "client_id": "97278c95-356c-4294-8874-8052a5a69262",
       "client_name": "Gabriel Bacagini Guedes",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -8019,8 +10803,8 @@
     {
       "client_id": "15148fee-9a88-474f-ac43-1bf96260d391",
       "client_name": "Leandro da Silva",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 8,
       "ultima_nota": 8,
@@ -8035,8 +10819,8 @@
     {
       "client_id": "e83fe98f-1b66-48d3-a6a4-9ad2e3ff6750",
       "client_name": "Marcos Ferreira Benchimol",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -8051,8 +10835,8 @@
     {
       "client_id": "22f009a7-29e1-4827-9a59-422644086974",
       "client_name": "Carolina MontemÃ³r Soares Messina Aberle",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -8067,8 +10851,8 @@
     {
       "client_id": "30502ab7-7f56-4469-a6db-bdf2785bc4a9",
       "client_name": "Henrique Bruno Damasceno Pessoa",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -8086,12 +10870,12 @@
       "qtd_medicoes": 2,
       "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
-      "primeira_nota": 8,
+      "primeira_nota": 9,
       "ultima_nota": 9,
-      "delta": 1,
-      "media": 8.5,
+      "delta": 0,
+      "media": 9,
       "melhor_nota": 9,
-      "pior_nota": 8,
+      "pior_nota": 9,
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2026-Q2",
       "ep": "Thiago Henrique Trova"
@@ -8115,8 +10899,8 @@
     {
       "client_id": "c5f7534d-660b-4a2d-b61a-d523d33472a0",
       "client_name": "Karina Daniele Molleta Bastos",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -8131,8 +10915,8 @@
     {
       "client_id": "440ff599-bef0-4d52-8356-47e20e24762c",
       "client_name": "Elisabete Laurindo de Souza",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -8150,21 +10934,21 @@
       "qtd_medicoes": 2,
       "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
-      "primeira_nota": 0,
+      "primeira_nota": 10,
       "ultima_nota": 10,
-      "delta": 10,
-      "media": 5,
+      "delta": 0,
+      "media": 10,
       "melhor_nota": 10,
-      "pior_nota": 0,
+      "pior_nota": 10,
       "ultima_categoria": "Promotor",
-      "safra_trimestre": "2026-Q1",
+      "safra_trimestre": "2025-Q4",
       "ep": "Tales Salinas Rozo"
     },
     {
       "client_id": "da8a8a32-d2e2-4e47-a5ef-8c3e7165280d",
       "client_name": "Priscila LaÃ­s Bragato Veiga",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 8,
       "ultima_nota": 8,
@@ -8174,13 +10958,13 @@
       "pior_nota": 8,
       "ultima_categoria": "Neutro",
       "safra_trimestre": "2026-Q3",
-      "ep": "Samuel AraÃºjo"
+      "ep": "Samuel Araújo"
     },
     {
       "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
       "client_name": "Yasmin Allgayer SobÃ©",
-      "qtd_medicoes": 1,
-      "primeira_resposta": "2026-Q3",
+      "qtd_medicoes": 2,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
       "ultima_resposta": "2026-Q3",
       "primeira_nota": 10,
       "ultima_nota": 10,
@@ -8191,6 +10975,54 @@
       "ultima_categoria": "Promotor",
       "safra_trimestre": "2026-Q2",
       "ep": "Thiago Henrique Trova"
+    },
+    {
+      "client_id": "92c45c38-c1fd-44ab-aaec-88e246f9b434",
+      "client_name": "Tatiana Vitta da Silva",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
+      "ultima_resposta": "NPS-2026-SET-PHARUS",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2026-Q2",
+      "ep": "Tales Salinas Rozo"
+    },
+    {
+      "client_id": "258b535e-7d5e-47b5-a848-a919b74643d7",
+      "client_name": "Ana Luzia Henrique de Santana",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
+      "ultima_resposta": "NPS-2026-SET-PHARUS",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2026-Q3",
+      "ep": "Abner Braga"
+    },
+    {
+      "client_id": "fa827235-e98a-49b1-b8ce-aedc0c61b2f4",
+      "client_name": "Washington Avelino Gomes",
+      "qtd_medicoes": 1,
+      "primeira_resposta": "NPS-2026-SET-PHARUS",
+      "ultima_resposta": "NPS-2026-SET-PHARUS",
+      "primeira_nota": 10,
+      "ultima_nota": 10,
+      "delta": 0,
+      "media": 10,
+      "melhor_nota": 10,
+      "pior_nota": 10,
+      "ultima_categoria": "Promotor",
+      "safra_trimestre": "2026-Q2",
+      "ep": null
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "responses_total": 537,
+  "responses_with_payment_entry": 532,
+  "negative_tenure": 1,
+  "future_entry_dates": 0,
+  "responses_with_meetings_pit": 462,
+  "responses_with_mechanism_dates": 242,
+  "responses_with_ep_transfer_history": 75,
+  "responses_with_payment_history": 531,
+  "responses_with_churn_date": 10,
+  "pit_leakage_checks": {
+    "passed": true,
+    "notes": []
+  }
+}

@@ -26,7 +26,7 @@
     "type": "source_cycle",
     "sequence": 2,
     "starts_at": "2026-09-15T03:00:00+00:00",
-    "ends_at": null,
+    "ends_at": "2026-10-16T02:59:59.999Z",
     "source_cycle_ids": [
       "7f9f8b42-84ae-4e00-a408-d22bea7c4407"
     ],

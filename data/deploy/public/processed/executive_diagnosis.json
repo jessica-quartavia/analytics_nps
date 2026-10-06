@@ -1,52 +1,52 @@
 {
   "cycle_code": "NPS-2026-SET-PHARUS",
   "cycle_name": "Set/2026",
-  "generated_at": "2026-09-29T00:06:05.400Z",
-  "data_cutoff": "2026-09-29T00:06:04.705Z",
+  "generated_at": "2026-10-06T20:51:19.387Z",
+  "data_cutoff": "2026-10-06T20:51:18.861Z",
   "status": "open",
   "previous_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
   "headline": {
-    "text": "NPS caiu 12,1 pontos em Set/2026.",
-    "current_nps": 56.126482213438734,
-    "previous_nps": 68.23529411764706,
-    "delta_nps": -12.108811904208324,
+    "text": "NPS caiu 6,6 pontos em Set/2026.",
+    "current_nps": 61.48409893992933,
+    "previous_nps": 68.11023622047244,
+    "delta_nps": -6.626137280543112,
     "direction": "worsened",
     "source_artifacts": [
       "cycle_summary.json"
     ]
   },
   "overall": {
-    "current_nps": 56.126482213438734,
-    "previous_nps": 68.23529411764706,
-    "delta_nps": -12.108811904208324,
-    "valid_responses": 253,
-    "eligible_clients": 967,
-    "response_rate": 0.26163391933815927,
-    "response_rate_quality": "partial",
+    "current_nps": 61.48409893992933,
+    "previous_nps": 68.11023622047244,
+    "delta_nps": -6.626137280543112,
+    "valid_responses": 283,
+    "eligible_clients": 977,
+    "response_rate": 0.2896622313203685,
+    "response_rate_quality": "complete",
     "ci95": {
-      "low": 47.03557312252965,
-      "high": 64.82213438735178,
+      "low": 53.71024734982333,
+      "high": 68.90459363957598,
       "method": "bootstrap_percentile_95"
     },
-    "promoters": 174,
+    "promoters": 205,
     "passives": 47,
-    "detractors": 32,
-    "promoter_pct": 68.77470355731225,
-    "passive_pct": 18.57707509881423,
-    "detractor_pct": 12.648221343873518,
+    "detractors": 31,
+    "promoter_pct": 72.43816254416961,
+    "passive_pct": 16.607773851590103,
+    "detractor_pct": 10.954063604240282,
     "source_artifacts": [
       "cycle_summary.json"
     ]
   },
   "paired": {
     "available": true,
-    "paired_clients": 81,
-    "previous_nps_paired": 93.82716049382715,
-    "current_nps_paired": 77.77777777777779,
-    "delta_nps_paired": -16.049382716049365,
-    "previous_average_score": 9.567901234567902,
-    "current_average_score": 9.308641975308642,
-    "average_score_delta": -0.2592592592592595,
+    "paired_clients": 94,
+    "previous_nps_paired": 92.5531914893617,
+    "current_nps_paired": 78.72340425531915,
+    "delta_nps_paired": -13.829787234042541,
+    "previous_average_score": 9.51063829787234,
+    "current_average_score": 9.308510638297872,
+    "average_score_delta": -0.20212765957446877,
     "comparison_text": "Movimento também aparece entre os mesmos clientes.",
     "direction_total": "worsened",
     "direction_paired": "worsened",
@@ -58,7 +58,7 @@
   "movement": {
     "available": true,
     "improved_clients": 1,
-    "stable_clients": 67,
+    "stable_clients": 80,
     "worsened_clients": 13,
     "positive_migrations": 1,
     "negative_migrations": 13,
@@ -66,20 +66,20 @@
       {
         "migration": "Promotor → Neutro",
         "count": 12,
-        "pct_of_origin": 15.384615384615385
+        "pct_of_origin": 13.333333333333334
       },
       {
         "migration": "Detrator → Neutro",
         "count": 1,
-        "pct_of_origin": 50
+        "pct_of_origin": 33.33333333333333
       },
       {
         "migration": "Promotor → Detrator",
         "count": 1,
-        "pct_of_origin": 1.282051282051282
+        "pct_of_origin": 1.1111111111111112
       }
     ],
-    "reading": "Entre 81 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
+    "reading": "Entre 94 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
     "source_artifacts": [
       "migration_matrix.json"
     ]
@@ -89,13 +89,13 @@
     "eps_attention": [
       {
         "ep_name": "Felipe Aleixo",
-        "n": 28,
-        "current_nps": 64.28571428571429,
-        "delta_nps_paired": -45.45454545454546,
-        "paired_clients": 11,
-        "response_rate": 0.5384615384615384,
+        "n": 31,
+        "current_nps": 61.29032258064516,
+        "delta_nps_paired": -38.46153846153846,
+        "paired_clients": 13,
+        "response_rate": 0.6037735849056604,
         "sample_warning": false,
-        "low_confidence_pct": 89.28571428571429,
+        "low_confidence_pct": 87.09677419354838,
         "reason_codes": [
           "low_ep_confidence",
           "nps_decline",
@@ -124,14 +124,14 @@
         ]
       },
       {
-        "ep_name": "Abner Braga",
-        "n": 21,
-        "current_nps": 57.14285714285714,
-        "delta_nps_paired": -33.33333333333334,
-        "paired_clients": 6,
-        "response_rate": 0.35,
+        "ep_name": "Gustavo Papeschi Mariano",
+        "n": 14,
+        "current_nps": 78.57142857142857,
+        "delta_nps_paired": -25,
+        "paired_clients": 12,
+        "response_rate": 0.4117647058823529,
         "sample_warning": false,
-        "low_confidence_pct": 90.47619047619048,
+        "low_confidence_pct": 85.71428571428571,
         "reason_codes": [
           "low_ep_confidence",
           "nps_decline",
@@ -142,14 +142,14 @@
         ]
       },
       {
-        "ep_name": "Gustavo Papeschi Mariano",
-        "n": 13,
-        "current_nps": 76.92307692307693,
-        "delta_nps_paired": -27.272727272727266,
-        "paired_clients": 11,
-        "response_rate": 0.38235294117647056,
+        "ep_name": "Abner Braga",
+        "n": 26,
+        "current_nps": 65.38461538461539,
+        "delta_nps_paired": -25,
+        "paired_clients": 8,
+        "response_rate": 0.4262295081967213,
         "sample_warning": false,
-        "low_confidence_pct": 84.61538461538461,
+        "low_confidence_pct": 88.46153846153845,
         "reason_codes": [
           "low_ep_confidence",
           "nps_decline",
@@ -161,13 +161,13 @@
       },
       {
         "ep_name": "Thiago Henrique Trova",
-        "n": 11,
-        "current_nps": 36.36363636363637,
+        "n": 17,
+        "current_nps": 64.70588235294117,
         "delta_nps_paired": -25,
         "paired_clients": 4,
-        "response_rate": 0.16417910447761194,
+        "response_rate": 0.2537313432835821,
         "sample_warning": false,
-        "low_confidence_pct": 90.9090909090909,
+        "low_confidence_pct": 94.11764705882352,
         "reason_codes": [
           "low_ep_confidence",
           "nps_decline",
@@ -183,7 +183,7 @@
         "current_nps": 70.58823529411765,
         "delta_nps_paired": -12.5,
         "paired_clients": 8,
-        "response_rate": 0.3269230769230769,
+        "response_rate": 0.35185185185185186,
         "sample_warning": false,
         "low_confidence_pct": 70.58823529411765,
         "reason_codes": [
@@ -196,16 +196,15 @@
       },
       {
         "ep_name": "Tales Salinas Rozo",
-        "n": 12,
-        "current_nps": 41.66666666666667,
+        "n": 16,
+        "current_nps": 62.5,
         "delta_nps_paired": 0,
         "paired_clients": 1,
-        "response_rate": 0.14814814814814814,
+        "response_rate": 0.19753086419753085,
         "sample_warning": false,
         "low_confidence_pct": 100,
         "reason_codes": [
-          "low_ep_confidence",
-          "high_detractor_share"
+          "low_ep_confidence"
         ],
         "source_artifacts": [
           "ep_summary.json"
@@ -239,124 +238,153 @@
     "top_topics": [
       {
         "topic": "Resultados",
-        "responses_with_topic": 151,
-        "pct_responses": 59.683794466403164
+        "responses_with_topic": 170,
+        "pct_responses": 60.07067137809188
       },
       {
         "topic": "Atendimento / relacionamento",
-        "responses_with_topic": 83,
-        "pct_responses": 32.80632411067194
+        "responses_with_topic": 96,
+        "pct_responses": 33.92226148409894
       },
       {
         "topic": "Oportunidades",
-        "responses_with_topic": 81,
-        "pct_responses": 32.015810276679844
+        "responses_with_topic": 94,
+        "pct_responses": 33.215547703180206
       },
       {
         "topic": "Valor percebido",
-        "responses_with_topic": 81,
-        "pct_responses": 32.015810276679844
+        "responses_with_topic": 88,
+        "pct_responses": 31.09540636042403
       },
       {
         "topic": "Plano patrimonial",
-        "responses_with_topic": 66,
-        "pct_responses": 26.08695652173913
+        "responses_with_topic": 76,
+        "pct_responses": 26.855123674911663
       }
     ],
     "top_negative_topics": [
       {
+        "topic": "Tecnologia / plataforma",
+        "negative_pct": 15.384615384615385,
+        "pct_responses": 4.593639575971731
+      },
+      {
+        "topic": "Expectativa",
+        "negative_pct": 7.6923076923076925,
+        "pct_responses": 13.780918727915195
+      },
+      {
         "topic": "Resultados",
-        "negative_pct": 37.086092715231786,
-        "pct_responses": 59.683794466403164
+        "negative_pct": 5.88235294117647,
+        "pct_responses": 60.07067137809188
       },
       {
         "topic": "Valor percebido",
-        "negative_pct": 34.5679012345679,
-        "pct_responses": 32.015810276679844
+        "negative_pct": 4.545454545454546,
+        "pct_responses": 31.09540636042403
       },
       {
-        "topic": "Clareza / comunicação",
-        "negative_pct": 32,
-        "pct_responses": 19.76284584980237
-      },
-      {
-        "topic": "Plano patrimonial",
-        "negative_pct": 31.818181818181817,
-        "pct_responses": 26.08695652173913
-      },
-      {
-        "topic": "Agilidade",
-        "negative_pct": 30.23255813953488,
-        "pct_responses": 16.99604743083004
+        "topic": "Oportunidades",
+        "negative_pct": 4.25531914893617,
+        "pct_responses": 33.215547703180206
       }
     ],
     "top_positive_topics": [
       {
-        "topic": "Agilidade",
-        "positive_pct": 23.25581395348837,
-        "pct_responses": 16.99604743083004
-      },
-      {
-        "topic": "Engenheiro Patrimonial",
-        "positive_pct": 19.565217391304348,
-        "pct_responses": 18.181818181818183
-      },
-      {
-        "topic": "Oportunidades",
-        "positive_pct": 17.28395061728395,
-        "pct_responses": 32.015810276679844
-      },
-      {
-        "topic": "Valor percebido",
-        "positive_pct": 16.049382716049383,
-        "pct_responses": 32.015810276679844
+        "topic": "Confiança",
+        "positive_pct": 96.22641509433963,
+        "pct_responses": 18.727915194346288
       },
       {
         "topic": "Atendimento / relacionamento",
-        "positive_pct": 15.66265060240964,
-        "pct_responses": 32.80632411067194
+        "positive_pct": 93.75,
+        "pct_responses": 33.92226148409894
+      },
+      {
+        "topic": "Clareza / comunicação",
+        "positive_pct": 91.66666666666666,
+        "pct_responses": 21.20141342756184
+      },
+      {
+        "topic": "Oportunidades",
+        "positive_pct": 84.04255319148936,
+        "pct_responses": 33.215547703180206
+      },
+      {
+        "topic": "Engenheiro Patrimonial",
+        "positive_pct": 76.92307692307693,
+        "pct_responses": 22.968197879858657
       }
     ],
     "emerging_pains": [],
     "recurring_pains": [],
     "improving_topics": [
       {
-        "topic": "Clareza / comunicação",
-        "pct_previous": 42.745098039215684,
-        "pct_current": 19.76284584980237,
-        "mention_pct_delta": -22.982252189413312,
-        "predominant_valence": "Neutra"
+        "topic": "Engenheiro Patrimonial",
+        "pct_previous": 65.74803149606299,
+        "pct_current": 22.968197879858657,
+        "mention_pct_delta": -42.779833616204336,
+        "predominant_valence": "Positiva"
       },
       {
-        "topic": "Engenheiro Patrimonial",
-        "pct_previous": 63.921568627450974,
-        "pct_current": 18.181818181818183,
-        "mention_pct_delta": -45.739750445632794,
-        "predominant_valence": "Neutra"
+        "topic": "Clareza / comunicação",
+        "pct_previous": 42.51968503937008,
+        "pct_current": 21.20141342756184,
+        "mention_pct_delta": -21.318271611808242,
+        "predominant_valence": "Positiva"
       }
     ],
-    "positive_emerging": [],
+    "positive_emerging": [
+      {
+        "topic": "Oportunidades",
+        "pct_previous": 22.440944881889763,
+        "pct_current": 33.215547703180206,
+        "mention_pct_delta": 10.774602821290443,
+        "predominant_valence": "Positiva"
+      },
+      {
+        "topic": "Valor percebido",
+        "pct_previous": 19.68503937007874,
+        "pct_current": 31.09540636042403,
+        "mention_pct_delta": 11.410366990345288,
+        "predominant_valence": "Positiva"
+      },
+      {
+        "topic": "Confiança",
+        "pct_previous": 14.566929133858267,
+        "pct_current": 18.727915194346288,
+        "mention_pct_delta": 4.160986060488021,
+        "predominant_valence": "Positiva"
+      },
+      {
+        "topic": "Expectativa",
+        "pct_previous": 11.41732283464567,
+        "pct_current": 13.780918727915195,
+        "mention_pct_delta": 2.3635958932695242,
+        "predominant_valence": "Positiva"
+      }
+    ],
     "executive_lines": [
-      "Resultados apareceu em 59,7% dos comentários classificados e concentrou 37,1% de valência negativa entre menções ao tema."
+      "Tecnologia / plataforma apareceu em 4,6% dos comentários classificados e concentrou 15,4% de valência negativa entre menções ao tema."
     ],
     "classification": {
-      "comments_total": 508,
-      "comments_with_text": 508,
-      "comments_classified": 489,
-      "comments_with_topic": 489,
-      "pct_coverage": 96.25984251968504,
+      "comments_total": 537,
+      "comments_with_text": 537,
+      "comments_classified": 517,
+      "comments_with_topic": 517,
+      "pct_coverage": 96.2756052141527,
       "pct_reviewed": 0,
-      "confidence_mean": 0.7328475486903947,
+      "confidence_mean": 0.9430456535334849,
       "confidence_buckets": {
-        "high": 725,
-        "medium": 764,
+        "high": 1599,
+        "medium": 0,
         "low": 0
       },
-      "topic_rows": 1489,
-      "multitopic_responses": 418,
-      "pct_multitopic": 85.48057259713701,
+      "topic_rows": 1599,
+      "multitopic_responses": 440,
+      "pct_multitopic": 85.1063829787234,
       "sources": {
-        "rules_v1": 1489
+        "rules_v2": 1599
       }
     },
     "source_artifacts": [
@@ -367,15 +395,30 @@
     "available": true,
     "executive_drivers": [
       {
-        "driver": "positive_topics_count",
+        "driver": "negative_topics_count",
         "outcome": "score",
         "method": "spearman",
-        "effect_size": 0.42546102191771484,
+        "effect_size": 0.34957064014036854,
         "effect_label": "moderado",
-        "n": 253,
-        "p_value_adjusted": 7.042940505912776e-12,
+        "n": 283,
+        "p_value_adjusted": 3.984222310726594e-9,
         "feature_quality": "partial",
-        "text": "Maior positive_topics_count associado a notas mais alta na amostra (cycle).",
+        "text": "Maior negative_topics_count associado a notas mais alta na amostra (cycle).",
+        "source_artifacts": [
+          "drivers_summary.json",
+          "driver_tests.json"
+        ]
+      },
+      {
+        "driver": "negative_topics_count",
+        "outcome": "is_detractor",
+        "method": "mann_whitney",
+        "effect_size": -0.2768817204301075,
+        "effect_label": "pequeno",
+        "n": 283,
+        "p_value_adjusted": 0.02482575892727993,
+        "feature_quality": "partial",
+        "text": "Distribuição de negative_topics_count difere entre detratores e não detratores (associação observada).",
         "source_artifacts": [
           "drivers_summary.json",
           "driver_tests.json"
@@ -385,10 +428,10 @@
         "driver": "meetings_count",
         "outcome": "score",
         "method": "spearman",
-        "effect_size": 0.5757470163067562,
+        "effect_size": 0.5900019695649273,
         "effect_label": "forte",
-        "n": 253,
-        "p_value_adjusted": 7.689105308831701e-23,
+        "n": 283,
+        "p_value_adjusted": 9.868122647659512e-27,
         "feature_quality": "unavailable",
         "text": "Maior meetings_count associado a notas mais alta na amostra (cycle).",
         "source_artifacts": [
@@ -400,10 +443,10 @@
         "driver": "meetings_last_90d",
         "outcome": "score",
         "method": "spearman",
-        "effect_size": 0.5757470163067562,
+        "effect_size": 0.5900019695649273,
         "effect_label": "forte",
-        "n": 253,
-        "p_value_adjusted": 7.689105308831701e-23,
+        "n": 283,
+        "p_value_adjusted": 9.868122647659512e-27,
         "feature_quality": "unavailable",
         "text": "Maior meetings_last_90d associado a notas mais alta na amostra (cycle).",
         "source_artifacts": [
@@ -415,10 +458,10 @@
         "driver": "mechanisms_count",
         "outcome": "score",
         "method": "spearman",
-        "effect_size": 0.5757470163067562,
+        "effect_size": 0.5900019695649273,
         "effect_label": "forte",
-        "n": 253,
-        "p_value_adjusted": 7.689105308831701e-23,
+        "n": 283,
+        "p_value_adjusted": 9.868122647659512e-27,
         "feature_quality": "unavailable",
         "text": "Maior mechanisms_count associado a notas mais alta na amostra (cycle).",
         "source_artifacts": [
@@ -428,8 +471,8 @@
       }
     ],
     "tests_count": 48,
-    "significant_fdr_count": 22,
-    "average_feature_coverage": 0.7312992125984252,
+    "significant_fdr_count": 24,
+    "average_feature_coverage": 0.7313780260707635,
     "message": null,
     "source_artifacts": [
       "drivers_summary.json"
@@ -440,73 +483,97 @@
         {
           "analytical_cycle_code": "NPS-2026-SET-PHARUS",
           "universe": "cycle",
-          "topic": "Agilidade",
-          "valence": "Neutra",
-          "responses_with_topic": 20,
-          "responses_without_topic": 233,
-          "nps_with": 5,
-          "nps_without": 60.51502145922747,
-          "delta_nps": -55.51502145922747,
-          "average_score_with": 7.3,
-          "average_score_without": 8.622317596566523,
-          "detractor_pct_with": 30,
-          "detractor_pct_without": 11.158798283261802,
-          "promoter_pct_with": 35,
-          "promoter_pct_without": 71.67381974248927,
+          "topic": "Expectativa",
+          "valence": "Positiva",
+          "responses_with_topic": 27,
+          "responses_without_topic": 256,
+          "nps_with": 0,
+          "nps_without": 67.96875,
+          "delta_nps": -67.96875,
+          "average_score_with": 6.333333333333333,
+          "average_score_without": 8.94140625,
+          "detractor_pct_with": 40.74074074074074,
+          "detractor_pct_without": 7.8125,
+          "promoter_pct_with": 40.74074074074074,
+          "promoter_pct_without": 75.78125,
           "method": "mann_whitney_score",
-          "p_value_raw": 0.005154979047931718,
-          "effect_size": 0.3770386266094421,
+          "p_value_raw": 0.0011691051868460978,
+          "effect_size": 0.3799189814814815,
           "effect_label": "moderado",
-          "n": 253,
-          "p_value_adjusted": 0.038662342859487886,
+          "n": 283,
+          "p_value_adjusted": 0.012860157055307075,
           "significant_fdr_05": true
         },
         {
           "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-          "universe": "cycle",
-          "topic": "Expectativa",
-          "valence": "Neutra",
-          "responses_with_topic": 24,
-          "responses_without_topic": 229,
-          "nps_with": 8.333333333333332,
-          "nps_without": 61.135371179039296,
-          "delta_nps": -52.80203784570597,
-          "average_score_with": 6.5,
-          "average_score_without": 8.729257641921397,
-          "detractor_pct_with": 33.33333333333333,
-          "detractor_pct_without": 10.480349344978166,
-          "promoter_pct_with": 41.66666666666667,
-          "promoter_pct_without": 71.61572052401746,
+          "universe": "paired",
+          "topic": "Valor percebido",
+          "valence": "Positiva",
+          "responses_with_topic": 20,
+          "responses_without_topic": 74,
+          "nps_with": 35,
+          "nps_without": 90.54054054054053,
+          "delta_nps": -55.54054054054053,
+          "average_score_with": 8.1,
+          "average_score_without": 9.635135135135135,
+          "detractor_pct_with": 15,
+          "detractor_pct_without": 0,
+          "promoter_pct_with": 50,
+          "promoter_pct_without": 90.54054054054053,
           "method": "mann_whitney_score",
-          "p_value_raw": 0.004995955183102918,
-          "effect_size": 0.3484352256186317,
-          "effect_label": "moderado",
-          "n": 253,
-          "p_value_adjusted": 0.038662342859487886,
+          "p_value_raw": 0.00028272223835057453,
+          "effect_size": 0.5310810810810811,
+          "effect_label": "forte",
+          "n": 94,
+          "p_value_adjusted": 0.004240833575258618,
           "significant_fdr_05": true
         },
         {
           "analytical_cycle_code": "NPS-2026-SET-PHARUS",
           "universe": "cycle",
           "topic": "Valor percebido",
-          "valence": "Neutra",
-          "responses_with_topic": 40,
-          "responses_without_topic": 213,
-          "nps_with": 15,
-          "nps_without": 63.84976525821596,
-          "delta_nps": -48.84976525821596,
-          "average_score_with": 7.425,
-          "average_score_without": 8.72300469483568,
-          "detractor_pct_with": 25,
-          "detractor_pct_without": 10.328638497652582,
-          "promoter_pct_with": 40,
-          "promoter_pct_without": 74.17840375586854,
+          "valence": "Positiva",
+          "responses_with_topic": 61,
+          "responses_without_topic": 222,
+          "nps_with": 19.672131147540984,
+          "nps_without": 72.97297297297297,
+          "delta_nps": -53.30084182543199,
+          "average_score_with": 7.426229508196721,
+          "average_score_without": 9.04054054054054,
+          "detractor_pct_with": 26.229508196721312,
+          "detractor_pct_without": 6.756756756756757,
+          "promoter_pct_with": 45.90163934426229,
+          "promoter_pct_without": 79.72972972972973,
           "method": "mann_whitney_score",
-          "p_value_raw": 0.003635552648584728,
-          "effect_size": 0.289906103286385,
+          "p_value_raw": 0.000013971782277355516,
+          "effect_size": 0.3632402894697977,
+          "effect_label": "moderado",
+          "n": 283,
+          "p_value_adjusted": 0.00030737921010182134,
+          "significant_fdr_05": true
+        },
+        {
+          "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+          "universe": "cycle",
+          "topic": "Resultados",
+          "valence": "Positiva",
+          "responses_with_topic": 47,
+          "responses_without_topic": 236,
+          "nps_with": 38.297872340425535,
+          "nps_without": 66.10169491525424,
+          "delta_nps": -27.803822574828708,
+          "average_score_with": 8.127659574468085,
+          "average_score_without": 8.805084745762711,
+          "detractor_pct_with": 17.02127659574468,
+          "detractor_pct_without": 9.745762711864407,
+          "promoter_pct_with": 55.319148936170215,
+          "promoter_pct_without": 75.84745762711864,
+          "method": "mann_whitney_score",
+          "p_value_raw": 0.007808364967181403,
+          "effect_size": 0.2457627118644068,
           "effect_label": "pequeno",
-          "n": 253,
-          "p_value_adjusted": 0.038662342859487886,
+          "n": 283,
+          "p_value_adjusted": 0.024540575611141553,
           "significant_fdr_05": true
         }
       ],
@@ -515,24 +582,48 @@
           "analytical_cycle_code": "NPS-2026-SET-PHARUS",
           "universe": "cycle",
           "topic": "Atendimento / relacionamento",
-          "valence": "Neutra",
-          "responses_with_topic": 47,
-          "responses_without_topic": 206,
-          "nps_with": 85.1063829787234,
-          "nps_without": 49.51456310679612,
-          "delta_nps": 35.591819871927285,
-          "average_score_with": 9.46808510638298,
-          "average_score_without": 8.300970873786408,
-          "detractor_pct_with": 0,
-          "detractor_pct_without": 15.53398058252427,
-          "promoter_pct_with": 85.1063829787234,
-          "promoter_pct_without": 65.0485436893204,
+          "valence": "Positiva",
+          "responses_with_topic": 90,
+          "responses_without_topic": 193,
+          "nps_with": 84.44444444444444,
+          "nps_without": 50.77720207253886,
+          "delta_nps": 33.66724237190558,
+          "average_score_with": 9.344444444444445,
+          "average_score_without": 8.38860103626943,
+          "detractor_pct_with": 3.3333333333333335,
+          "detractor_pct_without": 14.507772020725387,
+          "promoter_pct_with": 87.77777777777777,
+          "promoter_pct_without": 65.28497409326425,
           "method": "mann_whitney_score",
-          "p_value_raw": 0.008057172104764643,
-          "effect_size": -0.2477793844247056,
+          "p_value_raw": 0.0073389090760240805,
+          "effect_size": -0.19792746113989645,
           "effect_label": "pequeno",
-          "n": 253,
-          "p_value_adjusted": 0.048343032628587856,
+          "n": 283,
+          "p_value_adjusted": 0.024540575611141553,
+          "significant_fdr_05": true
+        },
+        {
+          "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+          "universe": "cycle",
+          "topic": "Confiança",
+          "valence": "Positiva",
+          "responses_with_topic": 51,
+          "responses_without_topic": 232,
+          "nps_with": 80.3921568627451,
+          "nps_without": 57.327586206896555,
+          "delta_nps": 23.06457065584854,
+          "average_score_with": 9.431372549019608,
+          "average_score_without": 8.530172413793103,
+          "detractor_pct_with": 5.88235294117647,
+          "detractor_pct_without": 12.068965517241379,
+          "promoter_pct_with": 86.27450980392157,
+          "promoter_pct_without": 69.39655172413794,
+          "method": "mann_whitney_score",
+          "p_value_raw": 0.0035903097593967814,
+          "effect_size": -0.2604800540906018,
+          "effect_label": "pequeno",
+          "n": 283,
+          "p_value_adjusted": 0.019746703676682298,
           "significant_fdr_05": true
         }
       ],
@@ -549,33 +640,33 @@
   },
   "actions": {
     "available": true,
-    "high_priority": 4,
-    "medium_priority": 13,
-    "investigate": 37,
-    "learning": 44,
-    "pending": 98,
+    "high_priority": 5,
+    "medium_priority": 14,
+    "investigate": 0,
+    "learning": 73,
+    "pending": 92,
     "in_progress": 0,
     "completed": 0,
-    "priority_follow_up": 17,
+    "priority_follow_up": 19,
     "top_action_reasons": [
       {
         "label": "Alta prioridade",
-        "count": 4
+        "count": 5
       },
       {
         "label": "Média prioridade",
-        "count": 13
+        "count": 14
       },
       {
         "label": "Investigar",
-        "count": 37
+        "count": 0
       },
       {
         "label": "Aprendizado",
-        "count": 44
+        "count": 73
       }
     ],
-    "executive_line": "17 clientes demandam acompanhamento prioritário (Alta + Média).",
+    "executive_line": "19 clientes demandam acompanhamento prioritário (Alta + Média).",
     "source_artifacts": [
       "action_queue_enriched.json",
       "operational/action_tracking.json"
@@ -583,15 +674,15 @@
   },
   "quality": {
     "data_quality_status": "attention",
-    "warnings_count": 835,
-    "ep_current_proxy_count": 197,
-    "ep_current_proxy_pct": 0.7786561264822134,
-    "voc_classification_coverage": 96.25984251968504,
+    "warnings_count": 1670,
+    "ep_current_proxy_count": 217,
+    "ep_current_proxy_pct": 0.7667844522968198,
+    "voc_classification_coverage": 96.2756052141527,
     "voc_reviewed_pct": 0,
-    "voc_average_confidence": 0.7328475486903947,
+    "voc_average_confidence": 0.9430456535334849,
     "csat_rule_ambiguous": true,
-    "paired_sample_size": 81,
-    "driver_features_coverage": 0.7312992125984252,
+    "paired_sample_size": 94,
+    "driver_features_coverage": 0.7313780260707635,
     "flags": [
       "partial_cycle",
       "high_ep_proxy",
@@ -606,31 +697,31 @@
   },
   "executive_summary": [
     {
-      "text": "NPS de Set/2026 foi 56,1, queda de 12,1 pontos frente ao ciclo anterior.",
+      "text": "NPS de Set/2026 foi 61,5, queda de 6,6 pontos frente ao ciclo anterior.",
       "source_artifacts": [
         "executive_diagnosis.json"
       ]
     },
     {
-      "text": "Entre os 81 clientes presentes nos dois ciclos, o NPS caiu 16,0 pontos.",
+      "text": "Entre os 94 clientes presentes nos dois ciclos, o NPS caiu 13,8 pontos.",
       "source_artifacts": [
         "executive_diagnosis.json"
       ]
     },
     {
-      "text": "Entre 81 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
+      "text": "Entre 94 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
       "source_artifacts": [
         "executive_diagnosis.json"
       ]
     },
     {
-      "text": "17 clientes estão em prioridade Alta ou Média para acompanhamento.",
+      "text": "19 clientes estão em prioridade Alta ou Média para acompanhamento.",
       "source_artifacts": [
         "executive_diagnosis.json"
       ]
     },
     {
-      "text": "Resultados apareceu em 59,7% dos comentários classificados e concentrou 37,1% de valência negativa entre menções ao tema.",
+      "text": "Tecnologia / plataforma apareceu em 4,6% dos comentários classificados e concentrou 15,4% de valência negativa entre menções ao tema.",
       "source_artifacts": [
         "executive_diagnosis.json"
       ]
@@ -652,11 +743,11 @@
     {
       "id": "nps_direction",
       "question": "O NPS melhorou ou piorou?",
-      "answer": "O NPS em Set/2026 recuou 12,1 pontos frente ao ciclo anterior.",
+      "answer": "O NPS em Set/2026 recuou 6,6 pontos frente ao ciclo anterior.",
       "supporting_metrics": {
-        "current_nps": 56.126482213438734,
-        "previous_nps": 68.23529411764706,
-        "delta_nps": -12.108811904208324
+        "current_nps": 61.48409893992933,
+        "previous_nps": 68.11023622047244,
+        "delta_nps": -6.626137280543112
       },
       "source_artifacts": [
         "cycle_summary.json"
@@ -667,8 +758,8 @@
       "question": "O mesmo movimento aparece entre os mesmos clientes?",
       "answer": "Movimento também aparece entre os mesmos clientes.",
       "supporting_metrics": {
-        "delta_nps_paired": -16.049382716049365,
-        "paired_clients": 81
+        "delta_nps_paired": -13.829787234042541,
+        "paired_clients": 94
       },
       "source_artifacts": [
         "paired_cycles.json"
@@ -677,11 +768,11 @@
     {
       "id": "who_changed",
       "question": "Quem mudou?",
-      "answer": "Entre 81 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
+      "answer": "Entre 94 clientes pareados, 13 migraram para uma categoria inferior. A principal migração negativa foi Promotor → Neutro, com 12 clientes.",
       "supporting_metrics": {
         "worsened_clients": 13,
         "improved_clients": 1,
-        "stable_clients": 67
+        "stable_clients": 80
       },
       "source_artifacts": [
         "migration_matrix.json"
@@ -695,8 +786,8 @@
         "eps_attention": [
           "Felipe Aleixo",
           "Rodrigo Amorim",
-          "Abner Braga",
           "Gustavo Papeschi Mariano",
+          "Abner Braga",
           "Thiago Henrique Trova",
           "Andrieli Campesato",
           "Tales Salinas Rozo",
@@ -710,33 +801,33 @@
     {
       "id": "voc_negative",
       "question": "Quais temas aparecem com maior frequência negativa?",
-      "answer": "Resultados apareceu em 59,7% dos comentários classificados e concentrou 37,1% de valência negativa entre menções ao tema.",
+      "answer": "Tecnologia / plataforma apareceu em 4,6% dos comentários classificados e concentrou 15,4% de valência negativa entre menções ao tema.",
       "supporting_metrics": {
         "top_negative_topics": [
           {
+            "topic": "Tecnologia / plataforma",
+            "negative_pct": 15.384615384615385,
+            "pct_responses": 4.593639575971731
+          },
+          {
+            "topic": "Expectativa",
+            "negative_pct": 7.6923076923076925,
+            "pct_responses": 13.780918727915195
+          },
+          {
             "topic": "Resultados",
-            "negative_pct": 37.086092715231786,
-            "pct_responses": 59.683794466403164
+            "negative_pct": 5.88235294117647,
+            "pct_responses": 60.07067137809188
           },
           {
             "topic": "Valor percebido",
-            "negative_pct": 34.5679012345679,
-            "pct_responses": 32.015810276679844
+            "negative_pct": 4.545454545454546,
+            "pct_responses": 31.09540636042403
           },
           {
-            "topic": "Clareza / comunicação",
-            "negative_pct": 32,
-            "pct_responses": 19.76284584980237
-          },
-          {
-            "topic": "Plano patrimonial",
-            "negative_pct": 31.818181818181817,
-            "pct_responses": 26.08695652173913
-          },
-          {
-            "topic": "Agilidade",
-            "negative_pct": 30.23255813953488,
-            "pct_responses": 16.99604743083004
+            "topic": "Oportunidades",
+            "negative_pct": 4.25531914893617,
+            "pct_responses": 33.215547703180206
           }
         ]
       },
@@ -747,10 +838,11 @@
     {
       "id": "drivers_investigate",
       "question": "Quais associações merecem investigação?",
-      "answer": "4 associações estatísticas (FDR) selecionadas para leitura executiva — interpretar como hipóteses, não causas.",
+      "answer": "5 associações estatísticas (FDR) selecionadas para leitura executiva — interpretar como hipóteses, não causas.",
       "supporting_metrics": {
         "drivers": [
-          "positive_topics_count",
+          "negative_topics_count",
+          "negative_topics_count",
           "meetings_count",
           "meetings_last_90d",
           "mechanisms_count"
@@ -763,10 +855,10 @@
     {
       "id": "action_count",
       "question": "Quantos clientes precisam de ação?",
-      "answer": "17 clientes demandam acompanhamento prioritário (Alta + Média).",
+      "answer": "19 clientes demandam acompanhamento prioritário (Alta + Média).",
       "supporting_metrics": {
-        "priority_follow_up": 17,
-        "pending": 98
+        "priority_follow_up": 19,
+        "pending": 92
       },
       "source_artifacts": [
         "action_queue_enriched.json"

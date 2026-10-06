@@ -990,116 +990,6 @@
     "reviewed": false
   },
   {
-    "response_id": "a3a50b6a-10a2-404e-b5df-bfcc8bd28cf3",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
-    "topic": "Engenheiro Patrimonial",
-    "valence": "Neutra",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "default_neutral",
-    "reviewed": false
-  },
-  {
-    "response_id": "a3a50b6a-10a2-404e-b5df-bfcc8bd28cf3",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
-    "topic": "Clareza / comunicação",
-    "valence": "Positiva",
-    "confidence": 0.94,
-    "classification_source": "rules_v2",
-    "valence_reason": "weak_signal",
-    "reviewed": false
-  },
-  {
-    "response_id": "a3a50b6a-10a2-404e-b5df-bfcc8bd28cf3",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
-    "topic": "Resultados",
-    "valence": "Neutra",
-    "confidence": 0.85,
-    "classification_source": "rules_v2",
-    "valence_reason": "default_neutral",
-    "reviewed": false
-  },
-  {
-    "response_id": "a3a50b6a-10a2-404e-b5df-bfcc8bd28cf3",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
-    "topic": "Oportunidades",
-    "valence": "Neutra",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "default_neutral",
-    "reviewed": false
-  },
-  {
-    "response_id": "a3a50b6a-10a2-404e-b5df-bfcc8bd28cf3",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
-    "topic": "Tecnologia / plataforma",
-    "valence": "Neutra",
-    "confidence": 0.85,
-    "classification_source": "rules_v2",
-    "valence_reason": "default_neutral",
-    "reviewed": false
-  },
-  {
-    "response_id": "a3a50b6a-10a2-404e-b5df-bfcc8bd28cf3",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
-    "topic": "Valor percebido",
-    "valence": "Neutra",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "default_neutral",
-    "reviewed": false
-  },
-  {
-    "response_id": "43e67f19-78da-44ab-ae57-6450dee42f59",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Atendimento / relacionamento",
-    "valence": "Positiva",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "weak_signal",
-    "reviewed": false
-  },
-  {
-    "response_id": "43e67f19-78da-44ab-ae57-6450dee42f59",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Oportunidades",
-    "valence": "Positiva",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "weak_signal",
-    "reviewed": false
-  },
-  {
-    "response_id": "43e67f19-78da-44ab-ae57-6450dee42f59",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Tecnologia / plataforma",
-    "valence": "Positiva",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "weak_signal",
-    "reviewed": false
-  },
-  {
-    "response_id": "43e67f19-78da-44ab-ae57-6450dee42f59",
-    "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Valor percebido",
-    "valence": "Positiva",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "weak_signal",
-    "reviewed": false
-  },
-  {
     "response_id": "20e5a3e7-05eb-44c1-9f8f-698c6dd5b9fe",
     "client_id": "48195d7e-976d-4aca-9488-293da65539c3",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -1474,6 +1364,17 @@
     "reviewed": false
   },
   {
+    "response_id": "a4b95de3-4c87-4c38-b9b5-6e82c69a9521",
+    "client_id": "0899e909-4949-4cfc-9f76-6ebb2bf62a81",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
     "response_id": "4e8835bc-16b6-43f8-aa07-c0cd67dc6c40",
     "client_id": "2dfeb3d2-2c1c-4398-976a-ad18716edc69",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -1683,6 +1584,17 @@
     "reviewed": false
   },
   {
+    "response_id": "7896b5dd-8226-46c0-84fa-91ea30c9ea90",
+    "client_id": "cbb09924-ca18-4b39-b497-6723364234a4",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Expectativa",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
     "response_id": "03971d17-a326-49fd-bd5b-76e7202ef618",
     "client_id": "cd70e186-6d38-4248-84c5-d5a6f351d4de",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -1843,6 +1755,72 @@
     "topic": "Agilidade",
     "valence": "Negativa",
     "confidence": 0.88,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+    "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Neutra",
+    "confidence": 0.93,
+    "classification_source": "rules_v2",
+    "valence_reason": "default_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+    "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Engenheiro Patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+    "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+    "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+    "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+    "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Valor percebido",
+    "valence": "Positiva",
+    "confidence": 0.95,
     "classification_source": "rules_v2",
     "valence_reason": "weak_signal",
     "reviewed": false
@@ -2263,6 +2241,28 @@
     "confidence": 0.92,
     "classification_source": "rules_v2",
     "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "91eb2645-4a6c-44f5-8adc-51ea3a03f95b",
+    "client_id": "bd06e8af-e354-4967-b9c0-3bc76ac8d861",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "91eb2645-4a6c-44f5-8adc-51ea3a03f95b",
+    "client_id": "bd06e8af-e354-4967-b9c0-3bc76ac8d861",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
     "reviewed": false
   },
   {
@@ -3130,6 +3130,17 @@
     "topic": "Valor percebido",
     "valence": "Positiva",
     "confidence": 0.94,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "e4cc9777-3823-409f-9313-7c1ce8a8d275",
+    "client_id": "f3984645-e282-472d-bfaa-4560aae31d26",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Valor percebido",
+    "valence": "Neutra",
+    "confidence": 0.91,
     "classification_source": "rules_v2",
     "valence_reason": "prospective_neutral",
     "reviewed": false
@@ -6677,6 +6688,28 @@
     "reviewed": false
   },
   {
+    "response_id": "5be1bc98-b82b-48d9-9127-bc378f3f596a",
+    "client_id": "b8e2336a-b2b5-4b86-91d3-8a30a87524de",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "5be1bc98-b82b-48d9-9127-bc378f3f596a",
+    "client_id": "b8e2336a-b2b5-4b86-91d3-8a30a87524de",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Tecnologia / plataforma",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
     "response_id": "dc4208df-ce43-4426-b09b-89193f4f1a3b",
     "client_id": "04811d6e-78c8-497a-b9f0-6eaa637bcc3b",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -6985,6 +7018,17 @@
     "reviewed": false
   },
   {
+    "response_id": "e086cb39-cca7-43ce-98e9-0cf4a7ffbf8b",
+    "client_id": "666472e5-5243-42d7-8916-41668ec60d0c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
     "response_id": "5188afe6-0008-4133-a28c-f8267cc5af9c",
     "client_id": "bafa21ea-3573-4aa0-bfb8-cae2532a3841",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -7271,6 +7315,28 @@
     "reviewed": false
   },
   {
+    "response_id": "b0d55e88-8977-45ad-9280-fc41a5f08e4f",
+    "client_id": "74487388-4d09-487f-9a00-e5254b644f50",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Engenheiro Patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "b0d55e88-8977-45ad-9280-fc41a5f08e4f",
+    "client_id": "74487388-4d09-487f-9a00-e5254b644f50",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
     "response_id": "0462bb3b-d30f-4087-8140-1070e030e0e3",
     "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -7286,6 +7352,61 @@
     "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
     "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "abadfcf0-8367-45b0-8646-4411537807b9",
+    "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "abadfcf0-8367-45b0-8646-4411537807b9",
+    "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "abadfcf0-8367-45b0-8646-4411537807b9",
+    "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "default_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "abadfcf0-8367-45b0-8646-4411537807b9",
+    "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Agilidade",
+    "valence": "Neutra",
+    "confidence": 0.81,
+    "classification_source": "rules_v2",
+    "valence_reason": "default_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "abadfcf0-8367-45b0-8646-4411537807b9",
+    "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Confiança",
     "valence": "Positiva",
     "confidence": 0.95,
     "classification_source": "rules_v2",
@@ -7554,6 +7675,50 @@
     "confidence": 0.91,
     "classification_source": "rules_v2",
     "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "e10ddd0f-7d8f-44f3-b05c-bf960ddf5777",
+    "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "e10ddd0f-7d8f-44f3-b05c-bf960ddf5777",
+    "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "e10ddd0f-7d8f-44f3-b05c-bf960ddf5777",
+    "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "e10ddd0f-7d8f-44f3-b05c-bf960ddf5777",
+    "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
     "reviewed": false
   },
   {
@@ -9339,6 +9504,17 @@
     "reviewed": false
   },
   {
+    "response_id": "911f0598-125b-4736-ba05-5c23cc6980c4",
+    "client_id": "03493d05-bf24-4326-bce7-fd29ad2c242b",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
     "response_id": "cb9e2b5c-80f3-44ce-b9dc-5214755b57c7",
     "client_id": "34c386bc-f7b0-4b09-ba21-82eae5286f63",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -10274,6 +10450,39 @@
     "reviewed": false
   },
   {
+    "response_id": "5916537b-fbac-4d85-90ac-38c903802e7f",
+    "client_id": "568c1b39-cf89-4557-b3aa-09fa330ddbc2",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Engenheiro Patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "5916537b-fbac-4d85-90ac-38c903802e7f",
+    "client_id": "568c1b39-cf89-4557-b3aa-09fa330ddbc2",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Proatividade",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "5916537b-fbac-4d85-90ac-38c903802e7f",
+    "client_id": "568c1b39-cf89-4557-b3aa-09fa330ddbc2",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
     "response_id": "1af544a8-b73b-4f0a-8e0d-dc886b5b8fcf",
     "client_id": "ee1ba9d0-19fa-43c7-981c-c534a575db5c",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
@@ -10948,6 +11157,61 @@
     "response_id": "0ebdf248-01a7-4ac9-93f7-b585b5bdf638",
     "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
     "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+    "topic": "Valor percebido",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "da539b88-6182-432e-905b-de4dffbb0dad",
+    "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "da539b88-6182-432e-905b-de4dffbb0dad",
+    "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "da539b88-6182-432e-905b-de4dffbb0dad",
+    "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "da539b88-6182-432e-905b-de4dffbb0dad",
+    "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "da539b88-6182-432e-905b-de4dffbb0dad",
+    "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
     "topic": "Valor percebido",
     "valence": "Positiva",
     "confidence": 0.95,
@@ -12760,39 +13024,6 @@
     "reviewed": false
   },
   {
-    "response_id": "1655e5c8-c873-4f87-b290-a19e4c9ddbde",
-    "client_id": "34167265-0061-4443-b631-9e0d60d1229d",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Plano patrimonial",
-    "valence": "Negativa",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "mixed_clause",
-    "reviewed": false
-  },
-  {
-    "response_id": "1655e5c8-c873-4f87-b290-a19e4c9ddbde",
-    "client_id": "34167265-0061-4443-b631-9e0d60d1229d",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Confiança",
-    "valence": "Positiva",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "weak_signal",
-    "reviewed": false
-  },
-  {
-    "response_id": "1655e5c8-c873-4f87-b290-a19e4c9ddbde",
-    "client_id": "34167265-0061-4443-b631-9e0d60d1229d",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Expectativa",
-    "valence": "Negativa",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "mixed_clause",
-    "reviewed": false
-  },
-  {
     "response_id": "acbc3c43-d00f-470e-81fd-b6ee02e0e9f9",
     "client_id": "e809b66d-22aa-4d83-8859-d6e801a23cdf",
     "analytical_cycle_code": "NPS-2026-SET-PHARUS",
@@ -13574,17 +13805,6 @@
     "reviewed": false
   },
   {
-    "response_id": "e1b442d0-5ee7-4d85-80f4-da871da5d846",
-    "client_id": "c0e1b7a4-bf76-4842-bd39-fc70bdde1efe",
-    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Resultados",
-    "valence": "Positiva",
-    "confidence": 0.95,
-    "classification_source": "rules_v2",
-    "valence_reason": "weak_signal",
-    "reviewed": false
-  },
-  {
     "response_id": "cdc54e8f-7577-4bb5-8bb8-da611320b093",
     "client_id": "a374a894-0468-4d07-a633-e246d946449e",
     "analytical_cycle_code": "NPS-2026-SET-PHARUS",
@@ -13926,7 +14146,29 @@
     "reviewed": false
   },
   {
-    "response_id": "54333a84-16fe-4238-9404-b6ab734c4f41",
+    "response_id": "a3a62926-e4b0-46e6-be08-0a92c3e2f4e8",
+    "client_id": "5dbc7d07-e8df-47a6-9a23-de065509979d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "a3a62926-e4b0-46e6-be08-0a92c3e2f4e8",
+    "client_id": "5dbc7d07-e8df-47a6-9a23-de065509979d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Engenheiro Patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "a3a62926-e4b0-46e6-be08-0a92c3e2f4e8",
     "client_id": "5dbc7d07-e8df-47a6-9a23-de065509979d",
     "analytical_cycle_code": "NPS-2026-SET-PHARUS",
     "topic": "Resultados",
@@ -13934,6 +14176,17 @@
     "confidence": 0.95,
     "classification_source": "rules_v2",
     "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "a3a62926-e4b0-46e6-be08-0a92c3e2f4e8",
+    "client_id": "5dbc7d07-e8df-47a6-9a23-de065509979d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
     "reviewed": false
   },
   {
@@ -15224,7 +15477,18 @@
     "reviewed": false
   },
   {
-    "response_id": "ff6b0c93-6c7c-4a36-a4b1-1d6535b4560b",
+    "response_id": "498d08c6-177e-428c-9973-1bad715b883b",
+    "client_id": "1c4ec3fb-89ab-47dd-b5ba-5f193f6c802e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "explicit_positive",
+    "reviewed": false
+  },
+  {
+    "response_id": "498d08c6-177e-428c-9973-1bad715b883b",
     "client_id": "1c4ec3fb-89ab-47dd-b5ba-5f193f6c802e",
     "analytical_cycle_code": "NPS-2026-SET-PHARUS",
     "topic": "Resultados",
@@ -16709,10 +16973,164 @@
     "reviewed": false
   },
   {
-    "response_id": "1c7f40cb-7ad5-4da6-b4b0-b66754061a18",
+    "response_id": "64c4da6d-47f8-4237-bfd9-0ab0028cb608",
     "client_id": "35b044c2-4669-4645-8a35-5f06fe20eb04",
     "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Engenheiro Patrimonial",
+    "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "ff1cc38f-5c74-4642-845c-2110217f1b43",
+    "client_id": "4907afcc-e21d-498a-a208-751b24ac0f4b",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "ff1cc38f-5c74-4642-845c-2110217f1b43",
+    "client_id": "4907afcc-e21d-498a-a208-751b24ac0f4b",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "ff1cc38f-5c74-4642-845c-2110217f1b43",
+    "client_id": "4907afcc-e21d-498a-a208-751b24ac0f4b",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "ff1cc38f-5c74-4642-845c-2110217f1b43",
+    "client_id": "4907afcc-e21d-498a-a208-751b24ac0f4b",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Confiança",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "6ee5ac92-1afd-4034-b8b6-7c0e219d55d7",
+    "client_id": "97278c95-356c-4294-8874-8052a5a69262",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f056d70-17eb-4af2-af3f-48616627608d",
+    "client_id": "15148fee-9a88-474f-ac43-1bf96260d391",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f056d70-17eb-4af2-af3f-48616627608d",
+    "client_id": "15148fee-9a88-474f-ac43-1bf96260d391",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Agilidade",
+    "valence": "Neutra",
+    "confidence": 0.86,
+    "classification_source": "rules_v2",
+    "valence_reason": "mixed_clause",
+    "reviewed": false
+  },
+  {
+    "response_id": "e2311382-d676-4307-b5eb-bd27df21f3ba",
+    "client_id": "e83fe98f-1b66-48d3-a6a4-9ad2e3ff6750",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "e2311382-d676-4307-b5eb-bd27df21f3ba",
+    "client_id": "e83fe98f-1b66-48d3-a6a4-9ad2e3ff6750",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "e2311382-d676-4307-b5eb-bd27df21f3ba",
+    "client_id": "e83fe98f-1b66-48d3-a6a4-9ad2e3ff6750",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Valor percebido",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "6cc900da-d7fb-42c7-82d5-06c5608f2c82",
+    "client_id": "22f009a7-29e1-4827-9a59-422644086974",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "6cc900da-d7fb-42c7-82d5-06c5608f2c82",
+    "client_id": "22f009a7-29e1-4827-9a59-422644086974",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "6cc900da-d7fb-42c7-82d5-06c5608f2c82",
+    "client_id": "22f009a7-29e1-4827-9a59-422644086974",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "6cc900da-d7fb-42c7-82d5-06c5608f2c82",
+    "client_id": "22f009a7-29e1-4827-9a59-422644086974",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
     "valence": "Neutra",
     "confidence": 0.95,
     "classification_source": "rules_v2",
@@ -16720,21 +17138,450 @@
     "reviewed": false
   },
   {
-    "response_id": "1c7f40cb-7ad5-4da6-b4b0-b66754061a18",
-    "client_id": "35b044c2-4669-4645-8a35-5f06fe20eb04",
+    "response_id": "6cc900da-d7fb-42c7-82d5-06c5608f2c82",
+    "client_id": "22f009a7-29e1-4827-9a59-422644086974",
     "analytical_cycle_code": "NPS-2026-SET-PHARUS",
     "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "6cc900da-d7fb-42c7-82d5-06c5608f2c82",
+    "client_id": "22f009a7-29e1-4827-9a59-422644086974",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Valor percebido",
     "valence": "Neutra",
-    "confidence": 0.91,
+    "confidence": 0.95,
     "classification_source": "rules_v2",
     "valence_reason": "default_neutral",
     "reviewed": false
   },
   {
-    "response_id": "1c7f40cb-7ad5-4da6-b4b0-b66754061a18",
-    "client_id": "35b044c2-4669-4645-8a35-5f06fe20eb04",
+    "response_id": "ad816272-2695-46d3-8314-5be603296490",
+    "client_id": "30502ab7-7f56-4469-a6db-bdf2785bc4a9",
     "analytical_cycle_code": "NPS-2026-SET-PHARUS",
-    "topic": "Expectativa",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "ad816272-2695-46d3-8314-5be603296490",
+    "client_id": "30502ab7-7f56-4469-a6db-bdf2785bc4a9",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "ad816272-2695-46d3-8314-5be603296490",
+    "client_id": "30502ab7-7f56-4469-a6db-bdf2785bc4a9",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "7b5f865a-c17c-41cd-8696-9a1640f81dec",
+    "client_id": "1771598f-f3d1-49a8-94a8-df9c5eda8ab0",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "7b5f865a-c17c-41cd-8696-9a1640f81dec",
+    "client_id": "1771598f-f3d1-49a8-94a8-df9c5eda8ab0",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Agilidade",
+    "valence": "Neutra",
+    "confidence": 0.91,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "fefd1152-4af1-496b-ad20-6a047dc54381",
+    "client_id": "10be1de1-e8f5-434d-8379-3f19d10b7d93",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "fefd1152-4af1-496b-ad20-6a047dc54381",
+    "client_id": "10be1de1-e8f5-434d-8379-3f19d10b7d93",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "3ca19e39-2a7f-4c87-b8d7-c3716281facd",
+    "client_id": "c5f7534d-660b-4a2d-b61a-d523d33472a0",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "3ca19e39-2a7f-4c87-b8d7-c3716281facd",
+    "client_id": "c5f7534d-660b-4a2d-b61a-d523d33472a0",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "3ca19e39-2a7f-4c87-b8d7-c3716281facd",
+    "client_id": "c5f7534d-660b-4a2d-b61a-d523d33472a0",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "3ca19e39-2a7f-4c87-b8d7-c3716281facd",
+    "client_id": "c5f7534d-660b-4a2d-b61a-d523d33472a0",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "5980d33c-2729-47ff-bb41-51c1f5ac78ba",
+    "client_id": "440ff599-bef0-4d52-8356-47e20e24762c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "27fa960d-7b56-4794-b254-cfd03ea50e09",
+    "client_id": "f15fa5c4-9dfc-4bc0-9bf5-ab3845dab652",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Engenheiro Patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "27fa960d-7b56-4794-b254-cfd03ea50e09",
+    "client_id": "f15fa5c4-9dfc-4bc0-9bf5-ab3845dab652",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "27fa960d-7b56-4794-b254-cfd03ea50e09",
+    "client_id": "f15fa5c4-9dfc-4bc0-9bf5-ab3845dab652",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "27fa960d-7b56-4794-b254-cfd03ea50e09",
+    "client_id": "f15fa5c4-9dfc-4bc0-9bf5-ab3845dab652",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Valor percebido",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "0b2c50e6-eca2-4e81-b453-3fe1408bed29",
+    "client_id": "da8a8a32-d2e2-4e47-a5ef-8c3e7165280d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Engenheiro Patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "0b2c50e6-eca2-4e81-b453-3fe1408bed29",
+    "client_id": "da8a8a32-d2e2-4e47-a5ef-8c3e7165280d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
+    "valence": "Neutra",
+    "confidence": 0.88,
+    "classification_source": "rules_v2",
+    "valence_reason": "mixed_clause",
+    "reviewed": false
+  },
+  {
+    "response_id": "0b2c50e6-eca2-4e81-b453-3fe1408bed29",
+    "client_id": "da8a8a32-d2e2-4e47-a5ef-8c3e7165280d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "0b2c50e6-eca2-4e81-b453-3fe1408bed29",
+    "client_id": "da8a8a32-d2e2-4e47-a5ef-8c3e7165280d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Agilidade",
+    "valence": "Positiva",
+    "confidence": 0.88,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "0b2c50e6-eca2-4e81-b453-3fe1408bed29",
+    "client_id": "da8a8a32-d2e2-4e47-a5ef-8c3e7165280d",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Valor percebido",
+    "valence": "Neutra",
+    "confidence": 0.84,
+    "classification_source": "rules_v2",
+    "valence_reason": "mixed_clause",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f86dfb3-c0bd-4677-927c-f17495de0628",
+    "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Neutra",
+    "confidence": 0.91,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f86dfb3-c0bd-4677-927c-f17495de0628",
+    "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f86dfb3-c0bd-4677-927c-f17495de0628",
+    "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f86dfb3-c0bd-4677-927c-f17495de0628",
+    "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Confiança",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f86dfb3-c0bd-4677-927c-f17495de0628",
+    "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Tecnologia / plataforma",
+    "valence": "Negativa",
+    "confidence": 0.9,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "8f86dfb3-c0bd-4677-927c-f17495de0628",
+    "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Valor percebido",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "d875cd8e-e9ec-46b4-9f3c-53b77174fa01",
+    "client_id": "92c45c38-c1fd-44ab-aaec-88e246f9b434",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "d875cd8e-e9ec-46b4-9f3c-53b77174fa01",
+    "client_id": "92c45c38-c1fd-44ab-aaec-88e246f9b434",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Neutra",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "83f70fe5-7e5c-443a-b070-b17192eb5fb1",
+    "client_id": "34a3aede-572f-418a-9c49-7f077f85d30e",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Confiança",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "a54ffdd4-5f94-4738-98f0-6a61944652ed",
+    "client_id": "85ffa87a-9fce-4313-b96e-d1005394437a",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Oportunidades",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "a54ffdd4-5f94-4738-98f0-6a61944652ed",
+    "client_id": "85ffa87a-9fce-4313-b96e-d1005394437a",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Confiança",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "7f58e3cd-7bc3-4080-8123-5c39f307c423",
+    "client_id": "258b535e-7d5e-47b5-a848-a919b74643d7",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Resultados",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "7f58e3cd-7bc3-4080-8123-5c39f307c423",
+    "client_id": "258b535e-7d5e-47b5-a848-a919b74643d7",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "7f58e3cd-7bc3-4080-8123-5c39f307c423",
+    "client_id": "258b535e-7d5e-47b5-a848-a919b74643d7",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Confiança",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "690cc4f0-5e6c-4e4a-9a21-1eb55d6c7576",
+    "client_id": "9801b267-b2e8-4d2d-95ab-2aa780d63311",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Plano patrimonial",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "690cc4f0-5e6c-4e4a-9a21-1eb55d6c7576",
+    "client_id": "9801b267-b2e8-4d2d-95ab-2aa780d63311",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Agilidade",
+    "valence": "Neutra",
+    "confidence": 0.91,
+    "classification_source": "rules_v2",
+    "valence_reason": "prospective_neutral",
+    "reviewed": false
+  },
+  {
+    "response_id": "e33feedc-3dc1-46fd-87d9-3b4bbcb09052",
+    "client_id": "fa827235-e98a-49b1-b8ce-aedc0c61b2f4",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Atendimento / relacionamento",
+    "valence": "Positiva",
+    "confidence": 0.95,
+    "classification_source": "rules_v2",
+    "valence_reason": "weak_signal",
+    "reviewed": false
+  },
+  {
+    "response_id": "e33feedc-3dc1-46fd-87d9-3b4bbcb09052",
+    "client_id": "fa827235-e98a-49b1-b8ce-aedc0c61b2f4",
+    "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+    "topic": "Clareza / comunicação",
     "valence": "Positiva",
     "confidence": 0.95,
     "classification_source": "rules_v2",

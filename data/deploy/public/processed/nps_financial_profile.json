@@ -3,7 +3,7 @@
     "etapa": "4.7",
     "program": "PHARUS",
     "cycle_code": "NPS-2026-SET-PHARUS",
-    "generated_at": "2026-09-29T00:06:04.705Z",
+    "generated_at": "2026-10-06T20:51:18.861Z",
     "tier_quality": "current_proxy",
     "aporte_semantics": "ambiguous",
     "financial_source": "fallback_export",
@@ -27,8 +27,8 @@
       "financial_updated_at": "2026-04-10 18:12:05.635075+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "09ed4608-b617-40ce-b43a-88b99043e3b3",
@@ -47,8 +47,8 @@
       "financial_updated_at": "2026-09-02 18:50:09.871725+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "29f7a69f-c4a7-40d3-9fd5-77edb6af1d74",
@@ -67,8 +67,8 @@
       "financial_updated_at": "2026-09-24 01:04:25.247706+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "f53decbd-a8df-4269-9a6b-24290231dcfc",
@@ -87,8 +87,8 @@
       "financial_updated_at": "2026-03-31 11:36:55.840335+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "535220df-04c5-4b91-ba66-56c820a54cb9",
@@ -107,8 +107,8 @@
       "financial_updated_at": "2026-09-25 21:13:33.741667+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8a5ebfee-5dcd-4ba0-acc8-0deb70ede3a6",
@@ -127,8 +127,8 @@
       "financial_updated_at": "2026-09-03 19:25:46.780581+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "53f399ae-9b9b-4bc6-8905-fddf53cbb841",
@@ -147,8 +147,8 @@
       "financial_updated_at": "2026-09-17 21:20:14.178422+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "9997e796-7d06-4416-b88e-124798932ba3",
@@ -167,8 +167,8 @@
       "financial_updated_at": "2026-09-07 17:14:56.640964+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "714d5cbc-fd27-442c-87d1-e92c7c39ab19",
@@ -187,28 +187,8 @@
       "financial_updated_at": "2026-04-10 14:32:33.687484+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
-    },
-    {
-      "client_id": "016e4182-664b-4fda-989e-2d2759d872ff",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "has_financial_row": true,
-      "financial_source": "fallback_export",
-      "score": 10,
-      "nps_category": "Promotor",
-      "income": 89000,
-      "contribution": 0,
-      "reserve": 520000,
-      "tier": "T1",
-      "tier_reason": "reserve",
-      "tier_quality": "current_proxy",
-      "has_debts": false,
-      "financial_updated_at": "2026-09-02 18:49:38.374685+00",
-      "financial_before_response": true,
-      "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "9ea9fcc7-8260-44e0-a66f-36c1fcf033b1",
@@ -227,8 +207,8 @@
       "financial_updated_at": "2026-09-02 18:48:15.551448+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "38e29943-c013-44f3-aaa5-b3bc01d2f490",
@@ -247,8 +227,28 @@
       "financial_updated_at": "2026-03-08 04:30:04.600204+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "0899e909-4949-4cfc-9f76-6ebb2bf62a81",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "9a500cc7-b149-45ad-91e9-db31e700d4e9",
@@ -267,8 +267,8 @@
       "financial_updated_at": "2026-07-24 18:04:24.400417+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e53d5758-20a3-4f54-b295-4b335116c3a5",
@@ -287,8 +287,28 @@
       "financial_updated_at": "2026-04-13 20:38:24.973916+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "cbb09924-ca18-4b39-b497-6723364234a4",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 9,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "c7b6ff1a-9ceb-4587-885d-68904d0803cb",
@@ -307,8 +327,28 @@
       "financial_updated_at": "2026-09-25 21:14:06.072386+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 9,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "91603c15-3c12-47d1-93bb-2dd22fe7176e",
@@ -327,8 +367,8 @@
       "financial_updated_at": "2026-09-24 23:22:11.947749+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4cfa5659-fc10-4ae1-8f84-e615c20957f8",
@@ -347,8 +387,28 @@
       "financial_updated_at": "2026-08-26 18:37:25.107042+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "bd06e8af-e354-4967-b9c0-3bc76ac8d861",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "5839bceb-7d97-4386-9cd8-a285bce5a0c3",
@@ -367,8 +427,8 @@
       "financial_updated_at": "2026-09-02 05:21:23.973511+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "debd8b51-9dfc-41b7-8620-c68367c9fc8b",
@@ -387,8 +447,8 @@
       "financial_updated_at": "2026-04-10 17:19:56.908117+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "40240fa4-1a2c-45dd-b81a-8975cf384b5f",
@@ -407,8 +467,8 @@
       "financial_updated_at": "2026-09-22 17:06:33.99555+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "acde9d73-12ba-41a2-b9a1-cb85ccecde65",
@@ -427,8 +487,8 @@
       "financial_updated_at": "2026-09-02 18:51:24.238282+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "f065410f-7445-4eae-9a72-cb192c2d0100",
@@ -447,8 +507,28 @@
       "financial_updated_at": "2026-08-21 14:23:00.608903+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "f3984645-e282-472d-bfaa-4560aae31d26",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 9,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6dcd82ce-97f3-4b25-9784-2104ad4ffc8e",
@@ -467,8 +547,8 @@
       "financial_updated_at": "2026-09-22 20:47:45.735041+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "71946fad-5b93-40f7-8dff-6f50d54c4700",
@@ -487,8 +567,8 @@
       "financial_updated_at": "2026-09-01 14:58:14.48666+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 8,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "3860cdfa-aa8b-4904-90ca-37e67d03dbd5",
@@ -507,8 +587,8 @@
       "financial_updated_at": "2026-09-01 13:55:48.441415+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "b835dc0e-f940-4d0d-9dc4-534be2554265",
@@ -527,8 +607,8 @@
       "financial_updated_at": "2026-03-30 17:55:51.012926+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "93c29331-0e86-44ee-a332-e8bb92a442d1",
@@ -547,8 +627,8 @@
       "financial_updated_at": "2026-08-24 14:56:34.351478+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e61530fe-83ed-4ecd-8a38-1635207941a4",
@@ -567,8 +647,8 @@
       "financial_updated_at": "2026-09-21 19:57:25.233156+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "5c3acabe-70f8-4bd6-a124-6b083be7abe2",
@@ -587,8 +667,8 @@
       "financial_updated_at": "2026-09-24 23:24:29.287013+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e86094b8-dba8-4219-9e99-fe1389642ad2",
@@ -607,8 +687,8 @@
       "financial_updated_at": "2026-03-31 13:50:54.410542+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d7d5bf94-1ee4-4733-b625-6263cf13ef96",
@@ -627,8 +707,8 @@
       "financial_updated_at": "2026-07-24 18:05:56.520558+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e4ef5eac-3581-482e-bed3-a89e1486d5df",
@@ -647,8 +727,8 @@
       "financial_updated_at": "2026-09-25 21:13:56.480197+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0f9a6f3e-dedb-4f13-bb03-7fcdab528522",
@@ -667,8 +747,8 @@
       "financial_updated_at": "2026-09-14 19:26:15.393134+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "9cae6388-a687-4834-97fc-d1ee7e855f38",
@@ -687,8 +767,8 @@
       "financial_updated_at": "2026-09-12 02:01:21.17483+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4a95815e-4f62-49c4-803c-646644c0891f",
@@ -707,8 +787,8 @@
       "financial_updated_at": "2026-07-24 15:33:31.34152+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "11316935-c4a8-4169-a65e-f5d70b27674b",
@@ -727,8 +807,8 @@
       "financial_updated_at": "2026-09-25 21:16:11.936654+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "719cdfed-5c76-4547-9458-0f36f05e8e9a",
@@ -747,8 +827,8 @@
       "financial_updated_at": "2026-04-24 11:56:41.801289+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "2c964b79-16d6-45d6-b79b-7b0b67bd45c6",
@@ -767,8 +847,8 @@
       "financial_updated_at": "2026-09-07 17:13:42.596641+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "91196563-f911-42fb-b06e-ac9536e83fd2",
@@ -787,8 +867,8 @@
       "financial_updated_at": "2026-07-24 18:05:32.929207+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8be0109d-7674-4cac-951e-5ddcbd0c6a4e",
@@ -807,8 +887,8 @@
       "financial_updated_at": "2026-04-13 11:51:00.321535+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "51f404fe-a33e-43e7-8303-3361247709c1",
@@ -827,8 +907,8 @@
       "financial_updated_at": "2026-08-01 20:52:52.456278+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "39b2c6a5-1050-4f8a-a6fd-d5aa29b522a4",
@@ -847,8 +927,8 @@
       "financial_updated_at": "2026-08-11 14:15:30.746628+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6f8b4236-7cd9-4669-92a3-bc60ea33fd13",
@@ -867,8 +947,8 @@
       "financial_updated_at": "2026-04-13 15:15:46.348126+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "65f6d117-5866-4a25-9884-6c5dc58d0c59",
@@ -887,8 +967,8 @@
       "financial_updated_at": "2026-07-24 18:04:08.93174+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "63ce9ef8-dccb-4e63-b687-5550e15fedea",
@@ -907,8 +987,8 @@
       "financial_updated_at": "2026-09-02 20:09:38.983192+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "7ca5fcca-273d-4b1a-acc6-aa31ff63c5c5",
@@ -927,8 +1007,8 @@
       "financial_updated_at": "2026-08-01 20:54:13.67397+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "58c5a13d-bd92-464f-a3aa-7ad892e43d22",
@@ -947,8 +1027,8 @@
       "financial_updated_at": "2026-07-24 15:32:34.386101+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d85cb2e8-3738-44ec-84ce-4368a9469a74",
@@ -967,8 +1047,28 @@
       "financial_updated_at": "2026-09-01 15:02:17.870413+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "b8e2336a-b2b5-4b86-91d3-8a30a87524de",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6ce80c20-678f-40a0-bf8e-f4ab6fcbec68",
@@ -987,8 +1087,8 @@
       "financial_updated_at": "2026-07-24 13:46:43.116695+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "576fb0f8-6e72-4abf-8a58-058850cfb1be",
@@ -1007,8 +1107,88 @@
       "financial_updated_at": "2026-09-02 05:18:41.103548+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "666472e5-5243-42d7-8916-41668ec60d0c",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "03ed7e77-4e5b-4309-9330-dd8d8b112db8",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "74487388-4d09-487f-9a00-e5254b644f50",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 9,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "e83d831e-4fec-47ae-ae15-200881f0f3da",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "1c9f3a06-cdfe-4357-a3ff-b9f1badb86b4",
@@ -1027,8 +1207,8 @@
       "financial_updated_at": "2026-07-06 14:25:47.967795+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e84fee46-40c6-4a92-b08c-8145059cbb1c",
@@ -1047,8 +1227,8 @@
       "financial_updated_at": "2026-08-27 13:01:46.390881+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "809de693-705c-4822-994b-bc9d4227d03c",
@@ -1067,8 +1247,28 @@
       "financial_updated_at": "2026-09-21 01:21:45.16004+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "236e0064-237f-4e71-890d-bda08ea02b63",
@@ -1087,8 +1287,8 @@
       "financial_updated_at": "2026-03-31 12:34:56.888045+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "b04d1705-8edd-4c04-b536-22ebd01d0504",
@@ -1107,8 +1307,8 @@
       "financial_updated_at": "2026-09-25 21:11:46.565449+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "2e553b1c-8741-4a84-a9ea-201271cb9a3e",
@@ -1127,8 +1327,8 @@
       "financial_updated_at": "2026-05-04 16:27:54.731136+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8ea421dc-cf84-4c0d-90a0-fe49b45b9d80",
@@ -1147,8 +1347,8 @@
       "financial_updated_at": "2026-07-24 13:54:04.13025+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "fb4f3c31-2b95-4b45-a390-7ab59a25baff",
@@ -1167,8 +1367,8 @@
       "financial_updated_at": "2026-07-24 13:49:42.651503+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8c1e6a02-8a6b-4c0c-9485-4e7738ab5dd5",
@@ -1187,8 +1387,8 @@
       "financial_updated_at": "2026-04-10 17:08:29.905965+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "c4f61216-f4ec-4065-8da4-41ce05088972",
@@ -1207,8 +1407,8 @@
       "financial_updated_at": "2026-08-31 17:34:59.353881+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 8,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "7ba1ddf2-df09-4cd9-b030-e4dc3862fd71",
@@ -1227,8 +1427,8 @@
       "financial_updated_at": "2026-07-24 18:42:27.92139+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0942e480-77a7-4850-baba-2eccbc6aa13f",
@@ -1247,8 +1447,8 @@
       "financial_updated_at": "2026-03-27 00:58:24.562348+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "477ecb4d-83e3-4ff3-a390-e7354d5f0f63",
@@ -1267,8 +1467,8 @@
       "financial_updated_at": "2026-09-03 17:11:03.725284+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "7cf7e046-12fe-48d9-b422-d87c8c4839d2",
@@ -1287,8 +1487,8 @@
       "financial_updated_at": "2026-09-24 23:23:22.521877+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "fcc2da86-5701-4863-a321-6dd1ef63811a",
@@ -1307,8 +1507,28 @@
       "financial_updated_at": "2026-04-11 13:20:18.896328+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "03493d05-bf24-4326-bce7-fd29ad2c242b",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "31d2aa6a-e99a-4097-a1e8-c367b14e334d",
@@ -1327,8 +1547,8 @@
       "financial_updated_at": "2026-09-25 21:13:16.649652+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "137f8cc6-cd0b-472c-a936-29a694f41095",
@@ -1347,8 +1567,8 @@
       "financial_updated_at": "2026-07-24 18:09:12.688492+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "a245c297-8f9d-4ef0-a59a-1e36509d20e7",
@@ -1367,8 +1587,8 @@
       "financial_updated_at": "2026-06-09 00:08:39.183675+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4c22dad4-93ce-4775-868a-c620880dc949",
@@ -1387,8 +1607,28 @@
       "financial_updated_at": "2026-06-18 13:57:18.090393+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "568c1b39-cf89-4557-b3aa-09fa330ddbc2",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ee1ba9d0-19fa-43c7-981c-c534a575db5c",
@@ -1407,8 +1647,8 @@
       "financial_updated_at": "2026-06-09 00:01:09.1058+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "89f03fab-4637-4092-9ea2-edaf98cab864",
@@ -1427,8 +1667,8 @@
       "financial_updated_at": "2026-06-18 13:49:25.991596+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "f49fef84-8b39-4495-85a5-6c747c50f604",
@@ -1447,8 +1687,8 @@
       "financial_updated_at": "2026-06-09 12:51:32.53575+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "944fcb6f-717a-4f50-8b0e-765b0b4355b3",
@@ -1467,8 +1707,8 @@
       "financial_updated_at": "2026-06-18 13:56:25.086627+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "338f7a09-d30f-4933-b6da-036748743132",
@@ -1487,8 +1727,8 @@
       "financial_updated_at": "2026-06-02 19:53:35.752141+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6ded2847-ba71-40e0-958f-23e40afd4720",
@@ -1507,8 +1747,8 @@
       "financial_updated_at": "2026-06-18 14:00:26.503974+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "bf47ba7f-54e8-422d-a438-d922aceea239",
@@ -1527,8 +1767,8 @@
       "financial_updated_at": "2026-05-25 22:09:52.996009+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "3ec83343-a645-463d-8b7a-d71c1844c5f7",
@@ -1547,8 +1787,8 @@
       "financial_updated_at": "2026-07-24 18:07:27.632722+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "34538219-029b-4bb2-803e-35a096ee06e9",
@@ -1567,8 +1807,28 @@
       "financial_updated_at": "2026-09-11 02:22:00.413437+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 5,
+      "nps_category": "Detrator",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e01f97c9-933e-4097-89fa-1d98cdea9c48",
@@ -1587,8 +1847,8 @@
       "financial_updated_at": "2026-06-18 13:58:41.150343+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "520d98f3-f6aa-4822-8a40-073d84c782cf",
@@ -1607,8 +1867,8 @@
       "financial_updated_at": "2026-07-24 18:02:20.637401+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "63d354f6-ec9c-4b31-891a-dae173757654",
@@ -1627,8 +1887,8 @@
       "financial_updated_at": "2026-06-26 23:57:06.1347+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "5058b878-4785-4927-9971-8ffce24fcb6e",
@@ -1647,8 +1907,8 @@
       "financial_updated_at": "2026-09-25 21:14:49.651474+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "cc4721c6-79c3-4662-91b6-3a1f665e3335",
@@ -1667,8 +1927,8 @@
       "financial_updated_at": "2026-09-07 17:14:48.654634+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "501b723b-61ab-43aa-a043-80ab42d3301f",
@@ -1687,8 +1947,8 @@
       "financial_updated_at": "2026-03-27 18:57:29.326133+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0db52489-1bc4-4a00-82e8-ef30d7e5f883",
@@ -1707,8 +1967,8 @@
       "financial_updated_at": "2026-06-26 14:02:08.305094+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4c2ec165-2b1f-440e-8c6c-7e33f98621bf",
@@ -1727,8 +1987,8 @@
       "financial_updated_at": "2026-07-24 13:29:54.246431+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "04ca1304-5d53-43f6-8e3d-6d27ce83507c",
@@ -1747,8 +2007,8 @@
       "financial_updated_at": "2026-09-24 23:23:06.933278+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 6,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "505d3162-40ef-47da-99fd-c4bc9c2fdadd",
@@ -1767,8 +2027,8 @@
       "financial_updated_at": "2026-06-05 17:57:55.091055+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "c79e385c-61ef-4230-93da-4a43ddd7b352",
@@ -1787,8 +2047,8 @@
       "financial_updated_at": "2026-06-26 23:54:51.755868+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "c0923116-9c20-4c28-a936-27633a93e701",
@@ -1807,8 +2067,8 @@
       "financial_updated_at": "2026-09-11 02:20:48.525833+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0b97343f-cc33-4f13-843a-2c08ad818ebb",
@@ -1827,8 +2087,8 @@
       "financial_updated_at": "2026-09-24 12:17:35.507057+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0c2e38b5-5808-4cff-b1b9-11db78e26286",
@@ -1847,8 +2107,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "f4b2e7c8-d69d-4642-9869-cd130597f141",
@@ -1867,8 +2127,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6713954b-670a-47d7-9003-d19a30f3d635",
@@ -1887,8 +2147,8 @@
       "financial_updated_at": "2026-07-24 18:04:47.4226+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e8323e0e-632d-4a28-b8fd-47e9e1507ec3",
@@ -1907,8 +2167,8 @@
       "financial_updated_at": "2026-09-09 12:57:02.147183+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "caa56555-db8a-4da0-87cd-a1715def96f5",
@@ -1927,8 +2187,8 @@
       "financial_updated_at": "2026-09-25 21:15:05.497581+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "122e087d-9da2-4e5f-b254-63a3372ae054",
@@ -1947,8 +2207,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "1dee945e-6332-4b46-8043-f544b74c16f1",
@@ -1967,8 +2227,8 @@
       "financial_updated_at": "2026-09-01 14:51:35.456665+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "081d4632-22a9-40ea-99ff-b4bcff527edf",
@@ -1987,8 +2247,8 @@
       "financial_updated_at": "2026-09-25 21:12:21.577796+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "9471273b-ab78-42ab-9be3-ed8393576b54",
@@ -2007,8 +2267,8 @@
       "financial_updated_at": "2026-09-24 23:25:06.006046+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "7a8147f8-4d9a-43af-87a1-362b5da58b2e",
@@ -2027,8 +2287,8 @@
       "financial_updated_at": "2026-09-15 19:47:27.710005+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "99f8f6b8-1b0c-4afa-854d-53aae0ea24c0",
@@ -2047,8 +2307,8 @@
       "financial_updated_at": "2026-07-24 13:39:10.402286+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ba933a51-69f3-4ae1-b519-f39f9a12ed70",
@@ -2067,8 +2327,8 @@
       "financial_updated_at": "2026-09-04 20:27:53.326181+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d0671050-cb3c-4c2d-bb61-b9bda4744f0c",
@@ -2087,8 +2347,8 @@
       "financial_updated_at": "2026-09-09 13:18:12.003549+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0e412b1f-6a16-41bb-8da2-5d432fa1272e",
@@ -2107,8 +2367,8 @@
       "financial_updated_at": "2026-09-24 23:25:12.168271+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "1b65c19c-faab-40fe-a535-6767e0d7ac59",
@@ -2127,8 +2387,8 @@
       "financial_updated_at": "2026-09-11 02:21:26.591741+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ef19a2bb-f2c0-4062-8609-cf211b75a731",
@@ -2147,8 +2407,8 @@
       "financial_updated_at": "2026-09-11 20:39:06.423052+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "2e207746-dcb4-4a0f-9211-0054adf3ed2e",
@@ -2167,8 +2427,8 @@
       "financial_updated_at": "2026-09-22 13:32:52.894568+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "71ad861d-bf78-4bfe-9d9e-485b16b75057",
@@ -2187,8 +2447,8 @@
       "financial_updated_at": "2026-09-24 23:23:03.876718+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 7,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "cea54554-1b9a-49dd-9a8b-148f6db047b2",
@@ -2207,8 +2467,8 @@
       "financial_updated_at": "2026-09-24 23:25:44.783679+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "296ba84f-7b13-407b-9e5b-ca949299b9f6",
@@ -2227,8 +2487,8 @@
       "financial_updated_at": "2026-09-02 05:22:35.879981+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "59fa02ab-73cf-47dc-96af-356580896ca5",
@@ -2247,8 +2507,8 @@
       "financial_updated_at": "2026-08-20 12:54:56.521981+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "683b9479-5128-4fd9-9611-e7bd4764ef21",
@@ -2267,8 +2527,8 @@
       "financial_updated_at": "2026-09-03 10:26:49.809737+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "61d6eee1-d7b1-4d7c-9950-bcf342023ce5",
@@ -2287,8 +2547,8 @@
       "financial_updated_at": "2026-09-07 17:15:23.968826+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "7fec711c-34cf-4fa4-b15e-dbf691322b82",
@@ -2307,8 +2567,8 @@
       "financial_updated_at": "2026-09-02 18:50:01.50076+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d11e0154-2e2a-4c2c-afe0-f5aa04b05ae5",
@@ -2327,8 +2587,8 @@
       "financial_updated_at": "2026-07-24 16:40:03.187181+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "577f1269-a8b6-410d-be28-7966b1b0de64",
@@ -2347,8 +2607,8 @@
       "financial_updated_at": "2026-07-24 16:38:53.869709+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d1a0cf7b-4a1e-410c-aac6-6a31f98f6b70",
@@ -2367,8 +2627,8 @@
       "financial_updated_at": "2026-08-27 12:32:40.708942+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "82d00f84-01f7-41c8-9191-f213ab01e5de",
@@ -2387,8 +2647,8 @@
       "financial_updated_at": "2026-09-28 12:45:09.845946+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "fb85d41a-8f17-42d9-91cc-fa86420498b8",
@@ -2407,8 +2667,8 @@
       "financial_updated_at": "2026-09-25 21:12:05.511273+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "3e39972f-cfc6-4034-8d58-a3460cdd7324",
@@ -2427,8 +2687,8 @@
       "financial_updated_at": "2026-09-25 21:16:06.722068+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0bf30c82-0d83-4706-9340-d0338dcebd33",
@@ -2447,8 +2707,8 @@
       "financial_updated_at": "2026-04-10 17:32:41.991066+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "33cb0d8a-1273-47d8-8bb5-71dfb19549fa",
@@ -2467,8 +2727,8 @@
       "financial_updated_at": "2026-09-28 20:08:44.111105+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "92e02ed8-f673-4a89-9939-059898d584a8",
@@ -2487,8 +2747,8 @@
       "financial_updated_at": "2026-09-16 14:45:45.146025+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6fcce6d9-4056-46c8-bfc4-7fc3a3d24e31",
@@ -2507,8 +2767,8 @@
       "financial_updated_at": "2026-04-10 18:56:22.034147+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "36539982-6546-4600-b78e-617dabe3a09d",
@@ -2527,8 +2787,8 @@
       "financial_updated_at": "2026-09-02 11:56:56.948717+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "b20557d2-aa88-4a5f-9178-580525dac756",
@@ -2547,8 +2807,8 @@
       "financial_updated_at": "2026-08-26 13:31:38.994713+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ed506362-293f-4ab9-b229-69e237b09953",
@@ -2567,8 +2827,8 @@
       "financial_updated_at": "2026-09-24 01:03:32.153972+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "648d7112-e174-4398-9dd1-3cc9fdc48227",
@@ -2587,28 +2847,8 @@
       "financial_updated_at": "2026-09-25 13:04:25.811684+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
-    },
-    {
-      "client_id": "34167265-0061-4443-b631-9e0d60d1229d",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "has_financial_row": true,
-      "financial_source": "fallback_export",
-      "score": 4,
-      "nps_category": "Detrator",
-      "income": null,
-      "contribution": null,
-      "reserve": null,
-      "tier": "unavailable",
-      "tier_reason": null,
-      "tier_quality": "current_proxy",
-      "has_debts": null,
-      "financial_updated_at": null,
-      "financial_before_response": null,
-      "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e809b66d-22aa-4d83-8859-d6e801a23cdf",
@@ -2627,8 +2867,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "eea69f77-cdc9-4c15-b238-e80fcbb6fcc3",
@@ -2647,8 +2887,8 @@
       "financial_updated_at": "2026-07-24 13:26:47.042+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6bd6b603-6503-4cc6-aa85-c0b2fadceb72",
@@ -2667,8 +2907,8 @@
       "financial_updated_at": "2026-04-11 13:29:21.005897+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "2c54c92c-6222-44ff-a598-94f7017351d9",
@@ -2687,8 +2927,8 @@
       "financial_updated_at": "2026-07-24 15:22:29.284918+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "77296983-4392-4de6-85c4-3579d974f571",
@@ -2707,8 +2947,8 @@
       "financial_updated_at": "2026-07-24 11:32:17.909059+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "961226e6-8e46-45a8-9666-4a8f0d16888e",
@@ -2727,8 +2967,8 @@
       "financial_updated_at": "2026-09-24 01:02:01.020978+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 8,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "56feeecf-6205-4999-9023-69af837d05c2",
@@ -2747,8 +2987,8 @@
       "financial_updated_at": "2026-07-24 11:10:01.308235+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d36a6347-2159-4657-9454-cebe2de781cd",
@@ -2767,8 +3007,8 @@
       "financial_updated_at": "2026-07-24 13:49:25.108594+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "3c41f366-7c13-445a-aaef-3503460f1e08",
@@ -2787,8 +3027,8 @@
       "financial_updated_at": "2026-07-24 11:24:54.377709+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d0415429-46f3-4a18-bd4f-b4b0c4624fd9",
@@ -2807,8 +3047,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "94b0f06c-c02c-458c-b0e2-6216227cddfe",
@@ -2827,8 +3067,8 @@
       "financial_updated_at": "2026-06-26 16:09:44.304627+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e600f2da-cc4a-4110-8505-e7fdf5cfc71c",
@@ -2847,8 +3087,8 @@
       "financial_updated_at": "2026-08-26 18:38:13.36146+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "1dc2e6a7-5d8d-47b0-9b7b-a89750d34cb8",
@@ -2867,8 +3107,8 @@
       "financial_updated_at": "2026-07-24 16:37:09.284496+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "22d6c6ac-5f38-428a-8422-e61f2ce90c69",
@@ -2887,8 +3127,8 @@
       "financial_updated_at": "2026-07-07 19:41:50.743514+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d2b52738-b2e8-479c-89a7-1bc92b9229fe",
@@ -2907,8 +3147,8 @@
       "financial_updated_at": "2026-09-14 18:25:47.778017+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "bb1e3e15-5af6-41ec-9280-50d2decd6099",
@@ -2927,8 +3167,8 @@
       "financial_updated_at": "2026-08-31 22:25:59.609322+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "0f129806-82bd-434d-92c7-38a929615f22",
@@ -2947,8 +3187,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6f538443-626c-46c2-b0fc-c54dc9f054a3",
@@ -2967,8 +3207,8 @@
       "financial_updated_at": "2026-09-24 23:23:58.509186+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ade0144d-be5c-4ceb-a5c4-37171a026317",
@@ -2987,8 +3227,8 @@
       "financial_updated_at": "2026-04-10 12:23:19.756452+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "abf68d33-a146-47a2-a020-757b9e0a3419",
@@ -3007,8 +3247,8 @@
       "financial_updated_at": "2026-09-02 05:18:39.189656+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "75fc614a-6ff1-477d-b757-048b2d5c4c2e",
@@ -3027,8 +3267,8 @@
       "financial_updated_at": "2026-08-17 21:17:30.001326+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "7dae3da2-c5be-49c7-8251-89e581f4cf0e",
@@ -3047,8 +3287,8 @@
       "financial_updated_at": "2026-06-18 13:59:52.036641+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "98e19268-5f0b-4962-ae1d-9fa809977618",
@@ -3067,8 +3307,8 @@
       "financial_updated_at": "2026-06-04 21:54:30.157857+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "45f1538d-b15f-4947-8595-875ddf5db8c8",
@@ -3087,8 +3327,8 @@
       "financial_updated_at": "2026-07-07 12:01:05.175226+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4f3b3619-06fa-43cd-a545-332d12b64693",
@@ -3107,8 +3347,8 @@
       "financial_updated_at": "2026-07-24 16:44:45.532099+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4d7b69ab-2af3-49fa-8bd1-0594085de3ab",
@@ -3127,28 +3367,8 @@
       "financial_updated_at": "2026-07-24 13:39:51.746681+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
-    },
-    {
-      "client_id": "c0e1b7a4-bf76-4842-bd39-fc70bdde1efe",
-      "cycle_code": "NPS-2026-SET-PHARUS",
-      "has_financial_row": true,
-      "financial_source": "fallback_export",
-      "score": 8,
-      "nps_category": "Neutro",
-      "income": 0,
-      "contribution": 0,
-      "reserve": 0,
-      "tier": "T4",
-      "tier_reason": "income",
-      "tier_quality": "current_proxy",
-      "has_debts": false,
-      "financial_updated_at": "2026-08-05 16:43:06.274098+00",
-      "financial_before_response": true,
-      "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "a374a894-0468-4d07-a633-e246d946449e",
@@ -3167,8 +3387,8 @@
       "financial_updated_at": "2026-07-07 23:48:33.642916+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "697c7b8a-8d0b-4aef-beb5-34f45614a943",
@@ -3187,8 +3407,8 @@
       "financial_updated_at": "2026-09-22 11:26:13.277212+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "5960f9ad-fae2-47e6-81e1-e0c1cac31cd5",
@@ -3207,8 +3427,8 @@
       "financial_updated_at": "2026-09-25 21:15:54.574554+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "91691931-e2fe-4a21-8f4b-324c02b847f5",
@@ -3227,8 +3447,8 @@
       "financial_updated_at": "2026-07-24 13:53:36.070401+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ed59f476-18ab-4e70-9594-e19ac5793364",
@@ -3247,8 +3467,8 @@
       "financial_updated_at": "2026-07-24 13:31:47.710188+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "2e57c91b-4c42-4e1f-a096-f4e9bdc0f5d3",
@@ -3267,8 +3487,8 @@
       "financial_updated_at": "2026-08-21 13:38:36.313586+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "51f98473-0325-4a5c-913d-44fb83a71184",
@@ -3287,8 +3507,8 @@
       "financial_updated_at": "2026-09-24 01:02:22.575682+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 8,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d02fc067-4383-45ca-b69c-8c8768e61bd8",
@@ -3307,8 +3527,8 @@
       "financial_updated_at": "2026-09-02 18:49:18.967483+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ec107faa-1d78-41bf-8385-d62e77bc1a46",
@@ -3327,8 +3547,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8b45a6bf-6995-4cd8-bcaa-1e0fb2d2812f",
@@ -3347,16 +3567,16 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "5dbc7d07-e8df-47a6-9a23-de065509979d",
       "cycle_code": "NPS-2026-SET-PHARUS",
       "has_financial_row": true,
       "financial_source": "fallback_export",
-      "score": 8,
-      "nps_category": "Neutro",
+      "score": 9,
+      "nps_category": "Promotor",
       "income": 20000,
       "contribution": 1,
       "reserve": 10000,
@@ -3367,8 +3587,8 @@
       "financial_updated_at": "2026-09-07 01:16:58.009038+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "db5ce923-17a3-4312-8391-50bd4be6d7a5",
@@ -3387,8 +3607,8 @@
       "financial_updated_at": "2026-08-17 16:55:31.913935+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "a5b03a68-ddef-4373-9f26-b49a0ce9c14e",
@@ -3407,8 +3627,8 @@
       "financial_updated_at": "2026-06-30 12:23:57.800707+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "59e89134-d7a7-486e-89a1-10355850c7f4",
@@ -3427,8 +3647,8 @@
       "financial_updated_at": "2026-09-25 21:16:09.015843+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "5dec5c38-54e1-4d11-8de7-06b1b958c377",
@@ -3447,8 +3667,8 @@
       "financial_updated_at": "2026-07-24 13:51:03.287984+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8105c92e-1522-4ee5-a70b-129295e559f8",
@@ -3467,8 +3687,8 @@
       "financial_updated_at": "2026-09-25 21:14:40.222041+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "c14e0ce6-3faa-4300-a2c0-f77a65a5a41a",
@@ -3487,8 +3707,8 @@
       "financial_updated_at": "2026-09-01 14:34:39.628017+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8625a526-69ae-46a4-9997-48979c5f67fd",
@@ -3507,8 +3727,8 @@
       "financial_updated_at": "2026-08-31 12:27:33.77931+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "83a0dd4c-d032-4937-9739-00444ff3d3ac",
@@ -3527,8 +3747,8 @@
       "financial_updated_at": "2026-08-21 14:27:12.292418+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "966d6307-cc71-45c6-bd69-874879076e26",
@@ -3547,8 +3767,8 @@
       "financial_updated_at": "2026-04-11 13:30:58.207859+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "be1a3412-04d6-4e84-8070-514ff0deeecc",
@@ -3567,8 +3787,8 @@
       "financial_updated_at": "2026-09-25 21:12:39.763649+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4efce255-c163-40bf-adfb-203e9c02306a",
@@ -3587,8 +3807,8 @@
       "financial_updated_at": "2026-07-24 15:30:14.929888+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "acf926d9-d3a1-4d45-a304-777ac698b975",
@@ -3607,8 +3827,8 @@
       "financial_updated_at": "2026-07-24 13:34:33.714086+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "380ac46a-cc90-4026-94d4-18183ec5a852",
@@ -3627,8 +3847,8 @@
       "financial_updated_at": "2026-06-18 13:55:47.475324+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "df316812-9a3a-4c84-a483-8bfaacb8f578",
@@ -3647,8 +3867,8 @@
       "financial_updated_at": "2026-08-26 18:37:20.042293+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "52f50e5a-a338-4419-ab24-298c9cec25b6",
@@ -3667,8 +3887,8 @@
       "financial_updated_at": "2026-05-25 22:07:26.542373+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "6c8c1a84-1472-4365-9bd8-c33ec3bdd308",
@@ -3687,8 +3907,8 @@
       "financial_updated_at": "2026-07-24 12:28:35.935819+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4d9170c7-ea49-4a0b-a71a-09f2eb912fd3",
@@ -3707,8 +3927,8 @@
       "financial_updated_at": "2026-06-22 12:23:18.538344+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "655a8ab5-8384-413a-a65d-a5f7eb0b8188",
@@ -3727,8 +3947,8 @@
       "financial_updated_at": "2026-09-21 02:35:33.968337+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "9f06dda7-f8d1-413e-9b65-ed070d183636",
@@ -3747,8 +3967,8 @@
       "financial_updated_at": "2026-04-10 20:24:06.079244+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "f7f72108-f67d-457f-93e3-978c131087d8",
@@ -3767,8 +3987,8 @@
       "financial_updated_at": "2026-04-13 13:39:08.06082+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "5d6811f3-fd78-4481-b498-2254157518d9",
@@ -3787,8 +4007,8 @@
       "financial_updated_at": "2026-06-26 23:55:39.619761+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "36e33d8d-a12b-42e2-84fc-8088c22e3142",
@@ -3807,8 +4027,8 @@
       "financial_updated_at": "2026-08-24 15:28:47.573579+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "8d8451a6-4bc0-4837-9219-a040eb71345c",
@@ -3827,8 +4047,8 @@
       "financial_updated_at": "2026-04-10 11:47:44.883914+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "baa376be-5114-4f1e-959d-8caf690abcaf",
@@ -3847,8 +4067,8 @@
       "financial_updated_at": "2026-06-27 00:01:04.080324+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "756e6955-2a8d-4c01-ad7f-57b95d605f00",
@@ -3867,8 +4087,8 @@
       "financial_updated_at": "2026-09-03 19:31:37.512844+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "07ba60af-cded-47bf-b475-3e4fab21d6e6",
@@ -3887,8 +4107,8 @@
       "financial_updated_at": "2026-04-11 13:14:23.979869+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "11df7874-febd-493d-afc0-dcb35701563b",
@@ -3907,8 +4127,8 @@
       "financial_updated_at": "2026-07-24 13:48:30.457802+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d46b479a-e45e-4d99-835a-8480d8a56482",
@@ -3927,8 +4147,8 @@
       "financial_updated_at": "2026-07-24 16:45:45.719996+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "a32f76ce-2f83-42e7-91e2-0b7fb999226e",
@@ -3947,8 +4167,8 @@
       "financial_updated_at": "2026-09-07 01:11:29.334154+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "aa12a69a-9814-4a05-a71e-e01060d13f2b",
@@ -3967,8 +4187,8 @@
       "financial_updated_at": "2026-07-24 12:28:05.320113+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ea82649c-c51d-4f0a-9e32-8dcb68149802",
@@ -3987,8 +4207,8 @@
       "financial_updated_at": "2026-09-15 22:12:43.118838+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "141ef30c-4d04-4f9a-9967-78abbd95402d",
@@ -4007,8 +4227,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "004883b2-e3bd-4d1d-bc35-74a6c07d47f1",
@@ -4027,8 +4247,8 @@
       "financial_updated_at": "2026-08-25 17:04:17.812691+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "09618548-400c-458e-a572-cd7d4400b12b",
@@ -4047,8 +4267,8 @@
       "financial_updated_at": "2026-08-26 13:57:51.542939+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "7d15c6c8-d3cd-45dc-9e63-e1c36380b18a",
@@ -4067,8 +4287,8 @@
       "financial_updated_at": "2026-08-25 17:05:05.018979+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "40573f5c-eea5-42ae-b4ed-3de7b2697177",
@@ -4087,8 +4307,8 @@
       "financial_updated_at": "2026-04-10 17:16:14.452625+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e8e37b0c-d54e-417e-bcdb-7a249d75375a",
@@ -4107,8 +4327,8 @@
       "financial_updated_at": "2026-07-28 10:43:57.135635+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "1c4ec3fb-89ab-47dd-b5ba-5f193f6c802e",
@@ -4127,8 +4347,8 @@
       "financial_updated_at": "2026-09-21 01:00:17.438338+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "cc4ad025-8f9e-4d36-8962-f48b4092229f",
@@ -4147,8 +4367,8 @@
       "financial_updated_at": "2026-09-03 18:40:21.75219+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "2702a39b-9d6b-437f-8113-bf29d97988fd",
@@ -4167,8 +4387,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "b482e017-19f9-4959-9506-66cb226615d4",
@@ -4187,8 +4407,8 @@
       "financial_updated_at": "2026-09-24 23:22:58.990954+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ff43d06c-0a78-47c6-a6e7-9b6f5987e08f",
@@ -4207,8 +4427,8 @@
       "financial_updated_at": "2026-06-01 20:02:03.799732+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "fd9a9988-504f-4579-9669-1f874a2714b4",
@@ -4227,8 +4447,8 @@
       "financial_updated_at": "2026-04-11 13:14:39.011801+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4d4c62bd-3cd1-4ee9-a84e-90be3d82d396",
@@ -4247,8 +4467,8 @@
       "financial_updated_at": "2026-04-10 18:22:23.111965+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "3065f8ae-6cec-4788-9e15-af96d1a429ee",
@@ -4267,8 +4487,8 @@
       "financial_updated_at": "2026-07-24 15:31:50.264115+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "3d36722c-43ad-4faa-9660-d24e3fcac8b5",
@@ -4287,8 +4507,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "de2acf46-c28e-44ce-b3c4-88c028e75627",
@@ -4307,8 +4527,8 @@
       "financial_updated_at": "2026-09-03 19:31:31.635062+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "b77595b3-1fe5-4a13-a4cd-c601f1590978",
@@ -4327,8 +4547,8 @@
       "financial_updated_at": "2026-09-21 02:11:22.35106+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "376b5dc7-1060-4157-9afc-de57174aa884",
@@ -4347,8 +4567,8 @@
       "financial_updated_at": "2026-08-24 17:46:44.989143+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "de726bc1-9401-4df4-9ada-40da54fa17ae",
@@ -4367,8 +4587,8 @@
       "financial_updated_at": "2026-08-25 17:00:56.560454+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "1ec5c86a-45e4-4784-998d-847ddf297693",
@@ -4387,8 +4607,8 @@
       "financial_updated_at": "2026-07-24 11:42:48.041213+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e8e333a4-b902-47e5-a8e0-eb31bf0b23cb",
@@ -4407,8 +4627,8 @@
       "financial_updated_at": "2026-07-24 13:50:51.433793+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "71ce20cd-4eb6-45b6-a0a5-5e790d92e678",
@@ -4427,8 +4647,8 @@
       "financial_updated_at": "2026-03-30 20:46:11.357677+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "baff63c8-515d-4cc6-b484-62cf2d9f3f73",
@@ -4447,8 +4667,8 @@
       "financial_updated_at": "2026-09-24 23:23:15.849678+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 4,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "544564bf-4cee-49f7-ab8b-f4d78b9ad0a2",
@@ -4467,8 +4687,8 @@
       "financial_updated_at": "2026-07-24 16:36:08.673167+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "809f66f2-a65a-48a9-9e44-7a9f03c62355",
@@ -4487,8 +4707,8 @@
       "financial_updated_at": "2026-08-26 18:37:08.646987+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "42520ebe-9f89-412c-95c6-e07b4c937675",
@@ -4507,8 +4727,8 @@
       "financial_updated_at": "2026-08-26 18:37:27.916655+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "46d70d71-5d94-46e3-90c4-bc10b56f6038",
@@ -4527,8 +4747,8 @@
       "financial_updated_at": "2026-06-09 00:05:46.48716+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "14303f3d-f14f-420f-b0a5-4465c8a44a67",
@@ -4547,8 +4767,8 @@
       "financial_updated_at": "2026-07-24 13:34:08.031453+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "82433712-aef1-4a1b-9fa2-f5aed1053a39",
@@ -4567,8 +4787,8 @@
       "financial_updated_at": "2026-09-03 19:24:41.481708+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 5,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d5f5ae7f-0529-4a41-8bde-f96c1d61e58e",
@@ -4587,8 +4807,8 @@
       "financial_updated_at": "2026-04-10 18:49:55.053248+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "c39f5b2b-296b-4b11-b079-da8825e4ea85",
@@ -4607,8 +4827,8 @@
       "financial_updated_at": "2026-08-28 19:16:40.518587+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "def56adb-35e5-4559-8a2f-d1538809a8a8",
@@ -4627,8 +4847,8 @@
       "financial_updated_at": "2026-04-10 17:45:32.363608+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "97fa111f-6b40-4dca-9264-2566b4779ace",
@@ -4647,8 +4867,8 @@
       "financial_updated_at": "2026-08-19 20:18:51.509853+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "13f16f92-3fb5-4995-b49c-46f7945deb14",
@@ -4667,8 +4887,8 @@
       "financial_updated_at": "2026-09-21 02:06:11.324348+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "d1828671-2109-47b8-ba44-a2ca7dbfa4d9",
@@ -4687,8 +4907,8 @@
       "financial_updated_at": "2026-07-24 16:52:17.745483+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "1c8340ea-f97a-4428-b21d-8801d44de08e",
@@ -4707,8 +4927,8 @@
       "financial_updated_at": "2026-04-10 18:26:56.702645+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "bc6215f5-c43f-4bba-8e46-6354cce825bd",
@@ -4727,8 +4947,8 @@
       "financial_updated_at": "2026-09-11 02:22:30.990914+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "57ada20c-daee-4561-8a58-aa30dcceb365",
@@ -4747,8 +4967,8 @@
       "financial_updated_at": null,
       "financial_before_response": null,
       "financial_temporal_quality": "unknown",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "239e8091-a776-4c2c-9ddf-2c1821f0a91c",
@@ -4767,8 +4987,8 @@
       "financial_updated_at": "2026-07-24 12:28:21.682785+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "24ac90fb-6478-453d-8a74-af6bd22021a4",
@@ -4787,8 +5007,8 @@
       "financial_updated_at": "2026-09-25 21:14:51.960169+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 6,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "94f89eb2-0566-414b-b59e-f6cd75448f04",
@@ -4807,8 +5027,8 @@
       "financial_updated_at": "2026-09-03 19:24:05.546448+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "80ac10ca-d796-4793-801e-a77d6f5faabe",
@@ -4827,8 +5047,8 @@
       "financial_updated_at": "2026-07-24 15:33:50.94265+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "2f94245c-6502-4cb7-9d59-82639a9a8e80",
@@ -4847,8 +5067,8 @@
       "financial_updated_at": "2026-07-24 15:32:08.2917+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "de05b8e5-f56e-4717-bf37-5a5018d978ff",
@@ -4867,8 +5087,8 @@
       "financial_updated_at": "2026-09-25 21:15:59.66211+00",
       "financial_before_response": false,
       "financial_temporal_quality": "current_proxy_after_response",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "272307b0-caf7-428f-b8de-d4861c23359f",
@@ -4887,8 +5107,8 @@
       "financial_updated_at": "2026-09-02 05:17:45.256548+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "4f5113c5-83c1-4fd9-9f0c-b0588ebebb19",
@@ -4907,8 +5127,8 @@
       "financial_updated_at": "2026-09-11 02:22:03.298489+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "03c2d61f-8ec4-4624-a487-8bb6287eda78",
@@ -4927,8 +5147,8 @@
       "financial_updated_at": "2026-07-24 13:34:26.258364+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "e38f8299-c11e-48f4-96e0-ef6a7f216ba5",
@@ -4947,8 +5167,8 @@
       "financial_updated_at": "2026-09-03 19:31:35.026532+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 3,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "058a4277-60d9-4c79-b51c-3b06beeb504a",
@@ -4967,8 +5187,8 @@
       "financial_updated_at": "2026-09-03 19:36:37.206681+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 2,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "eedcf285-655e-446a-a0f2-848f76d8a0a9",
@@ -4987,8 +5207,8 @@
       "financial_updated_at": "2026-09-03 19:40:17.804555+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "af1738bc-d133-42ad-859d-1c1fa672a747",
@@ -5007,8 +5227,8 @@
       "financial_updated_at": "2026-09-03 19:32:30.850405+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 1,
-      "mechanism_bucket": "1"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "58c20112-1865-4f7a-b423-fe5e8208071f",
@@ -5027,8 +5247,8 @@
       "financial_updated_at": "2026-09-03 19:31:24.943987+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 6,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "ec980c0c-e9ef-4083-9a81-47dd771435a1",
@@ -5047,16 +5267,16 @@
       "financial_updated_at": "2026-09-25 21:15:56.770209+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 7,
-      "mechanism_bucket": "2+"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     },
     {
       "client_id": "35b044c2-4669-4645-8a35-5f06fe20eb04",
       "cycle_code": "NPS-2026-SET-PHARUS",
       "has_financial_row": true,
       "financial_source": "fallback_export",
-      "score": 0,
-      "nps_category": "Detrator",
+      "score": 10,
+      "nps_category": "Promotor",
       "income": 18000,
       "contribution": 0,
       "reserve": 100000,
@@ -5067,106 +5287,486 @@
       "financial_updated_at": "2026-09-03 19:36:02.72699+00",
       "financial_before_response": true,
       "financial_temporal_quality": "prior_or_same_day",
-      "mechanisms_count_before_response": 0,
-      "mechanism_bucket": "0"
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "4907afcc-e21d-498a-a208-751b24ac0f4b",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": true,
+      "financial_source": "fallback_export",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": 45000,
+      "contribution": 3000,
+      "reserve": 14000,
+      "tier": "T3",
+      "tier_reason": "income",
+      "tier_quality": "current_proxy",
+      "has_debts": false,
+      "financial_updated_at": "2026-09-03 19:31:21.715024+00",
+      "financial_before_response": true,
+      "financial_temporal_quality": "prior_or_same_day",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "97278c95-356c-4294-8874-8052a5a69262",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": true,
+      "financial_source": "fallback_export",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": 70000,
+      "contribution": 10000,
+      "reserve": 150000,
+      "tier": "T2",
+      "tier_reason": "income",
+      "tier_quality": "current_proxy",
+      "has_debts": false,
+      "financial_updated_at": "2026-07-24 14:03:57.190295+00",
+      "financial_before_response": true,
+      "financial_temporal_quality": "prior_or_same_day",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "15148fee-9a88-474f-ac43-1bf96260d391",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": true,
+      "financial_source": "fallback_export",
+      "score": 8,
+      "nps_category": "Neutro",
+      "income": 60000,
+      "contribution": 10000,
+      "reserve": 450000,
+      "tier": "T2",
+      "tier_reason": "income",
+      "tier_quality": "current_proxy",
+      "has_debts": false,
+      "financial_updated_at": "2026-09-03 19:33:21.881522+00",
+      "financial_before_response": true,
+      "financial_temporal_quality": "prior_or_same_day",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "e83fe98f-1b66-48d3-a6a4-9ad2e3ff6750",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "22f009a7-29e1-4827-9a59-422644086974",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "30502ab7-7f56-4469-a6db-bdf2785bc4a9",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "1771598f-f3d1-49a8-94a8-df9c5eda8ab0",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "10be1de1-e8f5-434d-8379-3f19d10b7d93",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "c5f7534d-660b-4a2d-b61a-d523d33472a0",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "440ff599-bef0-4d52-8356-47e20e24762c",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "f15fa5c4-9dfc-4bc0-9bf5-ab3845dab652",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "da8a8a32-d2e2-4e47-a5ef-8c3e7165280d",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 8,
+      "nps_category": "Neutro",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "c2caaf8b-a5ad-451f-8375-2b48f70d306c",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "92c45c38-c1fd-44ab-aaec-88e246f9b434",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "34a3aede-572f-418a-9c49-7f077f85d30e",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "85ffa87a-9fce-4313-b96e-d1005394437a",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "258b535e-7d5e-47b5-a848-a919b74643d7",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "9801b267-b2e8-4d2d-95ab-2aa780d63311",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 9,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
+    },
+    {
+      "client_id": "fa827235-e98a-49b1-b8ce-aedc0c61b2f4",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "has_financial_row": false,
+      "financial_source": "missing",
+      "score": 10,
+      "nps_category": "Promotor",
+      "income": null,
+      "contribution": null,
+      "reserve": null,
+      "tier": "unavailable",
+      "tier_reason": null,
+      "tier_quality": "current_proxy",
+      "has_debts": null,
+      "financial_updated_at": null,
+      "financial_before_response": null,
+      "financial_temporal_quality": "unknown",
+      "mechanisms_count_before_response": null,
+      "mechanism_bucket": null
     }
   ],
   "tier_t1_criteria_overlap": {
-    "n_t1": 67,
+    "n_t1": 66,
     "income_ge_100k": 21,
-    "reserve_ge_500k": 53,
+    "reserve_ge_500k": 52,
     "contribution_ge_30k": 14,
     "note": "Um mesmo cliente pode atender mais de um critério."
   },
   "tier_distribution_check": {
-    "sum": 253,
-    "expectedTotal": 253,
+    "sum": 283,
+    "expectedTotal": 283,
     "ok": true
   },
   "financial_profile_coverage": {
-    "respondents_total": 253,
+    "respondents_total": 283,
     "financial_rows": 253,
     "financial_source_counts": {
       "raw_snapshot": 0,
       "fallback_export": 253,
-      "missing": 0
+      "missing": 30
     },
-    "coverage_among_available_financial_set_pct": 100,
+    "coverage_among_available_financial_set_pct": 89.39929328621908,
     "coverage_statement": "Percentual sobre respondentes Set com linha no conjunto financeiro disponível para esta análise (raw snapshot + fallback export).",
     "all_clients_from_raw_snapshot": false,
     "do_not_label_as_full_base_qv_snapshot": true,
-    "tier_classified": 240,
-    "tier_unavailable": 13,
+    "tier_classified": 241,
+    "tier_unavailable": 42,
     "invalid_income": 0,
     "invalid_contribution": 1,
     "invalid_reserve": 0,
-    "coverage_pct": 100,
+    "coverage_pct": 89.39929328621908,
     "coverage_quality": "good",
     "tier_distribution": {
-      "T1": 67,
-      "T2": 48,
-      "T3": 98,
-      "T4": 27,
-      "unavailable": 13
+      "T1": 66,
+      "T2": 50,
+      "T3": 99,
+      "T4": 26,
+      "unavailable": 42
     },
     "temporal_after_response_n": 40,
-    "temporal_after_response_pct": 15.810276679841898
+    "temporal_after_response_pct": 14.13427561837456
   },
   "nps_by_tier": {
     "T1": {
-      "n": 67,
-      "nps": 49.25373134328358,
-      "mean_score": 8.238805970149254,
+      "n": 66,
+      "nps": 48.484848484848484,
+      "mean_score": 8.212121212121213,
       "median_score": 10,
-      "pct_promoters": 68.65671641791045,
-      "pct_neutrals": 11.940298507462686,
-      "pct_detractors": 19.402985074626866,
-      "nps_ci_low": 29.850746268656714,
-      "nps_ci_high": 68.65671641791045
+      "pct_promoters": 68.18181818181817,
+      "pct_neutrals": 12.121212121212121,
+      "pct_detractors": 19.696969696969695,
+      "nps_ci_low": 28.78787878787879,
+      "nps_ci_high": 66.66666666666666
     },
     "T2": {
-      "n": 48,
-      "nps": 68.75,
+      "n": 50,
+      "nps": 68,
       "mean_score": 9,
       "median_score": 10,
-      "pct_promoters": 72.91666666666666,
-      "pct_neutrals": 22.916666666666664,
-      "pct_detractors": 4.166666666666666,
-      "nps_ci_low": 52.083333333333336,
-      "nps_ci_high": 83.33333333333334
+      "pct_promoters": 72,
+      "pct_neutrals": 24,
+      "pct_detractors": 4,
+      "nps_ci_low": 52,
+      "nps_ci_high": 82
     },
     "T3": {
-      "n": 98,
-      "nps": 53.06122448979592,
-      "mean_score": 8.418367346938776,
+      "n": 99,
+      "nps": 54.54545454545454,
+      "mean_score": 8.444444444444445,
       "median_score": 9,
-      "pct_promoters": 67.3469387755102,
-      "pct_neutrals": 18.367346938775512,
-      "pct_detractors": 14.285714285714285,
-      "nps_ci_low": 38.775510204081634,
-      "nps_ci_high": 67.3469387755102
+      "pct_promoters": 68.68686868686868,
+      "pct_neutrals": 17.17171717171717,
+      "pct_detractors": 14.14141414141414,
+      "nps_ci_low": 39.39393939393939,
+      "nps_ci_high": 68.68686868686868
     },
     "T4": {
-      "n": 27,
-      "nps": 66.66666666666666,
-      "mean_score": 8.851851851851851,
+      "n": 26,
+      "nps": 76.92307692307693,
+      "mean_score": 9.26923076923077,
       "median_score": 10,
-      "pct_promoters": 70.37037037037037,
-      "pct_neutrals": 25.925925925925924,
-      "pct_detractors": 3.7037037037037033,
-      "nps_ci_low": 44.44444444444444,
-      "nps_ci_high": 85.18518518518519
+      "pct_promoters": 76.92307692307693,
+      "pct_neutrals": 23.076923076923077,
+      "pct_detractors": 0,
+      "nps_ci_low": 61.53846153846154,
+      "nps_ci_high": 92.3076923076923
     },
     "unavailable": {
-      "n": 13,
-      "nps": 46.15384615384615,
-      "mean_score": 8.23076923076923,
-      "median_score": 9,
-      "pct_promoters": 61.53846153846154,
-      "pct_neutrals": 23.076923076923077,
-      "pct_detractors": 15.384615384615385,
-      "nps_ci_low": 0,
-      "nps_ci_high": 84.61538461538461
+      "n": 42,
+      "nps": 80.95238095238095,
+      "mean_score": 9.30952380952381,
+      "median_score": 10,
+      "pct_promoters": 85.71428571428571,
+      "pct_neutrals": 9.523809523809524,
+      "pct_detractors": 4.761904761904762,
+      "nps_ci_low": 64.28571428571429,
+      "nps_ci_high": 95.23809523809523
     }
   },
   "debts_vs_nps": {
@@ -5182,15 +5782,15 @@
       "nps_ci_high": 92.3076923076923
     },
     "debts_false": {
-      "n": 214,
-      "nps": 54.67289719626168,
-      "mean_score": 8.453271028037383,
+      "n": 215,
+      "nps": 56.27906976744186,
+      "mean_score": 8.511627906976743,
       "median_score": 10,
-      "pct_promoters": 68.22429906542055,
-      "pct_neutrals": 18.22429906542056,
-      "pct_detractors": 13.551401869158877,
-      "nps_ci_low": 44.85981308411215,
-      "nps_ci_high": 63.55140186915887
+      "pct_promoters": 69.30232558139535,
+      "pct_neutrals": 17.674418604651162,
+      "pct_detractors": 13.023255813953488,
+      "nps_ci_low": 46.97674418604651,
+      "nps_ci_high": 65.11627906976744
     },
     "note": "Comparação associativa — débitos não definem Tier."
   },
@@ -5213,15 +5813,15 @@
       {
         "tier": "T1",
         "has_debts": false,
-        "n": 61,
-        "nps": 47.540983606557376,
-        "mean_score": 8.180327868852459,
+        "n": 60,
+        "nps": 46.666666666666664,
+        "mean_score": 8.15,
         "median_score": 10,
-        "pct_promoters": 68.85245901639344,
-        "pct_neutrals": 9.836065573770492,
-        "pct_detractors": 21.311475409836063,
-        "nps_ci_low": 26.229508196721312,
-        "nps_ci_high": 67.21311475409836
+        "pct_promoters": 68.33333333333333,
+        "pct_neutrals": 10,
+        "pct_detractors": 21.666666666666668,
+        "nps_ci_low": 25,
+        "nps_ci_high": 66.66666666666666
       },
       {
         "tier": "T2",
@@ -5239,15 +5839,15 @@
       {
         "tier": "T2",
         "has_debts": false,
-        "n": 42,
-        "nps": 66.66666666666666,
-        "mean_score": 8.928571428571429,
+        "n": 44,
+        "nps": 65.9090909090909,
+        "mean_score": 8.931818181818182,
         "median_score": 10,
-        "pct_promoters": 71.42857142857143,
-        "pct_neutrals": 23.809523809523807,
-        "pct_detractors": 4.761904761904762,
-        "nps_ci_low": 49.9404761904762,
-        "nps_ci_high": 83.33333333333334
+        "pct_promoters": 70.45454545454545,
+        "pct_neutrals": 25,
+        "pct_detractors": 4.545454545454546,
+        "nps_ci_low": 47.72727272727273,
+        "nps_ci_high": 81.81818181818183
       },
       {
         "tier": "T3",
@@ -5265,28 +5865,28 @@
       {
         "tier": "T3",
         "has_debts": false,
-        "n": 86,
-        "nps": 50,
-        "mean_score": 8.30232558139535,
+        "n": 87,
+        "nps": 51.724137931034484,
+        "mean_score": 8.333333333333334,
         "median_score": 9,
-        "pct_promoters": 65.11627906976744,
-        "pct_neutrals": 19.767441860465116,
-        "pct_detractors": 15.11627906976744,
-        "nps_ci_low": 34.883720930232556,
-        "nps_ci_high": 65.11627906976744
+        "pct_promoters": 66.66666666666666,
+        "pct_neutrals": 18.39080459770115,
+        "pct_detractors": 14.942528735632186,
+        "nps_ci_low": 35.63218390804598,
+        "nps_ci_high": 67.81609195402298
       },
       {
         "tier": "T4",
         "has_debts": false,
-        "n": 25,
-        "nps": 68,
-        "mean_score": 8.84,
+        "n": 24,
+        "nps": 79.16666666666666,
+        "mean_score": 9.291666666666666,
         "median_score": 10,
-        "pct_promoters": 72,
-        "pct_neutrals": 24,
-        "pct_detractors": 4,
-        "nps_ci_low": 47.900000000000006,
-        "nps_ci_high": 88
+        "pct_promoters": 79.16666666666666,
+        "pct_neutrals": 20.833333333333336,
+        "pct_detractors": 0,
+        "nps_ci_low": 62.5,
+        "nps_ci_high": 95.83333333333334
       }
     ],
     "shown_cell_count": 7
@@ -5309,25 +5909,25 @@
       }
     },
     "others": {
-      "n": 230,
+      "n": 231,
       "counts": {
-        "T1": 65,
-        "T2": 47,
-        "T3": 94,
-        "T4": 24
+        "T1": 64,
+        "T2": 49,
+        "T3": 95,
+        "T4": 23
       },
       "pct": {
-        "T1": 28.26086956521739,
-        "T2": 20.434782608695652,
-        "T3": 40.869565217391305,
-        "T4": 10.434782608695652
+        "T1": 27.705627705627705,
+        "T2": 21.21212121212121,
+        "T3": 41.125541125541126,
+        "T4": 9.956709956709958
       }
     },
     "association": {
-      "statistic": 4.018646783827093,
-      "p_value": 0.7405423587735522,
-      "n": 240,
-      "effect_size": 0.1294000061795963,
+      "statistic": 4.360809708809709,
+      "p_value": 0.7749531361660972,
+      "n": 241,
+      "effect_size": 0.13451634136656443,
       "limitation": "expected counts baixos; interpretar com cautela",
       "test": "chi_square"
     },
@@ -5347,12 +5947,12 @@
       "iqr": 350000
     },
     "n_negative": 10,
-    "n_others": 230,
+    "n_others": 231,
     "mann_whitney": {
-      "u": 1073.5,
-      "p_value": 0.7218838943484116,
-      "n": 240,
-      "effect_size": 0.0665217391304348,
+      "u": 1077.5,
+      "p_value": 0.7195431399659635,
+      "n": 241,
+      "effect_size": 0.0670995670995671,
       "median_a": 152500,
       "median_b": 150000,
       "difference": 2500
@@ -5373,12 +5973,12 @@
       "iqr": 8000
     },
     "n_negative": 10,
-    "n_others": 229,
+    "n_others": 230,
     "mann_whitney": {
-      "u": 1006,
-      "p_value": 0.5160123140069746,
-      "n": 239,
-      "effect_size": 0.12139737991266375,
+      "u": 997,
+      "p_value": 0.47653608372091383,
+      "n": 240,
+      "effect_size": 0.1330434782608696,
       "median_a": 3000,
       "median_b": 5000,
       "difference": -2000
@@ -5387,15 +5987,15 @@
   },
   "resultados_x_debts": {
     "n_negative": 10,
-    "n_others": 243,
+    "n_others": 273,
     "pct_debts_negative": 10,
-    "pct_debts_others": 10.2880658436214,
+    "pct_debts_others": 9.157509157509157,
     "n_a": 10,
-    "n_b": 243,
+    "n_b": 273,
     "pct_a": 10,
-    "pct_b": 10.2880658436214,
+    "pct_b": 9.157509157509157,
     "p_value": 0.9999999999999999,
-    "n": 253,
+    "n": 283,
     "test": "fisher",
     "note": "Associação — não causalidade."
   },
@@ -5404,85 +6004,85 @@
     "matrix": [
       {
         "tier": "T1",
-        "n": 67,
+        "n": 66,
         "by_mechanism_bucket": {
           "0": {
-            "n": 21,
-            "shown": true,
-            "pct": 31.343283582089555
+            "n": 0,
+            "shown": false,
+            "pct": 0
           },
           "1": {
-            "n": 13,
-            "shown": true,
-            "pct": 19.402985074626866
+            "n": 0,
+            "shown": false,
+            "pct": 0
           },
           "2+": {
-            "n": 33,
-            "shown": true,
-            "pct": 49.25373134328358
+            "n": 0,
+            "shown": false,
+            "pct": 0
           }
         }
       },
       {
         "tier": "T2",
-        "n": 48,
+        "n": 50,
         "by_mechanism_bucket": {
           "0": {
-            "n": 13,
-            "shown": true,
-            "pct": 27.083333333333332
+            "n": 0,
+            "shown": false,
+            "pct": 0
           },
           "1": {
-            "n": 12,
-            "shown": true,
-            "pct": 25
+            "n": 0,
+            "shown": false,
+            "pct": 0
           },
           "2+": {
-            "n": 23,
-            "shown": true,
-            "pct": 47.91666666666667
+            "n": 0,
+            "shown": false,
+            "pct": 0
           }
         }
       },
       {
         "tier": "T3",
-        "n": 98,
+        "n": 99,
         "by_mechanism_bucket": {
           "0": {
-            "n": 38,
-            "shown": true,
-            "pct": 38.775510204081634
+            "n": 0,
+            "shown": false,
+            "pct": 0
           },
           "1": {
-            "n": 19,
-            "shown": true,
-            "pct": 19.387755102040817
+            "n": 0,
+            "shown": false,
+            "pct": 0
           },
           "2+": {
-            "n": 41,
-            "shown": true,
-            "pct": 41.83673469387755
+            "n": 0,
+            "shown": false,
+            "pct": 0
           }
         }
       },
       {
         "tier": "T4",
-        "n": 27,
+        "n": 26,
         "by_mechanism_bucket": {
           "0": {
-            "n": 10,
-            "shown": true,
-            "pct": 37.03703703703704
+            "n": 0,
+            "shown": false,
+            "pct": 0
           },
           "1": {
-            "n": 1,
+            "n": 0,
             "shown": false,
-            "pct": 3.7037037037037033
+            "pct": 0
           },
           "2+": {
-            "n": 16,
-            "shown": true,
-            "pct": 59.25925925925925
+            "n": 0,
+            "shown": false,
+            "pct": 0
           }
         }
       }

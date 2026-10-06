@@ -70,6 +70,9 @@ const PATHS = {
   historicalNpsResponses: '/data/processed/historical_nps_responses.json',
   historicalNpsClients: '/data/processed/historical_nps_clients.json',
   historicalNpsFieldCoverage: '/data/processed/historical_nps_field_coverage.json',
+  historicalNpsEnriched: '/data/processed/historical_nps_enriched.json',
+  historicalNpsEnrichedQuality: '/data/quality/historical_nps_enriched_quality.json',
+  cohortPaymentDateAudit: '/data/quality/cohort_payment_date_audit.json',
 };
 
 function logStoreError(message, detail) {
@@ -167,6 +170,9 @@ export async function loadAnalyticsData() {
     historicalNpsResponsesDoc,
     historicalNpsClientsDoc,
     historicalNpsFieldCoverageDoc,
+    historicalNpsEnrichedDoc,
+    historicalNpsEnrichedQualityDoc,
+    cohortPaymentDateAuditDoc,
   ] = await Promise.all([
     fetchJson(PATHS.cycles),
     fetchJson(PATHS.responses),
@@ -204,6 +210,9 @@ export async function loadAnalyticsData() {
     fetchJsonOptional(PATHS.historicalNpsResponses),
     fetchJsonOptional(PATHS.historicalNpsClients),
     fetchJsonOptional(PATHS.historicalNpsFieldCoverage),
+    fetchJsonOptional(PATHS.historicalNpsEnriched),
+    fetchJsonOptional(PATHS.historicalNpsEnrichedQuality),
+    fetchJsonOptional(PATHS.cohortPaymentDateAudit),
   ]);
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -254,6 +263,9 @@ export async function loadAnalyticsData() {
     historicalNpsResponsesDoc: historicalNpsResponsesDoc ?? null,
     historicalNpsClientsDoc: historicalNpsClientsDoc ?? null,
     historicalNpsFieldCoverageDoc: historicalNpsFieldCoverageDoc ?? null,
+    historicalNpsEnrichedDoc: historicalNpsEnrichedDoc ?? null,
+    historicalNpsEnrichedQualityDoc: historicalNpsEnrichedQualityDoc ?? null,
+    cohortPaymentDateAuditDoc: cohortPaymentDateAuditDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -532,6 +544,18 @@ export function getHistoricalNpsClients() {
 
 export function getHistoricalNpsFieldCoverage() {
   return state?.historicalNpsFieldCoverageDoc ?? null;
+}
+
+export function getHistoricalNpsEnriched() {
+  return state?.historicalNpsEnrichedDoc ?? null;
+}
+
+export function getHistoricalNpsEnrichedQuality() {
+  return state?.historicalNpsEnrichedQualityDoc ?? null;
+}
+
+export function getCohortPaymentDateAudit() {
+  return state?.cohortPaymentDateAuditDoc ?? null;
 }
 
 export function patchLocalActionTracking(entry) {

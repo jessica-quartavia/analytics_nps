@@ -2,38 +2,63 @@ import {
   getHistoricalNpsSummary,
   getHistoricalNpsResponses,
   getHistoricalNpsClients,
-  getHistoricalNpsFieldCoverage,
+  getHistoricalNpsEnriched,
+  getHistoricalNpsEnrichedQuality,
+  getCohortPaymentDateAudit,
   getCustomerNpsCohorts,
-  getCustomerNpsHistory,
+  getSnapshot,
 } from '../data/analytics-store.js';
-import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
-import { formatNps, formatPct, formatDate } from '../utils/format.js';
+import { escapeHtml } from '../utils/escape-html.js';
+import { formatNps, formatPct } from '../utils/format.js';
 import { cycleSortKey } from '../utils/cycle-sort.mjs';
 import {
   defaultHistoricoFilters,
   filterResponses,
-  buildMovementCounts,
-  scoreTrendBuckets,
-  secondaryScoresByCycle,
-  commentStatsByCycle,
+  computeFilteredCycleSummary,
   clientRecurrenceMap,
   epOptionsFromResponses,
   safraOptionsFromResponses,
   cycleOptions,
   npsFromScores,
 } from '../data/historico-nps-view.mjs';
-import { openCohortClientDrawer, closeCohortClientDrawer } from '../ui/cohort-client-drawer.mjs';
 import {
-  openHistoricoResponseDrawer,
-  closeHistoricoResponseDrawer,
-} from '../ui/historico-response-drawer.mjs';
+  filterEnrichedRows,
+  filterResponsesViaEnriched,
+  median,
+  aggregateNpsBucket,
+  mechanismBreakdown,
+  epTransferBucket,
+  financialQuartileBuckets,
+  buildSafraEntradaSeries,
+  buildSafraCicloMatrix,
+  buildClientExplorerRows,
+  groupEnrichedByClient,
+  snapshotDisplayDate,
+  officialMedicoesMatch,
+  financialBucketLabel,
+} from '../data/historico-nps-enriched-view.mjs';
+import {
+  renderHistoricoHeader,
+  renderHistoricoFilters,
+  historicoKpiCard,
+  renderTenureBars,
+  renderBucketTable,
+  renderMechanismSection,
+  renderCollapsibleSection,
+  renderOfficialTable,
+  renderQualityFooter,
+  renderClientExplorerTable,
+  renderSafraMatrix,
+} from './historico-nps-render.mjs';
+import { openHistoricoClientDrawer, closeHistoricoClientDrawer } from '../ui/historico-client-drawer.mjs';
+import { closeHistoricoResponseDrawer } from '../ui/historico-response-drawer.mjs';
+import { stickyFiltersEnabled } from '../utils/sticky-filters.js';
 
 let pageFilters = defaultHistoricoFilters();
 let chartInstances = [];
-let respPage = 1;
 let clientPage = 1;
-let moveFrom = '2026-Q2';
-let moveTo = '2026-Q3';
+let matrixMetric = 'nps';
+let volMode = 'responses';
 const PAGE_SIZE = 25;
 
 function destroyCharts() {
@@ -41,377 +66,94 @@ function destroyCharts() {
   chartInstances = [];
 }
 
-function badgeCategory(cat) {
-  const c = (cat ?? '').toLowerCase();
-  let cls = 'badge--neutral-soft';
-  if (c.includes('promot')) cls = 'badge--promoter';
-  else if (c.includes('detrat')) cls = 'badge--detractor';
-  else if (c.includes('neutr')) cls = 'badge--passive';
-  return `<span class="badge ${cls}">${escapeHtml(cat ?? '—')}</span>`;
+function filtersAffectRecorte(f) {
+  return Object.entries(f).some(([k, v]) => v && k !== 'search');
 }
 
-function formatCount(n) {
-  if (n == null || n === '—') return '—';
-  return Number(n).toLocaleString('pt-BR');
-}
+function renderKpis(summary, meta, enrichedFiltered, recMap, lastOff, prevOff, currentCycle) {
+  const delta =
+    lastOff?.nps_oficial != null && prevOff?.nps_oficial != null
+      ? Math.round((lastOff.nps_oficial - prevOff.nps_oficial) * 10) / 10
+      : null;
+  const cycleResponses = currentCycle
+    ? enrichedFiltered.filter((r) => r.nps_cycle === currentCycle).length
+    : enrichedFiltered.length;
+  const recorrentes = [...recMap.values()].filter((n) => n >= 2).length;
+  const tenureMed = median(enrichedFiltered.map((r) => r.months_since_entry).filter((n) => n != null));
+  const meetMed = median(enrichedFiltered.map((r) => r.meetings_before_response));
+  const mechKnown = enrichedFiltered.filter((r) => r.mechanism_temporal_status !== 'date_unavailable');
+  const mechPct = mechKnown.length
+    ? Math.round((1000 * mechKnown.filter((r) => r.has_implemented_mechanism_at_response).length) / mechKnown.length) / 10
+    : null;
 
-function historicoKpiCard(label, valueHtml, metaHtml = '', extraClass = '', opts = {}) {
-  const metaBlock = metaHtml
-    ? `<span class="historico-kpi-card__meta">${opts.rawMeta ? metaHtml : escapeHtml(metaHtml)}</span>`
-    : '';
-  return `<article class="historico-kpi-card ${extraClass}">
-    <span class="historico-kpi-card__label">${escapeHtml(label)}</span>
-    <span class="historico-kpi-card__value">${valueHtml}</span>
-    ${metaBlock}
-  </article>`;
-}
-
-function renderKpis(meta, summary, filtered, clientsAgg) {
-  const cycles = summary?.cycles ?? [];
-  const official = cycles.filter((c) => c.is_official);
-  const lastOff = official[official.length - 1];
-  const prevOff = official[official.length - 2];
-  const scores = filtered.map((r) => r.nota_nps).filter((s) => s != null);
-  const npsFiltrado = npsFromScores(scores);
-  const rec = meta?.recurrence ?? {};
-  const recorrentes = (rec.twice ?? 0) + (rec.three_plus ?? 0);
-  const sorted = [...cycles].sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo));
-  const cicloRange =
-    sorted.length >= 2
-      ? `${sorted[0].ciclo} → ${sorted[sorted.length - 1].ciclo}`
-      : (sorted[0]?.ciclo ?? '—');
-
-  let delta = null;
-  if (lastOff?.nps_oficial != null && prevOff?.nps_oficial != null) {
-    delta = Math.round((lastOff.nps_oficial - prevOff.nps_oficial) * 10) / 10;
-  }
-  const trendMeta =
-    delta != null
-      ? `<span class="historico-kpi-card__trend ${delta >= 0 ? 'historico-kpi-card__trend--up' : 'historico-kpi-card__trend--down'}">${delta >= 0 ? '↑' : '↓'} vs ciclo anterior</span>`
-      : '—';
-
-  const cards = [
-    historicoKpiCard(
-      'NPS oficial',
-      lastOff?.nps_oficial != null ? formatNps(lastOff.nps_oficial) : '—',
-      escapeHtml(lastOff?.ciclo ?? '—'),
-    ),
-    historicoKpiCard(
-      'NPS anterior',
-      prevOff?.nps_oficial != null ? formatNps(prevOff.nps_oficial) : '—',
-      escapeHtml(prevOff?.ciclo ?? '—'),
-    ),
-    historicoKpiCard(
-      'Variação oficial',
-      delta != null ? formatNps(delta) : '—',
-      trendMeta,
-      'historico-kpi-card--variation',
-      { rawMeta: true },
-    ),
-    historicoKpiCard(
-      'NPS do recorte filtrado',
-      npsFiltrado != null ? formatNps(npsFiltrado) : '—',
-      `n = ${formatCount(scores.length)}`,
-    ),
-    historicoKpiCard(
-      'Respostas analisadas',
-      formatCount(meta?.after_dedupe),
-      `${formatCount(meta?.historico_input ?? 0)} históricas + ${formatCount(meta?.current_input ?? 0)} atuais · após dedupe`,
-    ),
-    historicoKpiCard('Clientes únicos', formatCount(meta?.unique_clients)),
-    historicoKpiCard(
-      'Clientes recorrentes',
-      formatCount(recorrentes),
-      '2+ medições',
-    ),
-    historicoKpiCard('Medições', formatCount(cycles.length), cicloRange),
-    historicoKpiCard('Responderam uma vez', formatCount(rec.once)),
-    historicoKpiCard(
-      'Clientes no recorte',
-      formatCount(clientsAgg.length),
-      'após filtros',
-    ),
-  ];
-
-  return `<div class="historico-kpi-grid">${cards.join('')}</div>`;
-}
-
-function renderFilters(allResponses, summary, formVersions) {
-  const ciclos = cycleOptions(summary);
-  const eps = epOptionsFromResponses(allResponses);
-  const safras = safraOptionsFromResponses(allResponses);
-  const versoes = (formVersions ?? []).map((v) => v.versao);
-  const opt = (val, cur, label) =>
-    `<option value="${escapeAttr(val)}" ${cur === val ? 'selected' : ''}>${escapeHtml(label ?? (val || 'Todos'))}</option>`;
-  return `<div class="card filters-panel historico-filters-card" data-hist-filters>
-    <div class="historico-filters-grid">
-      <div class="filter-field"><label for="hf-ciclo">Ciclo</label><select id="hf-ciclo" class="select-input" data-f="ciclo">${opt('', pageFilters.ciclo, 'Todos')}${ciclos.map((c) => opt(c, pageFilters.ciclo, c)).join('')}</select></div>
-      <div class="filter-field"><label for="hf-ep">EP</label><select id="hf-ep" class="select-input" data-f="ep">${opt('', pageFilters.ep, 'Todos')}${eps.map((e) => opt(e, pageFilters.ep, e)).join('')}</select></div>
-      <div class="filter-field"><label for="hf-safra">Safra</label><select id="hf-safra" class="select-input" data-f="safra">${opt('', pageFilters.safra, 'Todos')}${safras.map((s) => opt(s, pageFilters.safra, s)).join('')}</select></div>
-      <div class="filter-field"><label for="hf-cat">Categoria</label><select id="hf-cat" class="select-input" data-f="categoria">
-        ${opt('', pageFilters.categoria, 'Todas')}
-        ${['Promotor', 'Neutro', 'Detrator'].map((c) => opt(c, pageFilters.categoria, c)).join('')}
-      </select></div>
-      <div class="filter-field"><label for="hf-ver">Versão formulário</label><select id="hf-ver" class="select-input" data-f="versao">${opt('', pageFilters.versao, 'Todas')}${versoes.map((v) => opt(v, pageFilters.versao, v)).join('')}</select></div>
-      <div class="filter-field"><label for="hf-rec">Recorrência</label><select id="hf-rec" class="select-input" data-f="recorrencia">
-        ${opt('', pageFilters.recorrencia, 'Todos')}
-        ${opt('1', pageFilters.recorrencia, '1 resposta')}
-        ${opt('2', pageFilters.recorrencia, '2 respostas')}
-        ${opt('3+', pageFilters.recorrencia, '3+ respostas')}
-      </select></div>
-      <div class="filter-field historico-filters-grid__search"><label for="hf-search">Busca cliente</label><input id="hf-search" type="search" class="text-input" data-f="search" value="${escapeAttr(pageFilters.search)}" placeholder="Buscar cliente…" autocomplete="off" /></div>
-    </div>
-    <div class="filters-panel__actions">
-      <button type="button" class="btn btn--ghost btn--sm" data-hist-clear-filters>Limpar filtros</button>
-    </div>
+  return `<div class="historico-kpi-grid">
+    ${historicoKpiCard('NPS oficial atual', lastOff?.nps_oficial != null ? formatNps(lastOff.nps_oficial) : '—', lastOff?.ciclo ?? '—')}
+    ${historicoKpiCard('Variação', delta != null ? formatNps(delta) : '—', 'vs medição anterior', 'historico-kpi-card--variation')}
+    ${historicoKpiCard('Respostas do ciclo', String(cycleResponses), currentCycle ? `ciclo ${currentCycle}` : 'recorte PIT')}
+    ${historicoKpiCard('Clientes únicos históricos', String(meta?.unique_clients ?? '—'), 'consolidado dedupe')}
+    ${historicoKpiCard('Clientes recorrentes', String(recorrentes), '2+ respostas')}
+    ${historicoKpiCard('Mediana tempo de relacionamento', tenureMed != null ? `${Math.round(tenureMed * 10) / 10} meses` : '—', `n=${enrichedFiltered.length} respostas PIT`)}
+    ${historicoKpiCard('Mediana reuniões (PIT)', meetMed != null ? String(Math.round(meetMed * 10) / 10) : '—', 'antes da resposta')}
+    ${historicoKpiCard('% c/ mecanismo na resposta', mechPct != null ? formatPct(mechPct) : '—', 'somente data temporal conhecida')}
   </div>`;
 }
 
-function renderSummaryTable(cycles) {
-  const rows = (cycles ?? [])
-    .slice()
-    .sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo))
-    .map(
-      (c) => `<tr>
-      <td>${escapeHtml(c.ciclo)}</td>
-      <td>${escapeHtml(c.periodo ?? '—')}</td>
-      <td class="num">${c.respostas ?? c.respostas_derivadas ?? '—'}${c.is_official ? ' <span class="note-muted" title="Oficial">●</span>' : ''}</td>
-      <td class="num">${c.clientes_unicos ?? '—'}</td>
-      <td class="num">${c.promotores ?? '—'}</td>
-      <td class="num">${c.neutros ?? '—'}</td>
-      <td class="num">${c.detratores ?? '—'}</td>
-      <td class="num">${c.pct_promotores != null ? formatPct(c.pct_promotores) : '—'}</td>
-      <td class="num">${c.pct_neutros != null ? formatPct(c.pct_neutros) : '—'}</td>
-      <td class="num">${c.pct_detratores != null ? formatPct(c.pct_detratores) : '—'}</td>
-      <td class="num">${c.nps_oficial != null ? formatNps(c.nps_oficial) : '—'}</td>
-      <td class="num">${c.nota_media ?? '—'}</td>
-      <td class="num">${c.variacao_vs_anterior != null ? formatNps(c.variacao_vs_anterior) : '—'}</td>
-    </tr>`,
-    )
-    .join('');
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Histórico de medições</h2><p class="safras-section-card__lead">NPS oficial (●) de nps_historico.medicoes quando disponível; demais métricas derivadas do recorte.</p></div>
-    <div class="table-shell"><table class="data-table safras-data-table"><thead><tr>
-      <th>Ciclo</th><th>Período</th><th class="num">Respostas</th><th class="num">Clientes únicos</th>
-      <th class="num">Prom.</th><th class="num">Neut.</th><th class="num">Det.</th>
-      <th class="num">% Prom.</th><th class="num">% Neut.</th><th class="num">% Det.</th>
-      <th class="num">NPS oficial</th><th class="num">Nota média</th><th class="num">Δ anterior</th>
-    </tr></thead><tbody>${rows}</tbody></table></div></div>`;
-}
-
-function renderMovement(cycles, filtered) {
-  const opts = (cycles ?? []).map((c) => `<option value="${escapeAttr(c.ciclo)}" ${c.ciclo === moveFrom ? 'selected' : ''}>${escapeHtml(c.ciclo)}</option>`).join('');
-  const optsTo = (cycles ?? []).map((c) => `<option value="${escapeAttr(c.ciclo)}" ${c.ciclo === moveTo ? 'selected' : ''}>${escapeHtml(c.ciclo)}</option>`).join('');
-  const counts = buildMovementCounts(filtered, moveFrom, moveTo);
-  const items = Object.entries(counts)
-    .filter(([, n]) => n > 0)
-    .map(([k, n]) => `<li>${escapeHtml(k)}: <strong>${n}</strong></li>`)
-    .join('');
-  return `<div class="safras-section-card historico-section"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Movimento entre ciclos</h2></div>
-    <div class="historico-filters-grid historico-filters-grid--inline">
-      <div class="filter-field"><label>Ciclo origem</label><select class="select-input" data-move-from>${opts}</select></div>
-      <div class="filter-field"><label>Ciclo destino</label><select class="select-input" data-move-to>${optsTo}</select></div>
-    </div>
-    <ul class="timeline-list">${items || '<li>Sem pares no recorte</li>'}</ul></div>`;
-}
-
-function renderRecurrenceChartOnly() {
-  return `<div class="historico-chart-card">
-    <div class="historico-chart-card__head">
-      <h3 class="historico-chart-card__title">Recorrência de participação</h3>
-      <p class="historico-chart-card__lead">Quantidade de medições respondidas por cliente.</p>
-    </div>
-    <div class="historico-chart-frame historico-chart-frame--compact"><canvas id="chart-hist-recurrence" aria-label="Recorrência"></canvas></div>
-  </div>`;
-}
-
-function renderRecurrenceKpis(meta) {
-  const r = meta?.recurrence ?? {};
-  return `<div class="historico-recurrence-kpis">
-    ${historicoKpiCard('1 vez', formatCount(r.once))}
-    ${historicoKpiCard('2 vezes', formatCount(r.twice))}
-    ${historicoKpiCard('3+', formatCount(r.three_plus))}
-  </div>`;
-}
-
-function renderScoreTrend(clientsFiltered) {
-  const t = scoreTrendBuckets(clientsFiltered);
-  const pct = (n) => (t.n ? Math.round((1000 * n) / t.n) / 10 : 0);
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Evolução de nota (clientes 2+ medições)</h2></div>
-    <p>Melhoraram: <strong>${t.up}</strong> (${pct(t.up)}%) · Estáveis: <strong>${t.flat}</strong> · Pioraram: <strong>${t.down}</strong> · Δ médio: <strong>${t.avgDelta ?? '—'}</strong></p></div>`;
-}
-
-function renderSecondaryTable(rows) {
-  const body = rows
-    .map(
-      (r) => `<tr><td>${escapeHtml(r.ciclo)}</td><td class="num">${r.n}</td>
-      <td class="num">${r.Estrategista ?? '—'} <span class="note-muted">(n=${r.Estrategista_n ?? 0})</span></td>
-      <td class="num">${r.Backoffice ?? '—'} <span class="note-muted">(n=${r.Backoffice_n ?? 0})</span></td>
-      <td class="num">${r.QV360 ?? '—'} <span class="note-muted">(n=${r.QV360_n ?? 0})</span></td>
-      <td class="num">${r.Arquitetura ?? '—'} <span class="note-muted">(n=${r.Arquitetura_n ?? 0})</span></td></tr>`,
-    )
-    .join('');
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Indicadores complementares</h2><p class="safras-section-card__lead">Médias apenas onde o campo existe; ausência não é zero.</p></div>
-    <div class="table-shell"><table class="data-table safras-data-table"><thead><tr><th>Ciclo</th><th class="num">N</th><th class="num">Estrategista</th><th class="num">Backoffice</th><th class="num">QV360</th><th class="num">Arquitetura</th></tr></thead><tbody>${body || '<tr><td colspan="6">Sem dados</td></tr>'}</tbody></table></div></div>`;
-}
-
-function renderFieldMatrix(coverage) {
-  if (!coverage?.fields?.length) return '';
-  const cycles = coverage.cycles ?? [];
-  const head = cycles.map((c) => `<th class="num">${escapeHtml(c)}</th>`).join('');
-  const body = coverage.fields
-    .map((field) => {
-      const cells = cycles
-        .map((c) => {
-          const n = coverage.matrix?.[field]?.[c];
-          return `<td class="num">${n ? '✓' : '—'}</td>`;
-        })
-        .join('');
-      return `<tr><td>${escapeHtml(field)}</td>${cells}</tr>`;
-    })
-    .join('');
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Disponibilidade de campos</h2></div>
-    <div class="table-shell table-shell--scroll"><table class="data-table safras-data-table"><thead><tr><th>Campo</th>${head}</tr></thead><tbody>${body}</tbody></table></div></div>`;
-}
-
-function renderFormVersions(versions) {
-  const rows = (versions ?? [])
-    .map(
-      (v) => `<tr><td>${escapeHtml(v.versao)}</td><td>${escapeHtml((v.ciclos ?? []).join(', '))}</td><td class="num">${v.n}</td></tr>`,
-    )
-    .join('');
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Versões de formulário</h2></div>
-    <div class="table-shell"><table class="data-table safras-data-table"><thead><tr><th>Versão</th><th>Ciclos</th><th class="num">Respostas</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
-}
-
-function renderVocSection(stats) {
-  const rows = stats
-    .map(
-      (s) => `<tr><td>${escapeHtml(s.ciclo)}</td><td class="num">${s.respostas}</td><td class="num">${s.com_comentario}</td><td class="num">${formatPct(s.pct)}</td></tr>`,
-    )
-    .join('');
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Voz do Cliente ao longo do tempo</h2><p class="safras-section-card__lead">Volume de comentários; classificação Gemini quando disponível em VoC.</p></div>
-    <div class="table-shell"><table class="data-table safras-data-table"><thead><tr><th>Ciclo</th><th class="num">Respostas</th><th class="num">Com comentário</th><th class="num">%</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
-}
-
-function renderQuality(meta) {
-  return `<div class="safras-section-card safras-quality-card"><details open><summary>Qualidade & cobertura</summary>
-    <div class="safras-quality-grid">
-      <div class="safras-quality-item"><strong>Histórico (input)</strong><br>${meta?.historico_input ?? '—'}</div>
-      <div class="safras-quality-item"><strong>Atual (input)</strong><br>${meta?.current_input ?? '—'}</div>
-      <div class="safras-quality-item"><strong>Após dedupe</strong><br>${meta?.after_dedupe ?? '—'}</div>
-      <div class="safras-quality-item"><strong>Clientes únicos</strong><br>${meta?.unique_clients ?? '—'}</div>
-      <div class="safras-quality-item"><strong>Histórico sem client_id</strong><br>${meta?.unmatched_historico ?? '—'}</div>
-    </div></details></div>`;
-}
-
-function paginate(rows, page) {
-  const total = rows.length;
-  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-  const p = Math.min(page, pages);
-  const start = (p - 1) * PAGE_SIZE;
-  return { slice: rows.slice(start, start + PAGE_SIZE), total, pages, page: p, start };
-}
-
-function renderResponseExplorer(filtered) {
-  const { slice, total, pages, page, start } = paginate(filtered, respPage);
-  const tbody = slice
-    .map((r) => {
-      const hf = r.historico_fields ?? {};
-      const name = r.client_name ?? '—';
-      return `<tr class="safras-explorer-table__row--clickable" data-response-key="${escapeAttr(r.response_key)}" tabindex="0" role="button" aria-label="Ver resposta de ${escapeAttr(name)}">
-        <td>${escapeHtml(name)}</td><td>${escapeHtml(r.ciclo ?? '—')}</td><td class="col-date">${r.data_resposta ? formatDate(r.data_resposta) : '—'}</td>
-        <td>${escapeHtml(r.safra_trimestre ?? '—')}</td><td>${escapeHtml(r.ep ?? '—')}</td>
-        <td class="num">${r.nota_nps ?? '—'}</td><td>${badgeCategory(r.categoria)}</td>
-        <td class="num">${hf.nota_estrategista ?? '—'}</td><td>${escapeHtml(String(hf.retencao_5_anos ?? '—'))}</td>
-        <td>${escapeHtml(String(hf.plano_patrimonial ?? '—'))}</td><td>${escapeHtml(r.versao_formulario ?? '—')}</td>
-        <td>${r.has_comment ? 'Sim' : '—'}</td></tr>`;
-    })
-    .join('');
-  const footer = `<div class="safras-table-footer"><span>${total ? start + 1 : 0}–${Math.min(start + PAGE_SIZE, total)} de ${total}</span>
-    <div class="safras-pager"><button type="button" class="btn btn--secondary btn--sm" data-resp-prev ${page <= 1 ? 'disabled' : ''}>←</button><span>${page}/${pages}</span><button type="button" class="btn btn--secondary btn--sm" data-resp-next ${page >= pages ? 'disabled' : ''}>→</button></div></div>`;
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Explorer de respostas</h2></div>
-    <div class="table-shell table-shell--scroll"><table class="data-table safras-data-table safras-explorer-table"><thead><tr>
-      <th>Cliente</th><th>Ciclo</th><th>Data</th><th>Safra</th><th>EP</th><th class="num">Nota</th><th>Categoria</th>
-      <th class="num">Estrategista</th><th>Retenção</th><th>Plano</th><th>Versão</th><th>Comentário?</th>
-    </tr></thead><tbody>${tbody || '<tr><td colspan="12">Nenhuma resposta</td></tr>'}</tbody></table></div>${footer}</div>`;
-}
-
-function renderClientExplorer(clientsFiltered) {
-  const { slice, total, pages, page, start } = paginate(clientsFiltered, clientPage);
-  const tbody = slice
-    .map((c) => {
-      const name = c.client_name ?? '—';
-      return `<tr class="safras-explorer-table__row--clickable" data-client-id="${escapeAttr(c.client_id)}" tabindex="0" role="button" aria-label="Ver timeline de ${escapeAttr(name)}">
-        <td>${escapeHtml(name)}</td><td class="num">${c.qtd_medicoes}</td>
-        <td>${escapeHtml(c.primeira_resposta ?? '—')}</td><td>${escapeHtml(c.ultima_resposta ?? '—')}</td>
-        <td class="num">${c.primeira_nota ?? '—'}</td><td class="num">${c.ultima_nota ?? '—'}</td>
-        <td class="num">${c.delta ?? '—'}</td><td class="num">${c.media ?? '—'}</td>
-        <td class="num">${c.melhor_nota ?? '—'}</td><td class="num">${c.pior_nota ?? '—'}</td>
-        <td>${badgeCategory(c.ultima_categoria)}</td></tr>`;
-    })
-    .join('');
-  const footer = `<div class="safras-table-footer"><span>${total ? start + 1 : 0}–${Math.min(start + PAGE_SIZE, total)} de ${total}</span>
-    <div class="safras-pager"><button type="button" class="btn btn--secondary btn--sm" data-cli-prev ${page <= 1 ? 'disabled' : ''}>←</button><span>${page}/${pages}</span><button type="button" class="btn btn--secondary btn--sm" data-cli-next ${page >= pages ? 'disabled' : ''}>→</button></div></div>`;
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Clientes (agregado)</h2></div>
-    <div class="table-shell table-shell--scroll"><table class="data-table safras-data-table safras-explorer-table"><thead><tr>
-      <th>Cliente</th><th class="num">Medições</th><th>1ª</th><th>Última</th><th class="num">1ª nota</th><th class="num">Últ. nota</th>
-      <th class="num">Δ</th><th class="num">Média</th><th class="num">Melhor</th><th class="num">Pior</th><th>Últ. cat.</th>
-    </tr></thead><tbody>${tbody}</tbody></table></div>${footer}</div>`;
-}
-
-function chartBaseOptions(extra = {}) {
-  return {
-    maintainAspectRatio: false,
-    responsive: true,
-    plugins: {
-      legend: {
-        labels: { boxWidth: 12, padding: 14, font: { size: 11 } },
-      },
-    },
-    ...extra,
-  };
-}
-
-function bindCharts(summary, meta) {
+function bindCharts(summary, filteredSummary, meta, safraEntrada, safraNps, tenureData, meetingsData, recencyData) {
   const cycles = (summary?.cycles ?? []).slice().sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo));
   const labels = cycles.map((c) => c.ciclo);
-  const npsLine = cycles.map((c) => (c.nps_oficial != null ? c.nps_oficial : c.nps_derivado));
-  const vol = cycles.map((c) => c.respostas ?? c.respostas_derivadas);
+  const official = cycles.map((c) => c.nps_oficial);
+  const filMap = new Map(filteredSummary.map((x) => [x.ciclo, x.nps_filtrado]));
+  const filteredLine = cycles.map((c) => filMap.get(c.ciclo) ?? null);
+  const showFiltered = filtersAffectRecorte(pageFilters);
 
   const elNps = document.getElementById('chart-hist-nps');
   if (elNps && typeof Chart !== 'undefined') {
+    const datasets = [
+      { label: 'NPS oficial', data: official, borderColor: '#c44a2a', tension: 0.25, fill: false },
+    ];
+    if (showFiltered) {
+      datasets.push({
+        label: 'NPS do recorte filtrado',
+        data: filteredLine,
+        borderColor: '#64748b',
+        borderDash: [6, 4],
+        tension: 0.25,
+        fill: false,
+      });
+    }
     chartInstances.push(
       new Chart(elNps, {
         type: 'line',
-        data: {
-          labels,
-          datasets: [{ label: 'NPS oficial / derivado', data: npsLine, borderColor: '#c44a2a', tension: 0.25, fill: false }],
-        },
-        options: chartBaseOptions({
+        data: { labels, datasets },
+        options: {
+          maintainAspectRatio: false,
           plugins: {
-            legend: { display: true, labels: { boxWidth: 12, font: { size: 11 } } },
             tooltip: {
               callbacks: {
                 afterLabel(ctx) {
                   const c = cycles[ctx.dataIndex];
                   if (!c) return '';
-                  return `Respostas: ${c.respostas ?? c.respostas_derivadas}\nProm: ${c.promotores} Neut: ${c.neutros} Det: ${c.detratores}\nNota média: ${c.nota_media ?? '—'}`;
+                  return `N: ${c.respostas ?? c.respostas_derivadas}\nProm: ${c.promotores} Neut: ${c.neutros} Det: ${c.detratores}`;
                 },
               },
             },
           },
-        }),
+        },
       }),
     );
   }
 
   const elVol = document.getElementById('chart-hist-volume');
   if (elVol && typeof Chart !== 'undefined') {
+    const vol = cycles.map((c) => (volMode === 'clients' ? c.clientes_unicos : c.respostas ?? c.respostas_derivadas));
     chartInstances.push(
       new Chart(elVol, {
         type: 'bar',
-        data: { labels, datasets: [{ label: 'Respostas', data: vol, backgroundColor: '#e85d3a' }] },
-        options: chartBaseOptions({ plugins: { legend: { display: false } } }),
+        data: {
+          labels,
+          datasets: [{ label: volMode === 'clients' ? 'Clientes únicos' : 'Respostas', data: vol, backgroundColor: '#e85d3a' }],
+        },
+        options: { maintainAspectRatio: false, plugins: { legend: { display: false } } },
       }),
     );
   }
@@ -429,9 +171,99 @@ function bindCharts(summary, meta) {
             { label: 'Detratores', data: cycles.map((c) => c.pct_detratores), backgroundColor: '#c44a2a', stack: 's' },
           ],
         },
-        options: chartBaseOptions({
+        options: {
+          maintainAspectRatio: false,
           scales: { x: { stacked: true }, y: { stacked: true, max: 100, ticks: { callback: (v) => `${v}%` } } },
-        }),
+        },
+      }),
+    );
+  }
+
+  const elSafraEnt = document.getElementById('chart-safra-entrada');
+  if (elSafraEnt && typeof Chart !== 'undefined' && safraEntrada.length) {
+    chartInstances.push(
+      new Chart(elSafraEnt, {
+        type: 'bar',
+        data: {
+          labels: safraEntrada.map((s) => s.safra),
+          datasets: [
+            { type: 'bar', label: 'Clientes', data: safraEntrada.map((s) => s.clientes), backgroundColor: '#e85d3a', yAxisID: 'y' },
+            {
+              type: 'line',
+              label: '% respondeu NPS',
+              data: safraEntrada.map((s) => s.pct_answered),
+              borderColor: '#c44a2a',
+              yAxisID: 'y1',
+            },
+          ],
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: { position: 'left', title: { display: true, text: 'Clientes' } },
+            y1: { position: 'right', min: 0, max: 100, grid: { drawOnChartArea: false } },
+          },
+        },
+      }),
+    );
+  }
+
+  const elSafraNps = document.getElementById('chart-safra-nps');
+  if (elSafraNps && typeof Chart !== 'undefined') {
+    const keys = Object.keys(safraNps).sort((a, b) => cycleSortKey(a) - cycleSortKey(b));
+    chartInstances.push(
+      new Chart(elSafraNps, {
+        type: 'bar',
+        data: {
+          labels: keys,
+          datasets: [{ label: 'NPS por safra', data: keys.map((k) => safraNps[k].nps), backgroundColor: '#c44a2a' }],
+        },
+        options: { maintainAspectRatio: false, plugins: { legend: { display: false } } },
+      }),
+    );
+  }
+
+  const elTenure = document.getElementById('chart-tenure');
+  if (elTenure && typeof Chart !== 'undefined') {
+    const order = ['0–3 meses', '3–6 meses', '6–12 meses', '12–18 meses', '18–24 meses', '24+ meses'];
+    chartInstances.push(
+      new Chart(elTenure, {
+        type: 'bar',
+        data: {
+          labels: order.filter((k) => tenureData[k]),
+          datasets: [{ label: 'NPS', data: order.filter((k) => tenureData[k]).map((k) => tenureData[k].nps), backgroundColor: '#64748b' }],
+        },
+        options: { maintainAspectRatio: false, plugins: { legend: { display: false } } },
+      }),
+    );
+  }
+
+  const elMeet = document.getElementById('chart-meetings');
+  if (elMeet && typeof Chart !== 'undefined') {
+    const order = ['0', '1–2', '3–5', '6+'];
+    chartInstances.push(
+      new Chart(elMeet, {
+        type: 'bar',
+        data: {
+          labels: order.filter((k) => meetingsData[k]),
+          datasets: [{ data: order.filter((k) => meetingsData[k]).map((k) => meetingsData[k].nps), backgroundColor: '#e85d3a' }],
+        },
+        options: { maintainAspectRatio: false, plugins: { legend: { display: false } } },
+      }),
+    );
+  }
+
+  const elRec = document.getElementById('chart-recency');
+  if (elRec && typeof Chart !== 'undefined') {
+    const order = ['Nunca teve reunião', '0–30 dias', '31–60 dias', '61–90 dias', '90+ dias'];
+    chartInstances.push(
+      new Chart(elRec, {
+        type: 'bar',
+        data: {
+          labels: order.filter((k) => recencyData[k]),
+          datasets: [{ data: order.filter((k) => recencyData[k]).map((k) => recencyData[k].nps), backgroundColor: '#94a3b8' }],
+        },
+        options: { maintainAspectRatio: false, plugins: { legend: { display: false } } },
       }),
     );
   }
@@ -446,58 +278,37 @@ function bindCharts(summary, meta) {
           labels: ['1×', '2×', '3+'],
           datasets: [{ data: [r.once, r.twice, r.three_plus], backgroundColor: ['#e2e8f0', '#e85d3a', '#c44a2a'] }],
         },
-        options: chartBaseOptions({ plugins: { legend: { position: 'bottom' } } }),
+        options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } },
       }),
     );
   }
 }
 
-function filterClients(clients, filteredResponses) {
-  const ids = new Set(filteredResponses.map((r) => r.client_id).filter(Boolean));
-  return clients.filter((c) => ids.has(c.client_id));
-}
-
 function bindPage(root, ctx) {
-  const { allResponses, summary, clientsAll, cohorts, historyAll } = ctx;
-
+  const { enrichedAll, cohorts } = ctx;
   root.querySelector('[data-hist-filters]')?.addEventListener('change', (ev) => {
     const t = ev.target;
     if (!t.dataset.f) return;
     pageFilters = { ...pageFilters, [t.dataset.f]: t.value };
-    respPage = 1;
     clientPage = 1;
     renderHistoricoNps(root);
   });
   root.querySelector('[data-f="search"]')?.addEventListener('input', (ev) => {
     pageFilters = { ...pageFilters, search: ev.target.value };
-    respPage = 1;
     clientPage = 1;
     renderHistoricoNps(root);
   });
   root.querySelector('[data-hist-clear-filters]')?.addEventListener('click', () => {
     pageFilters = defaultHistoricoFilters();
-    respPage = 1;
     clientPage = 1;
     renderHistoricoNps(root);
   });
-
-  root.querySelector('[data-move-from]')?.addEventListener('change', (ev) => {
-    moveFrom = ev.target.value;
+  root.querySelector('[data-vol-toggle]')?.addEventListener('click', (ev) => {
+    volMode = ev.target.dataset.volToggle;
     renderHistoricoNps(root);
   });
-  root.querySelector('[data-move-to]')?.addEventListener('change', (ev) => {
-    moveTo = ev.target.value;
-    renderHistoricoNps(root);
-  });
-
-  root.querySelector('[data-resp-prev]')?.addEventListener('click', () => {
-    if (respPage > 1) {
-      respPage -= 1;
-      renderHistoricoNps(root);
-    }
-  });
-  root.querySelector('[data-resp-next]')?.addEventListener('click', () => {
-    respPage += 1;
+  root.querySelector('[data-matrix-metric]')?.addEventListener('change', (ev) => {
+    matrixMetric = ev.target.value;
     renderHistoricoNps(root);
   });
   root.querySelector('[data-cli-prev]')?.addEventListener('click', () => {
@@ -510,40 +321,20 @@ function bindPage(root, ctx) {
     clientPage += 1;
     renderHistoricoNps(root);
   });
-
-  const openResponse = (key) => openHistoricoResponseDrawer(key, allResponses);
-  const openClient = (id) => openCohortClientDrawer(id, cohorts, historyAll, { appUnavailable: true });
-
-  root.querySelectorAll('[data-response-key]').forEach((row) => {
-    row.addEventListener('click', (ev) => {
-      if (ev.target.closest('button, a, input')) return;
-      openResponse(row.dataset.responseKey);
-    });
+  root.querySelectorAll('.historico-client-row').forEach((row) => {
+    const open = () => openHistoricoClientDrawer(row.dataset.clientId, enrichedAll, cohorts);
+    row.addEventListener('click', open);
     row.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter' || ev.key === ' ') {
         ev.preventDefault();
-        openResponse(row.dataset.responseKey);
-      }
-    });
-  });
-
-  root.querySelectorAll('[data-client-id]').forEach((row) => {
-    if (row.dataset.responseKey) return;
-    row.addEventListener('click', (ev) => {
-      if (ev.target.closest('button, a, input')) return;
-      openClient(row.dataset.clientId);
-    });
-    row.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        ev.preventDefault();
-        openClient(row.dataset.clientId);
+        open();
       }
     });
   });
 }
 
 export function closeHistoricoDrawer() {
-  closeCohortClientDrawer();
+  closeHistoricoClientDrawer();
   closeHistoricoResponseDrawer();
 }
 
@@ -552,10 +343,19 @@ export function renderHistoricoNps(root) {
   const summaryDoc = getHistoricalNpsSummary();
   const responsesDoc = getHistoricalNpsResponses();
   const clientsDoc = getHistoricalNpsClients();
-  const coverage = getHistoricalNpsFieldCoverage();
+  const enrichedDoc = getHistoricalNpsEnriched();
+  const quality = getHistoricalNpsEnrichedQuality();
+  const paymentAudit = getCohortPaymentDateAudit();
+  const snapshot = getSnapshot();
 
   if (!summaryDoc?.meta) {
-    root.innerHTML = `<p class="placeholder-note">Execute <code>npm run generate:historico-nps</code> e recarregue.</p>`;
+    root.innerHTML = `<p class="placeholder-note">Execute <code>npm run generate:phase1</code> e recarregue.</p>`;
+    return;
+  }
+
+  const enrichedAll = enrichedDoc?.responses ?? [];
+  if (!enrichedAll.length) {
+    root.innerHTML = `<p class="placeholder-note">Dataset <code>historical_nps_enriched.json</code> ausente. Rode <code>npm run generate:phase1</code>.</p>`;
     return;
   }
 
@@ -564,63 +364,175 @@ export function renderHistoricoNps(root) {
   const allResponses = responsesDoc?.responses ?? [];
   const clientsAll = clientsDoc?.clients ?? [];
   const recMap = clientRecurrenceMap(clientsAll);
-  const filtered = filterResponses(allResponses, pageFilters, recMap);
-  const clientsFiltered = filterClients(clientsAll, filtered);
-  const cohorts = getCustomerNpsCohorts();
-  const historyAll = getCustomerNpsHistory();
+  const cohorts = (getCustomerNpsCohorts() ?? []).filter(
+    (c) => !c.invalid_future_entry_date && !String(c.safra_trimestre ?? '').startsWith('2027'),
+  );
 
-  if (!moveFrom && summary.cycles?.length) moveFrom = summary.cycles[0].ciclo;
-  if (!moveTo && summary.cycles?.length) moveTo = summary.cycles[summary.cycles.length - 1].ciclo;
+  const enrichedFiltered = filterEnrichedRows(enrichedAll, pageFilters, recMap);
+  const filtered = filterResponsesViaEnriched(allResponses, enrichedFiltered);
+  const analyses = enrichedDoc?.analyses ?? {};
+  const usePrecomputed = !filtersAffectRecorte(pageFilters);
+
+  const tenureData = usePrecomputed
+    ? analyses.nps_por_tenure ?? {}
+    : aggregateNpsBucket(enrichedFiltered, (r) => r.tenure_bucket_at_response);
+  const meetingsData = usePrecomputed
+    ? analyses.nps_por_reunioes ?? {}
+    : aggregateNpsBucket(enrichedFiltered, (r) => r.meetings_count_bucket);
+  const recencyData = usePrecomputed
+    ? analyses.nps_por_recencia_reuniao ?? {}
+    : aggregateNpsBucket(enrichedFiltered, (r) => r.meeting_recency_bucket);
+  const safraNps = usePrecomputed
+    ? analyses.nps_por_safra ?? {}
+    : aggregateNpsBucket(enrichedFiltered, (r) => r.safra_trimestre);
+  const mech = mechanismBreakdown(enrichedFiltered);
+
+  const official = (summary.cycles ?? []).filter((c) => c.is_official);
+  const lastOff = official[official.length - 1];
+  const prevOff = official[official.length - 2];
+  const currentCycle = lastOff?.ciclo;
+  const updatedLabel = snapshotDisplayDate(snapshot, enrichedDoc?.meta ?? summaryDoc.meta);
+  const filteredSummary = computeFilteredCycleSummary(filtered, summary.cycles);
+
+  const ciclos = [...new Set(enrichedAll.map((r) => r.nps_cycle).filter(Boolean))].sort(
+    (a, b) => cycleSortKey(a) - cycleSortKey(b),
+  );
+  const safras = [
+    ...new Set(cohorts.map((c) => c.safra_trimestre).filter(Boolean)),
+  ].sort((a, b) => cycleSortKey(a) - cycleSortKey(b));
+  const programas = [...new Set(enrichedAll.map((r) => r.programa).filter(Boolean))].sort();
+  const eps = [...new Set(enrichedAll.map((r) => r.ep_current_or_resolved).filter(Boolean))].sort();
+
+  const safraEntrada = buildSafraEntradaSeries(cohorts);
+  const matrix = buildSafraCicloMatrix(enrichedFiltered, cohorts, matrixMetric);
+  const explorerRows = buildClientExplorerRows(groupEnrichedByClient(enrichedFiltered), cohorts, recMap);
+
+  const epBuckets = usePrecomputed
+    ? analyses.nps_ep_transfers ?? {}
+    : aggregateNpsBucket(enrichedFiltered, (r) => epTransferBucket(r.ep_transfers_before_response));
+  const quartiles = financialQuartileBuckets(enrichedFiltered);
+  const finBuckets = quartiles
+    ? aggregateNpsBucket(enrichedFiltered, (r) =>
+        financialBucketLabel(r.amount_paid_before_response, quartiles),
+      )
+    : {};
+
+  const stickyOn = stickyFiltersEnabled();
+  const officialOk = officialMedicoesMatch(summary.cycles);
 
   root.innerHTML = `<div class="historico-nps-page">
-    <header class="page-header historico-page-header">
-      <div>
-        <h1>Histórico NPS</h1>
-        <p class="page-lead">Evolução oficial e exploratória — histórico + atual.</p>
-        <p class="historico-page-header__note">Dedupe: quando a mesma resposta existe no histórico e no atual, a versão atual prevalece.</p>
-      </div>
-    </header>
-    ${renderFilters(allResponses, summary, summaryDoc.form_versions)}
-    ${renderKpis(meta, summary, filtered, clientsFiltered)}
-    <div class="historico-charts-grid">
-      <div class="historico-chart-card">
-        <div class="historico-chart-card__head">
-          <h3 class="historico-chart-card__title">Evolução do NPS</h3>
-          <p class="historico-chart-card__lead">NPS oficial por medição (derivado quando não houver oficial).</p>
+    ${renderHistoricoHeader(updatedLabel)}
+    ${!officialOk ? '<p class="historico-alert">⚠ Valores oficiais divergem do baseline esperado — revisar datasets.</p>' : ''}
+    ${renderHistoricoFilters(pageFilters, { ciclos, eps, safras, programas, stickyClass: stickyOn ? 'historico-filters-card--sticky' : '' })}
+    ${renderKpis(summary, meta, enrichedFiltered, recMap, lastOff, prevOff, currentCycle)}
+
+    <section class="historico-block"><h2 class="historico-block__title">Evolução oficial</h2>
+      <div class="historico-charts-grid">
+        <div class="historico-chart-card historico-chart-card--hero">
+          <div class="historico-chart-card__head"><h3 class="historico-chart-card__title">NPS por medição</h3>
+            <p class="historico-chart-card__lead"><strong>NPS oficial</strong> vs <strong>NPS do recorte filtrado</strong> (quando há filtros).</p></div>
+          <div class="historico-chart-frame historico-chart-frame--hero"><canvas id="chart-hist-nps"></canvas></div>
         </div>
-        <div class="historico-chart-frame"><canvas id="chart-hist-nps" aria-label="Evolução NPS"></canvas></div>
-      </div>
-      <div class="historico-chart-card">
-        <div class="historico-chart-card__head">
-          <h3 class="historico-chart-card__title">Respostas por medição</h3>
-          <p class="historico-chart-card__lead">Volume de respostas por ciclo.</p>
+        <div class="historico-chart-card">
+          <div class="historico-chart-card__head"><h3 class="historico-chart-card__title">Respostas por medição</h3>
+            <div class="historico-toggle"><button type="button" class="btn btn--ghost btn--sm ${volMode === 'responses' ? 'is-active' : ''}" data-vol-toggle="responses">Respostas</button>
+            <button type="button" class="btn btn--ghost btn--sm ${volMode === 'clients' ? 'is-active' : ''}" data-vol-toggle="clients">Clientes</button></div></div>
+          <div class="historico-chart-frame"><canvas id="chart-hist-volume"></canvas></div>
         </div>
-        <div class="historico-chart-frame"><canvas id="chart-hist-volume" aria-label="Respostas por medição"></canvas></div>
-      </div>
-      <div class="historico-chart-card historico-chart-card--wide">
-        <div class="historico-chart-card__head">
-          <h3 class="historico-chart-card__title">Distribuição P / N / D</h3>
-          <p class="historico-chart-card__lead">Participação percentual por ciclo.</p>
+        <div class="historico-chart-card historico-chart-card--wide">
+          <div class="historico-chart-card__head"><h3 class="historico-chart-card__title">Distribuição P / N / D</h3></div>
+          <div class="historico-chart-frame"><canvas id="chart-hist-pnd"></canvas></div>
         </div>
-        <div class="historico-chart-frame"><canvas id="chart-hist-pnd" aria-label="Distribuição promotores neutros detratores"></canvas></div>
       </div>
-      ${renderRecurrenceChartOnly()}
-    </div>
-    <div class="historico-sections">
-    ${renderRecurrenceKpis(meta)}
-    ${renderSummaryTable(summary.cycles)}
-    ${renderMovement(summary.cycles, filtered)}
-    ${renderScoreTrend(clientsFiltered)}
-    ${renderSecondaryTable(secondaryScoresByCycle(filtered))}
-    ${renderVocSection(commentStatsByCycle(filtered))}
-    ${renderFormVersions(summaryDoc.form_versions)}
-    ${renderFieldMatrix(coverage)}
-    ${renderResponseExplorer(filtered)}
-    ${renderClientExplorer(clientsFiltered)}
-    ${renderQuality(meta)}
-    </div>
+    </section>
+
+    <section class="historico-block"><h2 class="historico-block__title">Cobertura e participação</h2>
+      <div class="historico-charts-grid">
+        <div class="historico-chart-card">${renderRecurrenceInner(meta)}</div>
+        <div class="historico-chart-card historico-chart-card--compact-kpi">${renderParticipation(meta)}</div>
+      </div>
+    </section>
+
+    <section class="historico-block"><h2 class="historico-block__title">Safras (pagamento)</h2>
+      <div class="historico-charts-grid">
+        <div class="historico-chart-card"><div class="historico-chart-card__head"><h3 class="historico-chart-card__title">Entrada de clientes × cobertura NPS</h3></div>
+          <div class="historico-chart-frame"><canvas id="chart-safra-entrada"></canvas></div></div>
+        <div class="historico-chart-card"><div class="historico-chart-card__head"><h3 class="historico-chart-card__title">NPS dos clientes por safra de entrada</h3>
+          <p class="historico-chart-card__lead">Não confundir com NPS do ciclo de medição.</p></div>
+          <div class="historico-chart-frame"><canvas id="chart-safra-nps"></canvas></div></div>
+      </div>
+      <div class="safras-section-card"><div class="safras-section-card__head"><h3 class="safras-section-card__title">Matriz safra × ciclo</h3>
+        <select class="select-input historico-matrix-metric" data-matrix-metric aria-label="Métrica da matriz">
+          <option value="nps" ${matrixMetric === 'nps' ? 'selected' : ''}>NPS</option>
+          <option value="avg" ${matrixMetric === 'avg' ? 'selected' : ''}>Nota média</option>
+          <option value="responses" ${matrixMetric === 'responses' ? 'selected' : ''}>Respostas</option>
+          <option value="pct" ${matrixMetric === 'pct' ? 'selected' : ''}>% da safra</option>
+        </select></div>
+        ${renderSafraMatrix(matrix, matrixMetric)}
+      </div>
+    </section>
+
+    <section class="historico-block"><h2 class="historico-block__title">Tempo de relacionamento</h2>
+      <div class="historico-charts-grid">
+        <div class="historico-chart-card"><div class="historico-chart-frame"><canvas id="chart-tenure"></canvas></div></div>
+        <div class="historico-chart-card">${renderTenureBars(tenureData)}</div>
+      </div>
+    </section>
+
+    <section class="historico-block"><h2 class="historico-block__title">Relacionamento / reuniões</h2>
+      <div class="historico-charts-grid">
+        ${renderBucketTable('NPS por quantidade de reuniões (PIT)', 'meetings_before_response até a data da resposta.', meetingsData, ['0', '1–2', '3–5', '6+'])}
+        <div class="historico-chart-card"><div class="historico-chart-frame"><canvas id="chart-meetings"></canvas></div></div>
+      </div>
+      <div class="historico-charts-grid">
+        ${renderBucketTable('NPS por recência da última reunião', 'Faixas com N baixo não devem guiar decisão.', recencyData, ['Nunca teve reunião', '0–30 dias', '31–60 dias', '61–90 dias', '90+ dias'])}
+        <div class="historico-chart-card"><div class="historico-chart-frame"><canvas id="chart-recency"></canvas></div></div>
+      </div>
+    </section>
+
+    <section class="historico-block">${renderMechanismSection(mech, analyses.nps_mecanismo)}</section>
+
+    <section class="historico-block">
+      ${renderCollapsibleSection(
+        'Transferência de EP',
+        'Somente trocas anteriores à resposta',
+        renderBucketTable('', '', epBuckets, ['0 trocas', '1 troca', '2+ trocas'].filter((k) => epBuckets[k])),
+      )}
+      ${renderCollapsibleSection(
+        'Contexto financeiro (PIT)',
+        'Associação exploratória — não causal',
+        finBuckets && Object.keys(finBuckets).length
+          ? renderBucketTable('Valor acumulado pago até a resposta', 'Faixas por quartis do recorte.', finBuckets, Object.keys(finBuckets))
+          : '<p class="note-muted">Dados insuficientes para faixas.</p>',
+      )}
+      ${renderCollapsibleSection(
+        'Churn / reembolso',
+        'Amostra pequena',
+        `<p class="historico-insufficient">Amostra insuficiente para conclusão gerencial (${quality?.responses_with_churn_date ?? 0} respostas com data de churn confiável).</p>`,
+      )}
+    </section>
+
+    <section class="historico-block">${renderOfficialTable(summary.cycles)}</section>
+    <section class="historico-block">${renderClientExplorerTable(explorerRows, clientPage, PAGE_SIZE)}</section>
+    ${renderQualityFooter(paymentAudit, quality, updatedLabel)}
   </div>`;
 
-  bindCharts(summary, meta);
-  bindPage(root, { allResponses, summary, clientsAll, cohorts, historyAll });
+  bindCharts(summary, filteredSummary, meta, safraEntrada, safraNps, tenureData, meetingsData, recencyData);
+  bindPage(root, { enrichedAll, cohorts });
+}
+
+function renderRecurrenceInner(meta) {
+  return `<div class="historico-chart-card__head"><h3 class="historico-chart-card__title">Frequência de respostas</h3></div>
+    <div class="historico-chart-frame historico-chart-frame--compact"><canvas id="chart-hist-recurrence"></canvas></div>`;
+}
+
+function renderParticipation(meta) {
+  const r = meta?.recurrence ?? {};
+  const total = (r.once ?? 0) + (r.twice ?? 0) + (r.three_plus ?? 0);
+  const pct = (n) => (total ? formatPct((100 * n) / total) : '—');
+  return `<ul class="historico-participation-list">
+    <li>1 vez: <strong>${r.once ?? 0}</strong> (${pct(r.once)})</li>
+    <li>2 vezes: <strong>${r.twice ?? 0}</strong> (${pct(r.twice)})</li>
+    <li>3+: <strong>${r.three_plus ?? 0}</strong> (${pct(r.three_plus)})</li>
+  </ul>`;
 }

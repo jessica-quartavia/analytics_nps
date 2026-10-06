@@ -1,0 +1,13 @@
+{
+  "total_clients": 3447,
+  "with_payment_date": 3217,
+  "without_payment_date": 230,
+  "future_payment_dates": 0,
+  "conflict_client_vs_fact": 0,
+  "recovered_from_payments": 0,
+  "invalid_dates": 0,
+  "future_cases": [],
+  "conflict_details": [],
+  "dedupe_rule": "1) MIN(base0.pagamentos_programa.data_pagamento) WHERE conta_como_programa=true AND base_qv_id matched; 2) fallback base0.clientes.data_pagamento_entrada",
+  "as_of": "2026-10-06"
+}

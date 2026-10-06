@@ -20,8 +20,7 @@ function runNodeScript(scriptRel) {
   }
 }
 
-runNodeScript('scripts/generate-safras-cobertura.mjs');
-runNodeScript('scripts/generate-historico-nps.mjs');
+runNodeScript('scripts/generate-phase1-analytics.mjs');
 runNodeScript('scripts/sync-deploy-public.mjs');
 
 const result = buildStatic();

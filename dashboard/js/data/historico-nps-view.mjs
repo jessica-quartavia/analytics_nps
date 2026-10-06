@@ -10,6 +10,11 @@ export function defaultHistoricoFilters() {
     versao: '',
     recorrencia: '',
     search: '',
+    tenure: '',
+    meetings: '',
+    meetingRecency: '',
+    mechanism: '',
+    epTransfers: '',
   };
 }
 
