@@ -62,6 +62,14 @@ const PATHS = {
   npsFinancialProfileQa: '/data/quality/nps_financial_profile_qa.json',
   npsManagementInsights: '/data/processed/nps_management_insights.json',
   npsManagementInsightsQa: '/data/quality/nps_management_insights_qa.json',
+  customerNpsCohorts: '/data/processed/customer_nps_cohorts.json',
+  customerNpsHistory: '/data/processed/customer_nps_history.json',
+  safrasCoberturaSummaries: '/data/processed/safras_cobertura_summaries.json',
+  safrasCoberturaAudit: '/data/quality/safras_cobertura_audit.json',
+  historicalNpsSummary: '/data/processed/historical_nps_summary.json',
+  historicalNpsResponses: '/data/processed/historical_nps_responses.json',
+  historicalNpsClients: '/data/processed/historical_nps_clients.json',
+  historicalNpsFieldCoverage: '/data/processed/historical_nps_field_coverage.json',
 };
 
 function logStoreError(message, detail) {
@@ -151,6 +159,14 @@ export async function loadAnalyticsData() {
     npsChangeDriversDoc,
     npsFinancialProfileDoc,
     npsManagementInsightsDoc,
+    customerNpsCohortsDoc,
+    customerNpsHistoryDoc,
+    safrasCoberturaSummariesDoc,
+    safrasCoberturaAuditDoc,
+    historicalNpsSummaryDoc,
+    historicalNpsResponsesDoc,
+    historicalNpsClientsDoc,
+    historicalNpsFieldCoverageDoc,
   ] = await Promise.all([
     fetchJson(PATHS.cycles),
     fetchJson(PATHS.responses),
@@ -180,6 +196,14 @@ export async function loadAnalyticsData() {
     fetchJsonOptional(PATHS.npsChangeDrivers),
     fetchJsonOptional(PATHS.npsFinancialProfile),
     fetchJsonOptional(PATHS.npsManagementInsights),
+    fetchJsonOptional(PATHS.customerNpsCohorts),
+    fetchJsonOptional(PATHS.customerNpsHistory),
+    fetchJsonOptional(PATHS.safrasCoberturaSummaries),
+    fetchJsonOptional(PATHS.safrasCoberturaAudit),
+    fetchJsonOptional(PATHS.historicalNpsSummary),
+    fetchJsonOptional(PATHS.historicalNpsResponses),
+    fetchJsonOptional(PATHS.historicalNpsClients),
+    fetchJsonOptional(PATHS.historicalNpsFieldCoverage),
   ]);
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -222,6 +246,14 @@ export async function loadAnalyticsData() {
     npsChangeDriversDoc: npsChangeDriversDoc ?? null,
     npsFinancialProfileDoc: npsFinancialProfileDoc ?? null,
     npsManagementInsightsDoc: npsManagementInsightsDoc ?? null,
+    customerNpsCohortsDoc: Array.isArray(customerNpsCohortsDoc) ? customerNpsCohortsDoc : [],
+    customerNpsHistoryDoc: Array.isArray(customerNpsHistoryDoc) ? customerNpsHistoryDoc : [],
+    safrasCoberturaSummariesDoc: safrasCoberturaSummariesDoc ?? null,
+    safrasCoberturaAuditDoc: safrasCoberturaAuditDoc ?? null,
+    historicalNpsSummaryDoc: historicalNpsSummaryDoc ?? null,
+    historicalNpsResponsesDoc: historicalNpsResponsesDoc ?? null,
+    historicalNpsClientsDoc: historicalNpsClientsDoc ?? null,
+    historicalNpsFieldCoverageDoc: historicalNpsFieldCoverageDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -464,6 +496,42 @@ export function hasNpsManagementInsights() {
 
 export function getNpsManagementInsights() {
   return state?.npsManagementInsightsDoc ?? null;
+}
+
+export function hasSafrasCobertura() {
+  return (state?.customerNpsCohortsDoc?.length ?? 0) > 0;
+}
+
+export function getCustomerNpsCohorts() {
+  return state?.customerNpsCohortsDoc ?? [];
+}
+
+export function getCustomerNpsHistory() {
+  return state?.customerNpsHistoryDoc ?? [];
+}
+
+export function getSafrasCoberturaSummaries() {
+  return state?.safrasCoberturaSummariesDoc ?? null;
+}
+
+export function getSafrasCoberturaAudit() {
+  return state?.safrasCoberturaAuditDoc ?? null;
+}
+
+export function getHistoricalNpsSummary() {
+  return state?.historicalNpsSummaryDoc ?? null;
+}
+
+export function getHistoricalNpsResponses() {
+  return state?.historicalNpsResponsesDoc ?? null;
+}
+
+export function getHistoricalNpsClients() {
+  return state?.historicalNpsClientsDoc ?? null;
+}
+
+export function getHistoricalNpsFieldCoverage() {
+  return state?.historicalNpsFieldCoverageDoc ?? null;
 }
 
 export function patchLocalActionTracking(entry) {

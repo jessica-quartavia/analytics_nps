@@ -1,7 +1,17 @@
-# DEPRECATED — DO NOT APPLY
+# Migrations — Business Data only
 
-Project policy: **all Supabase databases are read-only**.
+Aplicar **somente** no Supabase `project_ref=rckpuebaiswrxzmywllv`.
 
-Analytics persistence is **file-based** under `data/`.
+**Não** aplicar no BASE QV (`lacinxsvjdwalkchxyeo`).
 
-These SQL files are kept for historical reference only.
+VoC automation:
+
+- `20261001170000_create_analytics_nps_voc_automation.sql`
+
+Com MCP Supabase apontando para Business Data:
+
+```
+apply_migration name=create_analytics_nps_voc_automation
+```
+
+Ou `npm run voc:migration:print` e SQL no Dashboard.

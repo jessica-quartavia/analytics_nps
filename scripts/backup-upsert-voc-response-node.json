@@ -1,0 +1,23 @@
+{
+  "parameters": {
+    "operation": "executeQuery",
+    "query": "INSERT INTO analytics_nps.voc_responses (source_response_id, client_id, analytical_cycle_code, score, nps_category, question_key, question_text, answer_text, answer_hash, submitted_at, source_updated_at, updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,NOW()) ON CONFLICT (source_response_id, question_key) DO UPDATE SET client_id=EXCLUDED.client_id, analytical_cycle_code=EXCLUDED.analytical_cycle_code, score=EXCLUDED.score, nps_category=EXCLUDED.nps_category, question_text=EXCLUDED.question_text, answer_text=EXCLUDED.answer_text, answer_hash=EXCLUDED.answer_hash, submitted_at=EXCLUDED.submitted_at, source_updated_at=EXCLUDED.source_updated_at, updated_at=NOW() RETURNING id AS voc_response_id;",
+    "options": {
+      "queryReplacement": "={{ $json.unit.source_response_id }},={{ $json.unit.client_id }},={{ $json.unit.analytical_cycle_code }},={{ $json.unit.score }},={{ $json.unit.nps_category }},={{ $json.unit.question_key }},={{ $json.unit.question_text }},={{ $json.unit.answer_text }},={{ $json.unit.answer_hash }},={{ $json.unit.submitted_at }},={{ $json.unit.source_updated_at }}"
+    }
+  },
+  "id": "4712f9db-3763-494d-8a4d-c0b917d01f9e",
+  "name": "Upsert voc_response",
+  "type": "n8n-nodes-base.postgres",
+  "typeVersion": 2.7,
+  "position": [
+    2448,
+    0
+  ],
+  "credentials": {
+    "postgres": {
+      "id": "4PpLgshHFesCFajW",
+      "name": "Postgres - Business Data"
+    }
+  }
+}

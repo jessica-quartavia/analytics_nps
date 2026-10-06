@@ -1,0 +1,19 @@
+0,1,2,3,4,5,6,7,8,9,10,11,12
+NPS PHARUS · todas as medições (fonte única: aba Consolidado),,,,,,,,,,,,
+Atualizado em 02/10/2026 · 1067 respostas de 769 clientes · fórmulas calculadas sobre a aba Consolidado,,,,,,,,,,,,
+,,,,,,,,,,,,
+Código,Medição,Janela de datas,Respostas,Promotores (9–10),Neutros (7–8),Detratores (0–6),% Promotores,% Detratores,NPS,Nota média,Painel oficial: respostas,Painel oficial: NPS
+2025-Q2,Jun/2025,01/04/2025 a 31/08/2025,108,44,43,21,0.407407407407407,0.194444444444444,21.3,7.81481481481482,,
+2025-Q3,Out/2025,01/09/2025 a 30/11/2025,50,23,16,11,0.46,0.22,24,8,,
+2025-Q4,Dez/2025,01/12/2025 a 28/02/2026,171,95,41,35,0.555555555555556,0.204678362573099,35.1,7.86549707602339,,
+2026-Q1,Mar/2026,01/03/2026 a 31/05/2026,194,121,41,32,0.623711340206186,0.164948453608247,45.9,8,,
+2026-Q2,Jun–Jul/2026 (T2),01/06/2026 a 14/09/2026,262,205,32,25,0.782442748091603,0.0954198473282443,68.7,8.88549618320611,126,70.6
+2026-Q3,Set/2026 (T3),15/09/2026 em diante (aberta),282,201,48,33,0.712765957446809,0.117021276595745,59.6,8.63829787234043,282,59.6
+,Total,,1067,689,221,157,,,,,,
+,,,,,,,,,,,,
+Como ler,,,,,,,,,,,,
+NPS = % promotores (9–10) − % detratores (0–6). Uma resposta por cliente em cada medição (a mais recente).,,,,,,,,,,,,
+Só clientes PHARUS: abas DAVOS e PATRIMONIUM e clientes não-PHARUS ficam fora (aba Excluídos).,,,,,,,,,,,,
+"Painel oficial (azul, valores informados pelo painel/cadastro oficial): o T2 oficial conta só os registrados no cadastro T2 (126). A medição Jun–Jul/2026 do consolidado tem 262 porque inclui as respostas de 16 a 30/06, que o cadastro T2 não registra.",,,,,,,,,,,,
+"Set/2026 = T3, ainda aberto: parcial até 01/10/2026 18h. Consolidado e painel oficial batem (282 respostas, NPS 59,6).",,,,,,,,,,,,
+Out/2025: 50 respostas PHARUS confirmadas; outras 50 de clientes sem registro em nenhuma base foram excluídas por não ser possível confirmar o programa.,,,,,,,,,,,,

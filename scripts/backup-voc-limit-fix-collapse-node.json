@@ -1,0 +1,20 @@
+{
+  "note": "Fix limit=1 -> 2 responses: Fetch NPS Cycles (2 rows) triggered Read BASE twice. Collapse node emits 1 item.",
+  "node": {
+    "name": "Once Before Read BASE",
+    "type": "n8n-nodes-base.code",
+    "typeVersion": 2,
+    "position": [888, 0],
+    "parameters": {
+      "mode": "runOnceForAllItems",
+      "jsCode": "// Fetch NPS Cycles returns one item per cycle; Read BASE must run once so LIMIT applies to distinct NPS responses.\nreturn [{ json: { trigger_read_base: true } }];"
+    }
+  },
+  "connectionChanges": {
+    "remove": ["Fetch NPS Cycles -> Read BASE QV NPS"],
+    "add": [
+      "Fetch NPS Cycles -> Once Before Read BASE",
+      "Once Before Read BASE -> Read BASE QV NPS"
+    ]
+  }
+}

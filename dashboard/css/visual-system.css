@@ -1135,3 +1135,428 @@ input[type='submit']:not(.btn) {
     padding-right: 1.25rem;
   }
 }
+
+/* ——— Safras & Cobertura ——— */
+.safras-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 100%;
+}
+
+.safras-page .page-header {
+  margin-bottom: 0;
+}
+
+.safras-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.card.filters-panel {
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+}
+
+.filters-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: end;
+}
+
+.filters-panel__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.filters-panel .select-input,
+.filters-panel .text-input {
+  width: 100%;
+}
+
+.safras-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.safras-kpi {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.25rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.safras-kpi__label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.safras-kpi__value {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.safras-kpi__sub {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+}
+
+.safras-kpi__sub--muted {
+  font-size: 0.8125rem;
+  font-style: normal;
+}
+
+.safras-section-card {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem 1.5rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.safras-section-card__head {
+  margin-bottom: var(--space-4);
+}
+
+.safras-section-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+}
+
+.safras-section-card__lead {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  max-width: 42rem;
+}
+
+.safras-section-card__head-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.safras-help-tip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  max-width: 28rem;
+}
+
+.table-shell {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.table-shell .data-table.safras-data-table {
+  min-width: 720px;
+  margin: 0;
+  border: none;
+}
+
+.table-shell .data-table.safras-matrix-table {
+  min-width: 640px;
+}
+
+.table-shell .data-table.safras-explorer-table {
+  min-width: 1100px;
+}
+
+.data-table.safras-data-table thead th {
+  background: var(--surface-soft);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table.safras-data-table tbody td,
+.data-table.safras-data-table tbody th {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  font-size: 0.875rem;
+}
+
+.data-table.safras-data-table tbody tr.safras-explorer-table__row--clickable {
+  cursor: pointer;
+}
+
+.data-table.safras-data-table tbody tr.safras-explorer-table__row--clickable:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+.data-table.safras-data-table tbody tr:hover {
+  background: color-mix(in srgb, var(--primary-soft) 35%, var(--surface));
+}
+
+.data-table.safras-data-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table.safras-matrix-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface-soft);
+}
+
+.data-table.safras-matrix-table .safras-matrix-sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface);
+  box-shadow: 2px 0 4px color-mix(in srgb, var(--border) 40%, transparent);
+}
+
+.data-table.safras-matrix-table thead .safras-matrix-sticky-col {
+  z-index: 3;
+  background: var(--surface-soft);
+}
+
+.data-table.safras-matrix-table td.safras-matrix-cell {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.safras-heat--low {
+  background: color-mix(in srgb, var(--color-detractor) 12%, var(--surface));
+}
+
+.safras-heat--mid-low {
+  background: color-mix(in srgb, var(--color-passive) 14%, var(--surface));
+}
+
+.safras-heat--mid {
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface));
+}
+
+.safras-heat--high {
+  background: color-mix(in srgb, var(--color-promoter) 14%, var(--surface));
+}
+
+.safras-pct-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.safras-pct-bar__track {
+  flex: 0 0 4rem;
+  height: 4px;
+  background: var(--surface-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.safras-pct-bar__fill {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.badge--success-soft {
+  background: color-mix(in srgb, var(--color-promoter) 18%, var(--surface));
+  color: var(--success);
+  border-color: transparent;
+}
+
+.badge--neutral-soft {
+  background: var(--surface-soft);
+  color: var(--text-muted);
+}
+
+.badge--coral-soft {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  border-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+.badge--promoter {
+  background: color-mix(in srgb, var(--color-promoter) 20%, var(--surface));
+  color: var(--success);
+  border-color: transparent;
+}
+
+.badge--passive {
+  background: color-mix(in srgb, var(--color-passive) 22%, var(--surface));
+  color: var(--warning);
+  border-color: transparent;
+}
+
+.badge--detractor {
+  background: color-mix(in srgb, var(--color-detractor) 18%, var(--surface));
+  color: var(--danger);
+  border-color: transparent;
+}
+
+.btn--ghost-coral {
+  background: transparent;
+  color: var(--primary-dark);
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border));
+  min-height: 32px;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn--ghost-coral:hover {
+  background: var(--primary-soft);
+  text-decoration: none;
+}
+
+.safras-explorer-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.safras-explorer-toolbar .text-input {
+  min-width: 220px;
+}
+
+.safras-table-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.safras-pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.safras-empty {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  color: var(--text-muted);
+}
+
+.safras-empty .btn {
+  margin-top: var(--space-4);
+}
+
+.safras-quality-card details {
+  border: none;
+}
+
+.safras-quality-card summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.safras-quality-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.safras-quality-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  font-size: 0.875rem;
+}
+
+.safras-quality-item {
+  padding: var(--space-3);
+  background: var(--surface-soft);
+  border-radius: var(--radius-sm);
+}
+
+.drawer.drawer--safras {
+  width: min(760px, 92vw);
+}
+
+.drawer--safras .safras-drawer-section {
+  margin-top: var(--space-5);
+}
+
+.drawer--safras .safras-drawer-section h4 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin: 0 0 var(--space-3);
+}
+
+.drawer--safras .timeline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-left: 2px solid var(--border);
+  padding-left: var(--space-4);
+}
+
+.drawer--safras .timeline-list li {
+  margin-bottom: var(--space-3);
+  font-size: 0.875rem;
+}
+
+.safras-charts-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+@media (max-width: 1280px) {
+  .filters-panel__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .safras-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .filters-panel__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .safras-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .safras-charts-row {
+    grid-template-columns: 1fr;
+  }
+}

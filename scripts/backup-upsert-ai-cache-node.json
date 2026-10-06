@@ -1,0 +1,23 @@
+{
+  "parameters": {
+    "operation": "executeQuery",
+    "query": "INSERT INTO analytics_nps.voc_ai_cache (input_hash, question_text, answer_text, candidate_themes, provider, model, prompt_version, classifier_version, result, last_used_at) VALUES ($1,$2,$3,$4::jsonb,$5,$6,$7,$8,$9::jsonb,NOW()) ON CONFLICT (input_hash) DO UPDATE SET result = EXCLUDED.result, last_used_at = NOW();",
+    "options": {
+      "queryReplacement": "={{ $('Merge voc_response_id').item.json.input_hash }},={{ $('Merge voc_response_id').item.json.question_text }},={{ $('Merge voc_response_id').item.json.answer_text }},={{ JSON.stringify($('Merge voc_response_id').item.json.candidate_themes) }},={{ $json.provider || 'gemini' }},={{ $json.model || 'gemini-3.6-flash' }},={{ $json.prompt_version || 'voc-gemini-prompt-v1' }},={{ $json.classifier_version || 'gemini_v1' }},={{ JSON.stringify({ classifications: $json.classifications || [] }) }}"
+    }
+  },
+  "id": "a74c03eb-f6e0-44bb-ba4e-ba5ff915a109",
+  "name": "Upsert AI Cache",
+  "type": "n8n-nodes-base.postgres",
+  "typeVersion": 2.7,
+  "position": [
+    4112,
+    -128
+  ],
+  "credentials": {
+    "postgres": {
+      "id": "4PpLgshHFesCFajW",
+      "name": "Postgres - Business Data"
+    }
+  }
+}

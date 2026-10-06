@@ -1,0 +1,23 @@
+{
+  "parameters": {
+    "operation": "executeQuery",
+    "query": "INSERT INTO analytics_nps.voc_classifications (voc_response_id, source_response_id, topic, valence, confidence, evidence, valence_reason, classifier_source, ai_provider, ai_model, prompt_version, classifier_version, input_hash, needs_human_review, fallback_reason, classified_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,NOW()) ON CONFLICT (input_hash, topic, classifier_version) DO UPDATE SET valence=EXCLUDED.valence, confidence=EXCLUDED.confidence, evidence=EXCLUDED.evidence, valence_reason=EXCLUDED.valence_reason, classifier_source=EXCLUDED.classifier_source, needs_human_review=EXCLUDED.needs_human_review, classified_at=NOW() RETURNING id AS classification_id, needs_human_review;",
+    "options": {
+      "queryReplacement": "={{ $json.unit.voc_response_id }},={{ $json.unit.source_response_id }},={{ $json.topic }},={{ $json.valence }},={{ $json.confidence }},={{ $json.evidence }},={{ $json.valence_reason }},={{ $json.classifier_source }},={{ $json.ai_provider }},={{ $json.ai_model }},={{ $json.classify.prompt_version || 'voc-gemini-prompt-v1' }},={{ $json.classify.classifier_version || 'gemini_v1' }},={{ $json.unit.input_hash }},={{ $json.needs_human_review }},={{ $json.classify.fallback_reason || null }}"
+    }
+  },
+  "id": "929cc29e-d8ee-42a1-b180-ffa5d5ac8424",
+  "name": "Upsert Classification",
+  "type": "n8n-nodes-base.postgres",
+  "typeVersion": 2.7,
+  "position": [
+    4832,
+    -128
+  ],
+  "credentials": {
+    "postgres": {
+      "id": "4PpLgshHFesCFajW",
+      "name": "Postgres - Business Data"
+    }
+  }
+}

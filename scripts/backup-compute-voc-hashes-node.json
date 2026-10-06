@@ -1,0 +1,23 @@
+{
+  "parameters": {
+    "operation": "executeQuery",
+    "query": "SELECT encode(digest($1::text, 'sha256'), 'hex') AS input_hash, encode(digest($2::text, 'sha256'), 'hex') AS answer_hash;",
+    "options": {
+      "queryReplacement": "={{ $('Prepare VoC Input').item.json.hash_input_json }},={{ $('Prepare VoC Input').item.json.hash_answer_json }}"
+    }
+  },
+  "id": "e74807a0-9ead-45d3-ba0e-7dfd7bc5b6f6",
+  "name": "Compute Voc Hashes",
+  "type": "n8n-nodes-base.postgres",
+  "typeVersion": 2.7,
+  "position": [
+    1856,
+    160
+  ],
+  "credentials": {
+    "postgres": {
+      "id": "4PpLgshHFesCFajW",
+      "name": "Postgres - Business Data"
+    }
+  }
+}

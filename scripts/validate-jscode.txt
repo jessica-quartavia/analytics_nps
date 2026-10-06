@@ -1,0 +1,174 @@
+const OFFICIAL = new Set(["Atendimento / relacionamento","Engenheiro Patrimonial","Clareza / comunicação","Proatividade","Resultados","Oportunidades","Plano patrimonial","Agilidade","Confiança","Tecnologia / plataforma","Expectativa","Valor percebido"]);
+const VALENCE_MAP = { positive: 'Positiva', neutral: 'Neutra', negative: 'Negativa', positiva: 'Positiva', neutra: 'Neutra', negativa: 'Negativa' };
+const unit = $('Merge Voc Hashes').item.json;
+const sd = $getWorkflowStaticData('global');
+
+function parseGeminiRaw(raw) {
+  if (!raw) return null;
+  if (typeof raw === 'object') return raw;
+  let text = String(raw).trim();
+  const fence = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fence) text = fence[1].trim();
+  try { return JSON.parse(text); } catch { return null; }
+}
+
+function geminiApiText(body) {
+  const parts = body?.candidates?.[0]?.content?.parts;
+  if (Array.isArray(parts) && parts.length) {
+    return parts.map((p) => p?.text).filter(Boolean).join('');
+  }
+  return body?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+}
+
+function extractParsed(body) {
+  const apiText = geminiApiText(body);
+  const candidates = [
+    body?.output,
+    body?.text,
+    body?.content,
+    body?.data,
+    body?.response,
+    apiText,
+    body,
+  ];
+  for (const c of candidates) {
+    const p = parseGeminiRaw(c);
+    if (p && (Array.isArray(p.topics) || Array.isArray(p.classifications))) return p;
+  }
+  return null;
+}
+
+function pushInvalidDiag(entry) {
+  if (!Array.isArray(sd.voc_invalid_diagnostics)) sd.voc_invalid_diagnostics = [];
+  if (sd.voc_invalid_diagnostics.length >= 20) return;
+  sd.voc_invalid_diagnostics.push(entry);
+}
+
+function sanitizeRawPreview(raw) {
+  return String(raw ?? '')
+    .replace(/AIza[0-9A-Za-z_-]{20,}/g, '[REDACTED_KEY]')
+    .slice(0, 800);
+}
+
+function classifyInvalid(body, parsed, rows, rawLegacy, rawTopics) {
+  const cand = body?.candidates?.[0];
+  const finishReason = cand?.finishReason ?? null;
+  const blockReason = body?.promptFeedback?.blockReason ?? null;
+  const apiText = geminiApiText(body);
+  if (blockReason) return 'SAFETY_BLOCK';
+  if (!body?.candidates?.length) return 'EMPTY_RESPONSE';
+  if (finishReason === 'MAX_TOKENS') return 'TRUNCATED';
+  if (!apiText || !String(apiText).trim()) return 'EMPTY_RESPONSE';
+  if (!parsed) return 'JSON_PARSE_ERROR';
+  const legacy = Array.isArray(parsed.classifications) ? parsed.classifications : [];
+  const topics = Array.isArray(parsed.topics) ? parsed.topics : [];
+  if (!legacy.length && !topics.length) return 'SCHEMA_ERROR';
+  if (rows.length) return 'UNKNOWN';
+  if (rawLegacy.length || rawTopics.length) return 'INVALID_TOPIC';
+  return 'SCHEMA_ERROR';
+}
+
+const geminiBody = $json;
+const parsed = extractParsed(geminiBody);
+const apiText = geminiApiText(geminiBody);
+const finishReason = geminiBody?.candidates?.[0]?.finishReason ?? null;
+
+if (!parsed) {
+  const category = classifyInvalid(geminiBody, null, [], [], []);
+  pushInvalidDiag({
+    category,
+    source_response_id: unit.source_response_id,
+    question_key: unit.question_key,
+    finishReason,
+    candidate_count: geminiBody?.candidates?.length ?? 0,
+    raw_text_preview: sanitizeRawPreview(apiText),
+    validation_error: 'invalid_json',
+    response_length: apiText ? String(apiText).length : 0,
+    has_markdown_fence: String(apiText || '').indexOf(String.fromCharCode(96, 96, 96)) >= 0,
+    timestamp: new Date().toISOString(),
+  });
+  sd.pending_unit_tally = { invalid_outputs: 1, unit_failed: true };
+  return { json: { valid: false, unit, error: 'invalid_json', invalid_category: category } };
+}
+
+const topics = Array.isArray(parsed.topics) ? parsed.topics : [];
+const legacy = Array.isArray(parsed.classifications) ? parsed.classifications : [];
+const rows = [];
+
+for (const t of topics) {
+  const theme = t.topic || t.theme;
+  if (!theme || !OFFICIAL.has(theme)) continue;
+  const vKey = String(t.valence || '').toLowerCase();
+  const valence = VALENCE_MAP[vKey] || VALENCE_MAP[String(t.valence || '')] || null;
+  if (!valence) continue;
+  let confidence = Number(t.confidence);
+  if (confidence > 1 && confidence <= 100) confidence = confidence / 100;
+  if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) continue;
+  rows.push({ theme, valence, confidence, evidence: String(t.evidence || parsed.summary || '').slice(0, 500), needs_human_review: confidence < 0.65 });
+}
+
+for (const c of legacy) {
+  const theme = c.theme;
+  if (!theme || !OFFICIAL.has(theme)) continue;
+  const valence = VALENCE_MAP[String(c.valence || '').toLowerCase()] || c.valence;
+  if (!['Positiva', 'Neutra', 'Negativa'].includes(valence)) continue;
+  let confidence = Number(c.confidence);
+  if (confidence > 1 && confidence <= 100) confidence = confidence / 100;
+  if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) continue;
+  rows.push({ theme, valence, confidence, evidence: String(c.evidence || '').slice(0, 500), needs_human_review: confidence < 0.65 || Boolean(c.needs_human_review) });
+}
+
+const seen = new Set();
+const classifications = [];
+for (const r of rows) {
+  if (seen.has(r.theme)) continue;
+  seen.add(r.theme);
+  classifications.push({ ...r, classifier_source: 'gemini', valence_reason: r.evidence });
+}
+
+if (!classifications.length && !String(unit.answer_text || '').trim()) {
+  return { json: { valid: true, unit, classify: { ok: true, classifications: [], classifier_source: 'gemini', prompt_version: unit.prompt_version, classifier_version: unit.classifier_version, provider: 'gemini', model: unit.model } } };
+}
+
+if (!classifications.length) {
+  const category = classifyInvalid(geminiBody, parsed, rows, legacy, topics);
+  pushInvalidDiag({
+    category,
+    source_response_id: unit.source_response_id,
+    question_key: unit.question_key,
+    finishReason,
+    candidate_count: geminiBody?.candidates?.length ?? 0,
+    raw_classifications_count: legacy.length,
+    raw_topics_count: topics.length,
+    raw_themes_sample: legacy.map((c) => c.theme).filter(Boolean).slice(0, 8),
+    raw_valences_sample: legacy.map((c) => c.valence).filter(Boolean).slice(0, 8),
+    validation_error: 'no_valid_topics',
+    raw_text_preview: sanitizeRawPreview(apiText),
+    response_length: apiText ? String(apiText).length : 0,
+    has_markdown_fence: String(apiText || '').indexOf(String.fromCharCode(96, 96, 96)) >= 0,
+    timestamp: new Date().toISOString(),
+  });
+  sd.pending_unit_tally = { invalid_outputs: 1, unit_failed: true };
+  return { json: { valid: false, unit, error: 'no_valid_topics', invalid_category: category } };
+}
+
+const unitLow = classifications.some(c => c.needs_human_review);
+sd.pending_unit_tally = { gemini: 1, low_confidence: unitLow };
+
+return {
+  json: {
+    valid: true,
+    unit,
+    classify: {
+      ok: true,
+      classifications,
+      classifier_source: 'gemini',
+      prompt_version: unit.prompt_version,
+      classifier_version: unit.classifier_version,
+      provider: 'gemini',
+      model: unit.model,
+      overall_valence: parsed.overall_valence,
+      summary: parsed.summary,
+    },
+  },
+};

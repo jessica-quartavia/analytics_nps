@@ -30,6 +30,8 @@ import { renderVozDoCliente, closeVocDrawer } from './pages/voz-do-cliente.js';
 import { renderDrivers, closeDriverDrawer } from './pages/drivers.js';
 import { renderPlanoDeAcao, closeActionDrawer } from './pages/plano-de-acao.js';
 import { renderJornadaPerfil } from './pages/jornada-perfil.js';
+import { renderSafrasCobertura, closeSafrasDrawer } from './pages/safras-cobertura.js';
+import { renderHistoricoNps, closeHistoricoDrawer } from './pages/historico-nps.js';
 import { beginFilterBindings, beginPageBindings } from './utils/page-bindings.js';
 import { escapeHtml, escapeAttr } from './utils/escape-html.js';
 import { formatDate, cycleStatusLabel } from './utils/format.js';
@@ -45,6 +47,11 @@ import { setThemeProfileFilters } from './filters/theme-profile-filters.mjs';
 const ROUTES = {
   executivo: { title: 'Executivo', topbar: 'Visão executiva', render: renderExecutivo },
   movimento: { title: 'Movimento', topbar: 'Movimento', render: renderMovimento },
+  'historico-nps': {
+    title: 'Histórico NPS',
+    topbar: 'Histórico NPS',
+    render: renderHistoricoNps,
+  },
   eps: { title: 'Eng. Patrimoniais', topbar: 'Engenheiros Patrimoniais', render: renderEps },
   'voz-do-cliente': {
     title: 'Voz do Cliente',
@@ -55,6 +62,11 @@ const ROUTES = {
     title: 'Jornada & Perfil',
     topbar: 'Jornada & Perfil',
     render: renderJornadaPerfil,
+  },
+  'safras-cobertura': {
+    title: 'Safras & Cobertura',
+    topbar: 'Safras & Cobertura',
+    render: renderSafrasCobertura,
   },
   drivers: { title: 'Drivers', topbar: 'Drivers do NPS', render: renderDrivers },
   'plano-de-acao': {
@@ -308,6 +320,8 @@ function renderPage() {
   document.title = `NPS · ${ROUTES[route].title}`;
   updateTopbar(route);
   closeDrawer();
+  closeSafrasDrawer();
+  closeHistoricoDrawer();
   closeEpDrawer();
   closeVocDrawer();
   closeDriverDrawer();
