@@ -50,6 +50,22 @@ function badgeCategory(cat) {
   return `<span class="badge ${cls}">${escapeHtml(cat ?? '—')}</span>`;
 }
 
+function formatCount(n) {
+  if (n == null || n === '—') return '—';
+  return Number(n).toLocaleString('pt-BR');
+}
+
+function historicoKpiCard(label, valueHtml, metaHtml = '', extraClass = '', opts = {}) {
+  const metaBlock = metaHtml
+    ? `<span class="historico-kpi-card__meta">${opts.rawMeta ? metaHtml : escapeHtml(metaHtml)}</span>`
+    : '';
+  return `<article class="historico-kpi-card ${extraClass}">
+    <span class="historico-kpi-card__label">${escapeHtml(label)}</span>
+    <span class="historico-kpi-card__value">${valueHtml}</span>
+    ${metaBlock}
+  </article>`;
+}
+
 function renderKpis(meta, summary, filtered, clientsAgg) {
   const cycles = summary?.cycles ?? [];
   const official = cycles.filter((c) => c.is_official);
@@ -58,18 +74,66 @@ function renderKpis(meta, summary, filtered, clientsAgg) {
   const scores = filtered.map((r) => r.nota_nps).filter((s) => s != null);
   const npsFiltrado = npsFromScores(scores);
   const rec = meta?.recurrence ?? {};
-  return `<div class="safras-kpi-grid">
-    <div class="safras-kpi"><span class="safras-kpi__label">NPS oficial (última medição)</span><strong class="safras-kpi__value">${lastOff?.nps_oficial != null ? formatNps(lastOff.nps_oficial) : '—'}</strong><span class="note-muted">${escapeHtml(lastOff?.ciclo ?? '')}</span></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">NPS oficial (anterior)</span><strong class="safras-kpi__value">${prevOff?.nps_oficial != null ? formatNps(prevOff.nps_oficial) : '—'}</strong><span class="note-muted">${escapeHtml(prevOff?.ciclo ?? '')}</span></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">Variação oficial</span><strong class="safras-kpi__value">${lastOff && prevOff && lastOff.nps_oficial != null && prevOff.nps_oficial != null ? formatNps(lastOff.nps_oficial - prevOff.nps_oficial) : '—'}</strong></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">NPS do recorte filtrado</span><strong class="safras-kpi__value">${npsFiltrado != null ? formatNps(npsFiltrado) : '—'}</strong><span class="note-muted">n=${scores.length}</span></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">Respostas (dedupe)</span><strong class="safras-kpi__value">${meta?.after_dedupe ?? '—'}</strong><span class="note-muted">${meta?.historico_input ?? 0} hist. + ${meta?.current_input ?? 0} atual</span></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">Clientes únicos</span><strong class="safras-kpi__value">${meta?.unique_clients ?? '—'}</strong></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">Recorrentes (2+)</span><strong class="safras-kpi__value">${(rec.twice ?? 0) + (rec.three_plus ?? 0)}</strong></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">Medições</span><strong class="safras-kpi__value">${cycles.length}</strong></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">1 resposta</span><strong class="safras-kpi__value">${rec.once ?? '—'}</strong></div>
-    <div class="safras-kpi"><span class="safras-kpi__label">Clientes no recorte</span><strong class="safras-kpi__value">${clientsAgg.length}</strong></div>
-  </div>`;
+  const recorrentes = (rec.twice ?? 0) + (rec.three_plus ?? 0);
+  const sorted = [...cycles].sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo));
+  const cicloRange =
+    sorted.length >= 2
+      ? `${sorted[0].ciclo} → ${sorted[sorted.length - 1].ciclo}`
+      : (sorted[0]?.ciclo ?? '—');
+
+  let delta = null;
+  if (lastOff?.nps_oficial != null && prevOff?.nps_oficial != null) {
+    delta = Math.round((lastOff.nps_oficial - prevOff.nps_oficial) * 10) / 10;
+  }
+  const trendMeta =
+    delta != null
+      ? `<span class="historico-kpi-card__trend ${delta >= 0 ? 'historico-kpi-card__trend--up' : 'historico-kpi-card__trend--down'}">${delta >= 0 ? '↑' : '↓'} vs ciclo anterior</span>`
+      : '—';
+
+  const cards = [
+    historicoKpiCard(
+      'NPS oficial',
+      lastOff?.nps_oficial != null ? formatNps(lastOff.nps_oficial) : '—',
+      escapeHtml(lastOff?.ciclo ?? '—'),
+    ),
+    historicoKpiCard(
+      'NPS anterior',
+      prevOff?.nps_oficial != null ? formatNps(prevOff.nps_oficial) : '—',
+      escapeHtml(prevOff?.ciclo ?? '—'),
+    ),
+    historicoKpiCard(
+      'Variação oficial',
+      delta != null ? formatNps(delta) : '—',
+      trendMeta,
+      'historico-kpi-card--variation',
+      { rawMeta: true },
+    ),
+    historicoKpiCard(
+      'NPS do recorte filtrado',
+      npsFiltrado != null ? formatNps(npsFiltrado) : '—',
+      `n = ${formatCount(scores.length)}`,
+    ),
+    historicoKpiCard(
+      'Respostas analisadas',
+      formatCount(meta?.after_dedupe),
+      `${formatCount(meta?.historico_input ?? 0)} históricas + ${formatCount(meta?.current_input ?? 0)} atuais · após dedupe`,
+    ),
+    historicoKpiCard('Clientes únicos', formatCount(meta?.unique_clients)),
+    historicoKpiCard(
+      'Clientes recorrentes',
+      formatCount(recorrentes),
+      '2+ medições',
+    ),
+    historicoKpiCard('Medições', formatCount(cycles.length), cicloRange),
+    historicoKpiCard('Responderam uma vez', formatCount(rec.once)),
+    historicoKpiCard(
+      'Clientes no recorte',
+      formatCount(clientsAgg.length),
+      'após filtros',
+    ),
+  ];
+
+  return `<div class="historico-kpi-grid">${cards.join('')}</div>`;
 }
 
 function renderFilters(allResponses, summary, formVersions) {
@@ -79,26 +143,26 @@ function renderFilters(allResponses, summary, formVersions) {
   const versoes = (formVersions ?? []).map((v) => v.versao);
   const opt = (val, cur, label) =>
     `<option value="${escapeAttr(val)}" ${cur === val ? 'selected' : ''}>${escapeHtml(label ?? (val || 'Todos'))}</option>`;
-  return `<div class="safras-filters-card" data-hist-filters>
-    <div class="safras-filters-grid">
-      <div class="filter-field"><label>Ciclo</label><select data-f="ciclo">${opt('', pageFilters.ciclo, 'Todos')}${ciclos.map((c) => opt(c, pageFilters.ciclo, c)).join('')}</select></div>
-      <div class="filter-field"><label>EP</label><select data-f="ep">${opt('', pageFilters.ep, 'Todos')}${eps.map((e) => opt(e, pageFilters.ep, e)).join('')}</select></div>
-      <div class="filter-field"><label>Safra</label><select data-f="safra">${opt('', pageFilters.safra, 'Todos')}${safras.map((s) => opt(s, pageFilters.safra, s)).join('')}</select></div>
-      <div class="filter-field"><label>Categoria</label><select data-f="categoria">
+  return `<div class="card filters-panel historico-filters-card" data-hist-filters>
+    <div class="historico-filters-grid">
+      <div class="filter-field"><label for="hf-ciclo">Ciclo</label><select id="hf-ciclo" class="select-input" data-f="ciclo">${opt('', pageFilters.ciclo, 'Todos')}${ciclos.map((c) => opt(c, pageFilters.ciclo, c)).join('')}</select></div>
+      <div class="filter-field"><label for="hf-ep">EP</label><select id="hf-ep" class="select-input" data-f="ep">${opt('', pageFilters.ep, 'Todos')}${eps.map((e) => opt(e, pageFilters.ep, e)).join('')}</select></div>
+      <div class="filter-field"><label for="hf-safra">Safra</label><select id="hf-safra" class="select-input" data-f="safra">${opt('', pageFilters.safra, 'Todos')}${safras.map((s) => opt(s, pageFilters.safra, s)).join('')}</select></div>
+      <div class="filter-field"><label for="hf-cat">Categoria</label><select id="hf-cat" class="select-input" data-f="categoria">
         ${opt('', pageFilters.categoria, 'Todas')}
         ${['Promotor', 'Neutro', 'Detrator'].map((c) => opt(c, pageFilters.categoria, c)).join('')}
       </select></div>
-      <div class="filter-field"><label>Versão formulário</label><select data-f="versao">${opt('', pageFilters.versao, 'Todas')}${versoes.map((v) => opt(v, pageFilters.versao, v)).join('')}</select></div>
-      <div class="filter-field"><label>Recorrência</label><select data-f="recorrencia">
+      <div class="filter-field"><label for="hf-ver">Versão formulário</label><select id="hf-ver" class="select-input" data-f="versao">${opt('', pageFilters.versao, 'Todas')}${versoes.map((v) => opt(v, pageFilters.versao, v)).join('')}</select></div>
+      <div class="filter-field"><label for="hf-rec">Recorrência</label><select id="hf-rec" class="select-input" data-f="recorrencia">
         ${opt('', pageFilters.recorrencia, 'Todos')}
         ${opt('1', pageFilters.recorrencia, '1 resposta')}
         ${opt('2', pageFilters.recorrencia, '2 respostas')}
         ${opt('3+', pageFilters.recorrencia, '3+ respostas')}
       </select></div>
-      <div class="filter-field"><label>Busca cliente</label><input type="search" class="text-input" data-f="search" value="${escapeAttr(pageFilters.search)}" placeholder="Nome…" /></div>
+      <div class="filter-field historico-filters-grid__search"><label for="hf-search">Busca cliente</label><input id="hf-search" type="search" class="text-input" data-f="search" value="${escapeAttr(pageFilters.search)}" placeholder="Buscar cliente…" autocomplete="off" /></div>
     </div>
-    <div class="safras-page__actions">
-      <button type="button" class="btn btn--secondary btn--sm" data-hist-clear-filters>Limpar filtros</button>
+    <div class="filters-panel__actions">
+      <button type="button" class="btn btn--ghost btn--sm" data-hist-clear-filters>Limpar filtros</button>
     </div>
   </div>`;
 }
@@ -142,23 +206,31 @@ function renderMovement(cycles, filtered) {
     .filter(([, n]) => n > 0)
     .map(([k, n]) => `<li>${escapeHtml(k)}: <strong>${n}</strong></li>`)
     .join('');
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Movimento entre ciclos</h2></div>
-    <div class="safras-filters-grid" style="margin-bottom:1rem">
-      <div class="filter-field"><label>Ciclo origem</label><select data-move-from>${opts}</select></div>
-      <div class="filter-field"><label>Ciclo destino</label><select data-move-to>${optsTo}</select></div>
+  return `<div class="safras-section-card historico-section"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Movimento entre ciclos</h2></div>
+    <div class="historico-filters-grid historico-filters-grid--inline">
+      <div class="filter-field"><label>Ciclo origem</label><select class="select-input" data-move-from>${opts}</select></div>
+      <div class="filter-field"><label>Ciclo destino</label><select class="select-input" data-move-to>${optsTo}</select></div>
     </div>
     <ul class="timeline-list">${items || '<li>Sem pares no recorte</li>'}</ul></div>`;
 }
 
-function renderRecurrence(meta) {
-  const r = meta?.recurrence ?? {};
-  return `<div class="safras-section-card"><div class="safras-section-card__head"><h2 class="safras-section-card__title">Recorrência de participação</h2></div>
-    <div class="safras-kpi-grid safras-kpi-grid--compact">
-      <div class="safras-kpi"><span class="safras-kpi__label">1 vez</span><strong>${r.once ?? 0}</strong></div>
-      <div class="safras-kpi"><span class="safras-kpi__label">2 vezes</span><strong>${r.twice ?? 0}</strong></div>
-      <div class="safras-kpi"><span class="safras-kpi__label">3+</span><strong>${r.three_plus ?? 0}</strong></div>
+function renderRecurrenceChartOnly() {
+  return `<div class="historico-chart-card">
+    <div class="historico-chart-card__head">
+      <h3 class="historico-chart-card__title">Recorrência de participação</h3>
+      <p class="historico-chart-card__lead">Quantidade de medições respondidas por cliente.</p>
     </div>
-    <canvas id="chart-hist-recurrence" height="180"></canvas></div>`;
+    <div class="historico-chart-frame historico-chart-frame--compact"><canvas id="chart-hist-recurrence" aria-label="Recorrência"></canvas></div>
+  </div>`;
+}
+
+function renderRecurrenceKpis(meta) {
+  const r = meta?.recurrence ?? {};
+  return `<div class="historico-recurrence-kpis">
+    ${historicoKpiCard('1 vez', formatCount(r.once))}
+    ${historicoKpiCard('2 vezes', formatCount(r.twice))}
+    ${historicoKpiCard('3+', formatCount(r.three_plus))}
+  </div>`;
 }
 
 function renderScoreTrend(clientsFiltered) {
@@ -287,6 +359,19 @@ function renderClientExplorer(clientsFiltered) {
     </tr></thead><tbody>${tbody}</tbody></table></div>${footer}</div>`;
 }
 
+function chartBaseOptions(extra = {}) {
+  return {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: { boxWidth: 12, padding: 14, font: { size: 11 } },
+      },
+    },
+    ...extra,
+  };
+}
+
 function bindCharts(summary, meta) {
   const cycles = (summary?.cycles ?? []).slice().sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo));
   const labels = cycles.map((c) => c.ciclo);
@@ -302,8 +387,9 @@ function bindCharts(summary, meta) {
           labels,
           datasets: [{ label: 'NPS oficial / derivado', data: npsLine, borderColor: '#c44a2a', tension: 0.25, fill: false }],
         },
-        options: {
+        options: chartBaseOptions({
           plugins: {
+            legend: { display: true, labels: { boxWidth: 12, font: { size: 11 } } },
             tooltip: {
               callbacks: {
                 afterLabel(ctx) {
@@ -314,7 +400,7 @@ function bindCharts(summary, meta) {
               },
             },
           },
-        },
+        }),
       }),
     );
   }
@@ -325,7 +411,7 @@ function bindCharts(summary, meta) {
       new Chart(elVol, {
         type: 'bar',
         data: { labels, datasets: [{ label: 'Respostas', data: vol, backgroundColor: '#e85d3a' }] },
-        options: { plugins: { legend: { display: false } } },
+        options: chartBaseOptions({ plugins: { legend: { display: false } } }),
       }),
     );
   }
@@ -343,9 +429,9 @@ function bindCharts(summary, meta) {
             { label: 'Detratores', data: cycles.map((c) => c.pct_detratores), backgroundColor: '#c44a2a', stack: 's' },
           ],
         },
-        options: {
+        options: chartBaseOptions({
           scales: { x: { stacked: true }, y: { stacked: true, max: 100, ticks: { callback: (v) => `${v}%` } } },
-        },
+        }),
       }),
     );
   }
@@ -360,6 +446,7 @@ function bindCharts(summary, meta) {
           labels: ['1×', '2×', '3+'],
           datasets: [{ data: [r.once, r.twice, r.three_plus], backgroundColor: ['#e2e8f0', '#e85d3a', '#c44a2a'] }],
         },
+        options: chartBaseOptions({ plugins: { legend: { position: 'bottom' } } }),
       }),
     );
   }
@@ -485,17 +572,43 @@ export function renderHistoricoNps(root) {
   if (!moveFrom && summary.cycles?.length) moveFrom = summary.cycles[0].ciclo;
   if (!moveTo && summary.cycles?.length) moveTo = summary.cycles[summary.cycles.length - 1].ciclo;
 
-  root.innerHTML = `<div class="safras-page historico-nps-page">
-    <header class="page-header"><div><h1>Histórico NPS</h1><p class="page-lead">Evolução oficial e exploratória — histórico + atual (dedupe: atual vence).</p></div></header>
+  root.innerHTML = `<div class="historico-nps-page">
+    <header class="page-header historico-page-header">
+      <div>
+        <h1>Histórico NPS</h1>
+        <p class="page-lead">Evolução oficial e exploratória — histórico + atual.</p>
+        <p class="historico-page-header__note">Dedupe: quando a mesma resposta existe no histórico e no atual, a versão atual prevalece.</p>
+      </div>
+    </header>
     ${renderFilters(allResponses, summary, summaryDoc.form_versions)}
     ${renderKpis(meta, summary, filtered, clientsFiltered)}
-    <div class="safras-charts-row">
-      <div class="chart-card safras-section-card"><h3 class="safras-section-card__title">Evolução NPS</h3><canvas id="chart-hist-nps" height="240"></canvas></div>
-      <div class="chart-card safras-section-card"><h3 class="safras-section-card__title">Respostas por medição</h3><canvas id="chart-hist-volume" height="240"></canvas></div>
+    <div class="historico-charts-grid">
+      <div class="historico-chart-card">
+        <div class="historico-chart-card__head">
+          <h3 class="historico-chart-card__title">Evolução do NPS</h3>
+          <p class="historico-chart-card__lead">NPS oficial por medição (derivado quando não houver oficial).</p>
+        </div>
+        <div class="historico-chart-frame"><canvas id="chart-hist-nps" aria-label="Evolução NPS"></canvas></div>
+      </div>
+      <div class="historico-chart-card">
+        <div class="historico-chart-card__head">
+          <h3 class="historico-chart-card__title">Respostas por medição</h3>
+          <p class="historico-chart-card__lead">Volume de respostas por ciclo.</p>
+        </div>
+        <div class="historico-chart-frame"><canvas id="chart-hist-volume" aria-label="Respostas por medição"></canvas></div>
+      </div>
+      <div class="historico-chart-card historico-chart-card--wide">
+        <div class="historico-chart-card__head">
+          <h3 class="historico-chart-card__title">Distribuição P / N / D</h3>
+          <p class="historico-chart-card__lead">Participação percentual por ciclo.</p>
+        </div>
+        <div class="historico-chart-frame"><canvas id="chart-hist-pnd" aria-label="Distribuição promotores neutros detratores"></canvas></div>
+      </div>
+      ${renderRecurrenceChartOnly()}
     </div>
-    <div class="safras-section-card"><h3 class="safras-section-card__title">Distribuição P / N / D (%)</h3><canvas id="chart-hist-pnd" height="220"></canvas></div>
+    <div class="historico-sections">
+    ${renderRecurrenceKpis(meta)}
     ${renderSummaryTable(summary.cycles)}
-    ${renderRecurrence(meta)}
     ${renderMovement(summary.cycles, filtered)}
     ${renderScoreTrend(clientsFiltered)}
     ${renderSecondaryTable(secondaryScoresByCycle(filtered))}
@@ -505,6 +618,7 @@ export function renderHistoricoNps(root) {
     ${renderResponseExplorer(filtered)}
     ${renderClientExplorer(clientsFiltered)}
     ${renderQuality(meta)}
+    </div>
   </div>`;
 
   bindCharts(summary, meta);
