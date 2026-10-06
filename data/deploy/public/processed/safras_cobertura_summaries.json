@@ -1,0 +1,496 @@
+{
+  "by_safra": [
+    {
+      "safra_trimestre": "2025-Q1",
+      "clientes_total": 8,
+      "clientes_que_responderam": 6,
+      "clientes_nunca_responderam": 2,
+      "pct_que_ja_responderam": 75,
+      "respostas_total": 11,
+      "respostas_por_cliente": 1.38,
+      "nps_atual": 90.9,
+      "nota_media": 9.18,
+      "promotores": 10,
+      "neutros": 1,
+      "detratores": 0
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "clientes_total": 14,
+      "clientes_que_responderam": 10,
+      "clientes_nunca_responderam": 4,
+      "pct_que_ja_responderam": 71.4,
+      "respostas_total": 18,
+      "respostas_por_cliente": 1.29,
+      "nps_atual": 77.8,
+      "nota_media": 9.06,
+      "promotores": 15,
+      "neutros": 2,
+      "detratores": 1
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "clientes_total": 70,
+      "clientes_que_responderam": 33,
+      "clientes_nunca_responderam": 37,
+      "pct_que_ja_responderam": 47.1,
+      "respostas_total": 56,
+      "respostas_por_cliente": 0.8,
+      "nps_atual": 60.7,
+      "nota_media": 8.7,
+      "promotores": 40,
+      "neutros": 10,
+      "detratores": 6
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "clientes_total": 153,
+      "clientes_que_responderam": 83,
+      "clientes_nunca_responderam": 70,
+      "pct_que_ja_responderam": 54.2,
+      "respostas_total": 150,
+      "respostas_por_cliente": 0.98,
+      "nps_atual": 62.7,
+      "nota_media": 8.87,
+      "promotores": 105,
+      "neutros": 34,
+      "detratores": 11
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "clientes_total": 313,
+      "clientes_que_responderam": 144,
+      "clientes_nunca_responderam": 169,
+      "pct_que_ja_responderam": 46,
+      "respostas_total": 209,
+      "respostas_por_cliente": 0.67,
+      "nps_atual": 49.8,
+      "nota_media": 8.3,
+      "promotores": 133,
+      "neutros": 47,
+      "detratores": 29
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "clientes_total": 305,
+      "clientes_que_responderam": 161,
+      "clientes_nunca_responderam": 144,
+      "pct_que_ja_responderam": 52.8,
+      "respostas_total": 236,
+      "respostas_por_cliente": 0.77,
+      "nps_atual": 65.3,
+      "nota_media": 8.89,
+      "promotores": 181,
+      "neutros": 28,
+      "detratores": 27
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "clientes_total": 168,
+      "clientes_que_responderam": 72,
+      "clientes_nunca_responderam": 96,
+      "pct_que_ja_responderam": 42.9,
+      "respostas_total": 93,
+      "respostas_por_cliente": 0.55,
+      "nps_atual": 74.2,
+      "nota_media": 9.04,
+      "promotores": 74,
+      "neutros": 14,
+      "detratores": 5
+    },
+    {
+      "safra_trimestre": "2027-Q2",
+      "clientes_total": 2,
+      "clientes_que_responderam": 2,
+      "clientes_nunca_responderam": 0,
+      "pct_que_ja_responderam": 100,
+      "respostas_total": 5,
+      "respostas_por_cliente": 2.5,
+      "nps_atual": 100,
+      "nota_media": 10,
+      "promotores": 5,
+      "neutros": 0,
+      "detratores": 0
+    },
+    {
+      "safra_trimestre": "2027-Q3",
+      "clientes_total": 1,
+      "clientes_que_responderam": 1,
+      "clientes_nunca_responderam": 0,
+      "pct_que_ja_responderam": 100,
+      "respostas_total": 1,
+      "respostas_por_cliente": 1,
+      "nps_atual": 0,
+      "nota_media": 8,
+      "promotores": 0,
+      "neutros": 1,
+      "detratores": 0
+    }
+  ],
+  "safra_x_medicao": [
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+      "respostas": 77,
+      "nps": 49.4,
+      "nota_media": 8.220779220779221
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "2026-Q1",
+      "respostas": 35,
+      "nps": 54.3,
+      "nota_media": 8.657142857142857
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 65,
+      "nps": 46.2,
+      "nota_media": 7.984615384615385
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 25,
+      "nps": 72,
+      "nota_media": 9
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "ciclo": "2026-Q1",
+      "respostas": 36,
+      "nps": 52.8,
+      "nota_media": 8.527777777777779
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+      "respostas": 51,
+      "nps": 66.7,
+      "nota_media": 8.980392156862745
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "ciclo": "2025-Q2",
+      "respostas": 1,
+      "nps": 0,
+      "nota_media": 7
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 56,
+      "nps": 67.9,
+      "nota_media": 8.839285714285714
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "ciclo": "2025-Q4",
+      "respostas": 29,
+      "nps": 55.2,
+      "nota_media": 8.793103448275861
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 93,
+      "nps": 51.6,
+      "nota_media": 8.526881720430108
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "2025-Q2",
+      "respostas": 3,
+      "nps": 0,
+      "nota_media": 8
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "2025-Q3",
+      "respostas": 8,
+      "nps": 37.5,
+      "nota_media": 8.375
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "ciclo": "2025-Q4",
+      "respostas": 15,
+      "nps": 60,
+      "nota_media": 9.066666666666666
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "ciclo": "2026-Q1",
+      "respostas": 16,
+      "nps": 81.3,
+      "nota_media": 9
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "2025-Q4",
+      "respostas": 9,
+      "nps": 55.6,
+      "nota_media": 8.666666666666666
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "2026-Q3",
+      "respostas": 11,
+      "nps": 72.7,
+      "nota_media": 9.181818181818182
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+      "respostas": 18,
+      "nps": 88.9,
+      "nota_media": 9.555555555555555
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+      "respostas": 88,
+      "nps": 77.3,
+      "nota_media": 9.181818181818182
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "ciclo": "2026-Q3",
+      "respostas": 13,
+      "nps": 84.6,
+      "nota_media": 9.307692307692308
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "ciclo": "2025-Q3",
+      "respostas": 3,
+      "nps": 0,
+      "nota_media": 7.666666666666667
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "ciclo": "2025-Q4",
+      "respostas": 11,
+      "nps": 54.5,
+      "nota_media": 8.272727272727273
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "ciclo": "2026-Q1",
+      "respostas": 12,
+      "nps": 50,
+      "nota_media": 8.083333333333334
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 10,
+      "nps": 50,
+      "nota_media": 8.8
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+      "respostas": 11,
+      "nps": 90.9,
+      "nota_media": 9.363636363636363
+    },
+    {
+      "safra_trimestre": "2025-Q1",
+      "ciclo": "2025-Q3",
+      "respostas": 1,
+      "nps": 0,
+      "nota_media": 8
+    },
+    {
+      "safra_trimestre": "2025-Q1",
+      "ciclo": "2026-Q1",
+      "respostas": 3,
+      "nps": 100,
+      "nota_media": 9.333333333333334
+    },
+    {
+      "safra_trimestre": "2025-Q1",
+      "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+      "respostas": 5,
+      "nps": 100,
+      "nota_media": 9.4
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "ciclo": "2026-Q1",
+      "respostas": 6,
+      "nps": 83.3,
+      "nota_media": 9.5
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "ciclo": "2026-Q3",
+      "respostas": 2,
+      "nps": 100,
+      "nota_media": 9.5
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "ciclo": "2025-Q3",
+      "respostas": 1,
+      "nps": -100,
+      "nota_media": 6
+    },
+    {
+      "safra_trimestre": "2027-Q3",
+      "ciclo": "2025-Q2",
+      "respostas": 1,
+      "nps": 0,
+      "nota_media": 8
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "ciclo": "2025-Q3",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "ciclo": "2025-Q4",
+      "respostas": 2,
+      "nps": 100,
+      "nota_media": 9.5
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+      "respostas": 5,
+      "nps": 60,
+      "nota_media": 8.2
+    },
+    {
+      "safra_trimestre": "2025-Q3",
+      "ciclo": "2026-Q3",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 9
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "ciclo": "2025-Q3",
+      "respostas": 7,
+      "nps": 28.6,
+      "nota_media": 8.285714285714286
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "ciclo": "2025-Q4",
+      "respostas": 10,
+      "nps": 70,
+      "nota_media": 8.9
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "ciclo": "2026-Q1",
+      "respostas": 9,
+      "nps": 100,
+      "nota_media": 9.777777777777779
+    },
+    {
+      "safra_trimestre": "2025-Q1",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 2,
+      "nps": 100,
+      "nota_media": 9
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "ciclo": "2026-Q3",
+      "respostas": 6,
+      "nps": 100,
+      "nota_media": 9.833333333333334
+    },
+    {
+      "safra_trimestre": "2026-Q2",
+      "ciclo": "2025-Q2",
+      "respostas": 4,
+      "nps": 75,
+      "nota_media": 9.25
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "ciclo": "2025-Q2",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2025-Q4",
+      "ciclo": "2025-Q2",
+      "respostas": 2,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "ciclo": "2025-Q3",
+      "respostas": 2,
+      "nps": 50,
+      "nota_media": 9
+    },
+    {
+      "safra_trimestre": "2026-Q3",
+      "ciclo": "2026-Q3",
+      "respostas": 4,
+      "nps": 75,
+      "nota_media": 9.5
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 1,
+      "nps": 0,
+      "nota_media": 7
+    },
+    {
+      "safra_trimestre": "2027-Q2",
+      "ciclo": "2026-Q1",
+      "respostas": 2,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2027-Q2",
+      "ciclo": "2026-Q3",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2027-Q2",
+      "ciclo": "NPS-2026-SET-PHARUS",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2025-Q2",
+      "ciclo": "2025-Q2",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2026-Q1",
+      "ciclo": "2026-Q2",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 10
+    },
+    {
+      "safra_trimestre": "2027-Q2",
+      "ciclo": "2025-Q4",
+      "respostas": 1,
+      "nps": 100,
+      "nota_media": 10
+    }
+  ]
+}

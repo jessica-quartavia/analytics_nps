@@ -1,0 +1,98 @@
+{
+  "generated_at": "2026-10-06T01:54:56.373Z",
+  "safra_entry_field_chosen": "clients.data_inicio_ciclo",
+  "safra_fallback_chain": [
+    "clients.data_inicio_ciclo",
+    "client_journeys.started_at",
+    "clients.created_at",
+    "nps_historico.respostas.inicio_programa (somente se BASE QV indisponível por cliente)"
+  ],
+  "pharus_clients_in_base": 1034,
+  "clients_analyzed": 1034,
+  "with_safra_trimestre": 1034,
+  "without_safra": 0,
+  "safra_source_counts": {
+    "base_qv": 1034
+  },
+  "data_inicio_ciclo_coverage_pct": 81,
+  "ever_answered_nps": 512,
+  "never_answered_nps": 522,
+  "pct_ever_answered": 49.5,
+  "merged_responses_total": 1077,
+  "current_responses_input": 508,
+  "historico_responses_input": 1067,
+  "historico_unmatched_to_client": 298,
+  "dedupe_rule": "Mesma response_key: respostas atuais (precedence 2) substituem histórico (1); chaves fortes = typeform/id_resposta/chave_import",
+  "historico_official_medicoes": [
+    {
+      "ciclo": "2025-Q2",
+      "respostas": 108,
+      "nps": 21.3
+    },
+    {
+      "ciclo": "2025-Q3",
+      "respostas": 50,
+      "nps": 24
+    },
+    {
+      "ciclo": "2025-Q4",
+      "respostas": 171,
+      "nps": 35.1
+    },
+    {
+      "ciclo": "2026-Q1",
+      "respostas": 194,
+      "nps": 45.9
+    },
+    {
+      "ciclo": "2026-Q2",
+      "respostas": 262,
+      "nps": 68.7
+    },
+    {
+      "ciclo": "2026-Q3",
+      "respostas": 282,
+      "nps": 59.6
+    }
+  ],
+  "app_source": "Nenhuma tabela App PHARUS encontrada nos schemas expostos (clusterizacao_pharus, public, analytics).",
+  "app_clients_matched": 0,
+  "app_unknown": 1034,
+  "app_match_status_counts": {
+    "not_found": 1034
+  },
+  "nps_app_vs_no_app": {
+    "with_app_n": 0,
+    "without_app_n": 0,
+    "with_app_nps": null,
+    "without_app_nps": 52.3,
+    "note": "Associação descritiva; diferença não implica causalidade."
+  },
+  "days_entry_to_first_nps": {
+    "n_valid": 308,
+    "median": 97,
+    "mean": 122,
+    "p25": 56,
+    "p75": 165.25,
+    "n_invalid_negative": 4
+  },
+  "historico_field_coverage": {
+    "historico.nota_estrategista": 1029,
+    "historico.caminho": 803,
+    "historico.momento": 837,
+    "historico.motivo_nota": 702,
+    "historico.melhoria": 347,
+    "historico.retencao_5_anos": 1018,
+    "historico.versao_formulario": 1067,
+    "historico.razao_positiva": 588,
+    "historico.comentario_adicional": 883,
+    "historico.nota_backoffice": 150,
+    "historico.nota_qv360": 152,
+    "historico.plano_patrimonial": 128,
+    "historico.plano_apresentado": 90,
+    "historico.inicio_programa": 87,
+    "historico.reunioes_realizadas": 64
+  },
+  "historico_rows": 1067,
+  "inicio_programa_filled": 87
+}

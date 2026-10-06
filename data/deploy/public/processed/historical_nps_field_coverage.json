@@ -1,0 +1,120 @@
+{
+  "fields": [
+    "nota_estrategista",
+    "nota_backoffice",
+    "nota_qv360",
+    "nota_arquitetura_patrimonial",
+    "plano_patrimonial",
+    "plano_apresentado",
+    "caminho",
+    "momento",
+    "motivo_nota",
+    "melhoria",
+    "razao_positiva",
+    "retencao_5_anos",
+    "comentario_adicional",
+    "reunioes_realizadas",
+    "versao_formulario"
+  ],
+  "cycles": [
+    "NPS-2026-JUN-JUL-PHARUS",
+    "NPS-2026-SET-PHARUS",
+    "2025-Q2",
+    "2025-Q3",
+    "2025-Q4",
+    "2026-Q1",
+    "2026-Q2",
+    "2026-Q3"
+  ],
+  "matrix": {
+    "nota_estrategista": {
+      "2025-Q2": 108,
+      "2025-Q3": 50,
+      "2025-Q4": 171,
+      "2026-Q1": 192,
+      "2026-Q2": 7,
+      "2026-Q3": 3
+    },
+    "nota_backoffice": {
+      "2025-Q4": 56,
+      "2026-Q1": 94
+    },
+    "nota_qv360": {
+      "2025-Q4": 58,
+      "2026-Q1": 94
+    },
+    "nota_arquitetura_patrimonial": {},
+    "plano_patrimonial": {
+      "2025-Q4": 46,
+      "2026-Q1": 82
+    },
+    "plano_apresentado": {
+      "2026-Q1": 90
+    },
+    "caminho": {
+      "2025-Q2": 108,
+      "2025-Q3": 50,
+      "2025-Q4": 73,
+      "2026-Q1": 64,
+      "2026-Q2": 7,
+      "2026-Q3": 3
+    },
+    "momento": {
+      "2025-Q2": 108,
+      "2025-Q3": 50,
+      "2025-Q4": 88,
+      "2026-Q1": 83,
+      "2026-Q2": 7,
+      "2026-Q3": 3
+    },
+    "motivo_nota": {
+      "2025-Q2": 108,
+      "2025-Q3": 50,
+      "2026-Q2": 7,
+      "2026-Q3": 39
+    },
+    "melhoria": {
+      "2025-Q2": 64,
+      "2025-Q3": 27,
+      "2025-Q4": 57,
+      "2026-Q1": 61,
+      "2026-Q2": 1,
+      "2026-Q3": 4
+    },
+    "razao_positiva": {
+      "2025-Q3": 23,
+      "2025-Q4": 67,
+      "2026-Q1": 92,
+      "2026-Q2": 6,
+      "2026-Q3": 35
+    },
+    "retencao_5_anos": {
+      "2025-Q2": 108,
+      "2025-Q3": 50,
+      "2025-Q4": 141,
+      "2026-Q1": 175,
+      "2026-Q2": 7,
+      "2026-Q3": 39
+    },
+    "comentario_adicional": {
+      "2025-Q3": 50,
+      "2025-Q4": 125,
+      "2026-Q1": 164,
+      "NPS-2026-JUN-JUL-PHARUS": 255,
+      "2026-Q2": 7,
+      "NPS-2026-SET-PHARUS": 253,
+      "2026-Q3": 39
+    },
+    "reunioes_realizadas": {
+      "2026-Q1": 64
+    },
+    "versao_formulario": {
+      "2025-Q2": 108,
+      "2025-Q3": 50,
+      "2025-Q4": 171,
+      "2026-Q1": 194,
+      "2026-Q2": 7,
+      "2026-Q3": 39
+    }
+  }
+}

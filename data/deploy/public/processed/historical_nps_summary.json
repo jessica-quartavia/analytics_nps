@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "generated_at": "2026-10-06T01:54:56.856Z",
+    "historico_input": 1067,
+    "current_input": 508,
+    "after_dedupe": 1077,
+    "unique_clients": 512,
+    "unmatched_historico": 298,
+    "official_medicoes": [
+      {
+        "ciclo": "2025-Q2",
+        "respostas": 108,
+        "nps": 21.3
+      },
+      {
+        "ciclo": "2025-Q3",
+        "respostas": 50,
+        "nps": 24
+      },
+      {
+        "ciclo": "2025-Q4",
+        "respostas": 171,
+        "nps": 35.1
+      },
+      {
+        "ciclo": "2026-Q1",
+        "respostas": 194,
+        "nps": 45.9
+      },
+      {
+        "ciclo": "2026-Q2",
+        "respostas": 262,
+        "nps": 68.7
+      },
+      {
+        "ciclo": "2026-Q3",
+        "respostas": 282,
+        "nps": 59.6
+      }
+    ],
+    "recurrence": {
+      "once": 325,
+      "twice": 126,
+      "three_plus": 61
+    }
+  },
+  "summary": {
+    "cycles": [
+      {
+        "ciclo": "NPS-2026-JUN-JUL-PHARUS",
+        "periodo": null,
+        "respostas": 255,
+        "respostas_derivadas": 255,
+        "clientes_unicos": 255,
+        "promotores": 199,
+        "neutros": 31,
+        "detratores": 25,
+        "pct_promotores": 78,
+        "pct_neutros": 12.2,
+        "pct_detratores": 9.8,
+        "nps_oficial": null,
+        "nps_derivado": 68.2,
+        "nota_media": 8.9,
+        "variacao_vs_anterior": null,
+        "is_official": false
+      },
+      {
+        "ciclo": "NPS-2026-SET-PHARUS",
+        "periodo": null,
+        "respostas": 253,
+        "respostas_derivadas": 253,
+        "clientes_unicos": 253,
+        "promotores": 174,
+        "neutros": 47,
+        "detratores": 32,
+        "pct_promotores": 68.8,
+        "pct_neutros": 18.6,
+        "pct_detratores": 12.6,
+        "nps_oficial": null,
+        "nps_derivado": 56.1,
+        "nota_media": 8.5,
+        "variacao_vs_anterior": -12.1,
+        "is_official": false
+      },
+      {
+        "ciclo": "2025-Q2",
+        "periodo": null,
+        "respostas": 108,
+        "respostas_derivadas": 108,
+        "clientes_unicos": 13,
+        "promotores": 44,
+        "neutros": 43,
+        "detratores": 21,
+        "pct_promotores": 40.7,
+        "pct_neutros": 39.8,
+        "pct_detratores": 19.4,
+        "nps_oficial": 21.3,
+        "nps_derivado": 21.3,
+        "nota_media": 7.8,
+        "variacao_vs_anterior": -34.8,
+        "is_official": true
+      },
+      {
+        "ciclo": "2025-Q3",
+        "periodo": null,
+        "respostas": 50,
+        "respostas_derivadas": 50,
+        "clientes_unicos": 23,
+        "promotores": 23,
+        "neutros": 16,
+        "detratores": 11,
+        "pct_promotores": 46,
+        "pct_neutros": 32,
+        "pct_detratores": 22,
+        "nps_oficial": 24,
+        "nps_derivado": 24,
+        "nota_media": 8,
+        "variacao_vs_anterior": 2.7,
+        "is_official": true
+      },
+      {
+        "ciclo": "2025-Q4",
+        "periodo": null,
+        "respostas": 171,
+        "respostas_derivadas": 171,
+        "clientes_unicos": 77,
+        "promotores": 95,
+        "neutros": 41,
+        "detratores": 35,
+        "pct_promotores": 55.6,
+        "pct_neutros": 24,
+        "pct_detratores": 20.5,
+        "nps_oficial": 35.1,
+        "nps_derivado": 35.1,
+        "nota_media": 7.9,
+        "variacao_vs_anterior": 11.1,
+        "is_official": true
+      },
+      {
+        "ciclo": "2026-Q1",
+        "periodo": null,
+        "respostas": 194,
+        "respostas_derivadas": 194,
+        "clientes_unicos": 119,
+        "promotores": 121,
+        "neutros": 41,
+        "detratores": 32,
+        "pct_promotores": 62.4,
+        "pct_neutros": 21.1,
+        "pct_detratores": 16.5,
+        "nps_oficial": 45.9,
+        "nps_derivado": 45.9,
+        "nota_media": 8,
+        "variacao_vs_anterior": 10.8,
+        "is_official": true
+      },
+      {
+        "ciclo": "2026-Q2",
+        "periodo": null,
+        "respostas": 262,
+        "respostas_derivadas": 7,
+        "clientes_unicos": 1,
+        "promotores": 6,
+        "neutros": 1,
+        "detratores": 0,
+        "pct_promotores": 85.7,
+        "pct_neutros": 14.3,
+        "pct_detratores": 0,
+        "nps_oficial": 68.7,
+        "nps_derivado": 85.7,
+        "nota_media": 9.4,
+        "variacao_vs_anterior": 22.8,
+        "is_official": true
+      },
+      {
+        "ciclo": "2026-Q3",
+        "periodo": null,
+        "respostas": 282,
+        "respostas_derivadas": 39,
+        "clientes_unicos": 38,
+        "promotores": 35,
+        "neutros": 2,
+        "detratores": 2,
+        "pct_promotores": 89.7,
+        "pct_neutros": 5.1,
+        "pct_detratores": 5.1,
+        "nps_oficial": 59.6,
+        "nps_derivado": 84.6,
+        "nota_media": 9.4,
+        "variacao_vs_anterior": -9.1,
+        "is_official": true
+      }
+    ]
+  },
+  "form_versions": [
+    {
+      "versao": "v2025-jun",
+      "ciclos": [
+        "2025-Q2"
+      ],
+      "n": 108
+    },
+    {
+      "versao": "typeform 2025-26",
+      "ciclos": [
+        "2025-Q3",
+        "2026-Q2",
+        "2026-Q3"
+      ],
+      "n": 60
+    },
+    {
+      "versao": "nova jornada (backoffice/QV360)",
+      "ciclos": [
+        "2025-Q4",
+        "2026-Q1"
+      ],
+      "n": 154
+    },
+    {
+      "versao": "legado",
+      "ciclos": [
+        "2025-Q4",
+        "2026-Q1"
+      ],
+      "n": 211
+    },
+    {
+      "versao": "cadastro oficial",
+      "ciclos": [
+        "2026-Q3"
+      ],
+      "n": 36
+    }
+  ]
+}
