@@ -49,6 +49,7 @@
     "refresh:base-qv": "node scripts/refresh-base-qv.mjs",
     "refresh:base-qv-mcp": "node scripts/refresh-base-qv-from-partials.mjs",
     "generate:phase1": "node scripts/generate-phase1-analytics.mjs",
+    "qa:historico-phase2": "node scripts/qa-historico-phase2.mjs",
     "import:base0": "node scripts/import-base0.mjs",
     "audit:financial-sources": "node scripts/audit-financial-sources.mjs",
     "export:milestone-sources": "node scripts/export-milestone-sources.mjs",
