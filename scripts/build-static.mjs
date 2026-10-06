@@ -17,6 +17,7 @@ import {
   REQUIRED_PUBLIC_DATASETS,
   OPTIONAL_PUBLIC_DATASETS,
 } from '../lib/deploy/public-datasets.mjs';
+import { resolvePublicDataset } from '../lib/deploy/dataset-resolve.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -37,11 +38,8 @@ const FORBIDDEN_CONTENT = [
 ];
 
 function resolveDatasetSource(dataRel) {
-  const live = join(ROOT, 'data', dataRel);
-  if (existsSync(live)) return live;
-  const bundled = join(DEPLOY_PUBLIC, dataRel);
-  if (existsSync(bundled)) return bundled;
-  return null;
+  const resolved = resolvePublicDataset(ROOT, dataRel);
+  return resolved?.path ?? null;
 }
 
 function copyDataset(dataRel) {
