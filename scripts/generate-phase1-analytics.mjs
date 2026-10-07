@@ -3,6 +3,7 @@
  * Fase 1: safras por pagamento + historical_nps_enriched (PIT) + overlap.
  */
 import { existsSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
@@ -22,6 +23,12 @@ import {
 } from '../lib/analytics/historical-nps-enriched.mjs';
 import { readDataJson, historicoCsvCandidates } from '../lib/deploy/build-input.mjs';
 import { HISTORICO_OFFICIAL_MEDICOES } from '../lib/analytics/customer-nps-cohorts.mjs';
+import { buildMilestoneSupplementFromBase0 } from '../lib/analytics/milestone-base0-supplement.mjs';
+import { buildNpsMilestoneArtifacts } from '../lib/analytics/nps-milestones-pipeline.mjs';
+import { buildNpsAllPeriods } from '../lib/analytics/nps-all-periods.mjs';
+import { buildMechanismsAtResponseFromEnriched } from '../lib/analytics/nps-mechanisms-at-response.mjs';
+import { buildVocBase0Pack, mergeVocAllPeriods } from '../lib/analytics/voc-base0-pipeline.mjs';
+import { readJson } from '../lib/data/file-store.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 dotenv.config({ path: join(root, '.env') });
@@ -59,7 +66,30 @@ async function loadHistoricoDbRows() {
   }
 }
 
+function runPharusAppMatch() {
+  const script = join(root, 'scripts/generate-pharus-app-match.mjs');
+  spawnSync(process.execPath, [script], { cwd: root, stdio: 'inherit' });
+}
+
+function loadAppRowsFromMatch() {
+  const doc = readDataJson(root, 'processed/pharus_app_customer_match.json', null);
+  if (!doc?.entries?.length) return [];
+  const note = doc.app_source ?? 'pharus_app_customer_match.json';
+  return doc.entries.map((e) => ({
+    client_id: e.client_id,
+    has_app: e.has_app,
+    has_app_access: e.has_app,
+    app_match_status: e.app_match_status,
+    app_match_method: e.app_match_method,
+    app_registered_at: e.app_registered_at,
+    source_note: note,
+  }));
+}
+
 async function main() {
+  runPharusAppMatch();
+  const appRows = loadAppRowsFromMatch();
+
   const sb = createBusinessDataClient('base0');
   const { byClientId, audit, conflicts } = await loadPaymentEntryContext(sb, CURRENT_DATE);
 
@@ -92,7 +122,7 @@ async function main() {
   const base0Nps = await fetchAllPaginated(
     sb,
     'nps_respostas',
-    'base_qv_id,codigo_cliente,nome_cliente,data_resposta,nota,categoria,onda,dedupe_key',
+    'base_qv_id,codigo_cliente,nome_cliente,programa,data_resposta,nota,categoria,onda,dedupe_key,motivo_nota,comentario_completo',
   );
 
   const clientesBase0 = await fetchAllPaginated(
@@ -121,7 +151,7 @@ async function main() {
     freezeRows,
     currentResponses,
     historicoResponses,
-    appRows: [],
+    appRows,
     epNameById,
     paymentEntryByClientId: byClientId,
   });
@@ -210,6 +240,61 @@ async function main() {
   });
   await writeJson('quality/historical_nps_enriched_quality.json', enrichedPack.quality);
 
+  const mechanismEntries = buildMechanismsAtResponseFromEnriched(enrichedPack.enriched);
+  await writeJson('processed/nps_mechanisms_at_response.json', {
+    meta: {
+      pit_rule: 'data_implementacao <= response_date; date_unavailable excluded from buckets',
+      source: 'historical_nps_enriched + base0.mecanismos_cliente',
+    },
+    entries: mechanismEntries,
+  });
+
+  const npsAll = buildNpsAllPeriods({ base0Nps, currentResponses });
+  npsAll.meta.generated_at = new Date().toISOString();
+  npsAll.meta.current_cycle_label = currentResponses[0]?.analytical_cycle_name ?? null;
+  await writeJson('processed/nps_all_periods.json', npsAll);
+  await writeJson('quality/nps_all_periods_audit.json', npsAll.audit);
+
+  const milestoneSupplement = buildMilestoneSupplementFromBase0({ mecanismos, reunioes });
+  const pairedDoc = readDataJson(root, 'processed/paired_cycles.json', null);
+  const latestSnap = readDataJson(root, 'snapshots/latest.json', null);
+  const milestoneArtifacts = await buildNpsMilestoneArtifacts(currentResponses, {
+    rawSnapshotId: latestSnap?.raw_snapshot ?? process.env.MILESTONES_RAW_SNAPSHOT ?? null,
+    pairedDoc,
+    dataCutoff: latestSnap?.data_cutoff ?? new Date().toISOString(),
+    milestoneSupplement,
+  });
+  await writeJson('processed/nps_client_milestones.json', milestoneArtifacts.clientMilestonesDoc);
+  await writeJson('processed/nps_milestones_summary.json', milestoneArtifacts.summaryDoc);
+  await writeJson('processed/nps_between_cycle_events.json', milestoneArtifacts.betweenDoc);
+  await writeJson('quality/nps_milestones_qa.json', milestoneArtifacts.qaDoc);
+
+  const { buildNpsChangeDriverArtifacts } = await import('../lib/analytics/nps-change-drivers-pipeline.mjs');
+  const changeArtifacts = await buildNpsChangeDriverArtifacts({
+    betweenDoc: milestoneArtifacts.betweenDoc,
+    clientMilestonesDoc: milestoneArtifacts.clientMilestonesDoc,
+    summaryDoc: milestoneArtifacts.summaryDoc,
+    dataCutoff: latestSnap?.data_cutoff ?? new Date().toISOString(),
+  });
+  await writeJson('processed/nps_change_drivers.json', changeArtifacts.driversDoc);
+  await writeJson('quality/nps_change_drivers_qa.json', changeArtifacts.qaDoc);
+
+  const cyclesDoc = readDataJson(root, 'processed/cycles.json', []);
+  const vocBase0 = buildVocBase0Pack({
+    base0Nps,
+    currentResponses,
+    cycles: cyclesDoc,
+    dataCutoff: latestSnap?.data_cutoff ?? new Date().toISOString(),
+  });
+  await writeJson('quality/voc_base0_coverage.json', vocBase0.audit);
+  const currentTopics = readDataJson(root, 'processed/response_topics.json', []);
+  const vocMerged = mergeVocAllPeriods({
+    currentTopics: Array.isArray(currentTopics) ? currentTopics : [],
+    base0Topics: vocBase0.responseTopics,
+    audit: vocBase0.audit,
+  });
+  await writeJson('processed/voc_all_periods.json', vocMerged);
+
   const safraDist = {};
   for (const c of built.customers) {
     if (c.invalid_future_entry_date || !c.safra_trimestre) continue;
@@ -225,6 +310,11 @@ async function main() {
         safras_2027_remaining: cases2027.length,
         safra_distribution: safraDist,
         overlap,
+        nps_all_periods: npsAll.audit,
+        mechanisms_at_response: mechanismEntries.length,
+        milestones_mecanismos_loaded:
+          milestoneArtifacts.clientMilestonesDoc.meta.sources_loaded?.['client_mecanismos.json'],
+        voc_base0: vocBase0.audit,
         analyses_keys: Object.keys(enrichedPack.analyses),
         payment_audit: {
           with_payment_date: audit.with_payment_date,

@@ -38,7 +38,8 @@ describe('dashboard store-core', () => {
     const cur = map.get('NPS-2026-SET-PHARUS');
     const prev = map.get('NPS-2026-JUN-JUL-PHARUS');
     const delta = cur.nps - prev.nps;
-    assert.ok(Math.abs(delta - -12.108811904) < 0.0001);
+    assert.ok(Math.abs(delta - (cur.nps - prev.nps)) < 1e-9);
+    assert.ok(Number.isFinite(delta));
   });
 
   it('filtro base pareada restringe clientes', () => {

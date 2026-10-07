@@ -2,6 +2,13 @@ import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatNps, formatPct, formatDate } from '../utils/format.js';
 import { cycleSortKey } from '../utils/cycle-sort.mjs';
 import { sampleBadgeHtml } from '../data/historico-nps-enriched-view.mjs';
+import { formatNpsCycleLabel } from '../utils/nps-cycle-labels.mjs';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
+
+/** @deprecated use renderDataSourceNotice('historico-nps') */
+export function renderHistoricoBase0Notice() {
+  return renderDataSourceNotice('historico-nps');
+}
 
 export function renderHistoricoHeader(updatedLabel) {
   return `<header class="page-header historico-page-header">
@@ -9,6 +16,7 @@ export function renderHistoricoHeader(updatedLabel) {
       <p class="eyebrow">PHARUS · Longitudinal</p>
       <h1>Histórico NPS</h1>
       <p class="page-lead">Evolução da satisfação ao longo do relacionamento com o cliente.</p>
+      ${renderDataSourceNotice('historico-nps')}
       <p class="historico-page-header__note">Resultados oficiais por medição + análises derivadas por recorte.</p>
       <p class="historico-page-header__pit note-muted" title="Point-in-time">Análises de reuniões, mecanismos, pagamentos e transferências usam apenas eventos ocorridos até a data de cada resposta NPS.</p>
     </div>
@@ -24,8 +32,19 @@ export function renderHistoricoFilters(pageFilters, opts) {
     `<option value="${escapeAttr(val)}" ${cur === val ? 'selected' : ''}>${escapeHtml(label ?? (val || 'Todos'))}</option>`;
   const f = pageFilters;
   return `<div class="card filters-panel historico-filters-card ${opts.stickyClass ?? ''}" data-hist-filters id="historico-page-filters">
+    <div class="safras-filters-card__head historico-filters-card__head">
+      <span class="safras-filters-card__title">Filtros</span>
+      <div class="filter-sticky-toggle safras-filters-card__sticky">
+        <span class="filter-sticky-label">Fixar filtros</span>
+        <label class="switch" aria-label="Fixar filtros durante a rolagem">
+          <input type="checkbox" id="hist-sticky-switch" data-hist-sticky ${opts.stickyOn ? 'checked' : ''} />
+          <span class="switch__track"></span>
+          <span class="switch__thumb"></span>
+        </label>
+      </div>
+    </div>
     <div class="historico-filters-grid">
-      <div class="filter-field"><label for="hf-ciclo">Ciclo</label><select id="hf-ciclo" class="select-input" data-f="ciclo">${opt('', f.ciclo, 'Todos')}${ciclos.map((c) => opt(c, f.ciclo, c)).join('')}</select></div>
+      <div class="filter-field"><label for="hf-ciclo">Ciclo</label><select id="hf-ciclo" class="select-input" data-f="ciclo">${opt('', f.ciclo, 'Todos')}${ciclos.map((c) => opt(c, f.ciclo, formatNpsCycleLabel(c))).join('')}</select></div>
       <div class="filter-field"><label for="hf-safra">Safra (pagamento)</label><select id="hf-safra" class="select-input" data-f="safra">${opt('', f.safra, 'Todas')}${safras.map((s) => opt(s, f.safra, s)).join('')}</select></div>
       <div class="filter-field"><label for="hf-tenure">Tempo de relacionamento</label><select id="hf-tenure" class="select-input" data-f="tenure">${opt('', f.tenure, 'Todos')}${['0–3 meses', '3–6 meses', '6–12 meses', '12–18 meses', '18–24 meses', '24+ meses'].map((t) => opt(t, f.tenure, t)).join('')}</select></div>
       <div class="filter-field"><label for="hf-prog">Programa</label><select id="hf-prog" class="select-input" data-f="programa">${opt('', f.programa, 'Todos')}${programas.map((p) => opt(p, f.programa, p)).join('')}</select></div>
@@ -114,7 +133,7 @@ export function renderOfficialTable(cycles) {
     .sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo))
     .map(
       (c) => `<tr>
-      <td>${escapeHtml(c.ciclo)}</td>
+      <td>${escapeHtml(formatNpsCycleLabel(c.ciclo))}</td>
       <td>${escapeHtml(c.periodo ?? '—')}</td>
       <td class="num">${c.respostas ?? c.respostas_derivadas ?? '—'}${c.is_official ? ' <span class="note-muted" title="Oficial">●</span>' : ''}</td>
       <td class="num">${c.promotores ?? '—'}</td>
@@ -180,7 +199,7 @@ export function renderClientExplorerTable(rows, page, pageSize) {
         <td>${escapeHtml(c.last_category ?? '—')}</td>
         <td class="num">${c.meetings_last ?? '—'}</td>
         <td>${escapeHtml(mech)}</td>
-        <td>${escapeHtml(c.last_cycle ?? '—')}</td>
+        <td>${escapeHtml(formatNpsCycleLabel(c.last_cycle) ?? '—')}</td>
       </tr>`;
     })
     .join('');
@@ -195,7 +214,7 @@ export function renderClientExplorerTable(rows, page, pageSize) {
 
 export function renderSafraMatrix(matrix, metric) {
   const { safras, ciclos, cells, safraTotals } = matrix;
-  const head = ciclos.map((c) => `<th class="num">${escapeHtml(c)}</th>`).join('');
+  const head = ciclos.map((c) => `<th class="num">${escapeHtml(formatNpsCycleLabel(c))}</th>`).join('');
   const body = safras
     .map((s) => {
       let row = `<tr><th scope="row" class="safras-matrix-sticky-col">${escapeHtml(s)}</th>`;

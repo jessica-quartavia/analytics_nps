@@ -4,13 +4,13 @@
   "entries": 537,
   "coverage_by_field": {
     "meetings": {
-      "coverage_pct": 0,
-      "point_in_time_pct": 0,
+      "coverage_pct": 100,
+      "point_in_time_pct": 100,
       "current_proxy_pct": 0
     },
     "mechanisms": {
-      "coverage_pct": 0,
-      "point_in_time_pct": 0,
+      "coverage_pct": 66.66666666666666,
+      "point_in_time_pct": 66.66666666666666,
       "current_proxy_pct": 0
     },
     "ep": {
@@ -49,24 +49,22 @@
     "client_journeys.json": 3479,
     "journey_stages.json": 8,
     "engenheiro_transfer_logs.json": 921,
-    "client_meetings.json": 0,
+    "client_meetings.json": 6850,
     "manual_meetings.json": 0,
-    "client_mecanismos.json": 0,
+    "client_mecanismos.json": 2064,
     "cancellations.json": 0,
     "client_engajamento_history.json": 0,
     "freeze_change_requests.json": 0
   },
   "missing_optional_sources": [
-    "client_meetings.json",
     "manual_meetings.json",
-    "client_mecanismos.json",
     "cancellations.json",
     "client_engajamento_history.json"
   ],
   "temporal_quality_totals": {
     "current_proxy": 1066,
-    "unavailable": 3101,
-    "point_in_time": 129,
+    "unavailable": 2206,
+    "point_in_time": 1024,
     "partial": 0
   },
   "invalid_dates": [],

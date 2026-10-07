@@ -21,9 +21,9 @@ describe('ep-summary analytics', () => {
 
   it('P/N/D e NPS por EP', () => {
     const rows = [
-      { score: 10, nps_category: 'Promotor', ep_id: 'a', ep_name: 'EP A', analytical_cycle_code: 'C1' },
-      { score: 9, nps_category: 'Promotor', ep_id: 'a', ep_name: 'EP A', analytical_cycle_code: 'C1' },
-      { score: 5, nps_category: 'Detrator', ep_id: 'a', ep_name: 'EP A', analytical_cycle_code: 'C1' },
+      { client_id: 'c1', score: 10, nps_category: 'Promotor', ep_id: 'a', ep_name: 'EP A', analytical_cycle_code: 'C1' },
+      { client_id: 'c2', score: 9, nps_category: 'Promotor', ep_id: 'a', ep_name: 'EP A', analytical_cycle_code: 'C1' },
+      { client_id: 'c3', score: 5, nps_category: 'Detrator', ep_id: 'a', ep_name: 'EP A', analytical_cycle_code: 'C1' },
     ];
     const entry = buildEpSummaryEntry('C1', 'id:a', rows, [], false);
     assert.equal(entry.valid_responses, 3);
@@ -39,7 +39,7 @@ describe('ep-summary analytics', () => {
   });
 
   it('IC95 preenchido com n>0', () => {
-    const rows = [{ score: 8, nps_category: 'Neutro', ep_id: 'b', ep_name: 'B', analytical_cycle_code: 'C1' }];
+    const rows = [{ client_id: 'c1', score: 8, nps_category: 'Neutro', ep_id: 'b', ep_name: 'B', analytical_cycle_code: 'C1' }];
     const entry = buildEpSummaryEntry('C1', 'id:b', rows, [], false);
     assert.equal(entry.nps_ci_method, 'bootstrap_percentile_95');
     assert.ok(entry.nps_ci_low != null);
@@ -49,6 +49,7 @@ describe('ep-summary analytics', () => {
   it('paired NPS e delta', () => {
     const rows = [
       {
+        client_id: 'c1',
         score: 9,
         previous_score: 4,
         previous_category: 'Detrator',
@@ -58,6 +59,7 @@ describe('ep-summary analytics', () => {
         analytical_cycle_code: 'C2',
       },
       {
+        client_id: 'c2',
         score: 8,
         previous_score: 7,
         previous_category: 'Neutro',
@@ -79,6 +81,7 @@ describe('ep-summary analytics', () => {
   it('recovered detractors denominator e deteriorated promoters', () => {
     const rows = [
       {
+        client_id: 'c1',
         score: 3,
         previous_score: 10,
         previous_category: 'Promotor',
@@ -95,8 +98,8 @@ describe('ep-summary analytics', () => {
 
   it('low confidence contagem', () => {
     const rows = [
-      { score: 7, ep_id: 'e', ep_name: 'E', ep_resolution_confidence: 'low', analytical_cycle_code: 'C1' },
-      { score: 8, ep_id: 'e', ep_name: 'E', ep_resolution_confidence: 'high', analytical_cycle_code: 'C1' },
+      { client_id: 'c1', score: 7, ep_id: 'e', ep_name: 'E', ep_resolution_confidence: 'low', analytical_cycle_code: 'C1' },
+      { client_id: 'c2', score: 8, ep_id: 'e', ep_name: 'E', ep_resolution_confidence: 'high', analytical_cycle_code: 'C1' },
     ];
     const entry = buildEpSummaryEntry('C1', 'id:e', rows, [], false);
     assert.equal(entry.ep_low_confidence, 1);
@@ -105,7 +108,7 @@ describe('ep-summary analytics', () => {
   });
 
   it('response_rate null sem eligible', () => {
-    const rows = [{ score: 9, ep_id: 'f', ep_name: 'F', analytical_cycle_code: 'C1' }];
+    const rows = [{ client_id: 'c1', score: 9, ep_id: 'f', ep_name: 'F', analytical_cycle_code: 'C1' }];
     const entry = buildEpSummaryEntry('C1', 'id:f', rows, [], false);
     assert.equal(entry.response_rate, null);
     assert.equal(entry.response_rate_quality, 'unavailable');

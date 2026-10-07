@@ -1,7 +1,12 @@
-import { getNpsChangeDrivers, hasNpsChangeDrivers } from '../data/analytics-store.js';
+import {
+  getNpsChangeDrivers,
+  hasNpsChangeDrivers,
+  getNpsClientMilestones,
+  hasNpsMilestones,
+  getNpsMechanismsAtResponse,
+} from '../data/analytics-store.js';
 import { getFilters } from '../filters/global-filters.js';
 import { filterMilestoneEntries } from '../data/milestones-view.mjs';
-import { getNpsClientMilestones, hasNpsMilestones } from '../data/analytics-store.js';
 import { escapeHtml } from '../utils/escape-html.js';
 import { formatNps, formatPct } from '../utils/format.js';
 import { sectionHead, helpTip } from '../ui/help.js';
@@ -9,6 +14,24 @@ import { mechanismBucket, npsFromScores, qualityLabelFriendly } from '../data/jo
 import { cellClients, cellNpsStack, cellPlainNum, cellPctStack } from '../ui/analytics-table.mjs';
 
 const CATS = ['Promotor', 'Neutro', 'Detrator'];
+
+function mechanismRowsForView(cycleCode, clientSet, recorteActive) {
+  const pit = getNpsMechanismsAtResponse();
+  if (pit.length) {
+    let rows = pit.filter((e) => e.analytical_cycle_code === cycleCode);
+    if (recorteActive && clientSet?.size) rows = rows.filter((e) => clientSet.has(e.client_id));
+    return rows.map((e) => ({
+      client_id: e.client_id,
+      score: e.score,
+      nps_category: e.nps_category,
+      mechanisms_count_before_response: e.mechanisms_before_response,
+      mechanism_temporal_status: e.mechanism_temporal_status,
+    }));
+  }
+  const allEntries = getNpsClientMilestones();
+  let entries = filterMilestoneEntries(allEntries, cycleCode, recorteActive ? clientSet : null);
+  return entries.filter((e) => e.mechanisms_count_before_response != null);
+}
 
 function distribByBucket(entries) {
   const buckets = ['0', '1', '2+'];
@@ -38,13 +61,8 @@ export function renderJornadaMechanismsSection(filterCtx) {
 
   const filters = getFilters();
   const cycleCode = filters.cycleCode;
-  const allEntries = getNpsClientMilestones();
   const clientSet = new Set((filterCtx?.rowsCurrent ?? []).map((r) => r.client_id));
-  let entries = filterMilestoneEntries(
-    allEntries,
-    cycleCode,
-    filterCtx?.recorteActive ? clientSet : null,
-  );
+  let entries = mechanismRowsForView(cycleCode, clientSet, filterCtx?.recorteActive);
   if (filters.category) entries = entries.filter((e) => e.nps_category === filters.category);
 
   const withMechInfo = entries.filter((e) => mechanismBucket(e.mechanisms_count_before_response) != null);
@@ -92,7 +110,7 @@ export function renderJornadaMechanismsSection(filterCtx) {
 
   return `
     <section id="jornada-mecanismos" class="jornada-section">
-    ${sectionHead('Mecanismos × NPS', `Cobertura: ${escapeHtml(covLabel)}`, 'Associação observada — não causalidade. Dados point-in-time quando disponíveis.')}
+    ${sectionHead('Mecanismos × NPS', `Cobertura: ${escapeHtml(covLabel)}`, 'Associação observada — não causalidade. Contagem PIT: mecanismos com data_implementacao ≤ data da resposta; date_unavailable não entra nas faixas.')}
     <p class="note-muted">Cobertura de mecanismos: ${withMechInfo.length} de ${popTotal} clientes com informação válida (soma das faixas: ${bucketSum}).</p>
     ${filterCtx?.recorteActive ? '<p class="filter-recorte-banner" role="status"><strong>Recorte ativo</strong> — agregados recalculados para clientes filtrados.</p>' : ''}
     <div class="grid grid--2">

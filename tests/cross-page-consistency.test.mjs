@@ -5,10 +5,24 @@ import { buildCrossPageConsistency } from '../lib/analytics/cross-page-consisten
 describe('cross page consistency', () => {
   it('passa quando diagnóstico alinhado', () => {
     const cycle = 'C2';
+    const responses = [
+      { analytical_cycle_code: cycle, client_id: 'a', score: 10 },
+      { analytical_cycle_code: cycle, client_id: 'b', score: 10 },
+      { analytical_cycle_code: cycle, client_id: 'c', score: 5 },
+    ];
     const doc = buildCrossPageConsistency({
       cycleCode: cycle,
       cycleSummaryDoc: {
-        cycles: [{ cycle_code: cycle, nps: 56.1, valid_responses: 253, promoters: 1, passives: 1, detractors: 1 }],
+        cycles: [
+          {
+            cycle_code: cycle,
+            nps: (100 * (2 - 1)) / 3,
+            valid_responses: 3,
+            promoters: 2,
+            passives: 0,
+            detractors: 1,
+          },
+        ],
       },
       pairedCyclesDoc: { current_cycle: cycle, paired_clients: 81, delta_nps_paired: -16 },
       migrationMatrixDoc: { current_cycle: cycle, paired_clients: 81, cells: [] },
@@ -23,13 +37,13 @@ describe('cross page consistency', () => {
       },
       executiveDiagnosisDoc: {
         cycle_code: cycle,
-        overall: { current_nps: 56.1, valid_responses: 253 },
+        overall: { current_nps: (100 * (2 - 1)) / 3, valid_responses: 3 },
         paired: { paired_clients: 81, delta_nps_paired: -16 },
         actions: { priority_follow_up: 2, investigate: 0 },
       },
       csatSummaryDoc: { cycles: [{ analytical_cycle_code: cycle, average_score: 4.8 }] },
       driversSummaryDoc: { tests_count: 10 },
-      responses: Array.from({ length: 253 }, () => ({ analytical_cycle_code: cycle })),
+      responses,
     });
     assert.equal(doc.status, 'pass');
     assert.ok(doc.checks.some((c) => c.metric === 'nps_set' && c.status === 'pass'));

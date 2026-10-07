@@ -14,7 +14,9 @@ import {
   getPopulationAudit,
   getPairedCycles,
   getNpsChangeDrivers,
+  getNpsAllPeriodsDoc,
 } from './data/analytics-store.js';
+import { showNpsPeriodFilter, buildNpsPeriodSelectOptions } from './filters/nps-period.mjs';
 import {
   subscribeFilters,
   setFilter,
@@ -76,11 +78,23 @@ const ROUTES = {
   },
 };
 
+const LAZY_ROUTE_META = {
+  'previsao-nps': { title: 'Projeção NPS', topbar: 'Projeção NPS' },
+};
+
+function routeMeta(route) {
+  return ROUTES[route] ?? LAZY_ROUTE_META[route] ?? ROUTES.executivo;
+}
+
+function isKnownRoute(routeKey) {
+  return Boolean(ROUTES[routeKey] || LAZY_ROUTE_META[routeKey]);
+}
+
 function parseHashRoute() {
   const raw = location.hash.replace(/^#\/?/, '') || 'executivo';
   const [pathPart] = raw.split('#');
   const [routeKey, queryString] = pathPart.split('?');
-  const route = ROUTES[routeKey] ? routeKey : 'executivo';
+  const route = isKnownRoute(routeKey) ? routeKey : 'executivo';
   const params = new URLSearchParams(queryString ?? '');
   return { route, params };
 }
@@ -118,7 +132,10 @@ function showTopicValenceFilters(route) {
 
 function setNavActive(route) {
   document.querySelectorAll('[data-route]').forEach((a) => {
-    a.classList.toggle('is-active', a.dataset.route === route);
+    const active = a.dataset.route === route;
+    a.classList.toggle('is-active', active);
+    if (active) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
   });
 }
 
@@ -127,7 +144,7 @@ function updateTopbar(route) {
   const metaEl = document.getElementById('topbar-meta');
   if (!titleEl || !metaEl || !isLoaded()) return;
 
-  titleEl.textContent = ROUTES[route]?.topbar ?? 'NPS';
+  titleEl.textContent = routeMeta(route).topbar ?? 'NPS';
   const filters = getFilters();
   const summary = getCycleSummary(filters.cycleCode);
   const dataState = getDataState();
@@ -163,18 +180,43 @@ function updateTopbar(route) {
 function renderFiltersBar() {
   const host = document.getElementById('filters-bar');
   if (!host || !isLoaded()) return;
+  const route = getRoute();
+  if (route === 'safras-cobertura' || route === 'historico-nps' || route === 'previsao-nps') {
+    host.innerHTML = '';
+    host.classList.add('page-filters--hidden');
+    host.classList.remove('is-sticky', 'has-scroll-shadow');
+    return;
+  }
+  host.classList.remove('page-filters--hidden');
   const signal = beginFilterBindings();
   const filters = getFilters();
   const cycles = getCycles();
   const responses = getResponses(filters.cycleCode);
   const eps = getEpOptions(responses);
   const stickyOn = stickyFiltersEnabled();
-  const route = getRoute();
   const topicOptions = showTopicValenceFilters(route) ? getTopicFilterOptions(filters.cycleCode) : [];
   const showTopicValence = topicOptions.length > 0;
+  const showNpsPeriod = showNpsPeriodFilter(route) && getNpsAllPeriodsDoc()?.responses?.length;
+  const npsPeriodOpts = showNpsPeriod ? buildNpsPeriodSelectOptions() : [];
 
   host.innerHTML = `
     <div class="filter-shell__fields">
+      ${
+        showNpsPeriod
+          ? `
+      <div class="filter-field">
+        <label for="filter-nps-period">Período NPS</label>
+        <select class="select-input" id="filter-nps-period" aria-label="Filtrar período NPS histórico ou atual">
+          ${npsPeriodOpts
+            .map(
+              (o) =>
+                `<option value="${escapeAttr(o.value)}" ${filters.npsPeriod === o.value ? 'selected' : ''}>${escapeHtml(o.label)}</option>`,
+            )
+            .join('')}
+        </select>
+      </div>`
+          : ''
+      }
       <div class="filter-field">
         <label for="filter-cycle">Ciclo</label>
         <select class="select-input" id="filter-cycle" aria-label="Filtrar por ciclo analítico">
@@ -275,7 +317,7 @@ function renderFiltersBar() {
           : ''
       }
     </div>
-    <div class="filter-shell__sticky">
+    <div class="filter-sticky-toggle filter-shell__sticky">
       <span class="filter-sticky-label">Fixar filtros</span>
       <label class="switch" aria-label="Fixar barra de filtros durante a rolagem">
         <input type="checkbox" id="filter-sticky-switch" ${stickyOn ? 'checked' : ''} />
@@ -288,6 +330,7 @@ function renderFiltersBar() {
   applyStickyFiltersDom(stickyOn);
 
   const opts = { signal };
+  host.querySelector('#filter-nps-period')?.addEventListener('change', (e) => setFilter('npsPeriod', e.target.value), opts);
   host.querySelector('#filter-cycle')?.addEventListener('change', (e) => setFilter('cycleCode', e.target.value), opts);
   host.querySelector('#filter-ep')?.addEventListener('change', (e) => setFilter('ep', e.target.value), opts);
   host.querySelector('#filter-category')?.addEventListener('change', (e) => setFilter('category', e.target.value), opts);
@@ -310,14 +353,28 @@ function renderFiltersBar() {
   );
 }
 
-function renderPage() {
+async function renderPrevisaoNpsLazy(container, { signal } = {}) {
+  container.innerHTML =
+    '<div class="gd-status" role="status"><p>Carregando projeção NPS…</p></div>';
+  try {
+    const mod = await import('./pages/previsao-nps.js');
+    if (signal?.aborted) return;
+    mod.renderPrevisaoNps(container, { signal });
+  } catch (err) {
+    console.error('[dashboard] previsao-nps lazy load failed', err);
+    container.innerHTML = `<div class="gd-status gd-status--error" role="alert"><p><strong>Não foi possível carregar Projeção NPS.</strong></p><p class="note-muted">${escapeHtml(err?.message ?? String(err))}</p></div>`;
+  }
+}
+
+async function renderPage() {
+  renderFiltersBar();
   const route = getRoute();
   if (route === 'jornada-perfil') {
     const f = getFilters();
     if (f.topic || f.valence) setFilters({ topic: '', valence: '' });
   }
   setNavActive(route);
-  document.title = `NPS · ${ROUTES[route].title}`;
+  document.title = `NPS · ${routeMeta(route).title}`;
   updateTopbar(route);
   closeDrawer();
   closeSafrasDrawer();
@@ -333,6 +390,10 @@ function renderPage() {
   const signal = beginPageBindings();
   mountFilterScrollWatch(signal);
   try {
+    if (route === 'previsao-nps') {
+      await renderPrevisaoNpsLazy(content, { signal });
+      return;
+    }
     ROUTES[route].render(content, { signal });
   } catch (err) {
     console.error(`[dashboard] render failed (${route})`, err);

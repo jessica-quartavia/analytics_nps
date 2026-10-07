@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-10-06T23:08:00.144215+00:00",
+  "panel_path": "data\\processed\\nps_prediction_training_panel.json",
+  "training_rows": 11606,
+  "cycles": [
+    {
+      "ciclo": "2025-Q2",
+      "cutoff": "2025-04-01",
+      "eligible_clients": 1166,
+      "responses": 0,
+      "nps_official": 21.3
+    },
+    {
+      "ciclo": "2025-Q3",
+      "cutoff": "2025-07-01",
+      "eligible_clients": 1495,
+      "responses": 0,
+      "nps_official": 24
+    },
+    {
+      "ciclo": "2025-Q4",
+      "cutoff": "2025-10-01",
+      "eligible_clients": 1706,
+      "responses": 0,
+      "nps_official": 35.1
+    },
+    {
+      "ciclo": "2026-Q1",
+      "cutoff": "2026-01-01",
+      "eligible_clients": 2037,
+      "responses": 0,
+      "nps_official": 45.9
+    },
+    {
+      "ciclo": "2026-Q2",
+      "cutoff": "2026-04-01",
+      "eligible_clients": 2452,
+      "responses": 203,
+      "nps_official": 68.7
+    },
+    {
+      "ciclo": "2026-Q3",
+      "cutoff": "2026-07-01",
+      "eligible_clients": 2750,
+      "responses": 246,
+      "nps_official": 59.6
+    }
+  ],
+  "missingness": {},
+  "folds": [
+    {
+      "train_cycles": [
+        "2025-Q2",
+        "2025-Q3"
+      ],
+      "test_cycle": "2025-Q4",
+      "n_train": 2661,
+      "n_test": 1706,
+      "nps_predicted": 25.0,
+      "nps_actual": 35.1,
+      "nps_abs_error": 10.100000000000001
+    },
+    {
+      "train_cycles": [
+        "2025-Q2",
+        "2025-Q3",
+        "2025-Q4"
+      ],
+      "test_cycle": "2026-Q1",
+      "n_train": 4367,
+      "n_test": 2037,
+      "nps_predicted": 25.0,
+      "nps_actual": 45.9,
+      "nps_abs_error": 20.9
+    },
+    {
+      "train_cycles": [
+        "2025-Q2",
+        "2025-Q3",
+        "2025-Q4",
+        "2026-Q1"
+      ],
+      "test_cycle": "2026-Q2",
+      "n_train": 6404,
+      "n_test": 2452,
+      "nps_predicted": 25.0,
+      "nps_actual": 68.5,
+      "nps_abs_error": 43.5
+    },
+    {
+      "train_cycles": [
+        "2025-Q2",
+        "2025-Q3",
+        "2025-Q4",
+        "2026-Q1",
+        "2026-Q2"
+      ],
+      "test_cycle": "2026-Q3",
+      "n_train": 8856,
+      "n_test": 2750,
+      "nps_predicted": 38.9,
+      "nps_actual": 60.2,
+      "nps_abs_error": 21.300000000000004,
+      "response_roc_auc": 0.9491813099041533,
+      "response_brier": 0.056363646621791906
+    }
+  ],
+  "mae_nps": 23.95,
+  "baselines": {
+    "last_nps": 13.25,
+    "mean_history": 22.42
+  },
+  "features": [
+    "months_since_entry",
+    "cliente_ativo",
+    "has_app_access",
+    "prior_nps_count",
+    "last_nps_score",
+    "avg_nps_score",
+    "nps_score_delta",
+    "days_since_last_nps",
+    "meetings_before",
+    "mechanisms_implemented",
+    "has_implemented_mechanism",
+    "ep_transfers_before",
+    "payments_before",
+    "amount_paid_before",
+    "days_since_last_meeting",
+    "programa",
+    "safra_trimestre",
+    "tenure_bucket"
+  ],
+  "warnings": [
+    "Modelo ainda sem evidência suficiente para projeção confiável; use com cautela."
+  ]
+}

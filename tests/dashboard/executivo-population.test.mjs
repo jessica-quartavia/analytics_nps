@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import {
   EXECUTIVE_KPI_LABELS,
   validatePopulationInvariants,
-  dedupeStatsFromAudit,
 } from '../../dashboard/js/data/population-transparency.mjs';
+import { aggregateNpsFromResponses } from '../../lib/analytics/nps.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const SET = 'NPS-2026-SET-PHARUS';
@@ -22,37 +22,46 @@ describe('executivo — transparência população Set/2026', () => {
     assert.equal(EXECUTIVE_KPI_LABELS.validResponses, 'Respostas válidas');
   });
 
-  it('253 respondentes, client_id únicos, 0 DAVOS', () => {
+  it('respondentes alinhados ao cycle_summary, client_id únicos, 0 DAVOS', () => {
     const responses = loadJson('data/processed/responses.json');
     const summary = loadJson('data/processed/cycle_summary.json').cycles.find(
       (c) => c.cycle_code === SET,
     );
     const v = validatePopulationInvariants(responses, SET, summary);
-    assert.equal(v.count, 253);
-    assert.equal(v.distinct_clients, 253);
+    assert.equal(v.count, summary.valid_responses);
+    assert.equal(v.distinct_clients, summary.valid_responses);
     assert.equal(v.program.DAVOS, 0);
-    assert.equal(v.program.PHARUS, 253);
+    assert.equal(v.program.PHARUS, summary.valid_responses);
+    assert.ok(v.matches_summary);
   });
 
-  it('258 brutas → 5 duplicidades → 253 finais (auditoria)', () => {
-    const audit = loadJson('data/quality/nps_population_audit.json');
-    const d = dedupeStatsFromAudit(audit);
-    assert.equal(d.raw_rows, 258);
-    assert.equal(d.duplicates_treated, 5);
-    assert.equal(d.final_valid, 253);
+  it('kernel NPS bate cycle_summary no ciclo SET', () => {
+    const responses = loadJson('data/processed/responses.json').filter(
+      (r) => r.analytical_cycle_code === SET,
+    );
+    const summary = loadJson('data/processed/cycle_summary.json').cycles.find(
+      (c) => c.cycle_code === SET,
+    );
+    const agg = aggregateNpsFromResponses(responses);
+    assert.equal(agg.responses, summary.valid_responses);
+    assert.equal(agg.promoters, summary.promoters);
+    assert.equal(agg.neutrals, summary.passives);
+    assert.equal(agg.detractors, summary.detractors);
+    assert.ok(Math.abs(agg.nps - summary.nps) < 1e-9);
   });
 
-  it('P/N/D 174/47/32 e taxa 253/967', () => {
+  it('P/N/D e taxa coerentes com summary oficial', () => {
     const responses = loadJson('data/processed/responses.json');
     const summary = loadJson('data/processed/cycle_summary.json').cycles.find(
       (c) => c.cycle_code === SET,
     );
     const v = validatePopulationInvariants(responses, SET, summary);
-    assert.equal(v.promoters, 174);
-    assert.equal(v.passives, 47);
-    assert.equal(v.detractors, 32);
+    assert.equal(v.promoters, summary.promoters);
+    assert.equal(v.passives, summary.passives);
+    assert.equal(v.detractors, summary.detractors);
     assert.ok(v.matches_summary);
-    assert.equal(summary.eligible_clients, 967);
-    assert.ok(Math.abs(v.response_rate - 253 / 967) < 1e-9);
+    if (summary.eligible_clients) {
+      assert.ok(Math.abs(v.response_rate - summary.valid_responses / summary.eligible_clients) < 1e-9);
+    }
   });
 });

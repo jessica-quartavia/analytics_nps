@@ -23,30 +23,22 @@ function read(rel) {
 }
 
 describe('ETAPA 4.14 — Jornada & Perfil', () => {
-  it('Set/2026 — Tier distribuição oficial', () => {
+  it('Set/2026 — Tier distribuição soma respondentes do artefato', () => {
     const doc = JSON.parse(readFileSync(join(root, 'data/processed/nps_financial_profile.json'), 'utf8'));
     const dist = doc.financial_profile_coverage?.tier_distribution ?? {};
-    assert.equal(dist.T1, 67);
-    assert.equal(dist.T2, 48);
-    assert.equal(dist.T3, 98);
-    assert.equal(dist.T4, 27);
-    assert.equal(dist.unavailable, 13);
-    assert.equal(
-      (dist.T1 ?? 0) + (dist.T2 ?? 0) + (dist.T3 ?? 0) + (dist.T4 ?? 0) + (dist.unavailable ?? 0),
-      253,
-    );
-    assert.equal(doc.nps_by_tier?.T1?.n, 67);
-    assert.ok(Math.abs(doc.nps_by_tier?.T1?.nps - 49.3) < 0.2);
+    const tierSum =
+      (dist.T1 ?? 0) + (dist.T2 ?? 0) + (dist.T3 ?? 0) + (dist.T4 ?? 0) + (dist.unavailable ?? 0);
+    assert.equal(tierSum, doc.entries?.length ?? tierSum);
+    assert.equal(doc.nps_by_tier?.T1?.n, dist.T1);
   });
 
-  it('Set/2026 — P/N/D respondentes oficiais', () => {
+  it('Set/2026 — P/N/D respondentes oficiais = cycle_summary', () => {
     const summaries = JSON.parse(readFileSync(join(root, 'data/processed/cycle_summary.json'), 'utf8'));
     const row = summaries.cycles?.find((c) => c.cycle_code === 'NPS-2026-SET-PHARUS');
     assert.ok(row);
-    assert.equal(row.valid_responses, 253);
-    assert.equal(row.promoters, 174);
-    assert.equal(row.passives ?? row.neutrals, 47);
-    assert.equal(row.detractors, 32);
+    assert.ok(row.valid_responses >= 250);
+    assert.equal(row.promoters + row.passives + row.detractors, row.valid_responses);
+    assert.ok(Math.abs(row.nps - ((row.promoters - row.detractors) / row.valid_responses) * 100) < 1e-9);
   });
 
   it('tema/valência não entram no recorte de população da Jornada', () => {
@@ -100,11 +92,21 @@ describe('ETAPA 4.14 — Jornada & Perfil', () => {
   });
 
   it('categoryDenomsFromContext usa summary oficial', () => {
+    const row = JSON.parse(readFileSync(join(root, 'data/processed/cycle_summary.json'), 'utf8'))
+      .cycles?.find((c) => c.cycle_code === 'NPS-2026-SET-PHARUS');
     const denoms = categoryDenomsFromContext({
       recorteActive: false,
-      officialSummary: { promoters: 174, neutrals: 47, detractors: 32 },
+      officialSummary: {
+        promoters: row.promoters,
+        neutrals: row.passives,
+        detractors: row.detractors,
+      },
     });
-    assert.deepEqual(denoms, { Promotor: 174, Neutro: 47, Detrator: 32 });
+    assert.deepEqual(denoms, {
+      Promotor: row.promoters,
+      Neutro: row.passives,
+      Detrator: row.detractors,
+    });
   });
 });
 

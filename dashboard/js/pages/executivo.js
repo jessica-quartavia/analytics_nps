@@ -9,6 +9,7 @@ import {
   getExecutiveDiagnosis,
   hasExecutiveDiagnosis,
   getGlobalFilterContext,
+  getExecutiveOfficialSummary,
 } from '../data/analytics-store.js';
 import { getFilters } from '../filters/global-filters.js';
 import { renderFilterRecorteBanner } from '../filters/filter-context.mjs';
@@ -27,6 +28,7 @@ import { sectionLead, helpTip, TIPS } from '../ui/help.js';
 import { EXECUTIVE_KPI_LABELS, POPULATION_TIPS } from '../data/population-transparency.mjs';
 import { bindRespondentsDrawer, closeRespondentsDrawer } from '../ui/respondents-drawer.js';
 import { renderExecutivoManagementInsightsSection } from './executivo-management-insights.js';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 let charts = [];
 
@@ -497,7 +499,7 @@ export function renderExecutivo(root, ctx = {}) {
   const filters = getFilters();
   const filterCtx = getGlobalFilterContext(filters.cycleCode, filters);
   const currentCycle = getCycles().find((c) => c.cycle_code === filters.cycleCode);
-  const officialSummary = filterCtx?.officialSummary ?? getCycleSummary(filters.cycleCode);
+  const officialSummary = filterCtx?.officialSummary ?? getExecutiveOfficialSummary(filters.cycleCode);
   const currentSummary = filterCtx?.displaySummary ?? officialSummary;
   const prevCycle = getPreviousCycle(filters.cycleCode);
   const previousSummary = filterCtx?.displayPrevious ?? (prevCycle ? getCycleSummary(prevCycle.cycle_code) : null);
@@ -531,6 +533,7 @@ export function renderExecutivo(root, ctx = {}) {
 
   root.innerHTML = `
     ${renderHero(currentCycle, officialSummary)}
+    ${renderDataSourceNotice('executivo')}
     ${renderFilterRecorteBanner(filterCtx)}
     ${renderExecutiveDiagnosisBlock(diagnosis)}
     ${renderExecutivoManagementInsightsSection()}

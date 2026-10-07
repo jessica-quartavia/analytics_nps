@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { loadProjectDotenv } from '../lib/pharus/env.mjs';
 
-const projectRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
-dotenv.config({ path: join(projectRoot, '.env') });
+loadProjectDotenv();

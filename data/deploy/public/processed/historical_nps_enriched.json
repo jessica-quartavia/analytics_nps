@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-06T21:05:05.244Z",
+    "generated_at": "2026-10-07T02:10:13.544Z",
     "as_of": "2026-10-06",
     "payment_entry_rule": "1) MIN(base0.pagamentos_programa.data_pagamento) WHERE conta_como_programa=true AND base_qv_id matched; 2) fallback base0.clientes.data_pagamento_entrada",
     "pit_rule": "event_date <= response_date (end of day UTC)"

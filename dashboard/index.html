@@ -21,67 +21,78 @@
   <body>
     <div class="app-shell">
       <aside class="sidebar" aria-label="Navegação principal">
-        <div class="sidebar__logo" id="sidebar-brand">
-          <img class="sidebar__logo-img" src="/assets/favicon.ico" width="32" height="32" alt="" />
-          <div class="sidebar__logo-text">
-            <span class="sidebar__logo-mark">Analytics QuartaVia</span>
-            <span class="sidebar__logo-sub">NPS · Diagnóstico</span>
+        <div class="sidebar__brand" id="sidebar-brand">
+          <img class="sidebar__brand-logo" src="/assets/favicon.ico" width="36" height="36" alt="" />
+          <div class="sidebar__brand-text">
+            <span class="sidebar__brand-title">Analytics</span>
+            <span class="sidebar__brand-org">QuartaVia</span>
+            <span class="sidebar__brand-sub">NPS · Diagnóstico</span>
           </div>
         </div>
-        <nav>
+        <nav class="sidebar__nav" aria-label="Páginas">
           <ul class="sidebar-nav">
             <li>
-              <a href="#/executivo" data-route="executivo">
+              <a href="#/executivo" class="sidebar-nav__link" data-route="executivo">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/></svg>
-                Executivo
+                <span class="sidebar-nav__label">Executivo</span>
               </a>
             </li>
             <li>
-              <a href="#/movimento" data-route="movimento">
+              <a href="#/movimento" class="sidebar-nav__link" data-route="movimento">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17l5-5 5 5M7 7l5 5 5-5"/></svg>
-                Movimento
+                <span class="sidebar-nav__label">Movimento</span>
               </a>
             </li>
             <li>
-              <a href="#/historico-nps" data-route="historico-nps">
+              <a href="#/historico-nps" class="sidebar-nav__link" data-route="historico-nps">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 8v4l3 3M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/></svg>
-                Histórico NPS
+                <span class="sidebar-nav__label">Histórico NPS</span>
               </a>
             </li>
+            <li class="sidebar-nav__gap" aria-hidden="true"></li>
             <li>
-              <a href="#/eps" data-route="eps">
+              <a href="#/eps" class="sidebar-nav__link" data-route="eps">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-                Eng. Patrimoniais
+                <span class="sidebar-nav__label">Eng. Patrimoniais</span>
               </a>
             </li>
             <li>
-              <a href="#/voz-do-cliente" data-route="voz-do-cliente">
+              <a href="#/voz-do-cliente" class="sidebar-nav__link" data-route="voz-do-cliente">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                Voz do Cliente
+                <span class="sidebar-nav__label">Voz do Cliente</span>
               </a>
             </li>
             <li>
-              <a href="#/jornada-perfil" data-route="jornada-perfil">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 11a3 3 0 100-6 3 3 0 000 6z"/><path d="M4 20v-1a5 5 0 015-5h6a5 5 0 015 5v1"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
-                Jornada & Perfil
+              <a href="#/jornada-perfil" class="sidebar-nav__link" data-route="jornada-perfil">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 11a3 3 0 100-6 3 3 0 000 6z"/><path d="M4 20v-1a5 5 0 015-5h6a5 5 0 015 5v1"/></svg>
+                <span class="sidebar-nav__label">Jornada & Perfil</span>
               </a>
             </li>
             <li>
-              <a href="#/safras-cobertura" data-route="safras-cobertura">
+              <a href="#/safras-cobertura" class="sidebar-nav__link" data-route="safras-cobertura">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16l4-6 4 3 5-9"/></svg>
-                Safras & Cobertura
+                <span class="sidebar-nav__label">Safras & Cobertura</span>
               </a>
             </li>
             <li>
-              <a href="#/drivers" data-route="drivers">
+              <a href="#/drivers" class="sidebar-nav__link" data-route="drivers">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
-                Drivers
+                <span class="sidebar-nav__label">Drivers</span>
               </a>
             </li>
+            <li class="sidebar-nav__gap" aria-hidden="true"></li>
             <li>
-              <a href="#/plano-de-acao" data-route="plano-de-acao">
+              <a href="#/plano-de-acao" class="sidebar-nav__link" data-route="plano-de-acao">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-                Plano de Ação
+                <span class="sidebar-nav__label">Plano de Ação</span>
+              </a>
+            </li>
+            <li class="sidebar-nav__gap sidebar-nav__gap--soft" aria-hidden="true"></li>
+            <li>
+              <a href="#/previsao-nps" class="sidebar-nav__link sidebar-nav__link--experimental" data-route="previsao-nps">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l3-3 4 4 6-8"/></svg>
+                <span class="sidebar-nav__label">Projeção NPS</span>
+                <span class="nav-badge nav-badge--pill">Em construção</span>
               </a>
             </li>
           </ul>
@@ -112,10 +123,6 @@
     <aside class="drawer" id="action-drawer" role="dialog" aria-modal="true" aria-label="Detalhe do plano de ação" tabindex="-1"></aside>
     <div class="drawer-backdrop" id="diagnosis-drawer-backdrop" aria-hidden="true"></div>
     <aside class="drawer" id="diagnosis-drawer" role="dialog" aria-modal="true" aria-label="Diagnóstico executivo completo" tabindex="-1"></aside>
-    <div class="drawer-backdrop" id="respondents-drawer-backdrop" aria-hidden="true" aria-expanded="false"></div>
-    <aside class="drawer drawer--wide" id="respondents-drawer" role="dialog" aria-modal="true" aria-label="Respondentes do ciclo" tabindex="-1"></aside>
-    <div class="drawer-backdrop" id="methodology-drawer-backdrop" aria-hidden="true" hidden></div>
-    <aside class="drawer drawer--wide" id="methodology-drawer" role="dialog" aria-modal="true" aria-label="Metodologia" tabindex="-1" hidden></aside>
     <script type="module" src="/js/app.js"></script>
   </body>
 </html>

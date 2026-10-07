@@ -7,22 +7,22 @@
       "client_journeys.json": 3479,
       "journey_stages.json": 8,
       "engenheiro_transfer_logs.json": 921,
-      "client_meetings.json": 0,
+      "client_meetings.json": 6850,
       "manual_meetings.json": 0,
-      "client_mecanismos.json": 0,
+      "client_mecanismos.json": 2064,
       "cancellations.json": 0,
       "client_engajamento_history.json": 0,
       "freeze_change_requests.json": 0
     },
     "coverage_by_field": {
       "meetings": {
-        "coverage_pct": 0,
-        "point_in_time_pct": 0,
+        "coverage_pct": 100,
+        "point_in_time_pct": 100,
         "current_proxy_pct": 0
       },
       "mechanisms": {
-        "coverage_pct": 0,
-        "point_in_time_pct": 0,
+        "coverage_pct": 66.66666666666666,
+        "point_in_time_pct": 66.66666666666666,
         "current_proxy_pct": 0
       },
       "ep": {
@@ -63,12 +63,12 @@
       "categories": {
         "Promotor": {
           "n": 198,
-          "meetings_mean": null,
-          "meetings_median": null,
-          "days_since_last_meeting_mean": null,
-          "days_since_last_meeting_median": null,
-          "pct_has_mechanism": 0,
-          "pct_2plus_mechanisms": 0,
+          "meetings_mean": 2.6515151515151514,
+          "meetings_median": 3,
+          "days_since_last_meeting_mean": 21.08609271523179,
+          "days_since_last_meeting_median": 14,
+          "pct_has_mechanism": 23.232323232323232,
+          "pct_2plus_mechanisms": 17.67676767676768,
           "pct_changed_ep": 0,
           "pct_ever_changed_ep": 6.565656565656567,
           "pct_ever_frozen": 0,
@@ -88,12 +88,12 @@
         },
         "Neutro": {
           "n": 31,
-          "meetings_mean": null,
-          "meetings_median": null,
-          "days_since_last_meeting_mean": null,
-          "days_since_last_meeting_median": null,
-          "pct_has_mechanism": 0,
-          "pct_2plus_mechanisms": 0,
+          "meetings_mean": 2.6774193548387095,
+          "meetings_median": 2,
+          "days_since_last_meeting_mean": 19.041666666666668,
+          "days_since_last_meeting_median": 11,
+          "pct_has_mechanism": 22.58064516129032,
+          "pct_2plus_mechanisms": 9.67741935483871,
           "pct_changed_ep": 0,
           "pct_ever_changed_ep": 16.129032258064516,
           "pct_ever_frozen": 0,
@@ -111,12 +111,12 @@
         },
         "Detrator": {
           "n": 25,
-          "meetings_mean": null,
-          "meetings_median": null,
-          "days_since_last_meeting_mean": null,
-          "days_since_last_meeting_median": null,
-          "pct_has_mechanism": 0,
-          "pct_2plus_mechanisms": 0,
+          "meetings_mean": 2.28,
+          "meetings_median": 2,
+          "days_since_last_meeting_mean": 22.555555555555557,
+          "days_since_last_meeting_median": 16.5,
+          "pct_has_mechanism": 28.000000000000004,
+          "pct_2plus_mechanisms": 20,
           "pct_changed_ep": 0,
           "pct_ever_changed_ep": 8,
           "pct_ever_frozen": 0,
@@ -141,16 +141,16 @@
           "label": "Tem mecanismo (até a resposta)",
           "categories": {
             "Promotor": {
-              "n": 0,
-              "pct": 0
+              "n": 46,
+              "pct": 23.232323232323232
             },
             "Neutro": {
-              "n": 0,
-              "pct": 0
+              "n": 7,
+              "pct": 22.58064516129032
             },
             "Detrator": {
-              "n": 0,
-              "pct": 0
+              "n": 7,
+              "pct": 28.000000000000004
             }
           }
         },
@@ -159,16 +159,16 @@
           "label": "2+ mecanismos",
           "categories": {
             "Promotor": {
-              "n": 0,
-              "pct": 0
+              "n": 35,
+              "pct": 17.67676767676768
             },
             "Neutro": {
-              "n": 0,
-              "pct": 0
+              "n": 3,
+              "pct": 9.67741935483871
             },
             "Detrator": {
-              "n": 0,
-              "pct": 0
+              "n": 5,
+              "pct": 20
             }
           }
         },
@@ -285,22 +285,22 @@
           "label": "Reuniões (até a resposta)",
           "categories": {
             "Promotor": {
-              "mean": null,
-              "median": null,
-              "days_since_mean": null,
-              "days_since_median": null
+              "mean": 2.6515151515151514,
+              "median": 3,
+              "days_since_mean": 21.08609271523179,
+              "days_since_median": 14
             },
             "Neutro": {
-              "mean": null,
-              "median": null,
-              "days_since_mean": null,
-              "days_since_median": null
+              "mean": 2.6774193548387095,
+              "median": 2,
+              "days_since_mean": 19.041666666666668,
+              "days_since_median": 11
             },
             "Detrator": {
-              "mean": null,
-              "median": null,
-              "days_since_mean": null,
-              "days_since_median": null
+              "mean": 2.28,
+              "median": 2,
+              "days_since_mean": 22.555555555555557,
+              "days_since_median": 16.5
             }
           }
         }
@@ -311,12 +311,12 @@
       "categories": {
         "Promotor": {
           "n": 205,
-          "meetings_mean": null,
-          "meetings_median": null,
-          "days_since_last_meeting_mean": null,
-          "days_since_last_meeting_median": null,
-          "pct_has_mechanism": 0,
-          "pct_2plus_mechanisms": 0,
+          "meetings_mean": 5.073170731707317,
+          "meetings_median": 5,
+          "days_since_last_meeting_mean": 19.889447236180903,
+          "days_since_last_meeting_median": 13,
+          "pct_has_mechanism": 65.85365853658537,
+          "pct_2plus_mechanisms": 51.707317073170735,
           "pct_changed_ep": 2.4390243902439024,
           "pct_ever_changed_ep": 15.609756097560975,
           "pct_ever_frozen": 0,
@@ -336,12 +336,12 @@
         },
         "Neutro": {
           "n": 47,
-          "meetings_mean": null,
-          "meetings_median": null,
-          "days_since_last_meeting_mean": null,
-          "days_since_last_meeting_median": null,
-          "pct_has_mechanism": 0,
-          "pct_2plus_mechanisms": 0,
+          "meetings_mean": 4.723404255319149,
+          "meetings_median": 4,
+          "days_since_last_meeting_mean": 17.466666666666665,
+          "days_since_last_meeting_median": 8,
+          "pct_has_mechanism": 57.446808510638306,
+          "pct_2plus_mechanisms": 42.5531914893617,
           "pct_changed_ep": 0,
           "pct_ever_changed_ep": 17.02127659574468,
           "pct_ever_frozen": 0,
@@ -360,12 +360,12 @@
         },
         "Detrator": {
           "n": 31,
-          "meetings_mean": null,
-          "meetings_median": null,
-          "days_since_last_meeting_mean": null,
-          "days_since_last_meeting_median": null,
-          "pct_has_mechanism": 0,
-          "pct_2plus_mechanisms": 0,
+          "meetings_mean": 4.419354838709677,
+          "meetings_median": 5,
+          "days_since_last_meeting_mean": 25.32,
+          "days_since_last_meeting_median": 23,
+          "pct_has_mechanism": 64.51612903225806,
+          "pct_2plus_mechanisms": 29.03225806451613,
           "pct_changed_ep": 0,
           "pct_ever_changed_ep": 35.483870967741936,
           "pct_ever_frozen": 0,
@@ -390,16 +390,16 @@
           "label": "Tem mecanismo (até a resposta)",
           "categories": {
             "Promotor": {
-              "n": 0,
-              "pct": 0
+              "n": 135,
+              "pct": 65.85365853658537
             },
             "Neutro": {
-              "n": 0,
-              "pct": 0
+              "n": 27,
+              "pct": 57.446808510638306
             },
             "Detrator": {
-              "n": 0,
-              "pct": 0
+              "n": 20,
+              "pct": 64.51612903225806
             }
           }
         },
@@ -408,16 +408,16 @@
           "label": "2+ mecanismos",
           "categories": {
             "Promotor": {
-              "n": 0,
-              "pct": 0
+              "n": 106,
+              "pct": 51.707317073170735
             },
             "Neutro": {
-              "n": 0,
-              "pct": 0
+              "n": 20,
+              "pct": 42.5531914893617
             },
             "Detrator": {
-              "n": 0,
-              "pct": 0
+              "n": 9,
+              "pct": 29.03225806451613
             }
           }
         },
@@ -534,22 +534,22 @@
           "label": "Reuniões (até a resposta)",
           "categories": {
             "Promotor": {
-              "mean": null,
-              "median": null,
-              "days_since_mean": null,
-              "days_since_median": null
+              "mean": 5.073170731707317,
+              "median": 5,
+              "days_since_mean": 19.889447236180903,
+              "days_since_median": 13
             },
             "Neutro": {
-              "mean": null,
-              "median": null,
-              "days_since_mean": null,
-              "days_since_median": null
+              "mean": 4.723404255319149,
+              "median": 4,
+              "days_since_mean": 17.466666666666665,
+              "days_since_median": 8
             },
             "Detrator": {
-              "mean": null,
-              "median": null,
-              "days_since_mean": null,
-              "days_since_median": null
+              "mean": 4.419354838709677,
+              "median": 5,
+              "days_since_mean": 25.32,
+              "days_since_median": 23
             }
           }
         }
@@ -583,27 +583,29 @@
             "metric_key": "meetings_between",
             "label": "Reuniões entre respostas (média)",
             "test": "mann_whitney",
-            "mean_a": null,
-            "mean_b": null,
-            "median_a": null,
-            "median_b": null,
-            "p_value": null,
-            "effect_size": null,
-            "n_a": 0,
-            "n_b": 0
+            "mean_a": 3.5833333333333335,
+            "mean_b": 2.831168831168831,
+            "median_a": 3,
+            "median_b": 2,
+            "p_value": 0.049524889716613396,
+            "effect_size": -0.35389610389610393,
+            "n_a": 12,
+            "n_b": 77,
+            "p_adjusted": 0.2971493382996804
           },
           {
             "metric_key": "days_since_last_meeting",
             "label": "Dias desde última reunião (resposta atual)",
             "test": "mann_whitney",
-            "mean_a": null,
-            "mean_b": null,
-            "median_a": null,
-            "median_b": null,
-            "p_value": null,
-            "effect_size": null,
-            "n_a": 0,
-            "n_b": 0
+            "mean_a": 13,
+            "mean_b": 23.48,
+            "median_a": 9,
+            "median_b": 13,
+            "p_value": 0.5062460693009005,
+            "effect_size": 0.12,
+            "n_a": 12,
+            "n_b": 75,
+            "p_adjusted": 0.7593691039513508
           }
         ]
       },
@@ -630,27 +632,29 @@
             "metric_key": "meetings_between",
             "label": "Reuniões entre respostas (média)",
             "test": "mann_whitney",
-            "mean_a": null,
-            "mean_b": null,
-            "median_a": null,
-            "median_b": null,
-            "p_value": null,
-            "effect_size": null,
-            "n_a": 0,
-            "n_b": 0
+            "mean_a": 1,
+            "mean_b": 2.831168831168831,
+            "median_a": 1,
+            "median_b": 2,
+            "p_value": 0.27651898565918587,
+            "effect_size": 0.6363636363636364,
+            "n_a": 1,
+            "n_b": 77,
+            "p_adjusted": 0.5530379713183717
           },
           {
             "metric_key": "days_since_last_meeting",
             "label": "Dias desde última reunião (resposta atual)",
             "test": "mann_whitney",
-            "mean_a": null,
-            "mean_b": null,
-            "median_a": null,
-            "median_b": null,
-            "p_value": null,
-            "effect_size": null,
-            "n_a": 0,
-            "n_b": 0
+            "mean_a": 41,
+            "mean_b": 23.48,
+            "median_a": 41,
+            "median_b": 13,
+            "p_value": 0.21840745319082266,
+            "effect_size": -0.72,
+            "n_a": 1,
+            "n_b": 75,
+            "p_adjusted": 0.5530379713183717
           }
         ]
       }

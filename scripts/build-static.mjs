@@ -116,6 +116,8 @@ export function buildStatic() {
   mkdirSync(DIST, { recursive: true });
 
   cpSync(join(ROOT, 'dashboard'), DIST, { recursive: true });
+  mkdirSync(join(DIST, 'lib', 'analytics'), { recursive: true });
+  cpSync(join(ROOT, 'lib', 'analytics', 'nps.mjs'), join(DIST, 'lib', 'analytics', 'nps.mjs'));
 
   const copiedData = [];
   const missingSource = [];

@@ -26,6 +26,10 @@ import {
   mergeActionTrackingIntoQueue,
 } from './store-core.mjs';
 import { buildGlobalFilterContext } from '../filters/filter-context.mjs';
+import {
+  buildExecutiveCurrentNpsSummary,
+  buildExecutivePreviousNpsSummary,
+} from './executive-official-nps.mjs';
 
 let state = null;
 let summaryMap = null;
@@ -73,6 +77,11 @@ const PATHS = {
   historicalNpsEnriched: '/data/processed/historical_nps_enriched.json',
   historicalNpsEnrichedQuality: '/data/quality/historical_nps_enriched_quality.json',
   cohortPaymentDateAudit: '/data/quality/cohort_payment_date_audit.json',
+  npsAllPeriods: '/data/processed/nps_all_periods.json',
+  npsAllPeriodsAudit: '/data/quality/nps_all_periods_audit.json',
+  npsMechanismsAtResponse: '/data/processed/nps_mechanisms_at_response.json',
+  vocAllPeriods: '/data/processed/voc_all_periods.json',
+  npsPredictionNextCycle: '/data/processed/nps_prediction_next_cycle.json',
 };
 
 function logStoreError(message, detail) {
@@ -173,6 +182,10 @@ export async function loadAnalyticsData() {
     historicalNpsEnrichedDoc,
     historicalNpsEnrichedQualityDoc,
     cohortPaymentDateAuditDoc,
+    npsAllPeriodsDoc,
+    npsMechanismsAtResponseDoc,
+    vocAllPeriodsDoc,
+    npsPredictionNextCycleDoc,
   ] = await Promise.all([
     fetchJson(PATHS.cycles),
     fetchJson(PATHS.responses),
@@ -213,6 +226,10 @@ export async function loadAnalyticsData() {
     fetchJsonOptional(PATHS.historicalNpsEnriched),
     fetchJsonOptional(PATHS.historicalNpsEnrichedQuality),
     fetchJsonOptional(PATHS.cohortPaymentDateAudit),
+    fetchJsonOptional(PATHS.npsAllPeriods),
+    fetchJsonOptional(PATHS.npsMechanismsAtResponse),
+    fetchJsonOptional(PATHS.vocAllPeriods),
+    fetchJsonOptional(PATHS.npsPredictionNextCycle),
   ]);
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -266,6 +283,10 @@ export async function loadAnalyticsData() {
     historicalNpsEnrichedDoc: historicalNpsEnrichedDoc ?? null,
     historicalNpsEnrichedQualityDoc: historicalNpsEnrichedQualityDoc ?? null,
     cohortPaymentDateAuditDoc: cohortPaymentDateAuditDoc ?? null,
+    npsAllPeriodsDoc: npsAllPeriodsDoc ?? null,
+    npsMechanismsAtResponseDoc: npsMechanismsAtResponseDoc ?? null,
+    vocAllPeriodsDoc: vocAllPeriodsDoc ?? null,
+    npsPredictionNextCycleDoc: npsPredictionNextCycleDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -300,6 +321,20 @@ export function getPreviousCycle(currentCode) {
 
 export function getCycleSummary(cycleCode) {
   return getCycleSummaryFromMap(summaryMap, cycleCode);
+}
+
+/** NPS atual — kernel ao vivo (mesma regra que executive_diagnosis regenerado). */
+export function getExecutiveOfficialSummary(cycleCode) {
+  const template = getCycleSummary(cycleCode);
+  if (!template || !state) return template;
+  return buildExecutiveCurrentNpsSummary(state.responses ?? [], template);
+}
+
+export function getExecutivePreviousOfficialSummary(currentCycleCode) {
+  const prevDef = getPreviousCycle(currentCycleCode);
+  if (!prevDef?.cycle_code) return null;
+  const template = getCycleSummary(prevDef.cycle_code);
+  return buildExecutivePreviousNpsSummary(state?.responses ?? [], prevDef, template ?? {});
 }
 
 export function getResponses(cycleCode) {
@@ -393,9 +428,44 @@ export function getGlobalFilterContext(cycleCode, filters) {
     migrationDoc: state.migrationMatrix,
     actionQueue: state.actionQueue ?? [],
     clientSatMap: state.clientSatMap,
-    officialSummary: getCycleSummary(cycleCode),
-    previousOfficialSummary: prevCode ? getCycleSummary(prevCode) : null,
+    officialSummary: getExecutiveOfficialSummary(cycleCode),
+    previousOfficialSummary: prevCode ? getExecutivePreviousOfficialSummary(cycleCode) : null,
+    npsAllPeriods: state.npsAllPeriodsDoc?.responses ?? [],
   });
+}
+
+export function getNpsAllPeriodsDoc() {
+  return state?.npsAllPeriodsDoc ?? null;
+}
+
+export function getNpsAllPeriodsResponses() {
+  return state?.npsAllPeriodsDoc?.responses ?? [];
+}
+
+export function getNpsMechanismsAtResponse() {
+  return state?.npsMechanismsAtResponseDoc?.entries ?? [];
+}
+
+export function getVocAllPeriodsTopics() {
+  return state?.vocAllPeriodsDoc?.topics ?? null;
+}
+
+export function hasVocAllPeriods() {
+  return (state?.vocAllPeriodsDoc?.topics?.length ?? 0) > 0;
+}
+
+/** VoC unificado (atual + BASE0 deduplicado) respeitando filtro Período NPS. */
+export function getVocTopicsForFilters(cycleCode, filters = {}) {
+  const period = filters.npsPeriod ?? 'all';
+  const merged = state?.vocAllPeriodsDoc?.topics ?? [];
+  if (!merged.length || period === 'current') {
+    return getResponseTopicsForCycle(state?.responseTopics ?? [], cycleCode);
+  }
+  if (period === 'all') return merged;
+  if (period === 'base0') return merged.filter((t) => t.source === 'base0');
+  return merged.filter(
+    (t) => t.analytical_cycle_code === period || t.cycle === period || t.onda === period,
+  );
 }
 
 export function hasCsatArtifacts() {
@@ -556,6 +626,10 @@ export function getHistoricalNpsEnrichedQuality() {
 
 export function getCohortPaymentDateAudit() {
   return state?.cohortPaymentDateAuditDoc ?? null;
+}
+
+export function getNpsPredictionDoc() {
+  return state?.npsPredictionNextCycleDoc ?? null;
 }
 
 export function patchLocalActionTracking(entry) {

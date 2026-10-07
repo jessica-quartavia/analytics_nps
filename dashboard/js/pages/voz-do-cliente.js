@@ -12,10 +12,24 @@ import {
   getTopicFilterOptions,
 } from '../data/analytics-store.js';
 import { getFilters, setFilter, setFilters, getEpOptions } from '../filters/global-filters.js';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 import { formatNps, formatPct, formatDate, cycleStatusLabel } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { drawerShell, drawerMetaGrid, drawerTopicChips, drawerQaBlock } from '../ui/drawer-layout.mjs';
 import { methodologyOpenButton } from '../ui/methodology-drawer.js';
+import { helpTip } from '../ui/help.js';
+
+const VOC_AI_CLASSIFY_TIP =
+  'A IA identifica os temas mencionados e a valência do comentário. A nota NPS e a categoria Promotor/Neutro/Detrator não são calculadas por IA.';
+
+function renderVocAiClassifyNotice() {
+  const robotIcon = `<svg class="voc-ai-notice__icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1v-1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2zm-5 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7 18h10v1H7v-1z"/></svg>`;
+  return `<div class="voc-ai-notice" role="note">
+    ${robotIcon}
+    <span class="voc-ai-notice__text"><strong>Classificação por IA</strong> — Os temas e valências dos comentários são classificados por IA.</span>
+    ${helpTip('', VOC_AI_CLASSIFY_TIP)}
+  </div>`;
+}
 
 let valenceChart = null;
 let tableState = { page: 1, pageSize: 25 };
@@ -632,6 +646,7 @@ export function renderVozDoCliente(host, { signal } = {}) {
 
   host.innerHTML = `
     ${renderHero(cycle, summary)}
+    ${renderDataSourceNotice('voz-do-cliente')}
     ${renderKpis(kpis, meta)}
     <section class="section-block">
       <div class="section-block__head">
@@ -662,7 +677,10 @@ export function renderVozDoCliente(host, { signal } = {}) {
       ${renderEvolution(entries)}
     </section>
     <section class="section-block">
-      <h2 class="section-title">Comentários classificados</h2>
+      <div class="voc-comments-section-head">
+        <h2 class="section-title">Comentários classificados</h2>
+        ${renderVocAiClassifyNotice()}
+      </div>
       ${renderCommentsTable(commentRows, tableState.page, tableState.pageSize, { toolbar })}
     </section>
     ${renderQuality(meta)}

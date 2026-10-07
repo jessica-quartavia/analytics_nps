@@ -17,6 +17,7 @@ import {
 import { formatCsatAverage, formatDate } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { sectionHead, TIPS, helpTip } from '../ui/help.js';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 const PRIORITIES = ['Alta', 'Média', 'Investigar', 'Aprendizado'];
 const STATUS_OPTIONS = [
   'Novo',
@@ -458,6 +459,7 @@ export function renderPlanoDeAcao(root, ctx = {}) {
         <span class="chip-modern">${allRows.length} na fila analítica</span>
       </div>
     </header>
+    ${renderDataSourceNotice('plano-de-acao')}
     <div id="action-kpi-host">
       <div class="metric-compact-grid">
         <article class="metric-compact"><div class="metric-compact__label">Alta prioridade</div><div class="metric-compact__value">${queueKpis.Alta}</div></article>

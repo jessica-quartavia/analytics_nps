@@ -9,7 +9,9 @@ import {
   pairedNpsFromMovementRows,
   shouldUseFilteredMigrationMatrix,
   getMigrationMatrixForCurrent,
+  dedupeClientIdsFromRows,
 } from '../data/store-core.mjs';
+import { filterNpsAllPeriods } from './nps-period.mjs';
 
 /** Contexto único de filtros globais para todas as páginas. */
 export function buildGlobalFilterContext(deps) {
@@ -24,9 +26,12 @@ export function buildGlobalFilterContext(deps) {
     clientSatMap,
     officialSummary,
     previousOfficialSummary,
+    npsAllPeriods,
   } = deps;
 
   if (!cycleCode || !filters) return null;
+
+  const npsPeriodRows = filterNpsAllPeriods(npsAllPeriods ?? [], filters.npsPeriod);
 
   const options = buildFilterOptionsForCycle({
     pairedDoc,
@@ -46,15 +51,28 @@ export function buildGlobalFilterContext(deps) {
   );
 
   const recorteActive = isClientRecorteActive(filters);
+  const npsPeriod = filters.npsPeriod ?? 'all';
+  const npsPeriodAffectsKpi = npsPeriod !== 'all';
   const prevCode = getPreviousCycleCode(cycles ?? [], cycleCode);
 
   let displaySummary = officialSummary;
   let displayPrevious = previousOfficialSummary;
 
-  if (recorteActive && officialSummary) {
-    displaySummary = summaryLikeFromResponses(rowsCurrent, officialSummary);
+  function rowsForPeriodNpsRecalc() {
+    if (!npsPeriodAffectsKpi || !npsPeriodRows?.length) return rowsCurrent;
+    if (npsPeriod === 'current') return npsPeriodRows;
+    return npsPeriodRows.filter(
+      (r) => r.cycle === cycleCode || r.period === cycleCode,
+    );
+  }
+
+  if ((recorteActive || npsPeriodAffectsKpi) && officialSummary) {
+    const npsRows = recorteActive ? rowsCurrent : rowsForPeriodNpsRecalc();
+    displaySummary = summaryLikeFromResponses(npsRows, officialSummary);
     if (prevCode && previousOfficialSummary) {
-      const clientIds = new Set(rowsCurrent.map((r) => r.client_id).filter(Boolean));
+      const clientIds = new Set(
+        dedupeClientIdsFromRows(npsRows),
+      );
       const prevRows = getResponsesForCycle(responses, prevCode).filter((r) => clientIds.has(r.client_id));
       displayPrevious = summaryLikeFromResponses(prevRows, previousOfficialSummary);
     }
@@ -87,6 +105,8 @@ export function buildGlobalFilterContext(deps) {
     migrationMatrix,
     pairedDisplay,
     prevCycleCode: prevCode,
+    npsPeriodRows,
+    npsPeriod: filters.npsPeriod ?? 'all',
   };
 }
 

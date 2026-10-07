@@ -16,6 +16,7 @@ import { formatNps, formatPct, formatCsatAverage, formatDate } from '../utils/fo
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { sectionHead, sectionLead } from '../ui/help.js';
 import { drawerShell, drawerMetaGrid } from '../ui/drawer-layout.mjs';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 const CATEGORIES = ['Detrator', 'Neutro', 'Promotor'];
 const POSITIVE_CELLS = new Set([
@@ -371,6 +372,7 @@ export function renderMovimento(root, ctx = {}) {
         <p class="page-header__lead">Migração de categorias, evolução de nota e eventos observados entre respostas consecutivas (base pareada).</p>
       </div>
     </header>
+    ${renderDataSourceNotice('movimento')}
     ${renderFilterRecorteBanner(filterCtx)}
     <div class="metric-compact-grid">
       <article class="metric-compact"><div class="metric-compact__label">Clientes pareados</div><div class="metric-compact__value">${escapeHtml(String(kpis.paired))}</div></article>

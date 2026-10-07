@@ -1,5 +1,6 @@
 const DEFAULT = {
   cycleCode: null,
+  npsPeriod: 'all',
   ep: '',
   category: '',
   scoreMin: '',

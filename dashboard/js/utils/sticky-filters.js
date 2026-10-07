@@ -2,9 +2,11 @@ export const STICKY_FILTERS_STORAGE_KEY = 'analytics-nps:sticky-filters';
 
 export function stickyFiltersEnabled() {
   try {
-    return sessionStorage.getItem(STICKY_FILTERS_STORAGE_KEY) === '1';
+    const saved = sessionStorage.getItem(STICKY_FILTERS_STORAGE_KEY);
+    if (saved === null) return true;
+    return saved === '1';
   } catch {
-    return false;
+    return true;
   }
 }
 

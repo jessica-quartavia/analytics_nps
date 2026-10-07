@@ -4,17 +4,46 @@ import { drawerShell, drawerMetaGrid } from './drawer-layout.mjs';
 
 export function isAppSourceUnavailable(audit) {
   if (!audit) return true;
-  if (audit.app_clients_matched > 0) return false;
+  if ((audit.app_clients_matched ?? 0) > 0) return false;
+  const statusCounts = audit.app_match_status_counts ?? {};
+  if ((statusCounts.unmatched ?? 0) > 0) {
+    const src = String(audit.app_source ?? '').toLowerCase();
+    if (src !== 'not_configured' && src !== '') return false;
+  }
   const s = String(audit.app_source ?? '').toLowerCase();
+  if (s.includes('personal_info') || s.includes('pharus_app') || s.startsWith('public.')) {
+    return false;
+  }
   return s.includes('nenhuma') || s.includes('not_configured') || s.includes('indispon');
 }
 
-export function badgeAppHtml(v, appUnavailable) {
-  if (appUnavailable || v == null) {
-    return '<span class="badge badge--neutral-soft">Indisponível</span>';
+export function badgeAppHtml(customerOrFlag, appUnavailable) {
+  const c =
+    customerOrFlag && typeof customerOrFlag === 'object'
+      ? customerOrFlag
+      : { has_app: customerOrFlag, has_app_access: customerOrFlag };
+  const hasApp = c.has_app ?? c.has_app_access;
+  const st = c.app_match_status;
+  if (appUnavailable && hasApp == null && !st) {
+    return '<span class="badge badge--neutral-soft">Não identificado</span>';
   }
-  if (v === true) return '<span class="badge badge--coral-soft">Com acesso</span>';
-  return '<span class="badge badge--neutral-soft">Sem acesso</span>';
+  if (hasApp === true) return '<span class="badge badge--coral-soft">Com App</span>';
+  if (st === 'ambiguous' || st === 'insufficient_identifiers' || (hasApp == null && st === 'not_found')) {
+    return '<span class="badge badge--neutral-soft">Não identificado</span>';
+  }
+  if (hasApp === false && (st === 'unmatched' || st === 'not_found')) {
+    return '<span class="badge badge--neutral-soft">Sem App</span>';
+  }
+  return '<span class="badge badge--neutral-soft">Não identificado</span>';
+}
+
+function appMatchMethodLabel(method) {
+  if (!method) return '—';
+  if (method === 'multiple' || method === 'exact_multi') return 'Vários identificadores (concordância)';
+  if (method === 'cpf') return 'CPF';
+  if (method === 'email') return 'E-mail';
+  if (method === 'phone') return 'Telefone';
+  return method;
 }
 
 function badgeCategoryHtml(cat) {
@@ -85,7 +114,7 @@ export function renderCohortClientDrawerHtml(c, historyAll, opts = {}) {
         { label: 'Entrada', value: c.data_entrada ? formatDate(c.data_entrada) : '—' },
         { label: 'Programa', value: c.programa ?? '—' },
         { label: 'EP', value: c.ep ?? '—' },
-        { label: 'App', html: badgeAppHtml(c.has_app_access, appUnavailable) },
+        { label: 'App', html: badgeAppHtml(c, appUnavailable) },
         { label: 'Já respondeu NPS?', value: c.ever_answered_nps ? 'Sim' : 'Não' },
         { label: 'Qtd respostas', value: String(c.nps_response_count ?? 0) },
         { label: 'Primeira resposta', value: c.first_nps_at ? formatDate(c.first_nps_at) : '—' },
@@ -97,6 +126,16 @@ export function renderCohortClientDrawerHtml(c, historyAll, opts = {}) {
         { label: 'Último ciclo', value: c.last_nps_cycle ?? '—' },
         { label: 'Dias até 1º NPS', value: c.days_entry_to_first_nps_valid ?? '—' },
       ])}
+      <div class="safras-drawer-section"><h4>App PHARUS</h4>
+        ${drawerMetaGrid([
+          {
+            label: 'Status',
+            value: c.has_app ? 'Com App' : c.app_match_status === 'unmatched' ? 'Sem App' : 'Não identificado',
+          },
+          { label: 'Match', value: appMatchMethodLabel(c.app_match_method) },
+          { label: 'Cadastro', value: c.app_registered_at ? formatDate(c.app_registered_at) : '—' },
+        ])}
+      </div>
       <div class="safras-drawer-section"><h4>Linha do tempo NPS</h4><ul class="timeline-list">${timeline || '<li>Sem respostas</li>'}</ul></div>
       ${detailBlocks ? `<div class="safras-drawer-section"><h4>Detalhes por medição</h4>${detailBlocks}</div>` : ''}`,
   });

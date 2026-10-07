@@ -1,4 +1,5 @@
 import { cycleSortKey } from '../utils/cycle-sort.mjs';
+import { canonicalizeNpsCycle, cycleFilterMatches } from '../utils/nps-cycle-labels.mjs';
 import { npsFromScores } from './historico-nps-view.mjs';
 
 export function sampleBadgeHtml(n) {
@@ -38,7 +39,7 @@ export function indexEnrichedByResponseId(rows) {
 
 export function filterEnrichedRows(rows, f, clientRecurrenceMap) {
   let out = rows ?? [];
-  if (f.ciclo) out = out.filter((r) => r.nps_cycle === f.ciclo);
+  if (f.ciclo) out = out.filter((r) => cycleFilterMatches(r.nps_cycle, f.ciclo));
   if (f.programa) out = out.filter((r) => (r.programa ?? '').toUpperCase() === f.programa.toUpperCase());
   if (f.ep) out = out.filter((r) => r.ep_current_or_resolved === f.ep);
   if (f.safra) out = out.filter((r) => r.safra_trimestre === f.safra);
@@ -93,10 +94,21 @@ export function aggregateNpsBucket(rows, keyFn) {
     const k = keyFn(r);
     if (k == null || k === '') continue;
     if (!map.has(k)) map.set(k, []);
-    if (r.score != null) map.get(k).push(Number(r.score));
+    map.get(k).push(r);
   }
   const out = {};
-  for (const [k, scores] of map) {
+  for (const [k, bucketRows] of map) {
+    const byClient = new Map();
+    for (const r of bucketRows) {
+      if (r.score == null || Number.isNaN(Number(r.score))) continue;
+      const id = r.client_id ?? r.base_qv_id;
+      if (!id) continue;
+      const score = Number(r.score);
+      const ts = Date.parse(String(r.response_date ?? r.submitted_at ?? '').replace(' ', 'T')) || 0;
+      const ex = byClient.get(id);
+      if (!ex || ts >= ex.ts) byClient.set(id, { score, ts });
+    }
+    const scores = [...byClient.values()].map((x) => x.score);
     const prom = scores.filter((s) => s >= 9).length;
     const det = scores.filter((s) => s <= 6).length;
     const neu = scores.length - prom - det;
@@ -193,14 +205,14 @@ export function buildSafraCicloMatrix(enrichedRows, cohorts, metric = 'nps') {
         .filter((s) => s && !String(s).startsWith('2027')),
     ),
   ].sort((a, b) => cycleSortKey(a) - cycleSortKey(b));
-  const ciclos = [...new Set(enrichedRows.map((r) => r.nps_cycle).filter(Boolean))].sort(
-    (a, b) => cycleSortKey(a) - cycleSortKey(b),
-  );
+  const ciclos = [
+    ...new Set(enrichedRows.map((r) => canonicalizeNpsCycle(r.nps_cycle)).filter(Boolean)),
+  ].sort((a, b) => cycleSortKey(a) - cycleSortKey(b));
   const cohortByClient = new Map((cohorts ?? []).map((c) => [c.client_id, c]));
   const cells = new Map();
   for (const r of enrichedRows) {
     const safra = r.safra_trimestre ?? cohortByClient.get(r.client_id)?.safra_trimestre;
-    const ciclo = r.nps_cycle;
+    const ciclo = canonicalizeNpsCycle(r.nps_cycle);
     if (!safra || !ciclo || String(safra).startsWith('2027')) continue;
     const key = `${safra}|${ciclo}`;
     if (!cells.has(key)) cells.set(key, []);

@@ -3,51 +3,34 @@
  * funções de recorte recalculam NPS apenas para exibição filtrada no dashboard.
  */
 
-function isValidNpsScore(score) {
-  return Number.isInteger(score) && score >= 0 && score <= 10;
-}
+import {
+  aggregateNpsFromResponses,
+  dedupeLatestNpsByClient,
+  isValidNpsScore,
+  npsScoreFromRow,
+} from '../utils/nps-kernel.mjs';
 
 function calculateNpsSummaryFromRows(rows) {
-  const valid = (rows ?? []).filter((r) => isValidNpsScore(r.score));
-  const total = valid.length;
-  if (!total) {
-    return {
-      total: 0,
-      promoters: 0,
-      passives: 0,
-      detractors: 0,
-      promoterPct: 0,
-      passivePct: 0,
-      detractorPct: 0,
-      nps: null,
-    };
-  }
-  let promoters = 0;
-  let passives = 0;
-  let detractors = 0;
-  for (const r of valid) {
-    if (r.score <= 6) detractors++;
-    else if (r.score <= 8) passives++;
-    else promoters++;
-  }
-  const pct = (n) => (n / total) * 100;
+  const agg = aggregateNpsFromResponses(rows ?? [], { dedupe: true, requireClientId: true });
   return {
-    total,
-    promoters,
-    passives,
-    detractors,
-    promoterPct: pct(promoters),
-    passivePct: pct(passives),
-    detractorPct: pct(detractors),
-    nps: ((promoters - detractors) / total) * 100,
+    total: agg.responses,
+    promoters: agg.promoters,
+    passives: agg.passives,
+    detractors: agg.detractors,
+    promoterPct: agg.promoter_pct,
+    passivePct: agg.neutral_pct,
+    detractorPct: agg.detractor_pct,
+    nps: agg.nps,
   };
 }
 
 function buildScoreDistributionFromRows(rows) {
   const dist = Object.fromEntries([...Array(11).keys()].map((k) => [String(k), 0]));
-  for (const r of rows ?? []) {
-    if (!isValidNpsScore(r.score)) continue;
-    dist[String(r.score)]++;
+  const deduped = dedupeLatestNpsByClient(rows ?? [], { requireClientId: true });
+  for (const r of deduped) {
+    const score = npsScoreFromRow(r);
+    if (score == null) continue;
+    dist[String(score)]++;
   }
   return dist;
 }
@@ -831,6 +814,13 @@ export function filterCycleResponses(responses, cycleCode, filters, options = {}
 }
 
 /** Summary no formato cycle_summary a partir de linhas filtradas (sem IC95 / elegíveis). */
+/** client_id únicos após dedupe oficial (última resposta válida). */
+export function dedupeClientIdsFromRows(rows) {
+  return dedupeLatestNpsByClient(rows ?? [], { requireClientId: true })
+    .map((r) => r.client_id)
+    .filter(Boolean);
+}
+
 export function summaryLikeFromResponses(rows, template = {}) {
   const calc = calculateNpsSummaryFromRows(rows);
   const dist = buildScoreDistributionFromRows(rows);
@@ -871,15 +861,20 @@ export function buildFilteredMigrationMatrix(
 }
 
 export function pairedNpsFromMovementRows(rows) {
-  const withPrev = rows.filter(
-    (r) =>
-      r.previous_score != null && isValidNpsScore(r.score) && isValidNpsScore(r.previous_score),
+  const withPrev = dedupeLatestNpsByClient(
+    (rows ?? []).filter(
+      (r) =>
+        r.previous_score != null && isValidNpsScore(r.score) && isValidNpsScore(r.previous_score),
+    ),
+    { requireClientId: true },
   );
   if (!withPrev.length) {
     return { paired_clients: 0, current_nps_paired: null, previous_nps_paired: null, delta_nps_paired: null };
   }
   const current = calculateNpsSummaryFromRows(withPrev);
-  const prev = calculateNpsSummaryFromRows(withPrev.map((r) => ({ score: r.previous_score })));
+  const prev = calculateNpsSummaryFromRows(
+    withPrev.map((r) => ({ client_id: r.client_id, score: r.previous_score })),
+  );
   const delta =
     current.nps != null && prev.nps != null ? current.nps - prev.nps : null;
   return {

@@ -1,0 +1,17 @@
+{
+  "base0_total": 609,
+  "current_total": 537,
+  "after_dedupe": 1146,
+  "matched_both": 0,
+  "base0_only": 609,
+  "current_only": 537,
+  "ambiguous": 0,
+  "with_text_base0": 609,
+  "with_text_current": 537,
+  "periods": [
+    "NPS-2026-JUN-JUL-PHARUS",
+    "NPS-2026-SET-PHARUS",
+    "Onda 1 (jun a jul/26)",
+    "Onda 2 (set/26)"
+  ]
+}

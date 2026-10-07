@@ -19,6 +19,7 @@ import { formatNps, formatPct, formatDeltaPts, formatDate, cycleStatusLabel } fr
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { closeDrawer as closeClientDrawer } from './movimento.js';
 import { openEpDrawerFromUI, closeEpDrawerFromUI } from '../ui/ep-drawer.js';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 let bubbleChart = null;
 let tableState = { page: 1, pageSize: 25, sortKey: 'ep_name', sortDir: 'asc' };
@@ -449,6 +450,7 @@ export function renderEps(root, ctx = {}) {
 
   root.innerHTML = `
     ${renderHero(cycle, summary)}
+    ${renderDataSourceNotice('eps')}
     ${renderBaseNote(filters)}
     ${renderFilterNotice(filters)}
     ${renderKpis(kpis, minSample)}

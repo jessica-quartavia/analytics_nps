@@ -1,0 +1,198 @@
+{
+  "generated_at": "2026-10-06T23:08:00.144215+00:00",
+  "cutoff_date": "2026-10-06",
+  "target_cycle": "2026-Q4",
+  "model_version": "nps-logit-two-step-v1",
+  "seed": 20261006,
+  "model": {
+    "type": "Modelagem preditiva supervisionada",
+    "response_model": "Regressão logística (L2, class_weight=balanced)",
+    "category_model": "Regressão logística multinomial (L2)",
+    "regularization": "L2",
+    "features": [
+      "months_since_entry",
+      "cliente_ativo",
+      "has_app_access",
+      "prior_nps_count",
+      "last_nps_score",
+      "avg_nps_score",
+      "nps_score_delta",
+      "days_since_last_nps",
+      "meetings_before",
+      "mechanisms_implemented",
+      "has_implemented_mechanism",
+      "ep_transfers_before",
+      "payments_before",
+      "amount_paid_before",
+      "days_since_last_meeting",
+      "programa",
+      "safra_trimestre",
+      "tenure_bucket"
+    ],
+    "unit": "cliente",
+    "formula": "NPS = 100 × Σ(rᵢ × (Pᵢ,Promotor − Pᵢ,Detrator)) / Σ(rᵢ)"
+  },
+  "prediction": {
+    "expected_nps": 56.6,
+    "interval_low": 53.0,
+    "interval_high": 59.9,
+    "expected_promoter_pct": 66.5,
+    "expected_neutral_pct": 23.6,
+    "expected_detractor_pct": 9.9,
+    "expected_responses": 394,
+    "eligible_clients": 1287,
+    "last_official_nps": 59.6,
+    "delta_vs_last_official": -3.0,
+    "trustworthy": false,
+    "disclaimer": "Estimativa estatística baseada em padrões históricos; não é garantia do resultado futuro."
+  },
+  "validation": {
+    "folds": [
+      {
+        "train_cycles": [
+          "2025-Q2",
+          "2025-Q3"
+        ],
+        "test_cycle": "2025-Q4",
+        "n_train": 2661,
+        "n_test": 1706,
+        "nps_predicted": 25.0,
+        "nps_actual": 35.1,
+        "nps_abs_error": 10.100000000000001
+      },
+      {
+        "train_cycles": [
+          "2025-Q2",
+          "2025-Q3",
+          "2025-Q4"
+        ],
+        "test_cycle": "2026-Q1",
+        "n_train": 4367,
+        "n_test": 2037,
+        "nps_predicted": 25.0,
+        "nps_actual": 45.9,
+        "nps_abs_error": 20.9
+      },
+      {
+        "train_cycles": [
+          "2025-Q2",
+          "2025-Q3",
+          "2025-Q4",
+          "2026-Q1"
+        ],
+        "test_cycle": "2026-Q2",
+        "n_train": 6404,
+        "n_test": 2452,
+        "nps_predicted": 25.0,
+        "nps_actual": 68.5,
+        "nps_abs_error": 43.5
+      },
+      {
+        "train_cycles": [
+          "2025-Q2",
+          "2025-Q3",
+          "2025-Q4",
+          "2026-Q1",
+          "2026-Q2"
+        ],
+        "test_cycle": "2026-Q3",
+        "n_train": 8856,
+        "n_test": 2750,
+        "nps_predicted": 38.9,
+        "nps_actual": 60.2,
+        "nps_abs_error": 21.300000000000004,
+        "response_roc_auc": 0.9491813099041533,
+        "response_brier": 0.056363646621791906
+      }
+    ],
+    "mae_nps": 23.95,
+    "mae_baseline_last_nps": 13.25,
+    "mae_baseline_mean_nps": 22.42,
+    "temporal_folds": 4
+  },
+  "drivers": [
+    {
+      "variable": "num__avg_nps_score",
+      "direction": "positiva",
+      "intensity": "forte",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 3.063)"
+    },
+    {
+      "variable": "num__last_nps_score",
+      "direction": "positiva",
+      "intensity": "forte",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 2.915)"
+    },
+    {
+      "variable": "num__days_since_last_nps",
+      "direction": "negativa",
+      "intensity": "forte",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -1.167)"
+    },
+    {
+      "variable": "cat__tenure_bucket_Não informado",
+      "direction": "negativa",
+      "intensity": "forte",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -0.649)"
+    },
+    {
+      "variable": "num__amount_paid_before",
+      "direction": "positiva",
+      "intensity": "forte",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.590)"
+    },
+    {
+      "variable": "num__nps_score_delta",
+      "direction": "positiva",
+      "intensity": "forte",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.555)"
+    },
+    {
+      "variable": "cat__tenure_bucket_12–18 meses",
+      "direction": "positiva",
+      "intensity": "forte",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.360)"
+    },
+    {
+      "variable": "cat__safra_trimestre_2024-Q2",
+      "direction": "negativa",
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -0.234)"
+    }
+  ],
+  "quality": {
+    "training_rows": 11606,
+    "training_responses": 449,
+    "training_clients": 2750,
+    "cycles": 6,
+    "warnings": [
+      "Modelo ainda sem evidência suficiente para projeção confiável; use com cautela."
+    ]
+  },
+  "backtest": [
+    {
+      "cycle": "2025-Q4",
+      "nps_predicted": 25.0,
+      "nps_actual": 35.1,
+      "error": 10.100000000000001
+    },
+    {
+      "cycle": "2026-Q1",
+      "nps_predicted": 25.0,
+      "nps_actual": 45.9,
+      "error": 20.9
+    },
+    {
+      "cycle": "2026-Q2",
+      "nps_predicted": 25.0,
+      "nps_actual": 68.5,
+      "error": 43.5
+    },
+    {
+      "cycle": "2026-Q3",
+      "nps_predicted": 38.9,
+      "nps_actual": 60.2,
+      "error": 21.300000000000004
+    }
+  ]
+}

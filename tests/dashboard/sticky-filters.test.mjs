@@ -31,8 +31,8 @@ describe('sticky filters session', () => {
     teardown?.();
   });
 
-  it('default desligado', () => {
-    assert.equal(stickyFiltersEnabled(), false);
+  it('default ligado quando sessão nova', () => {
+    assert.equal(stickyFiltersEnabled(), true);
   });
 
   it('persiste quando ligado', () => {

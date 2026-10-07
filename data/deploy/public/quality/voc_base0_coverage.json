@@ -1,0 +1,13 @@
+{
+  "base0_nps_total": 609,
+  "with_motivo_nota": 460,
+  "with_comentario_completo": 609,
+  "with_any_text": 609,
+  "unique_clients": 511,
+  "periods": [
+    "Onda 1 (jun a jul/26)",
+    "Onda 2 (set/26)"
+  ],
+  "dedupe_with_current": 466,
+  "classified_units": 437
+}

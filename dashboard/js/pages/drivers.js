@@ -22,6 +22,7 @@ import {
   partitionDriverTests,
   driverInterpretation,
 } from '../data/drivers-view.mjs';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 let tableState = { filterOutcome: '', filterSig: '' };
 
@@ -226,6 +227,7 @@ export function renderDrivers(host, { signal } = {}) {
 
   host.innerHTML = `
     ${renderHero(cycle, cycleSummary)}
+    ${renderDataSourceNotice('drivers')}
     ${renderKpis(summary, cycleCode)}
     <section class="section-block">
       ${sectionHead('Associações estatísticas', null, TIPS.drivers)}

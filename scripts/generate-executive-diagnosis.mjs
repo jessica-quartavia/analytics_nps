@@ -5,6 +5,10 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildExecutiveDiagnosis } from '../lib/analytics/executive-diagnosis.mjs';
+import {
+  buildExecutiveCurrentNpsSummary,
+  buildExecutivePreviousNpsSummary,
+} from '../lib/analytics/executive-current-nps.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (rel, fallback = null) => {
@@ -34,10 +38,32 @@ const cycleCode =
   cycleSummary.cycles?.slice(-1)?.[0]?.cycle_code ??
   'NPS-2026-SET-PHARUS';
 
+const currentTemplate = (cycleSummary.cycles ?? []).find((c) => c.cycle_code === cycleCode);
+const sortedCycles = [...cycles].sort((a, b) => (a.sequence ?? 0) - (b.sequence ?? 0));
+const idx = sortedCycles.findIndex((c) => c.cycle_code === cycleCode);
+const prevDef = idx > 0 ? sortedCycles[idx - 1] : null;
+const prevTemplate = prevDef
+  ? (cycleSummary.cycles ?? []).find((c) => c.cycle_code === prevDef.cycle_code)
+  : null;
+const executiveCurrent = buildExecutiveCurrentNpsSummary(responses, currentTemplate ?? {});
+const executivePrevious = prevDef
+  ? buildExecutivePreviousNpsSummary(responses, prevDef, prevTemplate ?? {})
+  : null;
+const patchedCycleSummary = {
+  ...cycleSummary,
+  cycles: (cycleSummary.cycles ?? []).map((c) => {
+    if (c.cycle_code === cycleCode) return { ...c, ...executiveCurrent };
+    if (prevDef && c.cycle_code === prevDef.cycle_code && executivePrevious) {
+      return { ...c, ...executivePrevious };
+    }
+    return c;
+  }),
+};
+
 const doc = buildExecutiveDiagnosis({
   cycleCode,
   cycles,
-  cycleSummaryDoc: cycleSummary,
+  cycleSummaryDoc: patchedCycleSummary,
   pairedCyclesDoc: paired,
   migrationMatrixDoc: migration,
   epSummaryDoc: epSummary,

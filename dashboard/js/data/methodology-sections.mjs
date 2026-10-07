@@ -442,6 +442,17 @@ export function buildMethodologyModel(ctx = {}) {
       limitation: 'Comparativos com Jun–Jul misturam ciclo fechado parcial com aberto.',
     },
     {
+      id: 'historico-base0',
+      title: 'Histórico NPS — BASE0',
+      keywords: ['base0', 'histórico', 'longitudinal', 'pit'],
+      simple:
+        'A página Histórico NPS usa a BASE0 como fonte histórica principal (NPS passado, pagamentos, reuniões, mecanismos, transferências). A BASE QV permanece a referência operacional atual quando aplicável. Enriquecimentos longitudinais usam modelo point-in-time: só eventos com data ≤ data da resposta NPS entram na análise daquela resposta.',
+      technical:
+        'generate:phase1 → historical_nps_enriched.json (PIT). BASE0 via Business Data (somente leitura). Medições oficiais trimestrais preservadas; ciclos técnicos mapeados para trimestres canônicos na UI.',
+      source: 'BASE0 (Business Data) + historical_nps_enriched',
+      limitation: 'BASE0 ≠ BASE QV; matching e cobertura documentados em quality/*.json.',
+    },
+    {
       id: 'limitacoes',
       title: 'Limitações conhecidas',
       keywords: ['limitação', 'cuidado'],

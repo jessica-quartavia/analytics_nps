@@ -19,8 +19,26 @@ import {
   safraOptions,
   epOptions,
   buildSafraMedicaoPivot,
+  enrichCustomersForNpsPeriod,
+  getSafraCoverageRows,
   cellMetric,
+  computeNpsByApp,
+  enrichCoverageRowsWithApp,
+  computeCarteiraAudit,
 } from '../data/safras-cobertura-view.mjs';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
+import {
+  SAFRAS_NPS_PERIOD_OPTIONS,
+  friendlyCicloLabel,
+  isSafrasPeriodSpecific,
+  historyMatchesSafrasNpsPeriod,
+} from '../data/safras-nps-period.mjs';
+import { formatNpsCycleLabel } from '../utils/nps-cycle-labels.mjs';
+import { helpTip } from '../ui/help.js';
+import {
+  stickyFiltersEnabled,
+  setStickyFiltersEnabled,
+} from '../utils/sticky-filters.js';
 
 let pageFilters = defaultSafrasFilters();
 let chartInstances = [];
@@ -87,13 +105,58 @@ function renderPageHeader() {
   </header>`;
 }
 
+const SAFRAS_TIPS = {
+  npsPeriod:
+    'Define qual medição de NPS será usada para calcular participação, nota e NPS dos clientes.',
+  safra:
+    'Safra representa o trimestre de entrada do cliente, definido pela data de pagamento do programa.',
+  appUnavailable:
+    'Matching App ainda não executado — configure PHARUS_SUPABASE_* e rode generate:pharus-app-match.',
+  appTooltip:
+    'Cliente localizado na base cadastral do App PHARUS por identificador seguro (CPF, e-mail ou telefone).',
+  carteira:
+    'Ativos considera apenas clientes que ainda fazem parte da carteira. Cancelamentos efetivos e clientes congelados ficam fora.',
+};
+
+function filterLabelWithTip(forId, text, tip) {
+  return `<label for="${forId}">${helpTip(text, tip)}</label>`;
+}
+
 function renderFilters(customers) {
   const safras = safraOptions(customers).sort(sortSafraLabel);
   const eps = epOptions(customers);
-  return `<div class="card filters-panel">
-    <div class="filters-panel__grid" data-safras-filters>
+  const stickyOn = stickyFiltersEnabled();
+  return `<div class="card filters-panel safras-filters-card ${stickyOn ? 'safras-filters-card--sticky' : ''}" id="safras-page-filters">
+    <div class="safras-filters-card__head">
+      <span class="safras-filters-card__title">Filtros</span>
+      <div class="filter-sticky-toggle safras-filters-card__sticky">
+        <span class="filter-sticky-label">Fixar filtros</span>
+        <label class="switch" aria-label="Fixar filtros durante a rolagem">
+          <input type="checkbox" id="safras-sticky-switch" data-safras-sticky ${stickyOn ? 'checked' : ''} />
+          <span class="switch__track"></span>
+          <span class="switch__thumb"></span>
+        </label>
+      </div>
+    </div>
+    <div class="filters-panel__grid safras-filters-grid" data-safras-filters>
       <div class="filter-field">
-        <label for="sf-safra">Safra</label>
+        ${filterLabelWithTip('sf-carteira', 'Carteira', SAFRAS_TIPS.carteira)}
+        <select id="sf-carteira" class="select-input" data-f="carteira">
+          <option value="active" ${pageFilters.carteira !== 'all' ? 'selected' : ''}>Ativos</option>
+          <option value="all" ${pageFilters.carteira === 'all' ? 'selected' : ''}>Todos</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        ${filterLabelWithTip('sf-nps-period', 'Período NPS', SAFRAS_TIPS.npsPeriod)}
+        <select id="sf-nps-period" class="select-input" data-f="npsPeriod">
+          ${SAFRAS_NPS_PERIOD_OPTIONS.map(
+            (o) =>
+              `<option value="${escapeAttr(o.value)}" ${pageFilters.npsPeriod === o.value ? 'selected' : ''}>${escapeHtml(o.label)}</option>`,
+          ).join('')}
+        </select>
+      </div>
+      <div class="filter-field">
+        ${filterLabelWithTip('sf-safra', 'Safra', SAFRAS_TIPS.safra)}
         <select id="sf-safra" class="select-input" data-f="safra">
           <option value="">Todas</option>
           ${safras
@@ -117,12 +180,18 @@ function renderFilters(customers) {
         </select>
       </div>
       <div class="filter-field">
-        <label for="sf-app">App</label>
+        ${filterLabelWithTip(
+          'sf-app',
+          'App',
+          isAppSourceUnavailable(getSafrasCoberturaAudit())
+            ? SAFRAS_TIPS.appUnavailable
+            : SAFRAS_TIPS.appTooltip,
+        )}
         <select id="sf-app" class="select-input" data-f="app">
           <option value="all">Todos</option>
-          <option value="yes" ${pageFilters.app === 'yes' ? 'selected' : ''}>Com acesso</option>
-          <option value="no" ${pageFilters.app === 'no' ? 'selected' : ''}>Sem acesso</option>
-          <option value="unknown" ${pageFilters.app === 'unknown' ? 'selected' : ''}>Não informado</option>
+          <option value="yes" ${pageFilters.app === 'yes' ? 'selected' : ''}>Com App</option>
+          <option value="no" ${pageFilters.app === 'no' ? 'selected' : ''}>Sem App</option>
+          <option value="unknown" ${pageFilters.app === 'unknown' ? 'selected' : ''}>Match não identificado</option>
         </select>
       </div>
       <div class="filter-field">
@@ -156,8 +225,9 @@ function renderFilters(customers) {
   </div>`;
 }
 
-function renderKpiGrid(kpis, audit) {
+function renderKpiGrid(kpis, audit, npsPeriod) {
   const appUnavail = isAppSourceUnavailable(audit);
+  const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const appValue = appUnavail ? '—' : String(kpis.appYes);
   const appSub = appUnavail
     ? '<span class="safras-kpi__sub safras-kpi__sub--muted">Fonte de acesso ao App ainda não disponível</span>'
@@ -166,27 +236,66 @@ function renderKpiGrid(kpis, audit) {
     ? '<span class="safras-kpi__sub safras-kpi__sub--muted">—</span>'
     : `<span class="safras-kpi__sub">${kpis.appYes ? formatPct(kpis.pctAppAnswered, 1) : 'N indisponível'} dos com App</span>`;
 
+  const answeredTip = periodSpecific
+    ? 'Clientes que responderam a medição selecionada.'
+    : 'Clientes que responderam pelo menos uma pesquisa NPS em algum período disponível.';
+  const neverTip = periodSpecific
+    ? 'Clientes que não responderam a medição selecionada.'
+    : 'Clientes sem nenhuma resposta NPS conhecida.';
+
   const items = [
-    { label: 'Clientes analisados', value: String(kpis.clients), sub: 'Universo PHARUS no recorte' },
     {
-      label: 'Já responderam NPS',
+      label: 'Clientes analisados',
+      tip: 'Quantidade de clientes elegíveis no recorte atual após aplicação dos filtros.',
+      value: String(kpis.clients),
+      sub: 'Universo PHARUS no recorte',
+    },
+    {
+      label: periodSpecific ? 'Responderam no período' : 'Já responderam NPS',
+      tip: answeredTip,
       value: String(kpis.answered),
       sub: `${formatPct(kpis.pctAnswered, 1)} da base`,
     },
     {
-      label: 'Nunca responderam',
+      label: periodSpecific ? 'Não responderam no período' : 'Nunca responderam',
+      tip: neverTip,
       value: String(kpis.never),
       sub: `${formatPct(kpis.pctNever, 1)} da base`,
     },
-    { label: 'Com App', value: appValue, sub: appSub, rawSub: true },
-    { label: 'App + responderam', value: appUnavail ? '—' : String(kpis.appAndAnswered), sub: appAnsSub, rawSub: true },
     {
-      label: 'NPS (última nota)',
+      label: 'Com App',
+      tip: appUnavail ? SAFRAS_TIPS.appUnavailable : SAFRAS_TIPS.appTooltip,
+      value: appValue,
+      sub: appSub,
+      rawSub: true,
+    },
+    {
+      label: 'Sem App',
+      tip: appUnavail
+        ? SAFRAS_TIPS.appUnavailable
+        : 'Matching executado e nenhuma correspondência na base cadastral do App.',
+      value: appUnavail ? '—' : String(kpis.appNo),
+      sub: appUnavail
+        ? '<span class="safras-kpi__sub safras-kpi__sub--muted">—</span>'
+        : `<span class="safras-kpi__sub">${formatPct(kpis.pctNoApp, 1)} da base</span>`,
+      rawSub: true,
+    },
+    {
+      label: 'App + responderam',
+      tip: 'Clientes com App que também responderam no recorte NPS selecionado.',
+      value: appUnavail ? '—' : String(kpis.appAndAnswered),
+      sub: appAnsSub,
+      rawSub: true,
+    },
+    {
+      label: periodSpecific ? 'NPS do período' : 'NPS (última nota)',
+      tip: 'NPS = % Promotores − % Detratores. Promotores: notas 9–10; Neutros: 7–8; Detratores: 0–6.',
       value: kpis.nps != null ? formatNps(kpis.nps) : '—',
       sub: 'Recorte filtrado',
     },
     {
       label: 'Mediana dias → 1º NPS',
+      tip: 'Quantidade de dias entre a data de entrada por pagamento e a primeira resposta NPS do cliente.',
       value: kpis.medianDays != null ? String(kpis.medianDays) : '—',
       sub: 'Entre entrada e 1ª resposta',
     },
@@ -195,7 +304,7 @@ function renderKpiGrid(kpis, audit) {
   return `<div class="safras-kpi-grid">${items
     .map(
       (it) => `<article class="safras-kpi">
-        <div class="safras-kpi__label">${escapeHtml(it.label)}</div>
+        <div class="safras-kpi__label">${helpTip(it.label, it.tip)}</div>
         <div class="safras-kpi__value">${it.rawSub ? it.value : escapeHtml(it.value)}</div>
         <div class="safras-kpi__sub">${it.rawSub ? it.sub : escapeHtml(it.sub)}</div>
       </article>`,
@@ -203,10 +312,50 @@ function renderKpiGrid(kpis, audit) {
     .join('')}</div>`;
 }
 
-function renderCoberturaTable(summaries) {
-  const rows = [...(summaries?.by_safra ?? [])]
-    .filter((s) => !pageFilters.safra || s.safra_trimestre === pageFilters.safra)
-    .sort((a, b) => sortSafraLabel(a.safra_trimestre, b.safra_trimestre));
+function renderAppNpsSection(appNps, appUnavailable, npsPeriod) {
+  if (appUnavailable) return '';
+  const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
+  const subtitle = periodSpecific
+    ? 'Comparativo descritivo no período NPS selecionado (não causal).'
+    : 'Comparativo descritivo com última nota conhecida (não causal).';
+  const wa = appNps.withApp;
+  const wo = appNps.withoutApp;
+  const showNps = wa.n >= 5 || wo.n >= 5;
+  return `<div class="safras-section-card">
+    <div class="safras-section-card__head">
+      <h2 class="safras-section-card__title">App × NPS</h2>
+      <p class="safras-section-card__lead">${escapeHtml(subtitle)}</p>
+    </div>
+    <div class="safras-app-nps-grid">
+      <article class="safras-kpi">
+        <div class="safras-kpi__label">${helpTip('NPS — com App', SAFRAS_TIPS.appTooltip)}</div>
+        <div class="safras-kpi__value">${showNps && wa.n >= 5 && wa.nps != null ? formatNps(wa.nps) : '—'}</div>
+        <div class="safras-kpi__sub">N respostas: ${wa.n}</div>
+      </article>
+      <article class="safras-kpi">
+        <div class="safras-kpi__label">${helpTip('NPS — sem App', 'Clientes sem match na base cadastral do App.')}</div>
+        <div class="safras-kpi__value">${showNps && wo.n >= 5 && wo.nps != null ? formatNps(wo.nps) : '—'}</div>
+        <div class="safras-kpi__sub">N respostas: ${wo.n}</div>
+      </article>
+      <article class="safras-kpi">
+        <div class="safras-kpi__label">Taxa resposta — com App</div>
+        <div class="safras-kpi__value">${formatPct(wa.pctAnswered, 1)}</div>
+        <div class="safras-kpi__sub">${wa.answered} / ${wa.n} clientes</div>
+      </article>
+      <article class="safras-kpi">
+        <div class="safras-kpi__label">Taxa resposta — sem App</div>
+        <div class="safras-kpi__value">${formatPct(wo.pctAnswered, 1)}</div>
+        <div class="safras-kpi__sub">${wo.answered} / ${wo.n} clientes</div>
+      </article>
+    </div>
+  </div>`;
+}
+
+function renderCoberturaTable(coverageRows, npsPeriod, appUnavailable) {
+  const pctTip = isSafrasPeriodSpecific(npsPeriod)
+    ? '% de clientes da safra que responderam a medição selecionada.'
+    : '% de clientes da safra que responderam a medição selecionada. Em Todos, representa quem já respondeu alguma vez.';
+  const rows = [...coverageRows].sort((a, b) => sortSafraLabel(a.safra_trimestre, b.safra_trimestre));
 
   if (!rows.length) {
     return '<div class="safras-empty"><p>Nenhuma safra no recorte.</p></div>';
@@ -217,11 +366,16 @@ function renderCoberturaTable(summaries) {
       const pct = s.pct_que_ja_responderam ?? 0;
       const pctBar = `<div class="safras-pct-bar"><span>${formatPct(pct, 1)}</span>
         <div class="safras-pct-bar__track" aria-hidden="true"><span class="safras-pct-bar__fill" style="width:${Math.min(100, pct)}%"></span></div></div>`;
+      const appPct =
+        !appUnavailable && s.pct_with_app != null
+          ? formatPct(s.pct_with_app, 1)
+          : '—';
       return `<tr>
         <th scope="row">${escapeHtml(s.safra_trimestre)}</th>
         <td class="num">${s.clientes_total}</td>
         <td class="num">${s.clientes_que_responderam}</td>
         <td class="num">${pctBar}</td>
+        <td class="num" title="${escapeAttr(SAFRAS_TIPS.appTooltip)}">${appPct}</td>
         <td class="num">${s.nps_atual != null ? formatNps(s.nps_atual) : '—'}</td>
         <td class="num">${formatNotaMedia(s.nota_media)}</td>
       </tr>`;
@@ -231,24 +385,25 @@ function renderCoberturaTable(summaries) {
   return `<div class="table-shell">
     <table class="data-table safras-data-table">
       <colgroup>
-        <col style="width:20%" /><col style="width:14%" /><col style="width:16%" />
-        <col style="width:18%" /><col style="width:16%" /><col style="width:16%" />
+        <col style="width:16%" /><col style="width:11%" /><col style="width:12%" />
+        <col style="width:14%" /><col style="width:11%" /><col style="width:12%" /><col style="width:12%" />
       </colgroup>
       <thead><tr>
         <th scope="col">Safra</th>
         <th scope="col" class="num">Clientes</th>
         <th scope="col" class="num">Responderam</th>
-        <th scope="col" class="num">% responderam</th>
-        <th scope="col" class="num">NPS</th>
-        <th scope="col" class="num">Nota média</th>
+        <th scope="col" class="num">${helpTip('% responderam', pctTip)}</th>
+        <th scope="col" class="num">${helpTip('% com App', SAFRAS_TIPS.appTooltip)}</th>
+        <th scope="col" class="num">${helpTip('NPS', 'NPS = % Promotores − % Detratores. Promotores: notas 9–10; Neutros: 7–8; Detratores: 0–6.')}</th>
+        <th scope="col" class="num">${helpTip('Nota média', 'Média das notas NPS dos clientes que responderam dentro do recorte selecionado.')}</th>
       </tr></thead>
       <tbody>${body}</tbody>
     </table>
   </div>`;
 }
 
-function renderMatrix(history, customers) {
-  const pivot = buildSafraMedicaoPivot(history, customers, 'nps');
+function renderMatrix(history, customers, npsPeriod) {
+  const pivot = buildSafraMedicaoPivot(history, customers, 'nps', npsPeriod);
   const { safras, ciclos, cells } = pivot;
   if (!ciclos.length) {
     return '<p class="placeholder-note">Sem histórico para matriz.</p>';
@@ -277,7 +432,7 @@ function renderMatrix(history, customers) {
     <table class="data-table safras-data-table safras-matrix-table">
       <thead><tr>
         <th class="safras-matrix-sticky-col" scope="col">Safra ↓ / Ciclo →</th>
-        ${ciclos.map((c) => `<th scope="col">${escapeHtml(c)}</th>`).join('')}
+        ${ciclos.map((c) => `<th scope="col">${escapeHtml(formatNpsCycleLabel(c))}</th>`).join('')}
       </tr></thead>
       <tbody>${body}</tbody>
     </table>
@@ -290,7 +445,8 @@ function filterExplorerRows(rows) {
   return rows.filter((r) => (r.client_name ?? '').toLowerCase().includes(q));
 }
 
-function renderExplorerSection(rows, appUnavailable) {
+function renderExplorerSection(rows, appUnavailable, npsPeriod) {
+  const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const filtered = filterExplorerRows(rows);
   const total = filtered.length;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -321,12 +477,12 @@ function renderExplorerSection(rows, appUnavailable) {
         <td>${escapeHtml(r.safra_trimestre ?? '—')}</td>
         <td class="col-date">${escapeHtml(entrada)}</td>
         <td>${escapeHtml(r.ep ?? '—')}</td>
-        <td>${badgeApp(r.has_app_access, appUnavailable)}</td>
-        <td>${badgeAnswered(r.ever_answered_nps)}</td>
-        <td class="num">${r.nps_response_count ?? 0}</td>
-        <td class="num">${badgeCategory(r.last_nps_category, r.last_nps_score)}</td>
-        <td class="num">${r.avg_nps_score != null ? formatNotaMedia(r.avg_nps_score) : '—'}</td>
-        <td>${escapeHtml(r.last_nps_cycle ?? '—')}</td>
+        <td>${badgeApp(r, appUnavailable)}</td>
+        <td>${badgeAnswered(periodSpecific ? r.answered_selected_period : r.ever_answered_nps)}</td>
+        <td class="num">${periodSpecific ? (r.period_response_count ?? 0) : (r.nps_response_count ?? 0)}</td>
+        <td class="num">${badgeCategory(periodSpecific ? r.period_nps_category : r.last_nps_category, periodSpecific ? r.period_nps_score : r.last_nps_score)}</td>
+        <td class="num">${periodSpecific ? formatNotaMedia(r.period_nps_score) : r.avg_nps_score != null ? formatNotaMedia(r.avg_nps_score) : '—'}</td>
+        <td>${escapeHtml(periodSpecific ? (friendlyCicloLabel(r.period_last_ciclo) ?? '—') : (r.last_nps_cycle ?? '—'))}</td>
         <td class="num">${r.days_entry_to_first_nps_valid ?? '—'}</td>
       </tr>`;
     })
@@ -348,7 +504,7 @@ function renderExplorerSection(rows, appUnavailable) {
         <thead><tr>
           <th>Cliente</th><th>Safra</th><th>Entrada</th><th>EP</th><th>App</th><th>Respondeu?</th>
           <th class="num">Qtd</th><th class="num">Última nota</th><th class="num">Média</th>
-          <th>Último ciclo</th><th class="num">Dias 1º NPS</th>
+          <th>Último ciclo</th><th class="num">${helpTip('Dias 1º NPS', 'Quantidade de dias entre a data de entrada por pagamento e a primeira resposta NPS do cliente.')}</th>
         </tr></thead>
         <tbody>${tbody}</tbody>
       </table>
@@ -380,12 +536,17 @@ function renderTableFooter(start, total, pages) {
   </div>`;
 }
 
-function renderQuality(audit) {
+function renderQuality(audit, carteiraAudit) {
   if (!audit) return '';
+  const ca = carteiraAudit ?? {};
   return `<div class="safras-section-card safras-quality-card">
     <details>
       <summary>Qualidade & cobertura</summary>
       <div class="safras-quality-grid">
+        <div class="safras-quality-item"><strong>Carteira (QA)</strong><br>
+          Todos: ${ca.total_all ?? '—'} · Ativos: ${ca.total_active ?? '—'} · Excluídos: ${ca.total_excluded ?? '—'}<br>
+          <span class="note-muted">Cancelado ${ca.cancelado ?? 0} · Congelado ${ca.congelado ?? 0} · Outros ${ca.outros ?? 0}</span>
+        </div>
         <div class="safras-quality-item"><strong>Campo safra</strong><br>${escapeHtml(audit.safra_entry_field_chosen)} (${audit.data_inicio_ciclo_coverage_pct}%)</div>
         <div class="safras-quality-item"><strong>Sem safra</strong><br>${audit.without_safra ?? 0} clientes</div>
         <div class="safras-quality-item"><strong>Histórico sem match</strong><br>${audit.historico_unmatched_to_client} respostas</div>
@@ -409,23 +570,44 @@ export function renderSafrasCobertura(root) {
     return;
   }
 
-  const customers = applySafrasFilters(customersAll, pageFilters);
+  const enrichedAll = enrichCustomersForNpsPeriod(
+    customersAll,
+    historyAll,
+    pageFilters.npsPeriod,
+  );
+  const customers = applySafrasFilters(enrichedAll, pageFilters);
   const clientIds = new Set(customers.map((c) => c.client_id));
-  const history = historyAll.filter((h) => clientIds.has(h.client_id));
-  const kpis = computeSafrasKpis(customers);
+  const history = historyAll.filter(
+    (h) => clientIds.has(h.client_id) && historyMatchesSafrasNpsPeriod(h, pageFilters.npsPeriod),
+  );
+  const kpis = computeSafrasKpis(customers, { npsPeriod: pageFilters.npsPeriod });
   const appUnavailable = isAppSourceUnavailable(audit);
+  const coverageRows = enrichCoverageRowsWithApp(
+    getSafraCoverageRows(
+      summaries,
+      customers,
+      historyAll,
+      pageFilters.npsPeriod,
+      pageFilters.safra,
+    ),
+    customers,
+  );
+  const appNps = computeNpsByApp(customers, { npsPeriod: pageFilters.npsPeriod });
+  const carteiraAudit = computeCarteiraAudit(customersAll);
 
   root.innerHTML = `<div class="safras-page">
     ${renderPageHeader()}
+    ${renderDataSourceNotice('safras-cobertura', { appPharusPending: appUnavailable })}
     ${renderFilters(customersAll)}
-    ${renderKpiGrid(kpis, audit)}
+    ${renderKpiGrid(kpis, audit, pageFilters.npsPeriod)}
+    ${renderAppNpsSection(appNps, appUnavailable, pageFilters.npsPeriod)}
 
     <div class="safras-section-card">
       <div class="safras-section-card__head">
         <h2 class="safras-section-card__title">Cobertura por safra</h2>
         <p class="safras-section-card__lead">Participação no NPS e resultado por coorte de entrada.</p>
       </div>
-      ${renderCoberturaTable(summaries)}
+      ${renderCoberturaTable(coverageRows, pageFilters.npsPeriod, appUnavailable)}
     </div>
 
     <div class="safras-charts-row">
@@ -436,24 +618,23 @@ export function renderSafrasCobertura(root) {
     <div class="safras-section-card">
       <div class="safras-section-card__head-row">
         <div>
-          <h2 class="safras-section-card__title">Matriz safra × medição</h2>
+          <h2 class="safras-section-card__title">${helpTip('Matriz safra × medição', 'Cada linha representa a safra de entrada do cliente e cada coluna uma medição NPS. O valor mostra o NPS dos clientes daquela safra na medição.')}</h2>
           <p class="safras-section-card__lead">NPS dos clientes de cada safra em cada ciclo.</p>
         </div>
-        <p class="safras-help-tip" title="O valor representa o NPS dos clientes pertencentes à safra da linha, medido no ciclo da coluna.">ⓘ NPS da safra na medição da coluna</p>
       </div>
-      ${renderMatrix(history, customers)}
+      ${renderMatrix(history, customers, pageFilters.npsPeriod)}
     </div>
 
-    ${renderExplorerSection(customers, appUnavailable)}
-    ${renderQuality(audit)}
+    ${renderExplorerSection(customers, appUnavailable, pageFilters.npsPeriod)}
+    ${renderQuality(audit, carteiraAudit)}
   </div>`;
 
   bindSafrasCobertura(root, customersAll, historyAll, customers);
-  bindCharts(summaries, pageFilters.safra);
+  bindCharts(coverageRows, pageFilters.safra);
 }
 
-function bindCharts(summaries, safraFilter) {
-  const rows = (summaries?.by_safra ?? [])
+function bindCharts(coverageRows, safraFilter) {
+  const rows = (coverageRows ?? [])
     .filter((s) => s.safra_trimestre !== 'Não informado' && (!safraFilter || s.safra_trimestre === safraFilter))
     .sort((a, b) => sortSafraLabel(a.safra_trimestre, b.safra_trimestre));
   const labels = rows.map((r) => r.safra_trimestre);
@@ -595,6 +776,11 @@ function bindSafrasCobertura(root, customersAll, historyAll, customersFiltered) 
 
   root.querySelector('[data-safras-export-csv]')?.addEventListener('click', () => {
     exportExplorerCsv(customersFiltered);
+  });
+
+  root.querySelector('[data-safras-sticky]')?.addEventListener('change', (ev) => {
+    setStickyFiltersEnabled(ev.target.checked);
+    renderSafrasCobertura(root);
   });
 
   root.querySelector('[data-page-prev]')?.addEventListener('click', () => {

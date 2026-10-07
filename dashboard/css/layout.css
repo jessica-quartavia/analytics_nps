@@ -13,33 +13,70 @@
   bottom: 0;
   background: var(--surface);
   border-right: 1px solid var(--border);
-  padding: var(--space-lg) var(--space-md);
+  padding: var(--space-md) var(--space-sm);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-lg);
   z-index: 50;
   overflow-y: auto;
 }
 
+.sidebar__brand,
 .sidebar__logo {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 0 var(--space-xs);
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.25rem 0.5rem 0.5rem;
 }
 
+.sidebar__brand-logo,
+.sidebar__logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sidebar__brand-text,
+.sidebar__logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.sidebar__brand-title,
 .sidebar__logo-mark {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--text);
   letter-spacing: -0.02em;
 }
 
+.sidebar__brand-org {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-top: -2px;
+}
+
+.sidebar__brand-sub,
 .sidebar__logo-sub {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   font-weight: 500;
+  margin-top: 2px;
+}
+
+.sidebar__nav {
+  flex: 1;
+  min-height: 0;
 }
 
 .sidebar-nav {
@@ -48,49 +85,112 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
-.sidebar-nav a {
+.sidebar-nav__gap {
+  height: 10px;
+  list-style: none;
+}
+
+.sidebar-nav__gap--soft {
+  height: 6px;
+}
+
+.sidebar-nav a,
+.sidebar-nav__link {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  padding: 0.6rem 0.75rem;
-  border-radius: var(--radius-md);
+  min-height: 42px;
+  padding: 0.55rem 0.65rem;
+  border-radius: 11px;
   text-decoration: none;
   color: var(--text);
   font-weight: 500;
-  font-size: 0.9rem;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  font-size: 0.875rem;
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  position: relative;
 }
 
-.sidebar-nav a .nav-icon {
-  width: 1.15rem;
-  height: 1.15rem;
-  opacity: 0.55;
+.sidebar-nav__label {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.sidebar-nav a .nav-icon,
+.sidebar-nav__link .nav-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.52;
   flex-shrink: 0;
+  stroke-width: 2;
 }
 
-.sidebar-nav a:hover {
-  background: var(--surface-soft);
+.sidebar-nav a:hover,
+.sidebar-nav__link:hover {
+  background: color-mix(in srgb, var(--surface-soft) 92%, var(--border));
 }
 
-.sidebar-nav a.is-active {
-  background: var(--primary-soft);
+.sidebar-nav a.is-active,
+.sidebar-nav__link.is-active {
+  background: color-mix(in srgb, var(--primary-soft) 92%, white);
   color: var(--primary-dark);
   font-weight: 600;
   box-shadow: inset 3px 0 0 var(--primary);
 }
 
-.sidebar-nav a.is-active .nav-icon {
+.sidebar-nav a .nav-badge,
+.sidebar-nav__link .nav-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 999px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.nav-badge--pill {
+  font-size: 0.55rem;
+  padding: 2px 6px;
+}
+
+.nav-badge--muted {
+  color: var(--text-muted, #6b7280);
+  background: rgba(180, 120, 110, 0.1);
+  border: 1px solid rgba(180, 120, 110, 0.18);
+}
+
+.sidebar-nav a.is-active .nav-icon,
+.sidebar-nav__link.is-active .nav-icon {
   opacity: 1;
   color: var(--primary);
 }
 
-.sidebar-nav a.is-disabled {
+.sidebar-nav a.is-disabled,
+.sidebar-nav__link.is-disabled {
   color: var(--text-muted);
   pointer-events: none;
   opacity: 0.5;
+}
+
+.sidebar-nav__link--experimental .sidebar-nav__label {
+  font-size: 0.84rem;
+}
+
+.sidebar-nav__link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .sidebar__footer {
@@ -214,12 +314,21 @@
   min-width: 0;
 }
 
+.filter-sticky-toggle,
 .filter-shell__sticky {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 8px;
   margin-left: auto;
   padding-bottom: 2px;
+  flex-shrink: 0;
+}
+
+.filter-sticky-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .filter-field label {

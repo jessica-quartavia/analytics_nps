@@ -5,20 +5,20 @@
   "coverage": {
     "fields": {
       "meetings_between": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 100,
+        "quality": "good"
       },
       "days_since_last_meeting": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 97.87234042553192,
+        "quality": "good"
       },
       "mechanisms_before_response": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 100,
+        "quality": "good"
       },
       "mechanism_added_between": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 100,
+        "quality": "good"
       },
       "ep_changed": {
         "pct": 100,
@@ -35,13 +35,13 @@
     },
     "milestone_by_field": {
       "meetings": {
-        "coverage_pct": 0,
-        "point_in_time_pct": 0,
+        "coverage_pct": 100,
+        "point_in_time_pct": 100,
         "current_proxy_pct": 0
       },
       "mechanisms": {
-        "coverage_pct": 0,
-        "point_in_time_pct": 0,
+        "coverage_pct": 66.66666666666666,
+        "point_in_time_pct": 66.66666666666666,
         "current_proxy_pct": 0
       },
       "ep": {
@@ -80,7 +80,6 @@
   "churn_quality": "partial",
   "limitations": [
     "Resultados descrevem coocorrência na população pareada, não efeito de intervenções.",
-    "Fonte de cancelamentos incompleta — bloco churn com quality partial; sem conclusão gerencial.",
-    "Cobertura de reuniões entre ciclos limitada — interpretar reuniões com cautela."
+    "Fonte de cancelamentos incompleta — bloco churn com quality partial; sem conclusão gerencial."
   ]
 }

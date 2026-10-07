@@ -1,4 +1,5 @@
 import { cycleSortKey } from '../utils/cycle-sort.mjs';
+import { canonicalizeNpsCycle } from '../utils/nps-cycle-labels.mjs';
 
 export function defaultHistoricoFilters() {
   return {
@@ -62,10 +63,13 @@ export function computeFilteredCycleSummary(filtered, officialCycles) {
   const byCiclo = new Map();
   for (const r of filtered) {
     if (!r.ciclo || r.nota_nps == null) continue;
-    if (!byCiclo.has(r.ciclo)) byCiclo.set(r.ciclo, []);
-    byCiclo.get(r.ciclo).push(r.nota_nps);
+    const ciclo = canonicalizeNpsCycle(r.ciclo);
+    if (!byCiclo.has(ciclo)) byCiclo.set(ciclo, []);
+    byCiclo.get(ciclo).push(r.nota_nps);
   }
-  const official = new Map((officialCycles ?? []).map((c) => [c.ciclo, c]));
+  const official = new Map(
+    (officialCycles ?? []).map((c) => [canonicalizeNpsCycle(c.ciclo), c]),
+  );
   return [...byCiclo.entries()]
     .sort(([a], [b]) => cycleSortKey(a) - cycleSortKey(b))
     .map(([ciclo, scores]) => {

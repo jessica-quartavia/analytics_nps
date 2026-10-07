@@ -11,6 +11,7 @@ import { renderJornadaFinancialProfileSection, bindJornadaFinancialProfile } fro
 import { renderJornadaThemesSection, bindJornadaThemes } from './jornada-perfil-themes.js';
 import { closeJornadaThemeDrawer } from '../ui/jornada-theme-drawer.js';
 import { closeMilestonesDrawer } from '../ui/milestones-drawer.js';
+import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 export function renderJornadaPerfil(root, ctx = {}) {
   const signal = ctx.signal;
@@ -27,6 +28,7 @@ export function renderJornadaPerfil(root, ctx = {}) {
         <p class="note-muted">As comparações mostram associações observadas nos dados. Não representam relação causal.</p>
       </div>
     </header>
+    ${renderDataSourceNotice('jornada-perfil')}
     ${renderFilterRecorteBanner(filterCtx)}
     ${renderJornadaMarcosSection(filterCtx)}
     ${renderJornadaMechanismsSection(filterCtx)}

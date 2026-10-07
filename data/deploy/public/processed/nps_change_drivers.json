@@ -52,126 +52,126 @@
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 19,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 19,
+          "mean": 3,
+          "median": 3,
+          "q1": 2,
+          "q3": 4,
+          "iqr": 2
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 19,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 19,
+          "mean": 1.0526315789473684,
+          "median": 1,
+          "q1": 0,
+          "q3": 2,
+          "iqr": 2
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 19,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 19,
+          "mean": 3.3157894736842106,
+          "median": 3,
+          "q1": 2.5,
+          "q3": 4.5,
+          "iqr": 2
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 19,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 19,
+          "mean": 17.894736842105264,
+          "median": 13,
+          "q1": 4.5,
+          "q3": 33.5,
+          "iqr": 29
         }
       },
       "Estável": {
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 58,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 58,
+          "mean": 2.689655172413793,
+          "median": 2,
+          "q1": 1,
+          "q3": 3.75,
+          "iqr": 2.75
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 58,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 58,
+          "mean": 1.0862068965517242,
+          "median": 1,
+          "q1": 1,
+          "q3": 1,
+          "iqr": 0
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 58,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 58,
+          "mean": 2.7758620689655173,
+          "median": 3,
+          "q1": 1,
+          "q3": 4,
+          "iqr": 3
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 58,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 56,
+          "mean": 23.214285714285715,
+          "median": 12.5,
+          "q1": 2.75,
+          "q3": 24.75,
+          "iqr": 22
         }
       },
       "Melhora": {
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 17,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 17,
+          "mean": 3.4705882352941178,
+          "median": 3,
+          "q1": 2,
+          "q3": 5,
+          "iqr": 3
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 17,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 17,
+          "mean": 1.2941176470588236,
+          "median": 1,
+          "q1": 1,
+          "q3": 2,
+          "iqr": 1
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 17,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 17,
+          "mean": 3.7058823529411766,
+          "median": 4,
+          "q1": 2,
+          "q3": 5,
+          "iqr": 3
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 17,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 17,
+          "mean": 23.470588235294116,
+          "median": 15,
+          "q1": 3,
+          "q3": 27,
+          "iqr": 24
         }
       }
     },
@@ -180,287 +180,287 @@
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 77,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 77,
+          "mean": 2.831168831168831,
+          "median": 2,
+          "q1": 1,
+          "q3": 4,
+          "iqr": 3
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 77,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 77,
+          "mean": 1.0909090909090908,
+          "median": 1,
+          "q1": 1,
+          "q3": 1,
+          "iqr": 0
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 77,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 77,
+          "mean": 2.961038961038961,
+          "median": 3,
+          "q1": 1,
+          "q3": 4,
+          "iqr": 3
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 77,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 75,
+          "mean": 23.48,
+          "median": 13,
+          "q1": 2.5,
+          "q3": 27,
+          "iqr": 24.5
         }
       },
       "Detrator → Neutro": {
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 1,
+          "median": 1,
+          "q1": 1,
+          "q3": 1,
+          "iqr": 0
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 1,
+          "median": 1,
+          "q1": 1,
+          "q3": 1,
+          "iqr": 0
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 1,
+          "median": 1,
+          "q1": 1,
+          "q3": 1,
+          "iqr": 0
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 29,
+          "median": 29,
+          "q1": 29,
+          "q3": 29,
+          "iqr": 0
         }
       },
       "Promotor → Neutro": {
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 12,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 12,
+          "mean": 3.5833333333333335,
+          "median": 3,
+          "q1": 3,
+          "q3": 4.25,
+          "iqr": 1.25
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 12,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 12,
+          "mean": 1.3333333333333333,
+          "median": 1,
+          "q1": 1,
+          "q3": 2,
+          "iqr": 1
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 12,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 12,
+          "mean": 3.9166666666666665,
+          "median": 3.5,
+          "q1": 3,
+          "q3": 5,
+          "iqr": 2
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 12,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 12,
+          "mean": 13,
+          "median": 9,
+          "q1": 3,
+          "q3": 15,
+          "iqr": 12
         }
       },
       "Neutro → Neutro": {
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 4,
+          "median": 4,
+          "q1": 4,
+          "q3": 4,
+          "iqr": 0
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 2,
+          "median": 2,
+          "q1": 2,
+          "q3": 2,
+          "iqr": 0
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 4,
+          "median": 4,
+          "q1": 4,
+          "q3": 4,
+          "iqr": 0
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 8,
+          "median": 8,
+          "q1": 8,
+          "q3": 8,
+          "iqr": 0
         }
       },
       "Detrator → Detrator": {
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 2,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 2,
+          "mean": 2.5,
+          "median": 2.5,
+          "q1": 1.75,
+          "q3": 3.25,
+          "iqr": 1.5
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 2,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 2,
+          "mean": 1,
+          "median": 1,
+          "q1": 0.5,
+          "q3": 1.5,
+          "iqr": 1
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 2,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 2,
+          "mean": 2.5,
+          "median": 2.5,
+          "q1": 1.75,
+          "q3": 3.25,
+          "iqr": 1.5
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 2,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 2,
+          "mean": 22,
+          "median": 22,
+          "q1": 17,
+          "q3": 27,
+          "iqr": 10
         }
       },
       "Promotor → Detrator": {
         "meetings_between": {
           "label": "Reuniões entre ciclos",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 1,
+          "median": 1,
+          "q1": 1,
+          "q3": 1,
+          "iqr": 0
         },
         "meetings_last_30d": {
           "label": "Reuniões últimos 30d (até resposta)",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 0,
+          "median": 0,
+          "q1": 0,
+          "q3": 0,
+          "iqr": 0
         },
         "meetings_last_90d": {
           "label": "Reuniões últimos 90d (até resposta)",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 2,
+          "median": 2,
+          "q1": 2,
+          "q3": 2,
+          "iqr": 0
         },
         "days_since_last_meeting_current": {
           "label": "Dias desde última reunião",
           "n": 1,
-          "n_with_value": 0,
-          "mean": null,
-          "median": null,
-          "q1": null,
-          "q3": null,
-          "iqr": null
+          "n_with_value": 1,
+          "mean": 41,
+          "median": 41,
+          "q1": 41,
+          "q3": 41,
+          "iqr": 0
         }
       }
     },
     "tests": {
       "H1_meetings_between_queda_vs_melhora": {
         "hypothesis": "Clientes que pioram têm menos reuniões entre os ciclos?",
-        "u": null,
-        "p_value": null,
-        "n": 0,
-        "effect_size": null,
-        "median_a": null,
-        "median_b": null,
-        "difference": null,
+        "u": 138.5,
+        "p_value": 0.46611568865427766,
+        "n": 36,
+        "effect_size": 0.14241486068111453,
+        "median_a": 3,
+        "median_b": 3,
+        "difference": 0,
         "test": "mann_whitney",
         "n_queda": 19,
         "n_melhora": 17
       },
       "H2_days_since_last_queda_vs_melhora": {
         "hypothesis": "Clientes que pioram passam mais tempo desde a última reunião?",
-        "u": null,
-        "p_value": null,
-        "n": 0,
-        "effect_size": null,
-        "median_a": null,
-        "median_b": null,
-        "difference": null,
+        "u": 157,
+        "p_value": 0.8866108506043684,
+        "n": 36,
+        "effect_size": -0.02786377708978338,
+        "median_a": 13,
+        "median_b": 15,
+        "difference": -2,
         "test": "mann_whitney",
         "n_queda": 19,
         "n_melhora": 17
       },
       "meetings_between_kruskal_evolution": {
-        "statistic": null,
-        "p_value": null,
-        "n": 0,
-        "effect_size": null,
+        "statistic": 4.305939019437684,
+        "p_value": 0.8838612299928594,
+        "n": 94,
+        "effect_size": 0.025339989224589934,
         "test": "kruskal_wallis",
         "groups": [
           "Melhora",
@@ -473,70 +473,71 @@
   "mechanisms": {
     "by_mechanism_count_before_response": {
       "0": {
-        "n": 0,
-        "nps": null,
-        "mean_score": null,
-        "pct_detractors": null,
-        "mean_delta": null
+        "n": 17,
+        "nps": 88.23529411764706,
+        "mean_score": 9.411764705882353,
+        "pct_detractors": 0,
+        "mean_delta": -0.11764705882352941
       },
       "1": {
-        "n": 0,
-        "nps": null,
-        "mean_score": null,
-        "pct_detractors": null,
-        "mean_delta": null
+        "n": 15,
+        "nps": 66.66666666666666,
+        "mean_score": 8.866666666666667,
+        "pct_detractors": 6.666666666666667,
+        "mean_delta": -0.3333333333333333
       },
       "2+": {
-        "n": 0,
-        "nps": null,
-        "mean_score": null,
-        "pct_detractors": null,
-        "mean_delta": null
+        "n": 62,
+        "nps": 79.03225806451614,
+        "mean_score": 9.387096774193548,
+        "pct_detractors": 3.225806451612903,
+        "mean_delta": -0.1935483870967742
       }
     },
     "mechanism_added_between_cycles": {
       "true": {
-        "n": 0,
-        "nps": null,
-        "mean_score": null,
-        "pct_detractors": null,
-        "mean_delta": null
+        "n": 62,
+        "nps": 77.41935483870968,
+        "mean_score": 9.290322580645162,
+        "pct_detractors": 3.225806451612903,
+        "mean_delta": -0.22580645161290322
       },
       "false": {
-        "n": 0,
-        "nps": null,
-        "mean_score": null,
-        "pct_detractors": null,
-        "mean_delta": null
+        "n": 32,
+        "nps": 81.25,
+        "mean_score": 9.34375,
+        "pct_detractors": 3.125,
+        "mean_delta": -0.15625
       }
     },
     "H5_added_vs_improvement": {
       "hypothesis": "Implementação de mecanismo entre ciclos está associada a melhora?",
       "n_a": 17,
       "n_b": 19,
-      "pct_a": 0,
-      "pct_b": 0,
-      "p_value": 1,
-      "n": 36,
-      "test": "fisher"
+      "pct_a": 64.70588235294117,
+      "pct_b": 63.1578947368421,
+      "p_value": 0.07690425137958944,
+      "effect_size": 0.01608915179143199,
+      "test": "chi_square",
+      "limitation": null
     },
     "H3_mechanism_count_kruskal_score": {
       "hypothesis": "Contagem de mecanismos antes da resposta associa-se à nota atual?",
-      "statistic": null,
-      "p_value": null,
-      "n": 0,
-      "effect_size": null,
+      "statistic": 1.0017211667385595,
+      "p_value": 0.39399108595072474,
+      "n": 94,
+      "effect_size": 0,
       "test": "kruskal_wallis"
     },
     "H4_two_plus_vs_rest": {
       "hypothesis": "Clientes com 2+ mecanismos têm comportamento diferente de 0/1?",
-      "u": null,
-      "p_value": null,
-      "n": 0,
-      "effect_size": null,
-      "median_a": null,
-      "median_b": null,
-      "difference": null,
+      "u": 867,
+      "p_value": 0.3185719295032663,
+      "n": 94,
+      "effect_size": -0.126008064516129,
+      "median_a": 10,
+      "median_b": 10,
+      "difference": 0,
       "test": "mann_whitney"
     }
   },
@@ -611,49 +612,49 @@
     "question": "Clientes que reclamam de resultados têm menos mecanismos implementados?",
     "resultados_negative": {
       "n": 10,
-      "median_mechanisms": 0,
-      "pct_no_mechanism": 100,
-      "pct_one": 0,
-      "pct_two_plus": 0,
+      "median_mechanisms": 2,
+      "pct_no_mechanism": 30,
+      "pct_one": 10,
+      "pct_two_plus": 60,
       "nps": -10,
       "mean_score": 6.4
     },
     "others": {
       "n": 273,
-      "median_mechanisms": 0,
-      "pct_no_mechanism": 100,
-      "pct_one": 0,
-      "pct_two_plus": 0,
+      "median_mechanisms": 1,
+      "pct_no_mechanism": 35.8974358974359,
+      "pct_one": 16.84981684981685,
+      "pct_two_plus": 47.25274725274725,
       "nps": 64.10256410256412,
       "mean_score": 8.776556776556777
     },
     "comparison": {
-      "u": 1365,
-      "p_value": 0.9999999989999999,
+      "u": 1208,
+      "p_value": 0.5367990909689628,
       "n": 283,
-      "effect_size": 0,
-      "median_a": 0,
-      "median_b": 0,
-      "difference": 0
+      "effect_size": -0.11501831501831505,
+      "median_a": 2,
+      "median_b": 1,
+      "difference": 1
     }
   },
   "coverage": {
     "fields": {
       "meetings_between": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 100,
+        "quality": "good"
       },
       "days_since_last_meeting": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 97.87234042553192,
+        "quality": "good"
       },
       "mechanisms_before_response": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 100,
+        "quality": "good"
       },
       "mechanism_added_between": {
-        "pct": 0,
-        "quality": "low"
+        "pct": 100,
+        "quality": "good"
       },
       "ep_changed": {
         "pct": 100,
@@ -670,13 +671,13 @@
     },
     "milestone_by_field": {
       "meetings": {
-        "coverage_pct": 0,
-        "point_in_time_pct": 0,
+        "coverage_pct": 100,
+        "point_in_time_pct": 100,
         "current_proxy_pct": 0
       },
       "mechanisms": {
-        "coverage_pct": 0,
-        "point_in_time_pct": 0,
+        "coverage_pct": 66.66666666666666,
+        "point_in_time_pct": 66.66666666666666,
         "current_proxy_pct": 0
       },
       "ep": {
@@ -713,8 +714,7 @@
   },
   "limitations": [
     "Resultados descrevem coocorrência na população pareada, não efeito de intervenções.",
-    "Fonte de cancelamentos incompleta — bloco churn com quality partial; sem conclusão gerencial.",
-    "Cobertura de reuniões entre ciclos limitada — interpretar reuniões com cautela."
+    "Fonte de cancelamentos incompleta — bloco churn com quality partial; sem conclusão gerencial."
   ],
   "auto_insights": []
 }

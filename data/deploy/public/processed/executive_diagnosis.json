@@ -1,39 +1,39 @@
 {
   "cycle_code": "NPS-2026-SET-PHARUS",
   "cycle_name": "Set/2026",
-  "generated_at": "2026-10-06T20:51:19.387Z",
+  "generated_at": "2026-10-07T00:13:42.187Z",
   "data_cutoff": "2026-10-06T20:51:18.861Z",
   "status": "open",
   "previous_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
   "headline": {
-    "text": "NPS caiu 6,6 pontos em Set/2026.",
-    "current_nps": 61.48409893992933,
+    "text": "NPS caiu 9,4 pontos em Set/2026.",
+    "current_nps": 58.69074492099323,
     "previous_nps": 68.11023622047244,
-    "delta_nps": -6.626137280543112,
+    "delta_nps": -9.419491299479212,
     "direction": "worsened",
     "source_artifacts": [
       "cycle_summary.json"
     ]
   },
   "overall": {
-    "current_nps": 61.48409893992933,
+    "current_nps": 58.69074492099323,
     "previous_nps": 68.11023622047244,
-    "delta_nps": -6.626137280543112,
-    "valid_responses": 283,
+    "delta_nps": -9.419491299479212,
+    "valid_responses": 443,
     "eligible_clients": 977,
-    "response_rate": 0.2896622313203685,
+    "response_rate": null,
     "response_rate_quality": "complete",
     "ci95": {
-      "low": 53.71024734982333,
-      "high": 68.90459363957598,
+      "low": null,
+      "high": null,
       "method": "bootstrap_percentile_95"
     },
-    "promoters": 205,
-    "passives": 47,
-    "detractors": 31,
-    "promoter_pct": 72.43816254416961,
-    "passive_pct": 16.607773851590103,
-    "detractor_pct": 10.954063604240282,
+    "promoters": 313,
+    "passives": 77,
+    "detractors": 53,
+    "promoter_pct": 70.6546275395034,
+    "passive_pct": 17.381489841986454,
+    "detractor_pct": 11.963882618510159,
     "source_artifacts": [
       "cycle_summary.json"
     ]
@@ -674,7 +674,7 @@
   },
   "quality": {
     "data_quality_status": "attention",
-    "warnings_count": 1670,
+    "warnings_count": 2505,
     "ep_current_proxy_count": 217,
     "ep_current_proxy_pct": 0.7667844522968198,
     "voc_classification_coverage": 96.2756052141527,
@@ -697,7 +697,7 @@
   },
   "executive_summary": [
     {
-      "text": "NPS de Set/2026 foi 61,5, queda de 6,6 pontos frente ao ciclo anterior.",
+      "text": "NPS de Set/2026 foi 58,7, queda de 9,4 pontos frente ao ciclo anterior.",
       "source_artifacts": [
         "executive_diagnosis.json"
       ]
@@ -743,11 +743,11 @@
     {
       "id": "nps_direction",
       "question": "O NPS melhorou ou piorou?",
-      "answer": "O NPS em Set/2026 recuou 6,6 pontos frente ao ciclo anterior.",
+      "answer": "O NPS em Set/2026 recuou 9,4 pontos frente ao ciclo anterior.",
       "supporting_metrics": {
-        "current_nps": 61.48409893992933,
+        "current_nps": 58.69074492099323,
         "previous_nps": 68.11023622047244,
-        "delta_nps": -6.626137280543112
+        "delta_nps": -9.419491299479212
       },
       "source_artifacts": [
         "cycle_summary.json"
@@ -871,13 +871,5 @@
     "Associações em drivers descrevem relações na amostra, não causalidade individual.",
     "CSAT agrega todas as respostas válidas por ciclo, sem dedupe por cliente.",
     "Destaques EP exigem n ≥ 5 salvo bloco de qualidade."
-  ],
-  "methodology": {
-    "nps_method_version": "1.0",
-    "voc_classifier_version": "rules_v1",
-    "action_priority_version": "1.0",
-    "drivers_version": "1.0",
-    "csat_method_version": "1.0",
-    "executive_diagnosis_version": "1.0"
-  }
+  ]
 }

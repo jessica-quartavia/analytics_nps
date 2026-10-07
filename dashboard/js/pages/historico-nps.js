@@ -52,7 +52,13 @@ import {
 } from './historico-nps-render.mjs';
 import { openHistoricoClientDrawer, closeHistoricoClientDrawer } from '../ui/historico-client-drawer.mjs';
 import { closeHistoricoResponseDrawer } from '../ui/historico-response-drawer.mjs';
-import { stickyFiltersEnabled } from '../utils/sticky-filters.js';
+import { stickyFiltersEnabled, setStickyFiltersEnabled } from '../utils/sticky-filters.js';
+import {
+  prepareHistoricoDisplayCycles,
+  uniqueCanonicalCycleList,
+  formatNpsCycleLabel,
+  canonicalizeNpsCycle,
+} from '../utils/nps-cycle-labels.mjs';
 
 let pageFilters = defaultHistoricoFilters();
 let chartInstances = [];
@@ -99,10 +105,12 @@ function renderKpis(summary, meta, enrichedFiltered, recMap, lastOff, prevOff, c
 }
 
 function bindCharts(summary, filteredSummary, meta, safraEntrada, safraNps, tenureData, meetingsData, recencyData) {
-  const cycles = (summary?.cycles ?? []).slice().sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo));
-  const labels = cycles.map((c) => c.ciclo);
+  const cycles = prepareHistoricoDisplayCycles(summary?.cycles ?? []);
+  const labels = cycles.map((c) => formatNpsCycleLabel(c.ciclo));
   const official = cycles.map((c) => c.nps_oficial);
-  const filMap = new Map(filteredSummary.map((x) => [x.ciclo, x.nps_filtrado]));
+  const filMap = new Map(
+    filteredSummary.map((x) => [canonicalizeNpsCycle(x.ciclo), x.nps_filtrado]),
+  );
   const filteredLine = cycles.map((c) => filMap.get(c.ciclo) ?? null);
   const showFiltered = filtersAffectRecorte(pageFilters);
 
@@ -298,6 +306,10 @@ function bindPage(root, ctx) {
     clientPage = 1;
     renderHistoricoNps(root);
   });
+  root.querySelector('[data-hist-sticky]')?.addEventListener('change', (ev) => {
+    setStickyFiltersEnabled(ev.target.checked);
+    renderHistoricoNps(root);
+  });
   root.querySelector('[data-hist-clear-filters]')?.addEventListener('click', () => {
     pageFilters = defaultHistoricoFilters();
     clientPage = 1;
@@ -394,9 +406,7 @@ export function renderHistoricoNps(root) {
   const updatedLabel = snapshotDisplayDate(snapshot, enrichedDoc?.meta ?? summaryDoc.meta);
   const filteredSummary = computeFilteredCycleSummary(filtered, summary.cycles);
 
-  const ciclos = [...new Set(enrichedAll.map((r) => r.nps_cycle).filter(Boolean))].sort(
-    (a, b) => cycleSortKey(a) - cycleSortKey(b),
-  );
+  const ciclos = uniqueCanonicalCycleList(enrichedAll.map((r) => r.nps_cycle));
   const safras = [
     ...new Set(cohorts.map((c) => c.safra_trimestre).filter(Boolean)),
   ].sort((a, b) => cycleSortKey(a) - cycleSortKey(b));
@@ -423,7 +433,7 @@ export function renderHistoricoNps(root) {
   root.innerHTML = `<div class="historico-nps-page">
     ${renderHistoricoHeader(updatedLabel)}
     ${!officialOk ? '<p class="historico-alert">⚠ Valores oficiais divergem do baseline esperado — revisar datasets.</p>' : ''}
-    ${renderHistoricoFilters(pageFilters, { ciclos, eps, safras, programas, stickyClass: stickyOn ? 'historico-filters-card--sticky' : '' })}
+    ${renderHistoricoFilters(pageFilters, { ciclos, eps, safras, programas, stickyClass: stickyOn ? 'historico-filters-card--sticky' : '', stickyOn })}
     ${renderKpis(summary, meta, enrichedFiltered, recMap, lastOff, prevOff, currentCycle)}
 
     <section class="historico-block"><h2 class="historico-block__title">Evolução oficial</h2>
@@ -512,12 +522,21 @@ export function renderHistoricoNps(root) {
       )}
     </section>
 
-    <section class="historico-block">${renderOfficialTable(summary.cycles)}</section>
+    <section class="historico-block">${renderOfficialTable(prepareHistoricoDisplayCycles(summary.cycles))}</section>
     <section class="historico-block">${renderClientExplorerTable(explorerRows, clientPage, PAGE_SIZE)}</section>
     ${renderQualityFooter(paymentAudit, quality, updatedLabel)}
   </div>`;
 
-  bindCharts(summary, filteredSummary, meta, safraEntrada, safraNps, tenureData, meetingsData, recencyData);
+  bindCharts(
+    { ...summary, cycles: prepareHistoricoDisplayCycles(summary.cycles) },
+    filteredSummary,
+    meta,
+    safraEntrada,
+    safraNps,
+    tenureData,
+    meetingsData,
+    recencyData,
+  );
   bindPage(root, { enrichedAll, cohorts });
 }
 
