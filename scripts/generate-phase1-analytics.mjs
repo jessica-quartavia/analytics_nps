@@ -269,11 +269,16 @@ async function main() {
   await writeJson('processed/nps_between_cycle_events.json', milestoneArtifacts.betweenDoc);
   await writeJson('quality/nps_milestones_qa.json', milestoneArtifacts.qaDoc);
 
+  const currentTopics = readDataJson(root, 'processed/response_topics.json', []);
+
   const { buildNpsChangeDriverArtifacts } = await import('../lib/analytics/nps-change-drivers-pipeline.mjs');
   const changeArtifacts = await buildNpsChangeDriverArtifacts({
     betweenDoc: milestoneArtifacts.betweenDoc,
     clientMilestonesDoc: milestoneArtifacts.clientMilestonesDoc,
     summaryDoc: milestoneArtifacts.summaryDoc,
+    pairedDoc,
+    responses: currentResponses,
+    responseTopics: Array.isArray(currentTopics) ? currentTopics : [],
     dataCutoff: latestSnap?.data_cutoff ?? new Date().toISOString(),
   });
   await writeJson('processed/nps_change_drivers.json', changeArtifacts.driversDoc);
@@ -287,7 +292,6 @@ async function main() {
     dataCutoff: latestSnap?.data_cutoff ?? new Date().toISOString(),
   });
   await writeJson('quality/voc_base0_coverage.json', vocBase0.audit);
-  const currentTopics = readDataJson(root, 'processed/response_topics.json', []);
   const vocMerged = mergeVocAllPeriods({
     currentTopics: Array.isArray(currentTopics) ? currentTopics : [],
     base0Topics: vocBase0.responseTopics,

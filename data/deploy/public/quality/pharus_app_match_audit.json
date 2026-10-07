@@ -1,0 +1,265 @@
+{
+  "generated_at": "2026-10-07T02:24:58.363Z",
+  "pharus_project_ref": "qvtqufdivpbmubooawdm",
+  "app_source": "core.personal_info",
+  "app_table_column_mapping": {
+    "table_columns": [
+      "alternative_email",
+      "avatar_path",
+      "birth_date",
+      "cep",
+      "children_count",
+      "children_of_legal_age",
+      "city",
+      "cnpj_status",
+      "complement",
+      "cpf",
+      "gender",
+      "marital_property_regime",
+      "marital_status",
+      "monthly_work_hours",
+      "name",
+      "neighborhood",
+      "number",
+      "occupation",
+      "phone",
+      "rg",
+      "street",
+      "uf",
+      "user_id"
+    ],
+    "mapped": {
+      "user_id": "user_id",
+      "cpf": "cpf",
+      "email": "alternative_email",
+      "phone": "phone",
+      "name": "name",
+      "created_at": null,
+      "updated_at": null
+    },
+    "auth_email_source": "auth.admin.listUsers"
+  },
+  "tables_probed": [
+    {
+      "schema": "core",
+      "table": "personal_info",
+      "ok": true,
+      "error": null,
+      "sample_count": 3,
+      "total_count": 505
+    },
+    {
+      "schema": "core",
+      "table": "profiles",
+      "ok": false,
+      "error": "Could not find the table 'core.profiles' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "core",
+      "table": "users",
+      "ok": false,
+      "error": "Could not find the table 'core.users' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "core",
+      "table": "user_profiles",
+      "ok": false,
+      "error": "Could not find the table 'core.user_profiles' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "core",
+      "table": "app_users",
+      "ok": false,
+      "error": "Could not find the table 'core.app_users' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "core",
+      "table": "customers",
+      "ok": false,
+      "error": "Could not find the table 'core.customers' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "core",
+      "table": "clientes",
+      "ok": false,
+      "error": "Could not find the table 'core.clientes' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "public",
+      "table": "personal_info",
+      "ok": false,
+      "error": "Could not find the table 'public.personal_info' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "public",
+      "table": "profiles",
+      "ok": false,
+      "error": "Could not find the table 'public.profiles' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "public",
+      "table": "users",
+      "ok": false,
+      "error": "Could not find the table 'public.users' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "public",
+      "table": "user_profiles",
+      "ok": false,
+      "error": "Could not find the table 'public.user_profiles' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "public",
+      "table": "app_users",
+      "ok": false,
+      "error": "Could not find the table 'public.app_users' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "public",
+      "table": "customers",
+      "ok": false,
+      "error": "Could not find the table 'public.customers' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "public",
+      "table": "clientes",
+      "ok": false,
+      "error": "Could not find the table 'public.clientes' in the schema cache",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "app",
+      "table": "personal_info",
+      "ok": false,
+      "error": "Invalid schema: app",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "app",
+      "table": "profiles",
+      "ok": false,
+      "error": "Invalid schema: app",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "app",
+      "table": "users",
+      "ok": false,
+      "error": "Invalid schema: app",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "app",
+      "table": "user_profiles",
+      "ok": false,
+      "error": "Invalid schema: app",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "app",
+      "table": "app_users",
+      "ok": false,
+      "error": "Invalid schema: app",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "app",
+      "table": "customers",
+      "ok": false,
+      "error": "Invalid schema: app",
+      "sample_count": 0,
+      "total_count": null
+    },
+    {
+      "schema": "app",
+      "table": "clientes",
+      "ok": false,
+      "error": "Invalid schema: app",
+      "sample_count": 0,
+      "total_count": null
+    }
+  ],
+  "app_records": 505,
+  "base_clients": 3152,
+  "base_identifier_audit": {
+    "pharus_clients_in_universe": 3152,
+    "base0_rows_merged": 3124,
+    "with_cpf": 2334,
+    "with_email": 3092,
+    "with_phone": 3047,
+    "with_any_identifier": 3110,
+    "insufficient_identifiers": 42
+  },
+  "matched_clients": 410,
+  "unmatched_clients": 2700,
+  "ambiguous_clients": 0,
+  "insufficient_identifiers": 42,
+  "match_by_cpf": 21,
+  "match_by_email": 8,
+  "match_by_phone": 0,
+  "match_by_multiple": 381,
+  "coverage_pct": 13,
+  "warning": null,
+  "qa_samples": {
+    "matched_cpf": [
+      "05db5120-2585-4a1f-a49a-3776af4c7e05",
+      "17fef9e1-f4d7-4913-9bc5-07ee3f571692",
+      "228df93f-2daf-492b-a468-894e589bff78",
+      "2cce46d4-fa96-43e1-b855-35776c22b795",
+      "35416b23-c9ed-4fd6-a2d3-a679ae418dc7"
+    ],
+    "matched_email": [
+      "128c0774-5d63-47a4-ae65-b1a5566e666a",
+      "37f15e2e-53c9-449f-bbbd-122aa1e6f6f5",
+      "58c20112-1865-4f7a-b423-fe5e8208071f",
+      "59e89134-d7a7-486e-89a1-10355850c7f4",
+      "8105c92e-1522-4ee5-a70b-129295e559f8"
+    ],
+    "matched_phone": [],
+    "matched_multiple": [
+      "00d04308-6850-4e1c-9fda-c433fc754232",
+      "01c7c4e7-29de-4f01-aaec-f6fd8069d4bc",
+      "03493d05-bf24-4326-bce7-fd29ad2c242b",
+      "03c2d61f-8ec4-4624-a487-8bb6287eda78",
+      "03e1f79f-9709-49ba-87ba-43e01ea5c7c6"
+    ],
+    "unmatched": [
+      "0006917d-682b-4c05-917b-f3763a264a3d",
+      "0007eb62-0ead-4f1f-8f70-c1685b739094",
+      "000e7037-d04e-436f-a8ba-baa31fe7a808",
+      "001c4726-0f49-446e-8f81-8802a4628717",
+      "002dde03-02ed-4af3-9ea0-108137b376cc"
+    ],
+    "ambiguous": []
+  }
+}

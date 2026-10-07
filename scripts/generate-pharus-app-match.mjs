@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 /**
  * Matching App PHARUS (server-side). Requer PHARUS_SUPABASE_* no .env.
- * Fallback: preserva artefato anterior se conexão falhar e já houver matches válidos.
+ * Fallback: preserva artefato anterior (data/ ou bundle deploy/public) se env/conexão falhar.
  */
-import { existsSync, readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { writeJson, readJson } from '../lib/data/file-store.mjs';
+import { writeJson } from '../lib/data/file-store.mjs';
+import { readDataJson } from '../lib/deploy/build-input.mjs';
 import { matchClientsToApp } from '../lib/analytics/pharus-app-match.mjs';
 import {
   getPharusSupabaseConfig,
@@ -16,56 +14,77 @@ import {
 } from '../lib/pharus/env.mjs';
 import { loadPharusClientIdentifiers } from '../lib/pharus/base-identifiers.mjs';
 import { fetchPharusAppCadastro } from '../lib/pharus/app-cadastro.mjs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = 'processed/pharus_app_customer_match.json';
 const AUDIT = 'quality/pharus_app_match_audit.json';
-const PREV_MATCH = join(root, 'data', OUT);
-const PREV_AUDIT = join(root, 'data', AUDIT);
 
-function readPreviousAudit() {
-  try {
-    if (existsSync(PREV_AUDIT)) {
-      return JSON.parse(readFileSync(PREV_AUDIT, 'utf8'));
-    }
-  } catch {
-    /* ignore */
-  }
-  return null;
+function readPreviousBundle() {
+  const audit = readDataJson(root, AUDIT, null);
+  const match = readDataJson(root, OUT, null);
+  return { audit, match };
 }
 
-function shouldPreservePrevious(appFetch, prevAudit) {
+function previousMatchedCount(prev) {
+  const fromAudit = prev.audit?.matched_clients;
+  if (typeof fromAudit === 'number' && fromAudit > 0) return fromAudit;
+  const entries = prev.match?.entries;
+  if (!Array.isArray(entries)) return 0;
+  return entries.filter((e) => e.has_app || e.app_match_status === 'matched').length;
+}
+
+function shouldPreservePrevious(appFetch, prevMatched) {
   if (appFetch.records?.length > 0) return false;
-  const prevMatched = prevAudit?.matched_clients ?? 0;
   if (prevMatched <= 0) return false;
-  if (!appFetch.configured) return false;
-  return Boolean(appFetch.error || appFetch.source === 'no_table');
+  if (!appFetch.configured) return true;
+  return Boolean(
+    appFetch.error ||
+      appFetch.source === 'no_table' ||
+      appFetch.source === 'not_configured' ||
+      appFetch.source === 'error',
+  );
 }
 
 async function main() {
   loadProjectDotenv();
   const cfg = logPharusEnvStatus();
-  const prevAudit = readPreviousAudit();
+  const prev = readPreviousBundle();
+  const prevMatched = previousMatchedCount(prev);
 
   const { entries: baseClients, audit: idAudit } = await loadPharusClientIdentifiers();
 
   let appFetch;
-  try {
-    appFetch = await fetchPharusAppCadastro(cfg);
-    appFetch.configured = cfg.configured;
-  } catch (e) {
+  if (!cfg.configured) {
     appFetch = {
       records: [],
-      source: 'error',
-      error: e.message ?? String(e),
-      configured: cfg.configured,
+      source: 'not_configured',
+      error: 'PHARUS_SUPABASE_URL / PHARUS_SUPABASE_SERVICE_ROLE_KEY ausentes',
+      configured: false,
       column_mapping: null,
       tables_probed: [],
     };
+  } else {
+    try {
+      appFetch = await fetchPharusAppCadastro(cfg);
+      appFetch.configured = true;
+    } catch (e) {
+      appFetch = {
+        records: [],
+        source: 'error',
+        error: e.message ?? String(e),
+        configured: true,
+        column_mapping: null,
+        tables_probed: [],
+      };
+    }
   }
 
-  if (shouldPreservePrevious(appFetch, prevAudit)) {
-    console.warn('[pharus-app-match] App indisponível — preservando artefato anterior com matches.');
+  if (shouldPreservePrevious(appFetch, prevMatched)) {
+    console.warn(
+      `[pharus-app-match] App indisponível ou não configurado — preservando bundle anterior (matched≈${prevMatched}).`,
+    );
     return;
   }
 
@@ -101,7 +120,10 @@ async function main() {
       matched_cpf: entries.filter((e) => e.app_match_method === 'cpf').slice(0, 5).map((e) => e.client_id),
       matched_email: entries.filter((e) => e.app_match_method === 'email').slice(0, 5).map((e) => e.client_id),
       matched_phone: entries.filter((e) => e.app_match_method === 'phone').slice(0, 5).map((e) => e.client_id),
-      matched_multiple: entries.filter((e) => e.app_match_method === 'multiple').slice(0, 5).map((e) => e.client_id),
+      matched_multiple: entries
+        .filter((e) => e.app_match_method === 'multiple')
+        .slice(0, 5)
+        .map((e) => e.client_id),
       unmatched: entries.filter((e) => e.app_match_status === 'unmatched').slice(0, 5).map((e) => e.client_id),
       ambiguous: entries.filter((e) => e.app_match_status === 'ambiguous').slice(0, 5).map((e) => e.client_id),
     },
@@ -117,6 +139,6 @@ async function main() {
 }
 
 main().catch((e) => {
-  console.error(e);
-  process.exit(1);
+  console.error('[pharus-app-match]', e.message ?? e);
+  process.exit(0);
 });

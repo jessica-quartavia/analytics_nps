@@ -12,12 +12,12 @@ describe('pharus env helper', () => {
     assert.equal(pharusProjectRef(cfg.url), 'abc');
   });
 
-  it('fallback aliases legados', () => {
+  it('ignora aliases legados — só PHARUS_*', () => {
     const cfg = getPharusSupabaseConfig({
       APP_PHARUS_SUPABASE_URL: 'https://legacy.supabase.co',
       APP_PHARUS_SUPABASE_SERVICE_ROLE_KEY: 'k',
     });
-    assert.equal(cfg.configured, true);
-    assert.equal(cfg.url.includes('legacy'), true);
+    assert.equal(cfg.configured, false);
+    assert.equal(cfg.url, '');
   });
 });
