@@ -19,6 +19,22 @@
     },
     "api/voc-sync/health.mjs": {
       "maxDuration": 10
+    },
+    "api/voc-manual-review.mjs": {
+      "maxDuration": 60
+    },
+    "api/action-classify.mjs": {
+      "maxDuration": 120,
+      "memory": 1024
+    },
+    "api/action-operational/plans.mjs": {
+      "maxDuration": 60
+    },
+    "api/portal-audit/logs.mjs": {
+      "maxDuration": 30
+    },
+    "api/system/logs.mjs": {
+      "maxDuration": 30
     }
   },
   "rewrites": [
@@ -26,7 +42,12 @@
     { "source": "/api/voc-classify/health", "destination": "/api/voc-classify/health" },
     { "source": "/api/voc-prepare", "destination": "/api/voc-prepare" },
     { "source": "/api/voc-sync", "destination": "/api/voc-sync" },
-    { "source": "/api/voc-sync/health", "destination": "/api/voc-sync/health" }
+    { "source": "/api/voc-sync/health", "destination": "/api/voc-sync/health" },
+    { "source": "/api/voc-manual-review", "destination": "/api/voc-manual-review" },
+    { "source": "/api/action-classify", "destination": "/api/action-classify" },
+    { "source": "/api/action-operational/plans", "destination": "/api/action-operational/plans" },
+    { "source": "/api/portal-audit/logs", "destination": "/api/portal-audit/logs" },
+    { "source": "/api/system/logs", "destination": "/api/system/logs" }
   ],
   "headers": [
     {

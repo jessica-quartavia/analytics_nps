@@ -81,7 +81,37 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "ai_theme": "Resultados",
+      "ai_priority": "Alta",
+      "ai_urgency": "Alta",
+      "ai_action_category": "Contato imediato",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Detrator; Queda severa",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Com exceção dos primeiros diagnósticos, acredito que o retorno sobre o investimento para o acompanhamento anual não vale a pena se você já não tem dinheiro dispon",
+      "ai_classifier_source": "rules_fallback",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_model": "gemini-3.6-flash",
+      "ai_classified_at": "2026-10-09T15:18:14.818Z",
+      "ai_reviewed": false,
+      "hybrid_priority": "Crítica",
+      "hybrid_score": 175,
+      "hybrid_score_components": {
+        "nps": 75,
+        "voc": 0,
+        "evolution": 100,
+        "recurrence": 0
+      },
+      "final_priority": "Crítica",
+      "priority_score": 175,
+      "display_priority": "Crítica",
+      "plan_status": "Novo",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_needs_human_review": false,
+      "input_hash": "93e2bde2b5e15dd9887f8c6425e0c400902af1ba85a53a5811d81d8c5d1c340b",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Alta",
@@ -153,7 +183,37 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "ai_theme": "Resultados",
+      "ai_priority": "Alta",
+      "ai_urgency": "Alta",
+      "ai_action_category": "Contato imediato",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Queda severa",
+      "ai_evidence": "Qual o principal motivo da sua nota?: No início as ideias pareciam fazer sentido, porém ainda não vi uma evolução concreta, nem os projetos e as ideias sairem do papel\n\nPensando na sua experiência com",
+      "ai_classifier_source": "rules_fallback",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_model": "gemini-3.6-flash",
+      "ai_classified_at": "2026-10-09T15:18:24.815Z",
+      "ai_reviewed": false,
+      "hybrid_priority": "Alta",
+      "hybrid_score": 100,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "final_priority": "Alta",
+      "priority_score": 100,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_needs_human_review": false,
+      "input_hash": "1a1fa5d594b086ded1be566072c34784fab14a832b66111359ce913303da7659",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Alta",
@@ -256,7 +316,37 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "ai_theme": "Engenheiro Patrimonial",
+      "ai_priority": "Alta",
+      "ai_urgency": "Alta",
+      "ai_action_category": "Contato imediato",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Queda severa",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Participo do programa há alguns meses, mas os avanços têm sido limitados. Até o momento, consegui apenas iniciar o consórcio e não vi nenhuma outra oportunidade r",
+      "ai_classifier_source": "rules_fallback",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_model": "gemini-3.6-flash",
+      "ai_classified_at": "2026-10-09T15:18:34.327Z",
+      "ai_reviewed": false,
+      "hybrid_priority": "Crítica",
+      "hybrid_score": 210,
+      "hybrid_score_components": {
+        "nps": 100,
+        "voc": 70,
+        "evolution": 25,
+        "recurrence": 15
+      },
+      "final_priority": "Crítica",
+      "priority_score": 210,
+      "display_priority": "Crítica",
+      "plan_status": "Novo",
+      "ai_main_problem": "Engenheiro Patrimonial",
+      "ai_recommended_action": null,
+      "ai_needs_human_review": false,
+      "input_hash": "42688d1647315bd50513a364f25737e1e80f7f74f5f9c513cf93de8086846eec",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Alta",
@@ -319,7 +409,37 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "ai_theme": "Resultados",
+      "ai_priority": "Alta",
+      "ai_urgency": "Alta",
+      "ai_action_category": "Contato imediato",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Queda severa",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Gostaria de dar 10,e acho que vou dar 10 no futuro, mas ainda não vi resultado!  Não participei de leilão, ainda.\n\nPensando na sua experiência com a QuartaVia, o ",
+      "ai_classifier_source": "rules_fallback",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_model": "gemini-3.6-flash",
+      "ai_classified_at": "2026-10-09T15:18:44.047Z",
+      "ai_reviewed": false,
+      "hybrid_priority": "Crítica",
+      "hybrid_score": 140,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 40,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "final_priority": "Crítica",
+      "priority_score": 140,
+      "display_priority": "Crítica",
+      "plan_status": "Novo",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_needs_human_review": false,
+      "input_hash": "b12bd0d118a3e69c7320c39ebb271100b89cbe65e3444cd5de80dc2d7a16a2e3",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Alta",
@@ -406,7 +526,37 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "ai_theme": "Clareza / comunicação",
+      "ai_priority": "Alta",
+      "ai_urgency": "Alta",
+      "ai_action_category": "Contato imediato",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Sinal crítico de experiência",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Não percebo o retorno do investimento\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Entender de ",
+      "ai_classifier_source": "rules_fallback",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_model": "gemini-3.6-flash",
+      "ai_classified_at": "2026-10-09T15:18:54.346Z",
+      "ai_reviewed": false,
+      "hybrid_priority": "Média",
+      "hybrid_score": 75,
+      "hybrid_score_components": {
+        "nps": 75,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "final_priority": "Alta",
+      "priority_score": 75,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_main_problem": "Clareza / comunicação",
+      "ai_recommended_action": null,
+      "ai_needs_human_review": false,
+      "input_hash": "39648a4b9c8e87e7bd7ccfac1cbea026c244c03ae545cdb870924fc82a65e6fd",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -478,7 +628,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Alta",
+      "hybrid_score": 100,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Alta",
+      "priority_score": 100,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Acho que as opções concretas de operações demoram a chegar\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:19:04.120Z",
+      "ai_needs_human_review": false,
+      "input_hash": "b84c3be982dc6710fb3e4364cb30b569860d7af6f0cd95099208b2f04b4ce171",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -550,7 +729,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Alta",
+      "hybrid_score": 100,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Alta",
+      "priority_score": 100,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_theme": "Clareza / comunicação",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Bom acompanhamento dos meus investimentos\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Maior tr",
+      "ai_main_problem": "Clareza / comunicação",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:19:14.450Z",
+      "ai_needs_human_review": false,
+      "input_hash": "2d6f77a471f6ec7a234f65f66aaa480609dd24cf32f74368c699b29c314f64ea",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -602,7 +810,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Alta",
+      "hybrid_score": 100,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Alta",
+      "priority_score": 100,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Ainda estamos muito no começo do processo\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Na verda",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:19:23.770Z",
+      "ai_needs_human_review": false,
+      "input_hash": "045c526c1e9561eef8f32bf68bf895413dd81027a385e33bea41edf27187d100",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -669,7 +906,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Alta",
+      "hybrid_score": 100,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Alta",
+      "priority_score": 100,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Eu achei o valor do acompanhamento alto\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Ter preços",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:19:33.860Z",
+      "ai_needs_human_review": false,
+      "input_hash": "66bbab60d065494d4a736f737a0583fdddb1c9ba98987212719ea4d20a6a7897",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -736,7 +1002,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Alta",
+      "hybrid_score": 100,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Alta",
+      "priority_score": 100,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_theme": "Clareza / comunicação",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Boa orientação sobre organização financeira\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: Como s",
+      "ai_main_problem": "Clareza / comunicação",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:19:43.537Z",
+      "ai_needs_human_review": false,
+      "input_hash": "29994d7604edd41f4144a8c2675c49d007907f43b06a7a1f80bd586c14820268",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -818,7 +1113,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Alta",
+      "hybrid_score": 100,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Alta",
+      "priority_score": 100,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_theme": "Engenheiro Patrimonial",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Estou no começo ainda, talvez quando as coisas estiverem funcionando melhor vire um 10\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para m",
+      "ai_main_problem": "Engenheiro Patrimonial",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:19:53.250Z",
+      "ai_needs_human_review": false,
+      "input_hash": "4061490e39643e659f130d1de178dc60c61290091b31d74a3b5361e941427a0d",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -901,7 +1225,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Crítica",
+      "hybrid_score": 140,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 40,
+        "evolution": 60,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Crítica",
+      "priority_score": 140,
+      "display_priority": "Crítica",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Atendimento vem sendo bom, mas por enquanto não obtive resultados financeiros que é o meu objetivo.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:20:02.750Z",
+      "ai_needs_human_review": false,
+      "input_hash": "799883fe1c4e772c01e6bfdcca387e4a5d1dd716b345a2b02cb9e8ff3f2419a1",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -972,7 +1325,36 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Queda relevante sem mudança de categoria",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Confio no trabalho\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Planos traçados\n\nO que te faria continuar com a gen",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:20:12.488Z",
+      "ai_needs_human_review": false,
+      "input_hash": "36da1b68fe33b6003052e1b3664258be1360427b71ca3e21de0f51ec6df26f05",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -1011,7 +1393,36 @@
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Média",
+      "hybrid_score": 75,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 35,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Média",
+      "priority_score": 75,
+      "display_priority": "Média",
+      "plan_status": "Novo",
+      "ai_theme": "Atendimento / relacionamento",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Vale mais a pena quando já passou dos 3 primeiros passos.\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ",
+      "ai_main_problem": "Atendimento / relacionamento",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:20:22.769Z",
+      "ai_needs_human_review": false,
+      "input_hash": "2ba5717734f01f512f65771ff510a44e5737678fa6933d65307b1877475b83f7",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -1108,7 +1519,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Engenheiro Patrimonial",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Queda relevante sem mudança de categoria",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Conhecimento e clareza sobre os investimentos.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: A construção patrimonia",
+      "ai_main_problem": "Engenheiro Patrimonial",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:20:32.442Z",
+      "ai_needs_human_review": false,
+      "input_hash": "b4b1df53aa858e306b5333d9b13f0273f4e0f7f433eabb5d5c0afc413b4ff89f",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -1200,7 +1640,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Média",
+      "hybrid_score": 75,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 0,
+        "evolution": 35,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Média",
+      "priority_score": 75,
+      "display_priority": "Média",
+      "plan_status": "Novo",
+      "ai_theme": "Engenheiro Patrimonial",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Estrutura muito boa, estratégias de ganho de p capital abaixo de outros mercados sem consultoria\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fa",
+      "ai_main_problem": "Engenheiro Patrimonial",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:20:41.718Z",
+      "ai_needs_human_review": false,
+      "input_hash": "1fa1bedce4c713edf03d9f06845b638e434fe95632b094a7cda0191b97ad6dab",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -1273,7 +1742,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Crítica",
+      "hybrid_score": 145,
+      "hybrid_score_components": {
+        "nps": 40,
+        "voc": 55,
+        "evolution": 35,
+        "recurrence": 15
+      },
+      "ai_priority": "Média",
+      "final_priority": "Crítica",
+      "priority_score": 145,
+      "display_priority": "Crítica",
+      "plan_status": "Novo",
+      "ai_theme": "Oportunidades",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor → Neutro",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Atenção e conhecimento demonstrado pelo consultor\n\nPensando na sua experiência com a QuartaVia, o que poderíamos fazer para melhorar e merecer uma nota 9 ou 10?: ",
+      "ai_main_problem": "Oportunidades",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:20:52.080Z",
+      "ai_needs_human_review": false,
+      "input_hash": "deeb1ffefb1f2d9b2050c65deac165418fb7c7740833c3972164706ab12d5b2e",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -1340,7 +1838,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Atendimento / relacionamento",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Queda relevante sem mudança de categoria",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Suporte fornecido pela consultora.\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Qualidade das informações prestadas",
+      "ai_main_problem": "Atendimento / relacionamento",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:21:02.061Z",
+      "ai_needs_human_review": false,
+      "input_hash": "9e6538991c8a6e103c2079ed61a2cc224897641e1a17786a61774fcc126ba8ee",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Média",
@@ -1402,7 +1929,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Média",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Atendimento / relacionamento",
+      "ai_urgency": "Média",
+      "ai_action_category": "Acompanhar",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Queda relevante sem mudança de categoria",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Ainda não finalizei  todas as etapas da minha estratégia pra poder avaliar 100%\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua expe",
+      "ai_main_problem": "Atendimento / relacionamento",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:21:11.314Z",
+      "ai_needs_human_review": false,
+      "input_hash": "331886d9b194e5cc307bc46041c747d485a7a6fe8632a05df1549b22f003b55a",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Aprendizado",
@@ -1474,7 +2030,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -1541,7 +2110,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -1598,7 +2180,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -1670,7 +2265,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -1709,7 +2317,20 @@
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -1776,7 +2397,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -1851,7 +2485,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Alta",
+      "hybrid_score": 105,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 80,
+        "evolution": 0,
+        "recurrence": 15
+      },
+      "ai_priority": "Baixa",
+      "final_priority": "Alta",
+      "priority_score": 105,
+      "display_priority": "Alta",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Aprendizado",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor consistente em múltiplos ciclos",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Atenção dispensada\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: O atendimento sempre que precisamos\n\nO que te faria",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:21:20.907Z",
+      "ai_needs_human_review": false,
+      "input_hash": "0099d17869710628a939a07e277ff8cda6fa636421d6176f45004d97b121e838",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Aprendizado",
@@ -1908,7 +2571,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -1985,7 +2661,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2037,7 +2726,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2099,7 +2801,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2151,7 +2866,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Baixa",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Expectativa",
+      "ai_urgency": "Média",
+      "ai_action_category": "Aprendizado",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor consistente em múltiplos ciclos",
+      "ai_evidence": "Qual o principal motivo da sua nota?: O mecanismo\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: O comprometimento\n\nO que te faria continuar com a gente po",
+      "ai_main_problem": "Expectativa",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:21:30.177Z",
+      "ai_needs_human_review": false,
+      "input_hash": "b58f68db5110546f7c1178c54379a06eeccbb4fbb394f806a8cd2a61544d6362",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Aprendizado",
@@ -2228,7 +2972,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2290,7 +3047,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2352,7 +3122,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2409,7 +3192,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2495,7 +3291,36 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Baixa",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Atendimento / relacionamento",
+      "ai_urgency": "Média",
+      "ai_action_category": "Aprendizado",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor consistente em múltiplos ciclos",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Apresentação de novas vias de investimento e crescimento de patrimônio\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?:",
+      "ai_main_problem": "Atendimento / relacionamento",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:21:39.542Z",
+      "ai_needs_human_review": false,
+      "input_hash": "b40ff4779389387c182de4f6534771e327c52a3a80919329578f44f8748c5f15",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Aprendizado",
@@ -2552,7 +3377,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2604,7 +3442,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2655,7 +3506,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2701,7 +3565,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Baixa",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Valor percebido",
+      "ai_urgency": "Média",
+      "ai_action_category": "Aprendizado",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor consistente em múltiplos ciclos",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Bom\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em sua experiência?: Bom\n\nO que te faria continuar com a gente por mais 5 anos sem hesi",
+      "ai_main_problem": "Valor percebido",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:21:49.199Z",
+      "ai_needs_human_review": false,
+      "input_hash": "0a0802a064a2f1a1689886f159b7b849438d6eac7cbae8d982b0d5885c25631e",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Aprendizado",
@@ -2747,7 +3640,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2808,7 +3714,36 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Baixa",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Aprendizado",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor consistente em múltiplos ciclos",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Equipe acessível que visualiza a realidade do cliente sem “forçar” metas ou aplicações\n\nQual a principal razão para a sua nota 9 ou 10? O que mais te agradou em s",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:21:58.407Z",
+      "ai_needs_human_review": false,
+      "input_hash": "20f9cc0c4c3765aa56889191d700c23077ab0d2525c6a2182293b9132ae71e2a",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Aprendizado",
@@ -2865,7 +3800,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -2952,7 +3900,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3039,7 +4000,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3116,7 +4090,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3178,7 +4165,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3245,7 +4245,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3312,7 +4325,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3369,7 +4395,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3436,7 +4475,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3497,7 +4549,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3553,7 +4618,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3610,7 +4688,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3686,7 +4777,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3725,7 +4829,20 @@
       "quality_notes": [
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3782,7 +4899,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3859,7 +4989,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3916,7 +5059,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -3973,7 +5129,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4050,7 +5219,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4157,7 +5339,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4209,7 +5404,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4260,7 +5468,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4321,7 +5542,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4378,7 +5612,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4424,7 +5671,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4481,7 +5741,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4571,7 +5844,36 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Média",
+      "hybrid_score": 50,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 40,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Baixa",
+      "final_priority": "Média",
+      "priority_score": 50,
+      "display_priority": "Média",
+      "plan_status": "Novo",
+      "ai_theme": "Resultados",
+      "ai_urgency": "Média",
+      "ai_action_category": "Aprendizado",
+      "ai_suggested_owner_area": "Engenheiro Patrimonial",
+      "ai_confidence": 0.55,
+      "ai_reason": "Promotor consistente em múltiplos ciclos",
+      "ai_evidence": "Qual o principal motivo da sua nota?: Até o momento estou satisfeito com as oportunidades, porém ainda não obtive completamente os resultados. Ainda estamos no inicio dos projetos.\n\nQual a principal r",
+      "ai_main_problem": "Resultados",
+      "ai_recommended_action": null,
+      "ai_classifier_source": "rules_fallback",
+      "ai_model": "gemini-3.6-flash",
+      "ai_prompt_version": "action-gemini-prompt-v1",
+      "ai_classified_at": "2026-10-09T15:22:07.795Z",
+      "ai_needs_human_review": false,
+      "input_hash": "895dfa66f996e48408cb140b03c85f7e61fb82f3abcae5b6a734600c4311da8d",
+      "ai_fallback_reason": "rate_limit"
     },
     {
       "priority": "Aprendizado",
@@ -4638,7 +5940,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4695,7 +6010,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4762,7 +6090,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4844,7 +6185,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4901,7 +6255,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -4958,7 +6325,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5040,7 +6420,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5111,7 +6504,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5173,7 +6579,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5234,7 +6653,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5320,7 +6752,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5412,7 +6857,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5474,7 +6932,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5520,7 +6991,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5606,7 +7090,20 @@
       "quality_notes": [
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5658,7 +7155,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5735,7 +7245,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5792,7 +7315,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5869,7 +7405,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5921,7 +7470,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -5983,7 +7545,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -6035,7 +7610,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     },
     {
       "priority": "Aprendizado",
@@ -6102,7 +7690,20 @@
         "EP reconstruído (proxy atual); interpretar com cautela.",
         "Temas classificados por rules automáticas (revisão humana recomendada).",
         "Sem CSAT registrado para o cliente."
-      ]
+      ],
+      "hybrid_priority": "Acompanhamento positivo",
+      "hybrid_score": 10,
+      "hybrid_score_components": {
+        "nps": 10,
+        "voc": 0,
+        "evolution": 0,
+        "recurrence": 0
+      },
+      "ai_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_score": 10,
+      "display_priority": "Acompanhamento positivo",
+      "plan_status": "Novo"
     }
   ],
   "meta": {
@@ -6115,6 +7716,11 @@
       "Investigar": 0,
       "Aprendizado": 73
     },
-    "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle)."
+    "population_context": "Contexto associado observado na base: Maior meetings_count associado a notas mais alta na amostra (cycle).",
+    "ai_classified_sample": 5,
+    "operational_enriched_at": "2026-10-09T15:22:09.625Z",
+    "ai_classified_count": 25,
+    "hybrid_enriched": true,
+    "batch_classified": 25
   }
 }

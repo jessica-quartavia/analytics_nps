@@ -6,7 +6,7 @@ import {
   getCycles,
   getDataState,
 } from '../data/analytics-store.js';
-import { getFilters, setFilter } from '../filters/global-filters.js';
+import { getFilters } from '../filters/global-filters.js';
 import {
   filterEpSummaries,
   filterEpSummariesByClientFilters,
@@ -16,14 +16,41 @@ import {
   isClientRecorteActive,
 } from '../data/store-core.mjs';
 import { formatNps, formatPct, formatDeltaPts, formatDate, cycleStatusLabel } from '../utils/format.js';
+import {
+  epManagementStatus,
+  formatEpDeltaBadge,
+  sortEpForRanking,
+  npsBarPercent,
+  EP_STATUS,
+} from '../data/ep-performance.mjs';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { closeDrawer as closeClientDrawer } from './movimento.js';
 import { openEpDrawerFromUI, closeEpDrawerFromUI } from '../ui/ep-drawer.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 let bubbleChart = null;
-let tableState = { page: 1, pageSize: 25, sortKey: 'ep_name', sortDir: 'asc' };
+let rankingSortMode = 'nps_desc';
+let rankingPage = 1;
+const RANKING_PAGE_SIZE = 6;
+let tableState = { page: 1, pageSize: 25, sortKey: 'nps', sortDir: 'desc' };
+/** Busca local da tabela — não usa filters.search global (evita zerar ranking/KPIs). */
+let epTableSearch = '';
 let tableController = null;
+
+/** Ranking e gráfico: ciclo/EP/delta/base, sem busca nem recorte de cliente na agregação. */
+function filtersForEpRanking(filters) {
+  return {
+    ...filters,
+    search: '',
+    category: '',
+    scoreMin: '',
+    scoreMax: '',
+  };
+}
+
+function filtersForEpTable(filters) {
+  return { ...filters, search: epTableSearch };
+}
 
 function beginTableBindings() {
   tableController?.abort();
@@ -50,7 +77,7 @@ function filterFieldActive(value) {
 }
 
 function resolveTableEntries(cycleCode, filters, allEntries) {
-  let entries = filterEpSummaries(allEntries, filters);
+  let entries = filterEpSummaries(allEntries, filtersForEpTable(filters));
   entries = filterEpSummariesByClientFilters(
     entries,
     getEpResponses(cycleCode),
@@ -113,7 +140,171 @@ function renderBaseNote(filters) {
 
 function renderFilterNotice(filters) {
   if (!clientFilterActive(filters)) return '';
-  return `<p class="note-muted filter-notice" role="note">A dispersão e KPIs agregados por EP não aplicam filtros de categoria ou nota. A tabela reflete EPs com ao menos uma resposta no recorte.</p>`;
+  return `<p class="note-muted filter-notice" role="note">O ranking e KPIs agregados por EP não aplicam filtros de categoria ou nota. A tabela reflete EPs com ao menos uma resposta no recorte.</p>`;
+}
+
+function statusPillClass(statusKey) {
+  if (statusKey === EP_STATUS.STRONG) return 'ep-status-pill ep-status-pill--strong';
+  if (statusKey === EP_STATUS.CRITICAL) return 'ep-status-pill ep-status-pill--critical';
+  if (statusKey === EP_STATUS.BELOW_RISING || statusKey === EP_STATUS.ABOVE_FALLING) {
+    return 'ep-status-pill ep-status-pill--attention';
+  }
+  return 'ep-status-pill';
+}
+
+function deltaClass(arrow) {
+  if (arrow === '↑') return 'ep-ranking-delta ep-ranking-delta--up';
+  if (arrow === '↓') return 'ep-ranking-delta ep-ranking-delta--down';
+  return 'ep-ranking-delta ep-ranking-delta--flat';
+}
+
+function renderEpRanking(entries, overallNps, minSample) {
+  const enriched = entries.map((e) => {
+    const status = epManagementStatus(e, overallNps);
+    return { ...e, _statusKey: status.key, _status: status };
+  });
+  const sorted = sortEpForRanking(enriched, rankingSortMode === 'attention' ? 'attention' : 'nps_desc');
+  const total = sorted.length;
+  const totalPages = Math.max(1, Math.ceil(total / RANKING_PAGE_SIZE));
+  if (rankingPage > totalPages) rankingPage = totalPages;
+  if (rankingPage < 1) rankingPage = 1;
+  const start = (rankingPage - 1) * RANKING_PAGE_SIZE;
+  const pageRows = sorted.slice(start, start + RANKING_PAGE_SIZE);
+  const refPct = npsBarPercent(overallNps);
+  const rangeFrom = total ? start + 1 : 0;
+  const rangeTo = total ? Math.min(start + RANKING_PAGE_SIZE, total) : 0;
+
+  const items = pageRows
+    .map((e) => {
+      const delta = formatEpDeltaBadge(e.delta_nps_paired);
+      const barPct = npsBarPercent(e.nps);
+      const pairedNote =
+        e.paired_clients > 0
+          ? `n=${e.valid_responses} · pareados=${e.paired_clients}`
+          : `n=${e.valid_responses} · sem comparação histórica`;
+      const sample = smallSampleBadge(e, minSample);
+      return `<li class="ep-ranking-row ep-ranking-row--animate" role="button" tabindex="0" data-ep-id="${escapeAttr(e.ep_id ?? '')}" data-ep-name="${escapeAttr(e.ep_name)}" aria-label="Abrir detalhes ${escapeAttr(e.ep_name)}">
+        <div class="ep-ranking-row__head">
+          <p class="ep-ranking-row__name">${escapeHtml(e.ep_name)} ${sample}</p>
+          <p class="ep-ranking-row__meta">${escapeHtml(pairedNote)}</p>
+          <span class="${statusPillClass(e._statusKey)}" title="${escapeAttr(e._status.label)}">${escapeHtml(e._status.short === '—' ? e._status.label : e._status.short)}</span>
+        </div>
+        <div class="ep-ranking-bar-wrap" aria-hidden="true">
+          <span class="ep-ranking-bar-ref" style="left:${refPct}%"></span>
+          <span class="ep-ranking-bar-fill" style="width:${barPct}%"></span>
+        </div>
+        <div class="ep-ranking-row__stats">
+          <div class="ep-ranking-nps">${escapeHtml(formatNps(e.nps))}</div>
+          <span class="${deltaClass(delta.arrow)}" title="${escapeAttr(delta.title)}">${escapeHtml(delta.text)}</span>
+        </div>
+      </li>`;
+    })
+    .join('');
+
+  const pageButtons = Array.from({ length: totalPages }, (_, i) => i + 1)
+    .map(
+      (p) =>
+        `<button type="button" class="ep-ranking-pager__page${p === rankingPage ? ' is-active' : ''}" data-page="${p}" aria-label="Página ${p}" aria-current="${p === rankingPage ? 'page' : 'false'}">${p}</button>`,
+    )
+    .join('');
+
+  return `
+    <div class="section-head">
+      <h2 class="section-title">Desempenho por Engenheiro Patrimonial</h2>
+      <p class="section-subtitle">Barras = NPS atual (−100 a +100). Linha coral = NPS geral do ciclo. Δ = mesmos clientes nos dois períodos.</p>
+    </div>
+    <div class="ep-ranking-toolbar">
+      <label>Ordenar
+        <select class="select-input" id="ep-ranking-sort" aria-label="Ordenação do ranking">
+          <option value="nps_desc" ${rankingSortMode === 'nps_desc' ? 'selected' : ''}>NPS atual (maior primeiro)</option>
+          <option value="attention" ${rankingSortMode === 'attention' ? 'selected' : ''}>Prioridade de atenção</option>
+        </select>
+      </label>
+      <span class="note-muted">NPS geral: <strong>${escapeHtml(formatNps(overallNps))}</strong></span>
+    </div>
+    <div class="ep-ranking-pager-wrap">
+      <button type="button" class="ep-ranking-pager__side ep-ranking-pager__side--prev" id="ep-ranking-side-prev" aria-label="Página anterior" ${rankingPage <= 1 ? 'disabled' : ''}>‹</button>
+      <div class="ep-ranking-pager__main">
+        <ul class="ep-ranking-list" id="ep-ranking-list">${items || '<li class="placeholder-note">Nenhuma carteira neste recorte.</li>'}</ul>
+        <nav class="ep-ranking-pager" aria-label="Paginação do ranking de EP">
+          <button type="button" class="ep-ranking-pager__btn ep-ranking-pager__btn--primary" id="ep-ranking-prev" ${rankingPage <= 1 ? 'disabled' : ''}>← Anterior</button>
+          <div class="ep-ranking-pager__center">
+            <span class="ep-ranking-pager__meta">Mostrando ${rangeFrom}–${rangeTo} de ${total} engenheiros · Página ${rankingPage} de ${totalPages}</span>
+            <div class="ep-ranking-pager__pages" role="group" aria-label="Número da página">${pageButtons}</div>
+          </div>
+          <button type="button" class="ep-ranking-pager__btn ep-ranking-pager__btn--primary" id="ep-ranking-next" ${rankingPage >= totalPages ? 'disabled' : ''}>Próxima →</button>
+        </nav>
+      </div>
+      <button type="button" class="ep-ranking-pager__side ep-ranking-pager__side--next" id="ep-ranking-side-next" aria-label="Próxima página" ${rankingPage >= totalPages ? 'disabled' : ''}>›</button>
+    </div>`;
+}
+
+function refreshRankingHost(entries, signal) {
+  const host = document.getElementById('ep-ranking-host');
+  const summary = getCycleSummary(getFilters().cycleCode);
+  if (!host) return;
+  host.innerHTML = renderEpRanking(
+    filterEpSummaries(entries, filtersForEpRanking(getFilters())),
+    summary?.nps,
+    getDataState()?.epSummaryDoc?.min_ep_sample ?? 5,
+  );
+  bindRanking(entries, signal);
+}
+
+function bindRanking(entries, signal) {
+  document.getElementById('ep-ranking-sort')?.addEventListener(
+    'change',
+    (ev) => {
+      rankingSortMode = ev.target.value;
+      rankingPage = 1;
+      refreshRankingHost(entries, signal);
+    },
+    { signal },
+  );
+  document.getElementById('ep-ranking-prev')?.addEventListener(
+    'click',
+    () => {
+      if (rankingPage > 1) {
+        rankingPage -= 1;
+        refreshRankingHost(entries, signal);
+      }
+    },
+    { signal },
+  );
+  document.getElementById('ep-ranking-next')?.addEventListener(
+    'click',
+    () => {
+      rankingPage += 1;
+      refreshRankingHost(entries, signal);
+    },
+    { signal },
+  );
+  const goPage = (p) => {
+    rankingPage = p;
+    refreshRankingHost(entries, signal);
+  };
+  document.getElementById('ep-ranking-side-prev')?.addEventListener('click', () => {
+    if (rankingPage > 1) goPage(rankingPage - 1);
+  }, { signal });
+  document.getElementById('ep-ranking-side-next')?.addEventListener('click', () => {
+    goPage(rankingPage + 1);
+  }, { signal });
+  document.querySelectorAll('.ep-ranking-pager__page').forEach((btn) => {
+    btn.addEventListener('click', () => goPage(Number(btn.dataset.page) || 1), { signal });
+  });
+  document.querySelectorAll('.ep-ranking-row[data-ep-name]').forEach((row) => {
+    const epName = row.dataset.epName;
+    const epId = row.dataset.epId;
+    const entry = entries.find((e) => e.ep_name === epName && (epId ? e.ep_id === epId : true));
+    const open = () => entry && openEpDrawer(entry);
+    row.addEventListener('click', open, { signal });
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open();
+      }
+    }, { signal });
+  });
 }
 
 function mountBubbleChart(canvas, entries, cycleNps) {
@@ -258,26 +449,22 @@ function renderEpTable(entries, minSample, filters) {
   if (tableState.page > totalPages) tableState.page = totalPages;
   const start = (tableState.page - 1) * tableState.pageSize;
   const pageRows = sorted.slice(start, start + tableState.pageSize);
-  const searchVal = escapeAttr(getFilters().search);
+  const searchVal = escapeAttr(epTableSearch);
+
+  const overallNps = getCycleSummary(getFilters().cycleCode)?.nps;
 
   const body = pageRows
     .map((e) => {
-      const rr =
-        e.response_rate != null ? formatPct(e.response_rate * 100, 1) : '—';
-      const ci =
-        e.nps_ci_low != null ? `${formatNps(e.nps_ci_low)}\u2013${formatNps(e.nps_ci_high)}` : '—';
+      const status = epManagementStatus(e, overallNps);
+      const clients = e.eligible_clients ?? '—';
       return `<tr data-ep-id="${escapeAttr(e.ep_id ?? '')}" data-ep-name="${escapeAttr(e.ep_name)}" tabindex="0">
         <td class="col-label">${escapeHtml(e.ep_name)} ${smallSampleBadge(e, minSample)}</td>
-        <td class="num col-number">${escapeHtml(formatNps(e.nps))}</td>
-        <td class="num col-number">${escapeHtml(formatNps(e.previous_nps_paired))}</td>
-        <td class="num col-number">${escapeHtml(formatDeltaPts(e.current_nps_paired, e.previous_nps_paired))}</td>
+        <td class="num col-number">${clients}</td>
         <td class="num col-number">${e.valid_responses}</td>
-        <td class="num col-number">${e.promoters}</td>
-        <td class="num col-number">${e.detractors}</td>
-        <td class="num col-number">${escapeHtml(rr)}</td>
-        <td class="num col-number cell-nowrap">${escapeHtml(ci)}</td>
-        <td class="num col-number">${e.paired_clients}</td>
-        <td class="col-small">${escapeHtml(epQualityLabel(e))} ${epReconstructBadge(e)}</td>
+        <td class="num col-number">${escapeHtml(formatNps(e.nps))}</td>
+        <td class="num col-number">${e.paired_clients > 0 ? escapeHtml(formatNps(e.previous_nps_paired)) : '—'}</td>
+        <td class="num col-number">${e.paired_clients > 0 ? escapeHtml(formatDeltaPts(e.current_nps_paired, e.previous_nps_paired)) : 'Sem comparação'}</td>
+        <td class="col-small"><span class="${statusPillClass(status.key)}" title="${escapeAttr(status.label)}">${escapeHtml(status.label)}</span></td>
       </tr>`;
     })
     .join('');
@@ -296,18 +483,14 @@ function renderEpTable(entries, minSample, filters) {
       <table class="gd-table analytic-table" id="eps-table">
         <thead><tr>
           <th class="col-label" data-sort="ep_name" scope="col">EP</th>
+          <th class="num col-number" data-sort="eligible_clients" scope="col">Clientes</th>
+          <th class="num col-number" data-sort="valid_responses" scope="col">Respostas</th>
           <th class="num col-number" data-sort="nps" scope="col">NPS atual</th>
           <th class="num col-number" scope="col">NPS anterior pareado</th>
-          <th class="num col-number" data-sort="delta_nps_paired" scope="col">Δ pareado</th>
-          <th class="num col-number" data-sort="valid_responses" scope="col">n</th>
-          <th class="num col-number" scope="col">Promotores</th>
-          <th class="num col-number" scope="col">Detratores</th>
-          <th class="num col-number" scope="col">Taxa de resposta</th>
-          <th class="num col-number" scope="col">IC95</th>
-          <th class="num col-number" data-sort="paired_clients" scope="col">Pareados</th>
-          <th class="col-small" scope="col">Qualidade EP</th>
+          <th class="num col-number" data-sort="delta_nps_paired" scope="col">Δ</th>
+          <th class="col-small" scope="col">Status</th>
         </tr></thead>
-        <tbody>${body || '<tr><td colspan="11"><span class="placeholder-note">Nenhuma carteira neste recorte.</span></td></tr>'}</tbody>
+        <tbody>${body || '<tr><td colspan="7"><span class="placeholder-note">Nenhuma carteira neste recorte.</span></td></tr>'}</tbody>
       </table>
     </div>
     <div class="pagination">
@@ -331,22 +514,25 @@ function openEpDrawer(entry) {
   openEpDrawerFromUI(entry, { cycleCode, filters, minSample });
 }
 
-function bindTable(entries, minSample, signal) {
+function bindTable(allEntries, minSample, signal, cycleCode) {
   const tableSignal = beginTableBindings();
   const opts = { signal: tableSignal };
   const rerender = () => {
     const host = document.getElementById('eps-table-host');
     if (host) {
-      host.innerHTML = renderEpTable(entries, minSample, getFilters());
-      bindTable(entries, minSample, signal);
+      const tableEntries = resolveTableEntries(cycleCode, getFilters(), allEntries);
+      host.innerHTML = renderEpTable(tableEntries, minSample, getFilters());
+      bindTable(allEntries, minSample, signal, cycleCode);
     }
   };
+  const entries = resolveTableEntries(cycleCode, getFilters(), allEntries);
 
   document.getElementById('search-eps')?.addEventListener(
     'input',
     (e) => {
-      setFilter('search', e.target.value);
+      epTableSearch = e.target.value ?? '';
       tableState.page = 1;
+      rerender();
     },
     opts,
   );
@@ -412,6 +598,8 @@ function bindTable(entries, minSample, signal) {
 export function renderEps(root, ctx = {}) {
   destroyBubbleChart();
   closeEpDrawer();
+  rankingPage = 1;
+  epTableSearch = '';
   const signal = ctx.signal;
 
   if (!hasEpSummary()) {
@@ -441,12 +629,7 @@ export function renderEps(root, ctx = {}) {
       : allEntries;
   const kpis = computeEpPageKpis(kpiEntries, minSample);
 
-  const bubbleEntries = filterEpSummaries(allEntries, {
-    ...filters,
-    category: '',
-    scoreMin: '',
-    scoreMax: '',
-  });
+  const bubbleEntries = filterEpSummaries(allEntries, filtersForEpRanking(filters));
 
   root.innerHTML = `
     ${renderHero(cycle, summary)}
@@ -454,21 +637,31 @@ export function renderEps(root, ctx = {}) {
     ${renderBaseNote(filters)}
     ${renderFilterNotice(filters)}
     ${renderKpis(kpis, minSample)}
-    <h2 class="section-title">Dispersão por carteira</h2>
-    <p class="note-muted">Cada bolha é um EP. Tamanho ∝ n. Clique para detalhes. Δ pareado nulo não entra no gráfico.</p>
-    <article class="chart-card"><div class="chart-wrap chart-wrap--tall"><canvas id="chart-ep-bubble" aria-label="Dispersão NPS por EP"></canvas></div></article>
-    ${renderNoCompareList(allEntries)}
-    <h2 class="section-title">Carteiras</h2>
+    <div id="ep-ranking-host">${renderEpRanking(bubbleEntries, summary?.nps, minSample)}</div>
+    <h2 class="section-title">Detalhe por carteira</h2>
+    <p class="note-muted">Clique na linha para abrir o painel do EP.</p>
     <div id="eps-table-host"></div>
+    <details class="ep-advanced-panel">
+      <summary>Análise avançada — dispersão por carteira</summary>
+      <p class="note-muted">Cada bolha é um EP. Tamanho ∝ n. Δ pareado nulo não entra no gráfico.</p>
+      <article class="chart-card"><div class="chart-wrap chart-wrap--tall"><canvas id="chart-ep-bubble" aria-label="Dispersão NPS por EP"></canvas></div></article>
+      ${renderNoCompareList(allEntries)}
+    </details>
   `;
 
   document.getElementById('eps-table-host').innerHTML = renderEpTable(tableEntries, minSample, filters);
-  bindTable(tableEntries, minSample, signal);
+  bindTable(allEntries, minSample, signal, cycleCode);
+  bindRanking(bubbleEntries, signal);
 
   const canvas = document.getElementById('chart-ep-bubble');
-  if (canvas) {
+  const mountAdvancedChart = () => {
+    if (!canvas || bubbleChart) return;
     mountBubbleChart(canvas, bubbleEntries, summary?.nps);
-  }
+  };
+  mountAdvancedChart();
+  document.querySelector('.ep-advanced-panel')?.addEventListener('toggle', (ev) => {
+    if (ev.target.open) mountAdvancedChart();
+  }, { signal });
 
   if (signal) {
     document.addEventListener(

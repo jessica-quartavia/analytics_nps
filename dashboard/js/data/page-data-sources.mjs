@@ -86,6 +86,16 @@ export const PAGE_DATA_SOURCES = {
     text: 'Priorização combina sinais do NPS analítico, comentários (VoC) e fila de ações enriquecida.',
     sourceIds: ['nps_pipeline', 'voc_ai', 'action_queue'],
   },
+  'sistema/documentacao': {
+    lead: 'Referência',
+    text: 'Documentação estática do portal; não consome datasets analíticos em tempo real.',
+    sourceIds: ['nps_pipeline'],
+  },
+  'sistema/logs': {
+    lead: 'Auditoria',
+    text: 'Eventos operacionais agregados de planos, revisões e arquivo portal_audit_log.',
+    sourceIds: ['action_queue'],
+  },
   'previsao-nps': {
     lead: 'Bases utilizadas',
     text: 'O modelo usa histórico consolidado da BASE0 e variáveis derivadas do pipeline analítico.',

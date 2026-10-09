@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T02:10:13.102Z",
+  "generated_at": "2026-10-09T17:35:46.673Z",
   "safra_entry_field_chosen": "clients.data_inicio_ciclo",
   "safra_fallback_chain": [
     "clients.data_inicio_ciclo",
@@ -58,11 +58,11 @@
     }
   ],
   "app_source": "core.personal_info",
-  "app_clients_matched": 410,
+  "app_clients_matched": 411,
   "app_unknown": 0,
   "app_match_status_counts": {
-    "unmatched": 2700,
-    "matched": 410,
+    "unmatched": 2699,
+    "matched": 411,
     "insufficient_identifiers": 42
   },
   "nps_app_vs_no_app": {

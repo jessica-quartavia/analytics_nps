@@ -9,6 +9,7 @@ import {
   isValidNpsScore,
   npsScoreFromRow,
 } from '../utils/nps-kernel.mjs';
+import { resolveActionPriority } from './action-priority.mjs';
 
 function calculateNpsSummaryFromRows(rows) {
   const agg = aggregateNpsFromResponses(rows ?? [], { dedupe: true, requireClientId: true });
@@ -611,9 +612,19 @@ export function sortTopicSummaries(entries, sortKey = 'responses_with_topic', di
 const ACTION_PENDING_STATUSES = new Set([
   'Novo',
   'Em análise',
+  'Em andamento',
   'Contatado',
   'Em acompanhamento',
+  'Aguardando cliente',
+  'Aguardando área interna',
 ]);
+
+const OPERATIONAL_PRIORITIES = ['Crítica', 'Alta', 'Média', 'Baixa', 'Acompanhamento positivo'];
+
+export function rowDisplayPriority(r) {
+  const p = resolveActionPriority(r);
+  return p === '—' ? null : p;
+}
 
 const DEFAULT_ACTION_STATUS = 'Novo';
 
@@ -631,15 +642,60 @@ export function mergeActionTrackingIntoQueue(enrichedEntries, trackingDoc) {
     const track = byKey.get(trackingKey(row.client_id, row.cycle_code));
     return {
       ...row,
-      status: track?.status ?? DEFAULT_ACTION_STATUS,
-      owner: track?.owner ?? '',
+      status: track?.status ?? row.plan_status ?? DEFAULT_ACTION_STATUS,
+      owner: track?.owner ?? row.plan_responsible ?? '',
       action_notes: track?.action_notes ?? '',
       tracking_updated_at: track?.updated_at ?? null,
     };
   });
 }
 
-const PRIORITY_SORT_RANK = { Alta: 4, Média: 3, Investigar: 2, Aprendizado: 1 };
+function planOverlayKey(e) {
+  return `${e.client_id}||${e.response_id ?? ''}||${e.cycle_code ?? ''}`;
+}
+
+export function mergeActionPlansIntoQueue(enrichedEntries, plansDoc) {
+  const byKey = new Map();
+  for (const p of plansDoc?.entries ?? []) {
+    byKey.set(planOverlayKey(p), p);
+  }
+  return (enrichedEntries ?? []).map((row) => {
+    const overlay = byKey.get(planOverlayKey(row));
+    if (!overlay) return row;
+    const human = overlay.human_priority ?? null;
+    const plan = overlay.plan ?? null;
+    const auto =
+      row.display_priority ??
+      row.final_priority ??
+      row.hybrid_priority ??
+      row.ai_priority ??
+      row.priority;
+    const canonical = human ?? auto;
+    return {
+      ...row,
+      human_priority: human,
+      final_priority: canonical,
+      display_priority: canonical,
+      priority_review: overlay.priority_review ?? row.priority_review,
+      plan,
+      plan_status: plan?.status ?? row.plan_status,
+      plan_objective: plan?.objective,
+      plan_responsible: plan?.responsible,
+      plan_due_date: plan?.due_date,
+      ai_reviewed: Boolean(overlay.priority_review),
+    };
+  });
+}
+
+const PRIORITY_SORT_RANK = {
+  Crítica: 6,
+  Alta: 5,
+  Média: 4,
+  Baixa: 3,
+  'Acompanhamento positivo': 2,
+  Investigar: 4,
+  Aprendizado: 2,
+};
 
 export function getActionQueueEnrichedForCycle(doc, cycleCode) {
   const entries = doc?.entries ?? [];
@@ -652,9 +708,38 @@ export function filterActionPlanRows(rows, filters, local = {}) {
   let out = [...(rows ?? [])];
 
   if (local.priority) {
-    out = out.filter((r) => r.priority === local.priority);
+    out = out.filter((r) => rowDisplayPriority(r) === local.priority);
   } else if (filters.priority) {
-    out = out.filter((r) => r.priority === filters.priority);
+    out = out.filter((r) => rowDisplayPriority(r) === filters.priority);
+  }
+  if (local.urgency) {
+    out = out.filter((r) => (r.ai_urgency ?? r.urgency) === local.urgency);
+  }
+  if (local.planStatus) {
+    out = out.filter((r) => (r.plan_status ?? r.status) === local.planStatus);
+  }
+  if (local.valence) {
+    out = out.filter((r) => (r.topics ?? []).some((t) => t.valence === local.valence));
+  }
+  if (local.source) {
+    if (local.source === 'gemini') {
+      out = out.filter((r) => r.ai_classifier_source === 'gemini');
+    } else if (local.source === 'fallback') {
+      out = out.filter((r) => r.ai_classifier_source === 'rules_fallback');
+    } else if (local.source === 'reviewed') {
+      out = out.filter((r) => r.human_priority || r.priority_review);
+    } else if (local.source === 'unclassified') {
+      out = out.filter((r) => !r.ai_classifier_source);
+    }
+  }
+  if (local.topic) {
+    out = out.filter((r) => (r.topics ?? []).some((t) => t.topic === local.topic));
+  }
+  if (local.ep) {
+    out = out.filter((r) => r.ep_name === local.ep);
+  }
+  if (local.category) {
+    out = out.filter((r) => r.current_category === local.category);
   }
   if (filters.ep) {
     out = out.filter((r) => r.ep_name === filters.ep);
@@ -680,6 +765,17 @@ export function filterActionPlanRows(rows, filters, local = {}) {
   if (local.actionStatus) {
     out = out.filter((r) => r.status === local.actionStatus);
   }
+  if (local.program) {
+    out = out.filter((r) => {
+      const p = (r.program_name ?? r.program ?? '').toUpperCase();
+      return p === local.program.toUpperCase();
+    });
+  }
+  if (local.planHas === 'yes') {
+    out = out.filter((r) => actionProposalText(r));
+  } else if (local.planHas === 'no') {
+    out = out.filter((r) => !actionProposalText(r));
+  }
   if (local.search) {
     const q = local.search.toLowerCase();
     out = out.filter(
@@ -692,23 +788,91 @@ export function filterActionPlanRows(rows, filters, local = {}) {
   return out;
 }
 
+function actionProposalText(r) {
+  const t = r.plan?.action_text ?? r.plan?.action_proposal ?? '';
+  return Boolean(String(t).trim());
+}
+
 export function computeActionPlanKpis(rows) {
-  const counts = { Alta: 0, Média: 0, Investigar: 0, Aprendizado: 0 };
-  let pending = 0;
+  const counts = Object.fromEntries(OPERATIONAL_PRIORITIES.map((p) => [p, 0]));
+  counts.Investigar = 0;
+  counts.Aprendizado = 0;
+  let needsAttention = 0;
+  let withPlan = 0;
+  let withoutPlan = 0;
+  let criticalHigh = 0;
+  let criticalHighWithPlan = 0;
   for (const r of rows ?? []) {
-    if (counts[r.priority] != null) counts[r.priority] += 1;
-    if (ACTION_PENDING_STATUSES.has(r.status)) pending += 1;
+    const p = rowDisplayPriority(r);
+    if (counts[p] != null) counts[p] += 1;
+    else if (p === 'Investigar') counts.Investigar += 1;
+    else if (p === 'Aprendizado') counts.Aprendizado += 1;
+    if (computeNeedsAttention(r)) needsAttention += 1;
+    const hasPlan = actionProposalText(r);
+    if (hasPlan) withPlan += 1;
+    else withoutPlan += 1;
+    if (p === 'Crítica' || p === 'Alta') {
+      criticalHigh += 1;
+      if (hasPlan) criticalHighWithPlan += 1;
+    }
   }
-  return { ...counts, pending };
+  const planCoveragePct =
+    criticalHigh > 0 ? Math.round((100 * criticalHighWithPlan) / criticalHigh) : null;
+  return {
+    ...counts,
+    needsAttention,
+    withPlan,
+    withoutPlan,
+    planCreated: withPlan,
+    planCoveragePct,
+    criticalHigh,
+    criticalHighWithPlan,
+  };
+}
+
+export function computeNeedsAttention(r) {
+  const fp = rowDisplayPriority(r);
+  const score = Number(r.current_score);
+  const neg = (r.topics ?? []).some((t) => t.valence === 'Negativa');
+  if (fp === 'Crítica' || fp === 'Alta') return true;
+  if (!Number.isNaN(score) && score <= 6) return true;
+  if (neg && (r.topics ?? []).filter((t) => t.valence === 'Negativa').length >= 1) {
+    if (!Number.isNaN(score) && score <= 8) return true;
+  }
+  if ((r.score_delta ?? 0) <= -3) return true;
+  if (r.current_category === 'Detrator' && neg) return true;
+  return false;
+}
+
+function countNegativeTopics(r) {
+  return (r.topics ?? []).filter((t) => t.valence === 'Negativa').length;
+}
+
+export function isCriticalAttentionRow(r) {
+  const s = Number(r.current_score);
+  const neg = (r.topics ?? []).some((t) => t.valence === 'Negativa');
+  return !Number.isNaN(s) && s <= 3 && neg;
 }
 
 export function sortActionPlanRows(rows, sortKey, sortDir) {
   const mul = sortDir === 'desc' ? -1 : 1;
   return [...(rows ?? [])].sort((a, b) => {
     if (sortKey === 'priority') {
-      const ra = PRIORITY_SORT_RANK[a.priority] ?? 0;
-      const rb = PRIORITY_SORT_RANK[b.priority] ?? 0;
-      return (rb - ra) * mul;
+      const pa = a.display_priority ?? a.final_priority ?? a.priority;
+      const pb = b.display_priority ?? b.final_priority ?? b.priority;
+      const ra = PRIORITY_SORT_RANK[pa] ?? 0;
+      const rb = PRIORITY_SORT_RANK[pb] ?? 0;
+      if (rb !== ra) return (rb - ra) * mul;
+      const sa = Number(a.current_score);
+      const sb = Number(b.current_score);
+      if (!Number.isNaN(sa) && !Number.isNaN(sb) && sa !== sb) return (sa - sb) * mul;
+      const da = Number(a.score_delta);
+      const db = Number(b.score_delta);
+      if (!Number.isNaN(da) && !Number.isNaN(db) && da !== db) return (da - db) * mul;
+      const na = countNegativeTopics(a);
+      const nb = countNegativeTopics(b);
+      if (na !== nb) return (nb - na) * mul;
+      return 0;
     }
     const av = a[sortKey];
     const bv = b[sortKey];

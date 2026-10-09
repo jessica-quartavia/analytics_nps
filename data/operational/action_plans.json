@@ -1,0 +1,764 @@
+{
+  "updated_at": "2026-10-09T17:37:19.496Z",
+  "source": "postgres",
+  "entries": [
+    {
+      "client_id": "338f7a09-d30f-4933-b6da-036748743132",
+      "response_id": "784acaa6-4b34-44d1-ba20-7c106d0ffcaf",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "c0646c0c-ec2b-41d2-a9ad-915734ce4383",
+      "human_priority": null,
+      "urgency": "Alta",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Contato imediato",
+      "ai_priority": "Alta",
+      "hybrid_priority": "Crítica",
+      "final_priority": "Crítica",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:18:16.187+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Alta",
+            "confidence": 0.55,
+            "ai_priority": "Alta",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "71946fad-5b93-40f7-8dff-6f50d54c4700",
+      "response_id": "849749b7-a949-428e-a18c-17d042fc05f0",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "e3b02e88-238d-49ea-9b1b-d5fcdb99d450",
+      "human_priority": null,
+      "urgency": "Alta",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Contato imediato",
+      "ai_priority": "Alta",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:18:25.876+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Alta",
+            "confidence": 0.55,
+            "ai_priority": "Alta",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "8ea421dc-cf84-4c0d-90a0-fe49b45b9d80",
+      "response_id": "4f497b29-f807-4192-8abf-572f6494a039",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "7bd4d768-82a3-446f-acd8-aebf021485db",
+      "human_priority": null,
+      "urgency": "Alta",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Contato imediato",
+      "ai_priority": "Alta",
+      "hybrid_priority": "Crítica",
+      "final_priority": "Crítica",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:18:35.393+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Alta",
+            "confidence": 0.55,
+            "ai_priority": "Alta",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "944fcb6f-717a-4f50-8b0e-765b0b4355b3",
+      "response_id": "394b6384-2e6f-4351-9143-d0fdda8ea445",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "1ff0d2e1-2688-4fac-8abf-69c8667d3b1c",
+      "human_priority": null,
+      "urgency": "Alta",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Contato imediato",
+      "ai_priority": "Alta",
+      "hybrid_priority": "Crítica",
+      "final_priority": "Crítica",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:18:45.658+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Alta",
+            "confidence": 0.55,
+            "ai_priority": "Alta",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "712ebbeb-20bc-4967-b652-16b207b04fc6",
+      "response_id": "da539b88-6182-432e-905b-de4dffbb0dad",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "32183d45-6c9d-496f-badd-1dfeec426e9c",
+      "human_priority": null,
+      "urgency": "Alta",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Contato imediato",
+      "ai_priority": "Alta",
+      "hybrid_priority": "Média",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:18:55.721+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Alta",
+            "confidence": 0.55,
+            "ai_priority": "Alta",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "6dcd82ce-97f3-4b25-9784-2104ad4ffc8e",
+      "response_id": "b956d624-27d2-4b2b-b43a-ac0fd987b15d",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "0f16823c-7431-443c-a68c-595d28fe38bc",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:19:05.751+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "b835dc0e-f940-4d0d-9dc4-534be2554265",
+      "response_id": "2d1113aa-c02d-4df4-8988-110f6b18a602",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "fd1ba1da-9345-4033-8a96-512d0583c777",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:19:15.548+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "d85cb2e8-3738-44ec-84ce-4368a9469a74",
+      "response_id": "ba36365f-93eb-434e-995c-c8bb5b7b7663",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "38859d65-721c-4dc0-a78b-4e1eb2e49c6b",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:19:25.186+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "0942e480-77a7-4850-baba-2eccbc6aa13f",
+      "response_id": "e5a13e87-335c-43ab-9bd1-2deb0763a982",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "0c44b8d1-2651-46dd-8cad-3df5121d9984",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:19:34.933+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "477ecb4d-83e3-4ff3-a390-e7354d5f0f63",
+      "response_id": "1c1f927c-c78f-453e-9f15-c30ec7987603",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "597dbeae-f3e0-4a09-bd65-842983072a14",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:19:44.901+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "ee1ba9d0-19fa-43c7-981c-c534a575db5c",
+      "response_id": "81e64f26-18bd-40fe-8af1-98d9130d97ab",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "c1731c56-2391-4530-892f-5ca0df81f489",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:19:54.061+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "e01f97c9-933e-4097-89fa-1d98cdea9c48",
+      "response_id": "2a7e90e7-f896-44d8-885f-945ad5ed6908",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "ab390c6f-4bf0-42e1-b2a3-f109f7e3df16",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Crítica",
+      "final_priority": "Crítica",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:20:03.789+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "eedd4b83-8924-49b4-bbb3-a4ab8f2a2078",
+      "response_id": "c659c90a-00ee-428a-83cd-80ad5c63279d",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "8548adcd-f464-4ca7-8b09-dfce47b43165",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:20:14.126+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "9a500cc7-b149-45ad-91e9-db31e700d4e9",
+      "response_id": "b6e926ab-c277-482d-94f6-241b7ef454c9",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "f6d063a9-e736-4a37-abe7-fb3ba0d72019",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Média",
+      "final_priority": "Média",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:20:24.103+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+      "response_id": "55342ade-1f7a-4cbd-8aa4-6b1a7d1f1e8c",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "688e4ed6-a191-4ef0-ae01-6e4fdd91f9e4",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:20:33.23+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "e4ef5eac-3581-482e-bed3-a89e1486d5df",
+      "response_id": "603e0a4b-0246-4ec0-a63d-0566f9b49da4",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "44bac5e1-6e65-4be0-8be4-f0e18be9667a",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Média",
+      "final_priority": "Média",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:20:43.399+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "11316935-c4a8-4169-a65e-f5d70b27674b",
+      "response_id": "85c0305a-abe2-4e5f-be67-a3a6d6fa61e2",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "2a108f31-ddf2-467b-8bcd-c7ddef5f8fbe",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Crítica",
+      "final_priority": "Crítica",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:20:53.503+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "e84fee46-40c6-4a92-b08c-8145059cbb1c",
+      "response_id": "49aba598-2825-4546-9e29-d6d347434e0b",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "5a9daedd-8754-4394-805a-ffa7a755f6e2",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:21:02.9+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "4c22dad4-93ce-4775-868a-c620880dc949",
+      "response_id": "78c51636-ea79-4192-afe4-dbe2785240b0",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "46bef124-452a-4d78-b6cf-014af9c5ba9f",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Acompanhar",
+      "ai_priority": "Média",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:21:12.662+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Média",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "9997e796-7d06-4416-b88e-124798932ba3",
+      "response_id": "909354c7-b1bb-45e8-bf0c-79745a1fb720",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "7db043ba-7469-4a86-befb-9a01b207d1ea",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Aprendizado",
+      "ai_priority": "Baixa",
+      "hybrid_priority": "Alta",
+      "final_priority": "Alta",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:21:21.708+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Baixa",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "cbb09924-ca18-4b39-b497-6723364234a4",
+      "response_id": "7896b5dd-8226-46c0-84fa-91ea30c9ea90",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "05d67e3b-31ef-4f55-a411-0c3d7d6a21f1",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Aprendizado",
+      "ai_priority": "Baixa",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:21:31.229+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Baixa",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "debd8b51-9dfc-41b7-8620-c68367c9fc8b",
+      "response_id": "6f1a7f22-54ee-4100-950f-63868a885252",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "bed60038-be2a-4c63-adc2-dc3773231478",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Aprendizado",
+      "ai_priority": "Baixa",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:21:40.575+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Baixa",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "f3984645-e282-472d-bfaa-4560aae31d26",
+      "response_id": "e4cc9777-3823-409f-9313-7c1ce8a8d275",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "a11ef965-1d2e-4c95-a3e7-9eecff6ba0c6",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Aprendizado",
+      "ai_priority": "Baixa",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:21:50.023+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Baixa",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "93c29331-0e86-44ee-a332-e8bb92a442d1",
+      "response_id": "a39589d4-1ccd-43e7-9362-a664b4647c4c",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "ed950604-7ee4-454e-909c-9b15ea5d6acf",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Aprendizado",
+      "ai_priority": "Baixa",
+      "hybrid_priority": "Acompanhamento positivo",
+      "final_priority": "Acompanhamento positivo",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:21:59.467+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Baixa",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "89f03fab-4637-4092-9ea2-edaf98cab864",
+      "response_id": "756994ff-099b-40e6-8ea2-29aa19bdfc65",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "f8b56fdf-2296-46c0-b2e5-73acee8aca40",
+      "human_priority": null,
+      "urgency": "Média",
+      "suggested_owner_area": "Engenheiro Patrimonial",
+      "action_category": "Aprendizado",
+      "ai_priority": "Baixa",
+      "hybrid_priority": "Média",
+      "final_priority": "Média",
+      "priority_review": null,
+      "plan": null,
+      "history": [
+        {
+          "type": "ai_classification",
+          "at": "2026-10-09T15:22:09.142+00:00",
+          "by": "system:gemini",
+          "snapshot": {
+            "ai_urgency": "Média",
+            "confidence": 0.55,
+            "ai_priority": "Baixa",
+            "classifier_source": "rules_fallback"
+          }
+        }
+      ]
+    },
+    {
+      "client_id": "5839bceb-7d97-4386-9cd8-a285bce5a0c3",
+      "response_id": "9d55eade-4692-432e-880a-184aba53fab1",
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "action_case_id": "37491307-d33b-491b-9da6-57d5302de1e9",
+      "human_priority": null,
+      "urgency": null,
+      "suggested_owner_area": null,
+      "action_category": null,
+      "ai_priority": null,
+      "hybrid_priority": null,
+      "final_priority": null,
+      "priority_review": null,
+      "plan": {
+        "objective": "",
+        "main_problem": "",
+        "action_text": "plano de teste",
+        "responsible": "",
+        "due_date": null,
+        "status": "Novo",
+        "success_criteria": "",
+        "notes": "",
+        "plan_origin": "manual",
+        "updated_by": "dev@local",
+        "updated_at": "2026-10-09T17:27:44.133+00:00"
+      },
+      "history": [
+        {
+          "type": "plan_created",
+          "at": "2026-10-09T17:27:45.278+00:00",
+          "by": "dev@local",
+          "snapshot": {
+            "plan": {
+              "id": "c64b634e-e388-4115-8364-c3eee8ce45a2",
+              "notes": "",
+              "status": "Novo",
+              "due_date": null,
+              "client_id": "5839bceb-7d97-4386-9cd8-a285bce5a0c3",
+              "objective": "",
+              "created_at": "2026-10-09T17:27:44.133+00:00",
+              "created_by": "dev@local",
+              "cycle_code": "NPS-2026-SET-PHARUS",
+              "updated_at": "2026-10-09T17:27:44.133+00:00",
+              "updated_by": "dev@local",
+              "action_text": "plano de teste",
+              "plan_origin": "manual",
+              "response_id": "9d55eade-4692-432e-880a-184aba53fab1",
+              "responsible": "",
+              "main_problem": "",
+              "action_case_id": "37491307-d33b-491b-9da6-57d5302de1e9",
+              "success_criteria": "",
+              "ai_suggestion_snapshot": null
+            },
+            "previous": null
+          }
+        }
+      ]
+    }
+  ]
+}

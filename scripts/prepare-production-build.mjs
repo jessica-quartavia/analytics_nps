@@ -22,6 +22,7 @@ function runNodeScript(scriptRel) {
 
 runNodeScript('scripts/generate-phase1-analytics.mjs');
 runNodeScript('scripts/sync-deploy-public.mjs');
+runNodeScript('scripts/write-dashboard-auth-config.mjs');
 
 const result = buildStatic();
 console.log('Build estático OK:', result.dist);

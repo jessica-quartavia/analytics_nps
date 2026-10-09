@@ -15,6 +15,9 @@ import {
   handleVocClassifyHealthVercel,
   handleVocPrepareVercel,
 } from '../lib/persistence/voc-classify-http.mjs';
+import { handleVocManualReviewVercel } from '../lib/persistence/voc-manual-review-http.mjs';
+import { handleActionClassifyVercel } from '../lib/persistence/action-classify-http.mjs';
+import { handleActionOperationalVercel } from '../lib/persistence/action-operational-http.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT) || 5173;
@@ -110,6 +113,50 @@ const server = http.createServer(async (req, res) => {
   if (urlPath === '/api/voc-classify') {
     try {
       await handleVocClassifyVercel(req, res);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
+    return;
+  }
+
+  if (urlPath === '/api/voc-manual-review') {
+    try {
+      await handleVocManualReviewVercel(req, res);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
+    return;
+  }
+
+  if (urlPath === '/api/portal-audit/logs' || urlPath === '/api/system/logs') {
+    try {
+      const handler =
+        urlPath === '/api/system/logs'
+          ? (await import('../lib/persistence/system-logs-http.mjs')).handleSystemLogsVercel
+          : (await import('../lib/persistence/portal-audit-http.mjs')).handlePortalAuditVercel;
+      await handler(req, res);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
+    return;
+  }
+
+  if (urlPath === '/api/action-operational/plans') {
+    try {
+      await handleActionOperationalVercel(req, res);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
+    return;
+  }
+
+  if (urlPath === '/api/action-classify') {
+    try {
+      await handleActionClassifyVercel(req, res);
     } catch (err) {
       res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));

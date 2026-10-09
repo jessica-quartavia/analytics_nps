@@ -1,44 +1,57 @@
 import {
   getActionPlanRows,
-  getActionPlanMeta,
   hasActionPlanArtifacts,
   getCycleSummary,
   getDataState,
   getTopicFilterOptions,
-  patchLocalActionTracking,
+  getResponses,
+  loadAnalyticsData,
 } from '../data/analytics-store.js';
-import { getFilters } from '../filters/global-filters.js';
+import { getFilters, getEpOptions } from '../filters/global-filters.js';
 import {
   filterActionPlanRows,
   computeActionPlanKpis,
   sortActionPlanRows,
   buildActionPlanCsv,
+  isCriticalAttentionRow,
 } from '../data/store-core.mjs';
-import { formatCsatAverage, formatDate } from '../utils/format.js';
+import { formatDate } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
-import { sectionHead, TIPS, helpTip } from '../ui/help.js';
+import { TIPS, helpTip } from '../ui/help.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
-const PRIORITIES = ['Alta', 'Média', 'Investigar', 'Aprendizado'];
-const STATUS_OPTIONS = [
-  'Novo',
-  'Em análise',
-  'Contatado',
-  'Em acompanhamento',
-  'Resolvido',
-  'Sem ação imediata',
-];
+import {
+  renderActionOperationalDrawer,
+  bindActionOperationalDrawer,
+} from '../ui/action-operational-drawer.mjs';
+import {
+  cell,
+  primaryTheme,
+  resolveActionPriority,
+  resolveRowProgram,
+  hasActionProposal,
+} from '../ui/action-display-helpers.mjs';
+import { openActionPlanModal } from '../ui/action-plan-modal.mjs';
+
+const PRIORITIES = ['Crítica', 'Alta', 'Média', 'Baixa', 'Acompanhamento positivo'];
+const VALENCE_OPTIONS = ['Negativa', 'Neutra', 'Positiva'];
 
 let tableState = {
   page: 1,
   pageSize: 25,
   sortKey: 'priority',
   sortDir: 'desc',
-  actionStatus: '',
   search: '',
   priorityFilter: '',
+  valenceFilter: '',
+  epFilter: '',
+  programFilter: '',
+  categoryFilter: '',
+  topicFilter: '',
+  planHasFilter: '',
 };
 let tableController = null;
 let selectedRow = null;
+let pendingHashOpen = null;
 
 function beginTableBindings() {
   tableController?.abort();
@@ -47,7 +60,14 @@ function beginTableBindings() {
 }
 
 function priorityPill(p) {
-  return `<span class="priority-pill priority-pill--${escapeAttr(p)}">${escapeHtml(p)}</span>`;
+  const label = p ?? '—';
+  const cls =
+    label === 'Crítica'
+      ? 'priority-pill--critica'
+      : label === 'Acompanhamento positivo'
+        ? 'priority-pill--Acompanhamento positivo'
+        : `priority-pill--${escapeAttr(label)}`;
+  return `<span class="priority-pill ${cls}">${escapeHtml(label)}</span>`;
 }
 
 function qualitativeBadge(row) {
@@ -60,338 +80,280 @@ function epBadge(confidence) {
   return '<span class="ep-badge" title="EP reconstruído (proxy).">EP aproximado</span>';
 }
 
+function renderPriorityAiNotice() {
+  return `<div class="voc-ai-notice voc-ai-notice--priority" role="note">
+    <div class="voc-ai-notice__body">
+      <p class="voc-ai-notice__title"><strong>🤖 Classificação de prioridade por IA</strong></p>
+      <p class="voc-ai-notice__text">A prioridade é sugerida automaticamente com base nos dados do cliente. Você pode corrigir manualmente sempre que necessário.</p>
+      <p class="note-muted voc-ai-notice__hint">O plano de ação continua sendo registrado manualmente nesta página.</p>
+    </div>
+  </div>`;
+}
+
+function collectEpOptions(rows, cycleCode) {
+  const cycleResponses = getResponses(cycleCode);
+  const set = new Set(getEpOptions(Array.isArray(cycleResponses) ? cycleResponses : []));
+  for (const r of rows) if (r.ep_name) set.add(r.ep_name);
+  return [...set].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+}
+
+function collectProgramOptions(rows) {
+  const set = new Set();
+  for (const r of rows) {
+    const p = resolveRowProgram(r);
+    if (p && p !== '—') set.add(p);
+  }
+  return [...set].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+}
+
+function collectCategoryOptions(rows) {
+  return [...new Set(rows.map((r) => r.current_category).filter(Boolean))].sort();
+}
+
 function buildFilteredRows(cycleCode, filters, { includePriority = true } = {}) {
   const all = getActionPlanRows(cycleCode);
   const planFilters = { ...filters, priority: '' };
   return filterActionPlanRows(all, planFilters, {
-    actionStatus: tableState.actionStatus,
     search: tableState.search,
     priority: includePriority && tableState.priorityFilter ? tableState.priorityFilter : '',
+    valence: tableState.valenceFilter,
+    ep: tableState.epFilter,
+    program: tableState.programFilter,
+    category: tableState.categoryFilter,
+    topic: tableState.topicFilter,
+    planHas: tableState.planHasFilter,
   });
 }
 
-function renderFunnel(kpis, total) {
-  const segs = PRIORITIES.map((p) => {
-    const n = kpis[p] ?? 0;
-    const pct = total ? (n / total) * 100 : 0;
-    return { p, n, pct };
-  });
-  return `
-    <div class="action-funnel" role="group" aria-label="Composição da fila por prioridade">
-      ${segs
-        .map(
-          ({ p, n }) => `
-        <article class="action-funnel__card ${p === 'Aprendizado' ? 'action-funnel__card--learning' : ''}">
-          <div class="action-funnel__label">${p === 'Aprendizado' ? 'Casos para aprender' : escapeHtml(p)}</div>
-          <div class="action-funnel__value">${n}</div>
-        </article>`,
-        )
-        .join('')}
-    </div>
-    <div class="action-funnel-bar" aria-hidden="true">
-      ${segs
-        .map(
-          ({ p, pct }) =>
-            `<span class="action-funnel-bar__seg action-funnel-bar__seg--${p.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '')}" style="flex-grow:${pct || 0.001}"></span>`,
-        )
-        .join('')}
-    </div>`;
+function findActionRow(cycleCode, { clientId, responseId, cycle }) {
+  const rows = getActionPlanRows(cycleCode);
+  return (
+    rows.find(
+      (r) =>
+        r.client_id === clientId &&
+        (responseId ? r.response_id === responseId : true) &&
+        (cycle ? r.cycle_code === cycle : true),
+    ) ??
+    rows.find((r) => r.client_id === clientId) ??
+    null
+  );
 }
 
-function renderPrioritySegments(allRows) {
-  const kpis = computeActionPlanKpis(allRows);
-  const total = allRows.length;
-  const items = [
-    ...PRIORITIES.map((p) => ({ key: p, label: p, count: kpis[p] ?? 0 })),
-    { key: '', label: 'Todas', count: total },
-  ];
-  const active = tableState.priorityFilter || '';
-  return `<div class="action-priority-segment" id="action-priority-chips" role="group" aria-label="Filtrar prioridade na fila nominal">
-    ${items
-      .map(
-        ({ key, label, count }) =>
-          `<button type="button" class="action-priority-segment__btn ${active === key ? 'is-active' : ''}" data-priority="${escapeAttr(key)}">${escapeHtml(label)} <span class="action-priority-segment__count">${count}</span></button>`,
-      )
-      .join('')}
-  </div>`;
-}
-
-function renderTable(rows) {
-  const sorted = sortActionPlanRows(rows, tableState.sortKey, tableState.sortDir);
-  const total = sorted.length;
-  const pages = Math.max(1, Math.ceil(total / tableState.pageSize));
-  if (tableState.page > pages) tableState.page = pages;
-  const start = (tableState.page - 1) * tableState.pageSize;
-  const pageRows = sorted.slice(start, start + tableState.pageSize);
-
-  const body = pageRows.length
-    ? pageRows
-        .map(
-          (r) => `
-      <tr class="action-row" data-client-id="${escapeAttr(r.client_id)}" data-cycle="${escapeAttr(r.cycle_code)}" tabindex="0">
-        <td class="col-priority">${priorityPill(r.priority)}${qualitativeBadge(r)}</td>
-        <td class="col-client">${escapeHtml(r.client_name ?? '—')}</td>
-        <td class="col-ep">${escapeHtml(r.ep_name ?? '—')}${epBadge(r.ep_resolution_confidence)}</td>
-        <td class="num">${r.previous_score ?? '—'}</td>
-        <td class="num">${r.current_score ?? '—'}</td>
-        <td class="num">${r.score_delta ?? '—'}</td>
-        <td>${escapeHtml(r.nps_migration ?? '—')}</td>
-        <td class="col-hide-md">${escapeHtml(r.primary_topic ?? '—')}</td>
-        <td class="num col-hide-md">${r.has_csat ? formatCsatAverage(r.csat_average) : '—'}</td>
-        <td class="reason-cell col-reason" title="${escapeAttr(r.reason ?? '')}">${escapeHtml(r.reason ?? '—')}</td>
-        <td>${escapeHtml(r.status ?? 'Novo')}</td>
-        <td class="col-hide-md">${escapeHtml(r.owner || '—')}</td>
-      </tr>`,
-        )
-        .join('')
-    : `<tr><td colspan="12" class="placeholder-note">${escapeHtml(
-        tableState.priorityFilter
-          ? `Nenhum cliente classificado como ${tableState.priorityFilter} neste ciclo.`
-          : 'Nenhum cliente neste recorte.',
-      )}</td></tr>`;
-
-  return `
-    <div class="table-toolbar">
-      <label class="filter-field">Busca
-        <input class="text-input" id="action-search" type="search" placeholder="Cliente, EP ou motivo" value="${escapeAttr(tableState.search)}" />
-      </label>
-      <label class="filter-field">Status
-        <select class="select-input" id="action-status-filter">
-          <option value="">Todos</option>
-          ${STATUS_OPTIONS.map((s) => `<option value="${escapeAttr(s)}" ${tableState.actionStatus === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
-        </select>
-      </label>
-      <label class="filter-field">Por página
-        <select class="select-input" id="action-page-size">
-          ${[25, 50, 100].map((n) => `<option value="${n}" ${tableState.pageSize === n ? 'selected' : ''}>${n}</option>`).join('')}
-        </select>
-      </label>
-      <button type="button" class="btn btn--secondary" id="action-export-csv">Exportar CSV</button>
-    </div>
-    <div class="table-scroll">
-      <table class="data-table data-table--action" id="action-plan-table">
-        <thead><tr>
-          <th data-sort="priority">${helpTip('Prioridade', TIPS.prioridadeAlta)}</th>
-          <th class="col-client" data-sort="client_name">Cliente</th>
-          <th class="col-ep" data-sort="ep_name">EP</th>
-          <th class="num" data-sort="previous_score">Nota ant.</th>
-          <th class="num" data-sort="current_score">Nota atual</th>
-          <th class="num" data-sort="score_delta">Δ</th>
-          <th data-sort="nps_migration">Migração</th>
-          <th class="col-hide-md">Tema principal</th>
-          <th class="num col-hide-md">CSAT</th>
-          <th class="col-reason" data-sort="reason">Motivo</th>
-          <th data-sort="status">Status</th>
-          <th class="col-hide-md" data-sort="owner">Responsável</th>
-        </tr></thead>
-        <tbody>${body}</tbody>
-      </table>
-    </div>
-    <div class="table-pagination">
-      <button type="button" class="btn btn--ghost" id="action-page-prev" ${tableState.page <= 1 ? 'disabled' : ''}>Anterior</button>
-      <span>Página ${tableState.page} / ${pages} (${total} clientes)</span>
-      <button type="button" class="btn btn--ghost" id="action-page-next" ${tableState.page >= pages ? 'disabled' : ''}>Próxima</button>
-    </div>`;
-}
-
-function renderInvestigateSection(kpis) {
-  if ((kpis.Investigar ?? 0) > 0) return '';
-  return `<p class="placeholder-note" role="status">Nenhum caso classificado para investigação neste ciclo.</p>`;
+function planRowButtonLabel(row) {
+  return hasActionProposal(row) ? 'Ver/editar plano' : 'Criar plano';
 }
 
 function openActionDrawer(row) {
   selectedRow = row;
   const drawer = document.getElementById('action-drawer');
   const backdrop = document.getElementById('action-drawer-backdrop');
-  if (!drawer) return;
+  if (!drawer || !row) return;
 
-  const priorityWhy = (row.priority_rules ?? []).map((r) => `<li>${escapeHtml(r)}</li>`).join('');
-  const otherSignals = (row.other_signals ?? []).map((r) => `<li>${escapeHtml(r)}</li>`).join('');
-  const topics = (row.topics ?? [])
-    .map((t) => `<li>${escapeHtml(t.topic)} · ${escapeHtml(t.valence)}</li>`)
-    .join('');
-  const quality = (row.quality_notes ?? []).map((n) => `<li>${escapeHtml(n)}</li>`).join('');
-
-  drawer.innerHTML = `
-    <header class="drawer__header">
-      <h2>${escapeHtml(row.client_name ?? 'Cliente')}</h2>
-      <button type="button" class="drawer__close" id="action-drawer-close" aria-label="Fechar">×</button>
-    </header>
-    <div class="drawer__body">
-      <p><strong>EP:</strong> ${escapeHtml(row.ep_name ?? '—')} ${epBadge(row.ep_resolution_confidence)}</p>
-      <h3>Histórico NPS</h3>
-      <ul class="drawer-list">
-        <li>Nota anterior: ${row.previous_score ?? '—'}</li>
-        <li>Nota atual: ${row.current_score ?? '—'}</li>
-        <li>Delta: ${row.score_delta ?? '—'}</li>
-        <li>Migração: ${escapeHtml(row.nps_migration ?? '—')}</li>
-        <li>Evolução: ${escapeHtml(row.evolution_status ?? '—')}</li>
-      </ul>
-      <h3>Por que está nesta prioridade</h3>
-      <ul class="drawer-list">${priorityWhy || `<li>${escapeHtml(row.reason ?? '—')}</li>`}</ul>
-      <p><strong>Prioridade resultante:</strong> ${priorityPill(row.priority)}${qualitativeBadge(row)}</p>
-      ${
-        otherSignals
-          ? `<h3>Outros sinais observados</h3><ul class="drawer-list">${otherSignals}</ul>`
-          : ''
-      }
-      <h3>Comentário</h3>
-      <p class="drawer-comment">${escapeHtml(row.comment ?? 'Sem comentário.')}</p>
-      <h3>Temas</h3>
-      <ul class="drawer-list">${topics || '<li>Sem temas classificados.</li>'}</ul>
-      <h3>CSAT</h3>
-      <ul class="drawer-list">
-        <li>Média: ${row.has_csat ? formatCsatAverage(row.csat_average) : '—'}</li>
-        <li>Última nota: ${row.latest_csat_score ?? '—'}</li>
-        <li>Respostas CSAT: ${row.csat_responses_count ?? 0}</li>
-      </ul>
-      <p><strong>Tipo de ação sugerida:</strong> ${escapeHtml(row.recommended_action_type ?? '—')}</p>
-      ${
-        row.population_context
-          ? `<p class="note-muted">${escapeHtml(row.population_context)}</p>`
-          : ''
-      }
-      ${quality ? `<h3>Qualidade</h3><ul class="drawer-list">${quality}</ul>` : ''}
-      <h3>Acompanhamento operacional</h3>
-      <div class="action-tracking action-tracking--disabled" aria-disabled="true">
-        <p class="note-muted">Funcionalidade operacional em implementação.</p>
-        <form id="action-tracking-form">
-          <label>Status
-            <select class="select-input" name="status" id="track-status" disabled>
-              ${STATUS_OPTIONS.map((s) => `<option value="${escapeAttr(s)}" ${row.status === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
-            </select>
-          </label>
-          <label>Responsável
-            <input class="text-input" name="owner" id="track-owner" value="${escapeAttr(row.owner ?? '')}" disabled />
-          </label>
-          <label>Notas
-            <textarea class="text-input" name="action_notes" id="track-notes" rows="4" disabled>${escapeHtml(row.action_notes ?? '')}</textarea>
-          </label>
-          <button type="button" class="btn btn--primary" disabled tabindex="-1">Salvar acompanhamento</button>
-        </form>
-      </div>
-    </div>`;
-
-  drawer.classList.add('is-open');
+  drawer.innerHTML = renderActionOperationalDrawer(row);
+  drawer.classList.add('is-open', 'drawer--wide');
   backdrop?.classList.add('is-open');
   backdrop?.setAttribute('aria-expanded', 'true');
+
+  const refreshRow = (clientId, cycleCode) => {
+    const fresh = findActionRow(getFilters().cycleCode, { clientId, cycle: cycleCode });
+    if (fresh) {
+      selectedRow = fresh;
+      drawer.innerHTML = renderActionOperationalDrawer(fresh);
+      bindActionOperationalDrawer(fresh, drawer, { onRefresh: refreshRow });
+      bindDrawerClose();
+    }
+  };
+
+  bindActionOperationalDrawer(row, drawer, { onRefresh: refreshRow });
+  bindDrawerClose();
   drawer.focus();
 }
 
+function bindDrawerClose() {
+  document.getElementById('action-drawer-close')?.addEventListener('click', closeActionDrawer, {
+    once: true,
+  });
+  document.getElementById('action-drawer-backdrop')?.addEventListener('click', closeActionDrawer, {
+    once: true,
+  });
+}
+
+export function openActionPlanFromHashParams(params) {
+  pendingHashOpen = {
+    clientId: params.get('client_id'),
+    responseId: params.get('response_id'),
+    cycle: params.get('cycle'),
+    open: params.get('open') === '1' || params.get('open') === 'true',
+    openPlan: params.get('open') === 'plan' || params.get('modal') === 'plan',
+  };
+}
+
+export function tryOpenPendingActionDrawer(cycleCode) {
+  if (!pendingHashOpen?.clientId) return;
+  const row = findActionRow(cycleCode, pendingHashOpen);
+  const openPlan = pendingHashOpen.openPlan;
+  const openDrawer = pendingHashOpen.open;
+  pendingHashOpen = null;
+  if (!row) return;
+  if (openPlan) {
+    openActionPlanModal(row, { mode: 'edit' });
+    return;
+  }
+  if (openDrawer) openActionDrawer(row);
+}
+
 export function closeActionDrawer() {
-  document.getElementById('action-drawer')?.classList.remove('is-open');
+  const drawer = document.getElementById('action-drawer');
+  drawer?.classList.remove('is-open', 'drawer--wide');
   const backdrop = document.getElementById('action-drawer-backdrop');
   backdrop?.classList.remove('is-open');
   backdrop?.setAttribute('aria-expanded', 'false');
   selectedRow = null;
 }
 
-async function saveTracking(form, row) {
-  const payload = {
-    client_id: row.client_id,
-    cycle_code: row.cycle_code,
-    status: form.status.value,
-    owner: form.owner.value.trim(),
-    action_notes: form.action_notes.value.trim(),
-    updated_at: new Date().toISOString(),
-  };
-  try {
-    const res = await fetch('/api/operational/action_tracking', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error('Falha ao salvar');
-    const data = await res.json();
-    patchLocalActionTracking(data.entry ?? payload);
-    const hint = document.getElementById('track-save-hint');
-    if (hint) hint.textContent = 'Salvo com sucesso.';
-  } catch {
-    const hint = document.getElementById('track-save-hint');
-    if (hint) {
-      hint.textContent =
-        'Não foi possível persistir (host estático). Use npm run dev para salvar tracking.';
-    }
-  }
-}
-
-function bindDrawer(signal, onRefresh) {
-  document.getElementById('action-drawer-close')?.addEventListener('click', closeActionDrawer, { signal });
-  document.getElementById('action-drawer-backdrop')?.addEventListener('click', closeActionDrawer, {
-    signal,
-  });
-  document.getElementById('action-tracking-form')?.addEventListener(
-    'submit',
-    async (e) => {
-      e.preventDefault();
-      if (selectedRow) await saveTracking(e.target, selectedRow);
-      closeActionDrawer();
-      onRefresh();
-    },
-    { signal },
-  );
-}
-
 function bindTable(rows, signal, onRefresh) {
   document.querySelectorAll('.action-row').forEach((tr) => {
-    const open = () => {
+    const open = (e) => {
+      if (e.target.closest('.action-row-plan-btn')) return;
       const id = tr.dataset.clientId;
       const cycle = tr.dataset.cycle;
       const row = rows.find((r) => r.client_id === id && r.cycle_code === cycle);
       if (row) openActionDrawer(row);
     };
     tr.addEventListener('click', open, { signal });
-    tr.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        open();
-      }
-    }, { signal });
+    tr.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open(e);
+        }
+      },
+      { signal },
+    );
   });
 
-  document.getElementById('action-search')?.addEventListener('change', (e) => {
-    tableState.search = e.target.value;
-    tableState.page = 1;
-    onRefresh();
-  }, { signal });
-  document.getElementById('action-status-filter')?.addEventListener('change', (e) => {
-    tableState.actionStatus = e.target.value;
-    tableState.page = 1;
-    onRefresh();
-  }, { signal });
-  document.getElementById('action-page-size')?.addEventListener('change', (e) => {
-    tableState.pageSize = Number(e.target.value);
-    tableState.page = 1;
-    onRefresh();
-  }, { signal });
-  document.getElementById('action-page-prev')?.addEventListener('click', () => {
-    tableState.page -= 1;
-    onRefresh();
-  }, { signal });
-  document.getElementById('action-page-next')?.addEventListener('click', () => {
-    tableState.page += 1;
-    onRefresh();
-  }, { signal });
-  document.getElementById('action-export-csv')?.addEventListener('click', () => {
-    const csv = buildActionPlanCsv(rows);
-    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'plano-de-acao.csv';
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }, { signal });
-  document.querySelectorAll('#action-plan-table th[data-sort]').forEach((th) => {
-    th.addEventListener('click', () => {
-      const key = th.dataset.sort;
-      if (tableState.sortKey === key) tableState.sortDir = tableState.sortDir === 'asc' ? 'desc' : 'asc';
-      else {
-        tableState.sortKey = key;
-        tableState.sortDir = 'asc';
-      }
-      onRefresh();
-    }, { signal });
+  document.querySelectorAll('.action-row-plan-btn').forEach((btn) => {
+    btn.addEventListener(
+      'click',
+      (e) => {
+        e.stopPropagation();
+        const tr = btn.closest('.action-row');
+        const id = tr?.dataset.clientId;
+        const cycle = tr?.dataset.cycle;
+        const row = rows.find((r) => r.client_id === id && r.cycle_code === cycle);
+        if (!row) return;
+        openActionPlanModal(row, {
+          mode: 'edit',
+          onSaved: async () => {
+            try {
+              await loadAnalyticsData();
+            } catch {
+              /* ok */
+            }
+            onRefresh();
+          },
+        });
+      },
+      { signal },
+    );
   });
+
+  const bindChange = (id, key) => {
+    document.getElementById(id)?.addEventListener(
+      'change',
+      (e) => {
+        tableState[key] = e.target.value;
+        tableState.page = 1;
+        onRefresh();
+      },
+      { signal },
+    );
+  };
+
+  document.getElementById('action-search')?.addEventListener(
+    'change',
+    (e) => {
+      tableState.search = e.target.value;
+      tableState.page = 1;
+      onRefresh();
+    },
+    { signal },
+  );
+  bindChange('action-priority-filter', 'priorityFilter');
+  bindChange('action-ep-filter', 'epFilter');
+  bindChange('action-program-filter', 'programFilter');
+  bindChange('action-category-filter', 'categoryFilter');
+  bindChange('action-topic-filter', 'topicFilter');
+  bindChange('action-valence-filter', 'valenceFilter');
+  bindChange('action-plan-has-filter', 'planHasFilter');
+  document.getElementById('action-page-size')?.addEventListener(
+    'change',
+    (e) => {
+      tableState.pageSize = Number(e.target.value);
+      tableState.page = 1;
+      onRefresh();
+    },
+    { signal },
+  );
+  document.getElementById('action-page-prev')?.addEventListener(
+    'click',
+    () => {
+      tableState.page -= 1;
+      onRefresh();
+    },
+    { signal },
+  );
+  document.getElementById('action-page-next')?.addEventListener(
+    'click',
+    () => {
+      tableState.page += 1;
+      onRefresh();
+    },
+    { signal },
+  );
+  document.getElementById('action-export-csv')?.addEventListener(
+    'click',
+    () => {
+      const csv = buildActionPlanCsv(rows);
+      const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'plano-de-acao.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    },
+    { signal },
+  );
+  document.querySelectorAll('#action-plan-table th[data-sort]').forEach((th) => {
+    th.addEventListener(
+      'click',
+      () => {
+        const key = th.dataset.sort;
+        if (tableState.sortKey === key) tableState.sortDir = tableState.sortDir === 'asc' ? 'desc' : 'asc';
+        else {
+          tableState.sortKey = key;
+          tableState.sortDir = 'asc';
+        }
+        onRefresh();
+      },
+      { signal },
+    );
+  });
+}
+
+function renderKpiStrip(kpis) {
+  return `
+    <div class="metric-compact-grid metric-compact-grid--action-priority">
+      <article class="metric-compact metric-compact--priority"><div class="metric-compact__label">Prioridade crítica</div><div class="metric-compact__value">${kpis.Crítica ?? 0}</div></article>
+      <article class="metric-compact metric-compact--priority"><div class="metric-compact__label">Prioridade alta</div><div class="metric-compact__value">${kpis.Alta ?? 0}</div></article>
+      <article class="metric-compact metric-compact--priority"><div class="metric-compact__label">Prioridade média</div><div class="metric-compact__value">${kpis.Média ?? 0}</div></article>
+      <article class="metric-compact metric-compact--priority"><div class="metric-compact__label">Prioridade baixa</div><div class="metric-compact__value">${kpis.Baixa ?? 0}</div></article>
+    </div>
+    <div class="metric-compact-grid metric-compact-grid--action-secondary">
+      <article class="metric-compact metric-compact--muted"><div class="metric-compact__label">Planos criados</div><div class="metric-compact__value">${kpis.withPlan ?? 0}</div></article>
+      <article class="metric-compact metric-compact--muted"><div class="metric-compact__label">Sem plano</div><div class="metric-compact__value">${kpis.withoutPlan ?? 0}</div></article>
+    </div>`;
 }
 
 export function renderPlanoDeAcao(root, ctx = {}) {
@@ -412,23 +374,6 @@ export function renderPlanoDeAcao(root, ctx = {}) {
   const cutoff = formatDate(summary?.data_cutoff ?? dataState?.dataCutoff);
   const allRows = getActionPlanRows(cycleCode);
   const queueKpis = computeActionPlanKpis(allRows);
-  const meta = getActionPlanMeta(cycleCode);
-
-  function bindPriorityChips(host, chipSignal, onRefresh) {
-    if (!host) return;
-    const chipOpts = chipSignal ? { signal: chipSignal } : undefined;
-    host.querySelectorAll('[data-priority]').forEach((btn) => {
-      btn.addEventListener(
-        'click',
-        () => {
-          tableState.priorityFilter = btn.dataset.priority ?? '';
-          tableState.page = 1;
-          onRefresh();
-        },
-        chipOpts,
-      );
-    });
-  }
 
   const rerenderTable = () => {
     const tableSignal = beginTableBindings();
@@ -436,62 +381,183 @@ export function renderPlanoDeAcao(root, ctx = {}) {
     const rows = buildFilteredRows(f.cycleCode, f);
     const host = document.getElementById('action-table-host');
     if (host) {
-      host.innerHTML = renderTable(rows);
+      host.innerHTML = renderTableHtml(rows);
       bindTable(rows, tableSignal, rerenderTable);
-      bindDrawer(tableSignal, rerenderTable);
     }
-    const chipsHost = document.getElementById('action-priority-chips');
-    if (chipsHost) {
-      chipsHost.outerHTML = renderPrioritySegments(getActionPlanRows(f.cycleCode));
-      bindPriorityChips(document.getElementById('action-priority-chips'), tableSignal, rerenderTable);
+    const kpiHost = document.getElementById('action-kpi-host');
+    if (kpiHost) {
+      kpiHost.innerHTML = renderKpiStrip(computeActionPlanKpis(getActionPlanRows(f.cycleCode)));
     }
   };
 
+  function renderTableHtml(rows) {
+    const epOptions = collectEpOptions(rows, getFilters().cycleCode);
+    const programOptions = collectProgramOptions(rows);
+    const categoryOptions = collectCategoryOptions(rows);
+    const topicOptions = getTopicFilterOptions();
+    const sorted = sortActionPlanRows(rows, tableState.sortKey, tableState.sortDir);
+    const total = sorted.length;
+    const pages = Math.max(1, Math.ceil(total / tableState.pageSize));
+    if (tableState.page > pages) tableState.page = pages;
+    const start = (tableState.page - 1) * tableState.pageSize;
+    const pageRows = sorted.slice(start, start + tableState.pageSize);
+
+    const body = pageRows.length
+      ? pageRows
+          .map((r) => {
+            const finalP = resolveActionPriority(r);
+            const crit = isCriticalAttentionRow(r) ? ' action-row--critical' : '';
+            const planBtnClass = hasActionProposal(r)
+              ? 'btn btn--secondary btn--sm action-row-plan-btn'
+              : 'btn btn--primary btn--sm action-row-plan-btn';
+            const program = resolveRowProgram(r);
+            return `
+      <tr class="action-row${crit}" data-client-id="${escapeAttr(r.client_id)}" data-cycle="${escapeAttr(r.cycle_code)}" data-response-id="${escapeAttr(r.response_id ?? '')}" tabindex="0">
+        <td class="col-client">${escapeHtml(r.client_name ?? '—')}</td>
+        <td class="col-ep">${escapeHtml(cell(r.ep_name))}${epBadge(r.ep_resolution_confidence)}</td>
+        <td class="col-program">${escapeHtml(program)}</td>
+        <td class="num">${cell(r.previous_score)}</td>
+        <td class="num">${cell(r.current_score)}</td>
+        <td class="num">${cell(r.score_delta)}</td>
+        <td>${escapeHtml(cell(r.nps_migration))}</td>
+        <td class="col-theme">${escapeHtml(primaryTheme(r))}</td>
+        <td class="col-priority">${priorityPill(finalP)}${qualitativeBadge(r)}</td>
+        <td class="col-plan">
+          <button type="button" class="${planBtnClass}" data-action="open-plan">${escapeHtml(planRowButtonLabel(r))}</button>
+        </td>
+      </tr>`;
+          })
+          .join('')
+      : `<tr><td colspan="10" class="placeholder-note">${escapeHtml(
+          tableState.priorityFilter
+            ? `Nenhum cliente classificado como ${tableState.priorityFilter} neste ciclo.`
+            : 'Nenhum cliente neste recorte.',
+        )}</td></tr>`;
+
+    return `
+    <div class="table-toolbar table-toolbar--action">
+      <label class="filter-field">Busca
+        <input class="text-input" id="action-search" type="search" placeholder="Cliente, EP ou motivo" value="${escapeAttr(tableState.search)}" />
+      </label>
+      <label class="filter-field">EP
+        <select class="select-input" id="action-ep-filter">
+          <option value="">Todos</option>
+          ${epOptions.map((ep) => `<option value="${escapeAttr(ep)}" ${tableState.epFilter === ep ? 'selected' : ''}>${escapeHtml(ep)}</option>`).join('')}
+        </select>
+      </label>
+      <label class="filter-field">Programa
+        <select class="select-input" id="action-program-filter">
+          <option value="">Todos</option>
+          ${programOptions.map((p) => `<option value="${escapeAttr(p)}" ${tableState.programFilter === p ? 'selected' : ''}>${escapeHtml(p)}</option>`).join('')}
+        </select>
+      </label>
+      <label class="filter-field">Categoria NPS
+        <select class="select-input" id="action-category-filter">
+          <option value="">Todas</option>
+          ${categoryOptions.map((c) => `<option value="${escapeAttr(c)}" ${tableState.categoryFilter === c ? 'selected' : ''}>${escapeHtml(c)}</option>`).join('')}
+        </select>
+      </label>
+      <label class="filter-field">Tema VoC
+        <select class="select-input" id="action-topic-filter">
+          <option value="">Todos</option>
+          ${topicOptions.map((t) => `<option value="${escapeAttr(t.value)}" ${tableState.topicFilter === t.value ? 'selected' : ''}>${escapeHtml(t.label)}</option>`).join('')}
+        </select>
+      </label>
+      <label class="filter-field">Valência VoC
+        <select class="select-input" id="action-valence-filter">
+          <option value="">Todas</option>
+          ${VALENCE_OPTIONS.map((s) => `<option value="${escapeAttr(s)}" ${tableState.valenceFilter === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
+        </select>
+      </label>
+      <label class="filter-field">Prioridade
+        <select class="select-input" id="action-priority-filter">
+          <option value="">Todas</option>
+          ${PRIORITIES.map((p) => `<option value="${escapeAttr(p)}" ${tableState.priorityFilter === p ? 'selected' : ''}>${escapeHtml(p)}</option>`).join('')}
+        </select>
+      </label>
+      <label class="filter-field">Plano
+        <select class="select-input" id="action-plan-has-filter">
+          <option value="">Todos</option>
+          <option value="yes" ${tableState.planHasFilter === 'yes' ? 'selected' : ''}>Com plano</option>
+          <option value="no" ${tableState.planHasFilter === 'no' ? 'selected' : ''}>Sem plano</option>
+        </select>
+      </label>
+      <label class="filter-field">Por página
+        <select class="select-input" id="action-page-size">
+          ${[25, 50, 100].map((n) => `<option value="${n}" ${tableState.pageSize === n ? 'selected' : ''}>${n}</option>`).join('')}
+        </select>
+      </label>
+      <button type="button" class="btn btn--secondary" id="action-export-csv">Exportar CSV</button>
+    </div>
+    <div class="table-scroll table-scroll--action">
+      <table class="data-table data-table--action data-table--action-primary" id="action-plan-table">
+        <thead><tr>
+          <th class="col-client" data-sort="client_name">Cliente</th>
+          <th class="col-ep" data-sort="ep_name">EP</th>
+          <th class="col-program" data-sort="program">Programa</th>
+          <th class="num" data-sort="previous_score">Nota anterior</th>
+          <th class="num" data-sort="current_score">Nota atual</th>
+          <th class="num" data-sort="score_delta">Δ</th>
+          <th data-sort="nps_migration">Migração</th>
+          <th class="col-theme">Tema principal</th>
+          <th data-sort="priority">${helpTip('Prioridade', TIPS.prioridadeAlta)}</th>
+          <th class="col-plan">Plano de ação</th>
+        </tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+    <div class="table-pagination">
+      <button type="button" class="btn btn--ghost" id="action-page-prev" ${tableState.page <= 1 ? 'disabled' : ''}>Anterior</button>
+      <span>Página ${tableState.page} / ${pages} (${total} clientes)</span>
+      <button type="button" class="btn btn--ghost" id="action-page-next" ${tableState.page >= pages ? 'disabled' : ''}>Próxima</button>
+    </div>`;
+  }
+
+  const lead =
+    'Priorize clientes, registre planos de ação manualmente, corrija prioridade e VoC quando necessário, e exporte o dossiê em PDF.';
+
   root.innerHTML = `
-    <header class="page-header">
+    <header class="page-header page-header--action">
       <div>
         <p class="eyebrow">Plano de Ação</p>
         <h1 class="hero__title">Plano de Ação</h1>
-        <p class="page-header__lead">Lista clientes priorizados para acompanhamento com base nos sinais identificados.</p>
+        <p class="page-header__lead">${escapeHtml(lead)}</p>
+        <div class="page-header__badges">
+          <span class="badge badge--neutral-soft">NPS</span>
+          <span class="badge badge--neutral-soft">VoC</span>
+          <span class="badge badge--neutral-soft">Manual</span>
+        </div>
       </div>
       <div class="chip-row">
         <span class="chip-modern">Atualizado ${escapeHtml(cutoff)}</span>
-        <span class="chip-modern">${allRows.length} na fila analítica</span>
+        <span class="chip-modern">${allRows.length} na fila</span>
       </div>
     </header>
     ${renderDataSourceNotice('plano-de-acao')}
-    <div id="action-kpi-host">
-      <div class="metric-compact-grid">
-        <article class="metric-compact"><div class="metric-compact__label">Alta prioridade</div><div class="metric-compact__value">${queueKpis.Alta}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Média prioridade</div><div class="metric-compact__value">${queueKpis.Média}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Investigar</div><div class="metric-compact__value">${queueKpis.Investigar}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Aprendizado</div><div class="metric-compact__value">${queueKpis.Aprendizado}</div></article>
-        <article class="metric-compact"><div class="metric-compact__label">Ação pendente</div><div class="metric-compact__value">${queueKpis.pending}</div></article>
-      </div>
-    </div>
-    <h2 class="section-title">Composição da fila</h2>
-    <div id="action-funnel-host">${renderFunnel(queueKpis, allRows.length || 1)}</div>
-    ${renderInvestigateSection(queueKpis)}
-    ${renderPrioritySegments(allRows)}
-    <h2 class="section-title">Fila nominal</h2>
+    <div id="action-kpi-host">${renderKpiStrip(queueKpis)}</div>
+    ${renderPriorityAiNotice()}
+    <h2 class="section-title section-title--compact">Fila de clientes</h2>
     <div id="action-table-host"></div>
-    <div class="quality-box">
+    <div class="quality-box quality-box--compact">
       <h3>Como interpretar</h3>
       <ul>
-        <li>Prioridades refletem regras sobre movimento de NPS e sinais de experiência — não inferência causal individual.</li>
-        <li>Contexto de drivers populacionais, quando exibido, descreve associações na base, não causas por cliente.</li>
-        <li>Status e responsável são operacionais e persistem separados da fila analítica regenerável.</li>
+        <li>O plano de ação é registrado manualmente; revise o texto antes de salvar.</li>
+        <li>Correções de prioridade e VoC prevalecem sobre sugestões automáticas.</li>
+        <li>Nota NPS e comentário original não são alterados nesta página.</li>
       </ul>
     </div>
   `;
 
-  bindPriorityChips(document.getElementById('action-priority-chips'), signal, rerenderTable);
-
   if (signal) {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeActionDrawer();
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape') closeActionDrawer();
+      },
+      { signal },
+    );
   }
 
   rerenderTable();
+  tryOpenPendingActionDrawer(cycleCode);
 }

@@ -234,6 +234,8 @@ function renderPrevisaoNpsInner(container) {
   const m = doc.model ?? {};
   const v = doc.validation ?? {};
   const q = doc.quality ?? {};
+  const cmp = doc.model_comparison ?? {};
+  const trainWindow = doc.training_window ?? '2026';
   const targetCycle = doc.target_cycle ?? '—';
   const updated = formatDate(doc.generated_at?.slice(0, 10));
   const warnings = q.warnings ?? [];
@@ -252,12 +254,18 @@ function renderPrevisaoNpsInner(container) {
           <p class="page-lead">Estimativa matemática exploratória do próximo NPS.</p>
           <div class="previsao-page-header__badges">
             <span class="badge badge--method">Modelagem preditiva</span>
+            <span class="badge badge--neutral-soft" title="Esta projeção prioriza os dados mais recentes para refletir melhor o cenário atual.">Base de treinamento: ${escapeHtml(trainWindow)}</span>
             <span class="badge badge--neutral-soft">Atualizado em ${escapeHtml(updated)}</span>
           </div>
         </div>
       </header>
 
       ${renderDataSourceNotice('previsao-nps')}
+
+      <div class="callout callout--info previsao-callout" role="note">
+        <p>${escapeHtml(doc.methodology_note ?? 'O modelo principal utiliza dados de 2026 para refletir melhor o comportamento recente da carteira.')}</p>
+        <p class="note-muted">${escapeHtml(doc.methodology_caveat ?? 'Uma janela mais recente aumenta a aderência ao cenário atual, mas reduz a quantidade de histórico disponível.')}</p>
+      </div>
 
       ${
         showWarn
@@ -344,15 +352,48 @@ function renderPrevisaoNpsInner(container) {
           }
         </div>
         <div class="card previsao-card">
-          <h2 class="section-title">Qualidade da estimativa</h2>
+          <h2 class="section-title">Qualidade da projeção</h2>
+          <p class="section-lead">Confiabilidade: <strong>${escapeHtml(q.quality_grade ?? '—')}</strong>${q.quality_note ? ` — ${escapeHtml(q.quality_note)}` : ''}</p>
           <ul class="metric-list previsao-quality-list">
-            <li><span>MAE NPS</span><strong>${displayNum(v.mae_nps)}</strong></li>
-            <li><span>Folds temporais</span><strong>${displayNum(v.temporal_folds)}</strong></li>
+            <li><span>MAE NPS ${helpTip('Em média, quantos pontos de NPS a projeção errou nos testes históricos. Quanto menor, melhor.')}</span><strong>${displayNum(v.mae_nps)}</strong></li>
+            <li><span>RMSE NPS</span><strong>${displayNum(v.rmse_nps)}</strong></li>
+            <li><span>Viés médio NPS</span><strong>${displayNum(v.nps_bias_mean)}</strong></li>
+            <li><span>Folds temporais (2026)</span><strong>${displayNum(v.temporal_folds)}</strong></li>
+            <li><span>ROC-AUC (resposta) ${helpTip('Mede a capacidade do modelo de diferenciar quem tende ou não a responder. Quanto mais próximo de 1, melhor.')}</span><strong>${displayNum(v.metrics?.response_roc_auc_mean)}</strong></li>
+            <li><span>PR-AUC (resposta)</span><strong>${displayNum(v.metrics?.response_pr_auc_mean)}</strong></li>
+            <li><span>Brier (resposta) ${helpTip('Mede a qualidade das probabilidades previstas. Quanto menor, melhor.')}</span><strong>${displayNum(v.metrics?.response_brier_mean)}</strong></li>
+            <li><span>Macro F1 (categoria) ${helpTip('Mede o equilíbrio da classificação entre Promotores, Neutros e Detratores. Quanto maior, melhor.')}</span><strong>${displayNum(v.metrics?.category_macro_f1_mean)}</strong></li>
             <li><span>Clientes no treino</span><strong>${displayNum(q.training_clients)}</strong></li>
             <li><span>Respostas no treino</span><strong>${displayNum(q.training_responses)}</strong></li>
           </ul>
         </div>
+        <div class="card previsao-card">
+          <h2 class="section-title">Baseline vs modelo</h2>
+          <ul class="metric-list previsao-quality-list">
+            <li><span>MAE baseline (NPS anterior)</span><strong>${displayNum(v.mae_baseline_last_nps)}</strong></li>
+            <li><span>MAE baseline (média histórica)</span><strong>${displayNum(v.mae_baseline_mean_nps)}</strong></li>
+            <li><span>MAE baseline (modelo mínimo)</span><strong>${displayNum(v.mae_baseline_minimal_features)}</strong></li>
+            <li><span>Modelo supera baseline?</span><strong>${v.beats_baseline_last === true ? 'Sim' : v.beats_baseline_last === false ? 'Não' : '—'}</strong></li>
+          </ul>
+        </div>
       </section>
+
+      ${
+        cmp['2026_only'] && cmp.full_history
+          ? `<section class="card previsao-card">
+        <h2 class="section-title">Diagnóstico: janela 2026 vs histórico completo</h2>
+        <div class="table-wrap">
+          <table class="data-table data-table--compact">
+            <thead><tr><th>Modelo</th><th>MAE</th><th>RMSE</th><th>Viés</th><th>Próximo NPS (backtest/projeção)</th><th>Folds</th></tr></thead>
+            <tbody>
+              <tr><td>2026 only</td><td>${displayNum(cmp['2026_only'].mae_nps)}</td><td>${displayNum(cmp['2026_only'].rmse_nps)}</td><td>${displayNum(cmp['2026_only'].nps_bias_mean)}</td><td>${formatNps(cmp['2026_only'].projected_nps)}</td><td>${displayNum(cmp['2026_only'].folds)}</td></tr>
+              <tr><td>Histórico completo</td><td>${displayNum(cmp.full_history.mae_nps)}</td><td>${displayNum(cmp.full_history.rmse_nps)}</td><td>${displayNum(cmp.full_history.nps_bias_mean)}</td><td>${formatNps(cmp.full_history.projected_nps)}</td><td>${displayNum(cmp.full_history.folds)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>`
+          : ''
+      }
 
       <section class="card previsao-card">
         <h2 class="section-title">Principais fatores associados</h2>

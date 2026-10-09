@@ -24,6 +24,7 @@ import {
   getCsatSummaryForCycle,
   getActionQueueEnrichedForCycle,
   mergeActionTrackingIntoQueue,
+  mergeActionPlansIntoQueue,
 } from './store-core.mjs';
 import { buildGlobalFilterContext } from '../filters/filter-context.mjs';
 import {
@@ -54,6 +55,7 @@ const PATHS = {
   commentDrivers: '/data/processed/comment_drivers.json',
   actionQueueEnriched: '/data/processed/action_queue_enriched.json',
   actionTracking: '/data/operational/action_tracking.json',
+  actionPlans: '/data/operational/action_plans.json',
   executiveDiagnosis: '/data/processed/executive_diagnosis.json',
   populationAudit: '/data/quality/nps_population_audit.json',
   npsClientMilestones: '/data/processed/nps_client_milestones.json',
@@ -121,6 +123,19 @@ async function fetchJson(url) {
   }
 }
 
+async function fetchOperationalPlansDoc() {
+  try {
+    const res = await fetch('/api/action-operational/plans', { cache: 'no-store' });
+    if (res.ok) {
+      const doc = await res.json();
+      if (doc?.entries) return doc;
+    }
+  } catch {
+    logStoreError('Operational plans API unavailable', 'using static JSON');
+  }
+  return fetchJsonOptional(PATHS.actionPlans);
+}
+
 async function fetchJsonOptional(url) {
   let res;
   try {
@@ -162,6 +177,7 @@ export async function loadAnalyticsData() {
     commentDriversDoc,
     actionQueueEnrichedDoc,
     actionTrackingDoc,
+    actionPlansDoc,
     executiveDiagnosisDoc,
     populationAuditDoc,
     npsClientMilestonesDoc,
@@ -206,6 +222,7 @@ export async function loadAnalyticsData() {
     fetchJsonOptional(PATHS.commentDrivers),
     fetchJsonOptional(PATHS.actionQueueEnriched),
     fetchJsonOptional(PATHS.actionTracking),
+    fetchOperationalPlansDoc(),
     fetchJsonOptional(PATHS.executiveDiagnosis),
     fetchJsonOptional(PATHS.populationAudit),
     fetchJsonOptional(PATHS.npsClientMilestones),
@@ -234,14 +251,16 @@ export async function loadAnalyticsData() {
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
   const trackingNormalized = actionTrackingDoc ?? { entries: [] };
-  const enrichedMerged = mergeActionTrackingIntoQueue(
-    actionQueueEnrichedBase,
-    trackingNormalized,
-  );
+  const plansNormalized = actionPlansDoc ?? { entries: [] };
+  let enrichedMerged = mergeActionTrackingIntoQueue(actionQueueEnrichedBase, trackingNormalized);
+  enrichedMerged = mergeActionPlansIntoQueue(enrichedMerged, plansNormalized);
 
+  if (!Array.isArray(responses)) {
+    logStoreError('responses.json shape', `expected array, got ${typeof responses}`);
+  }
   state = {
     cycles,
-    responses,
+    responses: Array.isArray(responses) ? responses : [],
     cycleSummaryDoc,
     pairedCycles,
     migrationMatrix,
@@ -263,6 +282,7 @@ export async function loadAnalyticsData() {
       ? { ...actionQueueEnrichedDoc, entries: enrichedMerged }
       : null,
     actionTrackingDoc: trackingNormalized,
+    actionPlansDoc: plansNormalized,
     executiveDiagnosisDoc: executiveDiagnosisDoc ?? null,
     populationAuditDoc: populationAuditDoc ?? null,
     npsClientMilestonesDoc: npsClientMilestonesDoc ?? null,
@@ -383,6 +403,12 @@ export function getTopicSummary(cycleCode) {
 
 export function getResponseTopics(cycleCode) {
   return getResponseTopicsForCycle(state?.responseTopics ?? [], cycleCode);
+}
+
+/** Substitui temas publicados de uma resposta (ex.: após revisão manual). */
+export function replaceResponseTopicRows(responseId, newRows) {
+  if (!state?.responseTopics || !responseId) return;
+  state.responseTopics = state.responseTopics.filter((t) => t.response_id !== responseId).concat(newRows);
 }
 
 export function getVocClassificationMeta() {
@@ -508,7 +534,18 @@ export function hasActionPlanArtifacts() {
 }
 
 export function getActionPlanRows(cycleCode) {
-  return getActionQueueEnrichedForCycle(state?.actionQueueEnrichedDoc, cycleCode);
+  const rows = getActionQueueEnrichedForCycle(state?.actionQueueEnrichedDoc, cycleCode);
+  const cycleResponses = getResponsesForCycle(state?.responses ?? [], cycleCode);
+  const byResponseId = new Map(cycleResponses.map((r) => [r.response_id, r]));
+  return rows.map((row) => {
+    const resp = byResponseId.get(row.response_id) ?? null;
+    const program = resp?.program ?? row.program ?? row.program_name ?? null;
+    return {
+      ...row,
+      program,
+      program_name: program ?? row.program_name,
+    };
+  });
 }
 
 export function getActionPlanMeta(cycleCode) {
@@ -632,6 +669,16 @@ export function getNpsPredictionDoc() {
   return state?.npsPredictionNextCycleDoc ?? null;
 }
 
+function refreshActionQueueEnrichedEntries() {
+  if (!state?.actionQueueEnrichedBase) return;
+  let entries = mergeActionTrackingIntoQueue(state.actionQueueEnrichedBase, state.actionTrackingDoc);
+  entries = mergeActionPlansIntoQueue(entries, state.actionPlansDoc);
+  state.actionQueueEnrichedDoc = {
+    ...state.actionQueueEnrichedDoc,
+    entries,
+  };
+}
+
 export function patchLocalActionTracking(entry) {
   if (!state?.actionQueueEnrichedBase || !entry?.client_id) return;
   const doc = { entries: [...(state.actionTrackingDoc?.entries ?? [])] };
@@ -642,10 +689,26 @@ export function patchLocalActionTracking(entry) {
   else doc.entries.push(entry);
   doc.updated_at = entry.updated_at ?? new Date().toISOString();
   state.actionTrackingDoc = doc;
-  state.actionQueueEnrichedDoc = {
-    ...state.actionQueueEnrichedDoc,
-    entries: mergeActionTrackingIntoQueue(state.actionQueueEnrichedBase, doc),
-  };
+  refreshActionQueueEnrichedEntries();
+}
+
+export function patchLocalActionPlanEntry(entry) {
+  if (!entry?.client_id) return;
+  const doc = { entries: [...(state.actionPlansDoc?.entries ?? [])] };
+  const key = `${entry.client_id}||${entry.response_id ?? ''}||${entry.cycle_code ?? ''}`;
+  const idx = doc.entries.findIndex(
+    (e) => `${e.client_id}||${e.response_id ?? ''}||${e.cycle_code ?? ''}` === key,
+  );
+  if (idx >= 0) doc.entries[idx] = { ...doc.entries[idx], ...entry };
+  else doc.entries.push(entry);
+  doc.updated_at = new Date().toISOString();
+  state.actionPlansDoc = doc;
+  refreshActionQueueEnrichedEntries();
+}
+
+export function getResponseById(responseId) {
+  if (!responseId || !state?.responses) return null;
+  return state.responses.find((r) => r.response_id === responseId) ?? null;
 }
 
 export { getPreviousCycleCode, buildSummaryMap };

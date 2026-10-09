@@ -51,7 +51,7 @@
 ### Constantes
 
 - `classifier_version`: `gemini_v1`
-- `prompt_version`: `voc-gemini-prompt-v1`
+- `prompt_version`: `voc-gemini-prompt-v3` (via resposta `/api/voc-classify`, não hardcode no n8n)
 - `requested_model`: `gemini-3.6-flash`
 
 ### Review queue

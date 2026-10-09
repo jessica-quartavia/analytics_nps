@@ -1,0 +1,9 @@
+{
+  "supabaseUrl": "https://rckpuebaiswrxzmywllv.supabase.co",
+  "anonKey": null,
+  "authRequired": false,
+  "allowedDomain": "quartavia.com.br",
+  "allowedDomains": [
+    "quartavia.com.br"
+  ]
+}

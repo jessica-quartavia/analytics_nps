@@ -79,6 +79,19 @@
   min-height: 0;
 }
 
+.sidebar-nav__group-title {
+  margin: 1rem 0.65rem 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted, #94a3b8);
+}
+
+.sidebar-nav__group-title:first-child {
+  margin-top: 0.25rem;
+}
+
 .sidebar-nav {
   list-style: none;
   margin: 0;

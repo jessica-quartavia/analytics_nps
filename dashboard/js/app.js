@@ -30,10 +30,16 @@ import { renderMovimento, closeDrawer } from './pages/movimento.js';
 import { renderEps, closeEpDrawer } from './pages/eps.js';
 import { renderVozDoCliente, closeVocDrawer } from './pages/voz-do-cliente.js';
 import { renderDrivers, closeDriverDrawer } from './pages/drivers.js';
-import { renderPlanoDeAcao, closeActionDrawer } from './pages/plano-de-acao.js';
+import {
+  renderPlanoDeAcao,
+  closeActionDrawer,
+  openActionPlanFromHashParams,
+} from './pages/plano-de-acao.js';
 import { renderJornadaPerfil } from './pages/jornada-perfil.js';
 import { renderSafrasCobertura, closeSafrasDrawer } from './pages/safras-cobertura.js';
 import { renderHistoricoNps, closeHistoricoDrawer } from './pages/historico-nps.js';
+import { renderSistemaDocumentacao } from './pages/sistema-documentacao.js';
+import { renderSistemaLogs } from './pages/sistema-logs.js';
 import { beginFilterBindings, beginPageBindings } from './utils/page-bindings.js';
 import { escapeHtml, escapeAttr } from './utils/escape-html.js';
 import { formatDate, cycleStatusLabel } from './utils/format.js';
@@ -45,6 +51,16 @@ import {
 } from './utils/sticky-filters.js';
 import { bindMethodologyTrigger, closeMethodologyDrawer } from './ui/methodology-drawer.js';
 import { setThemeProfileFilters } from './filters/theme-profile-filters.mjs';
+import {
+  initDashboardAccess,
+  renderAccessGateHtml,
+  bindAccessGateEvents,
+  getAuthSessionUser,
+  signOutDashboard,
+  loadDashboardAuthConfig,
+} from './auth/dashboard-auth.mjs';
+
+let dashboardAuthRequired = false;
 
 const ROUTES = {
   executivo: { title: 'Executivo', topbar: 'Visão executiva', render: renderExecutivo },
@@ -75,6 +91,16 @@ const ROUTES = {
     title: 'Plano de Ação',
     topbar: 'Plano de Ação',
     render: renderPlanoDeAcao,
+  },
+  'sistema/documentacao': {
+    title: 'Documentação',
+    topbar: 'Sistema · Documentação',
+    render: renderSistemaDocumentacao,
+  },
+  'sistema/logs': {
+    title: 'Logs',
+    topbar: 'Sistema · Logs',
+    render: renderSistemaLogs,
   },
 };
 
@@ -120,6 +146,11 @@ function applyHashQueryToFilters() {
       ...(valencia ? { valence: valencia } : {}),
     });
   }
+  if (route === 'plano-de-acao') {
+    openActionPlanFromHashParams(params);
+    const cycle = params.get('cycle');
+    if (cycle) setFilter('cycleCode', cycle);
+  }
 }
 
 function isVocRoute() {
@@ -153,6 +184,12 @@ function updateTopbar(route) {
   const status = cycleStatusLabel(summary?.status);
   const currentCycle = getCycles().find((c) => c.cycle_code === filters.cycleCode);
   const cycleEndLabel = formatDate(currentCycle?.ends_at);
+  const user = getAuthSessionUser();
+  const authChip =
+    dashboardAuthRequired && user?.email
+      ? `<button type="button" class="topbar-chip topbar-chip--auth" id="topbar-sign-out" title="Sair">${escapeHtml(user.email)}</button>`
+      : '';
+
   let statusTitle = '';
   if (summary?.status === 'open') {
     statusTitle = cycleEndLabel
@@ -170,18 +207,29 @@ function updateTopbar(route) {
       : '';
 
   metaEl.innerHTML = `
+    ${authChip}
     <span class="topbar-chip" title="Dados atualizados até ${escapeAttr(cutoff)}">Atualizado ${escapeHtml(cutoff)}</span>
     <span class="topbar-chip" title="Versões em data/config/methodology.json">Metodologia v${escapeHtml(String(meth))}</span>
     ${staleHint}
     <span class="topbar-chip topbar-chip--status" title="${escapeAttr(statusTitle)}">${escapeHtml(status)}</span>
   `;
+  metaEl.querySelector('#topbar-sign-out')?.addEventListener('click', async () => {
+    await signOutDashboard();
+    await ensureDashboardAccess();
+  });
 }
 
 function renderFiltersBar() {
   const host = document.getElementById('filters-bar');
   if (!host || !isLoaded()) return;
   const route = getRoute();
-  if (route === 'safras-cobertura' || route === 'historico-nps' || route === 'previsao-nps') {
+  if (
+    route === 'safras-cobertura' ||
+    route === 'historico-nps' ||
+    route === 'previsao-nps' ||
+    route === 'sistema/documentacao' ||
+    route === 'sistema/logs'
+  ) {
     host.innerHTML = '';
     host.classList.add('page-filters--hidden');
     host.classList.remove('is-sticky', 'has-scroll-shadow');
@@ -394,6 +442,10 @@ async function renderPage() {
       await renderPrevisaoNpsLazy(content, { signal });
       return;
     }
+    if (route === 'sistema/logs') {
+      await renderSistemaLogs(content, { signal });
+      return;
+    }
     ROUTES[route].render(content, { signal });
   } catch (err) {
     console.error(`[dashboard] render failed (${route})`, err);
@@ -406,7 +458,32 @@ function showState(kind, messageHtml) {
   content.innerHTML = `<div class="gd-status ${kind === 'error' ? 'gd-status--error' : ''}" role="status"><p>${messageHtml}</p></div>`;
 }
 
-async function boot() {
+async function ensureDashboardAccess() {
+  const cfg = await loadDashboardAuthConfig();
+  dashboardAuthRequired = Boolean(cfg.authRequired);
+  const access = await initDashboardAccess();
+  const shell = document.querySelector('.app-shell');
+  if (access.status === 'authorized') {
+    shell?.classList.remove('app-shell--locked');
+    return true;
+  }
+  shell?.classList.add('app-shell--locked');
+  const content = document.getElementById('page-content');
+  if (content) {
+    content.innerHTML = renderAccessGateHtml(access);
+    bindAccessGateEvents(content, () => {
+      ensureDashboardAccess().then((ok) => {
+        if (ok) bootAnalytics();
+      });
+    });
+  }
+  if (access.status === 'misconfigured') {
+    showState('error', escapeHtml(access.message ?? 'Auth mal configurado.'));
+  }
+  return false;
+}
+
+async function bootAnalytics() {
   showState('loading', escapeHtml('Carregando dados analíticos…'));
   try {
     await loadAnalyticsData();
@@ -455,6 +532,11 @@ async function boot() {
     }
     showState('error', message);
   }
+}
+
+async function boot() {
+  const ok = await ensureDashboardAccess();
+  if (ok) await bootAnalytics();
 }
 
 boot();

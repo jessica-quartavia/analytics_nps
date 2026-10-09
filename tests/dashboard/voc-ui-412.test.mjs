@@ -21,6 +21,7 @@ describe('VoC UI 4.12', () => {
 
   it('informa valência analisada por IA', () => {
     assert.match(voc, /valência de cada tema é analisada por IA/);
-    assert.match(voc, /Analisado por IA/);
+    assert.match(voc, /Classificação por IA \(Gemini\)/);
+    assert.match(voc, /corrigi-la manualmente/);
   });
 });

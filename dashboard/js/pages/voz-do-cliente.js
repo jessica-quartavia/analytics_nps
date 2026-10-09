@@ -18,15 +18,33 @@ import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { drawerShell, drawerMetaGrid, drawerTopicChips, drawerQaBlock } from '../ui/drawer-layout.mjs';
 import { methodologyOpenButton } from '../ui/methodology-drawer.js';
 import { helpTip } from '../ui/help.js';
+import { openVocReviewModal } from '../ui/voc-review-modal.mjs';
+import { getAuthSessionUser } from '../auth/dashboard-auth.mjs';
 
 const VOC_AI_CLASSIFY_TIP =
   'A IA identifica os temas mencionados e a valência do comentário. A nota NPS e a categoria Promotor/Neutro/Detrator não são calculadas por IA.';
 
-function renderVocAiClassifyNotice() {
-  const robotIcon = `<svg class="voc-ai-notice__icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1v-1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2zm-5 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7 18h10v1H7v-1z"/></svg>`;
-  return `<div class="voc-ai-notice" role="note">
+function renderVocAiClassifyNotice(cycleCode) {
+  const topics = getResponseTopics(cycleCode);
+  const geminiRows = topics.filter(
+    (t) => t.classifier_source === 'gemini' || t.classification_source === 'gemini',
+  ).length;
+  const humanRows = topics.filter((t) => t.classifier_source === 'human_review').length;
+  const total = topics.length;
+  const pctGemini = total ? Math.round((100 * geminiRows) / total) : 0;
+  const pctHuman = total ? Math.round((100 * humanRows) / total) : 0;
+  const robotIcon = `<svg class="voc-ai-notice__icon" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1v-1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2zm-5 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7 18h10v1H7v-1z"/></svg>`;
+  const stats =
+    total > 0
+      ? `<span class="voc-ai-notice__stats">IA ${pctGemini}% · Revisão humana ${pctHuman}%</span>`
+      : '';
+  return `<div class="voc-ai-notice voc-ai-notice--prominent" role="note">
     ${robotIcon}
-    <span class="voc-ai-notice__text"><strong>Classificação por IA</strong> — Os temas e valências dos comentários são classificados por IA.</span>
+    <div class="voc-ai-notice__body">
+      <p class="voc-ai-notice__title"><strong>Classificação por IA (Gemini)</strong></p>
+      <p class="voc-ai-notice__text">Os temas e valências abaixo foram sugeridos por IA. Se alguma classificação estiver incoerente, você pode corrigi-la manualmente.</p>
+      ${stats}
+    </div>
     ${helpTip('', VOC_AI_CLASSIFY_TIP)}
   </div>`;
 }
@@ -39,12 +57,17 @@ const VOC_AI_TOOLTIP =
   'A IA interpreta se a menção a cada tema é positiva, neutra ou negativa. A nota NPS não determina essa classificação.';
 
 function vocAiBadgeHtml() {
-  return `<span class="badge badge--method voc-ai-badge" title="${escapeAttr(VOC_AI_TOOLTIP)}">Analisado por IA</span>`;
+  return `<span class="badge badge--method voc-ai-badge" title="${escapeAttr(VOC_AI_TOOLTIP)}">Classificação por IA</span>`;
 }
 
 function responseUsesAiValence(topics, meta) {
+  if (topics.some((t) => t.classifier_source === 'human_review')) return false;
   if (meta?.voc_ai) return true;
   return topics.some((t) => t.classifier_source === 'gemini' || t.classification_source === 'gemini');
+}
+
+function responseHasHumanReview(topics) {
+  return topics.some((t) => t.classifier_source === 'human_review');
 }
 
 function vocThemeListItem(t) {
@@ -56,19 +79,71 @@ function vocThemeListItem(t) {
   return `<li><strong>${escapeHtml(t.topic)}</strong> <span class="topic-chip__valence topic-chip__valence--${escapeAttr(t.valence)}">${escapeHtml(t.valence)}</span>${badge}</li>`;
 }
 
+function formatGeminiModelLabel(model) {
+  const m = String(model ?? '').trim();
+  if (!m) return '—';
+  if (m === 'gemini-3.6-flash') return 'Gemini 3.6 Flash';
+  if (m === 'gemini-3.5-flash') return 'Gemini 3.5 Flash';
+  return m;
+}
+
+function formatPromptLabel(promptVersion) {
+  const p = String(promptVersion ?? '');
+  if (p === 'voc-gemini-prompt-v3') return 'Prompt v3';
+  if (p === 'voc-gemini-prompt-v2') return 'Prompt v2';
+  if (p === 'voc-gemini-prompt-v1') return 'Prompt v1';
+  return p || '—';
+}
+
+function formatConfidencePct(confidence) {
+  if (confidence == null || Number.isNaN(Number(confidence))) return '—';
+  const n = Number(confidence);
+  const pct = n <= 1 ? n * 100 : n;
+  return `${Math.round(pct)}%`;
+}
+
 function vocClassificationHowHtml(topics, meta) {
-  const primary = topics[0];
+  const human = topics.find((t) => t.classifier_source === 'human_review');
+  if (human) {
+    const original = human.previous_topics_snapshot ?? [];
+    return `
+      <p class="note-muted">Classificação revisada manualmente — tem prioridade sobre a IA.</p>
+      <dl class="drawer-meta-list">
+        <div><dt>Fonte</dt><dd>Revisão manual</dd></div>
+        <div><dt>Revisado por</dt><dd>${escapeHtml(human.reviewed_by_name ?? human.reviewed_by_email ?? '—')}</dd></div>
+        <div><dt>Data</dt><dd>${escapeHtml(formatDate(human.reviewed_at))}</dd></div>
+        ${human.review_notes ? `<div><dt>Observação</dt><dd>${escapeHtml(human.review_notes)}</dd></div>` : ''}
+      </dl>
+      ${
+        original.length
+          ? `<details class="voc-original-ai"><summary>Ver classificação original (antes da revisão)</summary><ul class="voc-theme-list">${original
+              .map(
+                (t) =>
+                  `<li><strong>${escapeHtml(t.topic)}</strong> ${escapeHtml(t.valence)} <span class="note-muted">(${escapeHtml(t.classifier_source ?? '—')})</span></li>`,
+              )
+              .join('')}</ul></details>`
+          : ''
+      }`;
+  }
+
+  const primary = topics.find((t) => t.classifier_source === 'gemini' || t.classification_source === 'gemini') ?? topics[0];
   const src = primary?.classifier_source ?? primary?.classification_source ?? '—';
   const isGemini = src === 'gemini';
   const fallback = topics.some((t) => t.classifier_source === 'rules_v2_fallback');
+  const model = primary?.ai_model ?? meta?.model ?? null;
   return `
-    <p class="note-muted">Cada tema é detectado por palavras-chave; a valência vem do texto da cláusula e da pergunta — não da nota NPS.</p>
+    <p class="note-muted">Valência vem do texto da resposta em relação à pergunta — a nota NPS é só contexto de tendência.</p>
     <dl class="drawer-meta-list">
-      <div><dt>Classificador</dt><dd>${isGemini ? 'IA' : escapeHtml(String(src))}</dd></div>
-      ${isGemini ? `<div><dt>Fornecedor</dt><dd>${escapeHtml(primary?.ai_provider ?? 'gemini')}</dd></div>` : ''}
-      ${primary?.classifier_version ? `<div><dt>Versão</dt><dd>${escapeHtml(primary.classifier_version)}</dd></div>` : ''}
-      ${primary?.confidence != null ? `<div><dt>Confiança (amostra)</dt><dd>${escapeHtml(String(primary.confidence))}</dd></div>` : ''}
-      ${primary?.evidence ? `<div><dt>Trecho utilizado</dt><dd>${escapeHtml(primary.evidence)}</dd></div>` : ''}
+      <div><dt>Fonte</dt><dd>${isGemini ? 'Gemini' : escapeHtml(String(src))}</dd></div>
+      ${isGemini && model ? `<div><dt>Modelo</dt><dd>${escapeHtml(formatGeminiModelLabel(model))}</dd></div>` : ''}
+      ${primary?.prompt_version ? `<div><dt>Versão</dt><dd>${escapeHtml(formatPromptLabel(primary.prompt_version))}</dd></div>` : ''}
+      ${isGemini && primary?.ai_provider ? `<div><dt>Fornecedor</dt><dd>${escapeHtml(primary.ai_provider)}</dd></div>` : ''}
+      ${primary?.classifier_version && !isGemini ? `<div><dt>Versão classificador</dt><dd>${escapeHtml(primary.classifier_version)}</dd></div>` : ''}
+      ${primary?.confidence != null ? `<div><dt>Confiança</dt><dd>${escapeHtml(formatConfidencePct(primary.confidence))}</dd></div>` : ''}
+      ${primary?.evidence ? `<div><dt>Evidência</dt><dd>${escapeHtml(primary.evidence)}</dd></div>` : ''}
+      ${primary?.valence_reason ? `<div><dt>Motivo</dt><dd>${escapeHtml(primary.valence_reason)}</dd></div>` : ''}
+      ${topics.some((t) => t.semantic_conflict) ? `<div><dt>Conflito semântico</dt><dd>Texto vs valência — revisão recomendada</dd></div>` : ''}
+      ${topics.some((t) => t.score_text_conflict) ? `<div><dt>Nota vs texto</dt><dd>Tendência da nota diverge das valências positivas</dd></div>` : ''}
       ${fallback ? `<div><dt>Fallback</dt><dd>rules_v2 (falha ou indisponibilidade da IA nesta resposta)</dd></div>` : ''}
     </dl>`;
 }
@@ -441,6 +516,8 @@ function openVocDrawer(responseId, cycleCode) {
   const topics = getResponseTopics(cycleCode).filter((t) => t.response_id === responseId);
   const vocMeta = getVocClassificationMeta();
   const showAi = responseUsesAiValence(topics, vocMeta);
+  const showHuman = responseHasHumanReview(topics);
+  const canReview = Boolean(getAuthSessionUser());
   const backdrop = document.getElementById('voc-drawer-backdrop');
   const drawer = document.getElementById('voc-drawer');
   if (!drawer) return;
@@ -472,10 +549,15 @@ function openVocDrawer(responseId, cycleCode) {
         ${commentBlocks || '<p class="note-muted">Sem comentário.</p>'}
       </div>
       <div class="drawer-section">
-        <h3 class="drawer-section-title">Temas identificados ${showAi ? vocAiBadgeHtml() : ''} ${valenceInfoIcon(VALENCE_HELP)} ${methodologyOpenButton('valencia', 'Metodologia')}</h3>
+        <h3 class="drawer-section-title">Temas identificados ${showHuman ? '<span class="badge badge--method voc-human-badge">Revisão manual</span>' : showAi ? vocAiBadgeHtml() : ''} ${valenceInfoIcon(VALENCE_HELP)} ${methodologyOpenButton('valencia', 'Metodologia')}</h3>
+        ${showHuman ? `<p class="note-muted">Classificação revisada manualmente por ${escapeHtml(topics.find((t) => t.reviewed_by_email)?.reviewed_by_email ?? '—')} em ${escapeHtml(formatDate(topics.find((t) => t.reviewed_at)?.reviewed_at))}.</p>` : ''}
         <p class="note-muted voc-valence-help">${escapeHtml(VALENCE_HELP)}</p>
         <ul class="voc-theme-list">${topics.map((t) => vocThemeListItem(t)).join('')}</ul>
-        <p class="note-muted"><button type="button" class="btn btn--ghost btn--sm" id="voc-flag-review">Marcar para revisão humana</button></p>
+        <p class="voc-drawer-actions">
+          ${canReview ? '<button type="button" class="btn btn--primary btn--sm" id="voc-open-review">Revisar classificação</button>' : ''}
+          <button type="button" class="btn btn--secondary btn--sm" id="voc-to-action-plan">Encaminhar para Plano de Ação</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="voc-flag-review">Marcar para revisão humana</button>
+        </p>
       </div>
       <details class="drawer-section voc-classification-how">
         <summary>Como essa classificação foi feita?</summary>
@@ -488,6 +570,26 @@ function openVocDrawer(responseId, cycleCode) {
   drawer.classList.add('is-open');
   drawer.querySelector('#voc-drawer-close')?.addEventListener('click', closeVocDrawer);
   backdrop?.addEventListener('click', closeVocDrawer, { once: true });
+  drawer.querySelector('#voc-to-action-plan')?.addEventListener('click', () => {
+    closeVocDrawer();
+    const q = new URLSearchParams({
+      client_id: r.client_id ?? '',
+      response_id: responseId,
+      cycle: cycleCode ?? '',
+      open: '1',
+    });
+    location.hash = `#/plano-de-acao?${q.toString()}`;
+  });
+  drawer.querySelector('#voc-open-review')?.addEventListener('click', () => {
+    openVocReviewModal(
+      { response: r, topics, cycleCode },
+      {
+        onSaved: () => {
+          openVocDrawer(responseId, cycleCode);
+        },
+      },
+    );
+  });
   drawer.querySelector('#voc-flag-review')?.addEventListener('click', () => {
     pushVocReviewEntry({
       response_id: responseId,
@@ -679,7 +781,7 @@ export function renderVozDoCliente(host, { signal } = {}) {
     <section class="section-block">
       <div class="voc-comments-section-head">
         <h2 class="section-title">Comentários classificados</h2>
-        ${renderVocAiClassifyNotice()}
+        ${renderVocAiClassifyNotice(cycleCode)}
       </div>
       ${renderCommentsTable(commentRows, tableState.page, tableState.pageSize, { toolbar })}
     </section>
