@@ -33,6 +33,7 @@ import {
 } from './executive-official-nps.mjs';
 import { applyRuntimeRefreshPayload, applyLightCurrentNpsPayload } from './dashboard-runtime-merge.mjs';
 import { logDashboardRefreshDiagnostics } from './dashboard-refresh-diagnostics.mjs';
+import { apiFetch } from './api-fetch.mjs';
 
 let state = null;
 let summaryMap = null;
@@ -210,10 +211,9 @@ export function getDashboardServerConfigSnapshot() {
 
 async function fetchDashboardServerConfig() {
   try {
-    const res = await fetch('/api/dashboard?action=config', { cache: 'no-store' });
-    if (res.ok) return await res.json();
+    return await apiFetch('/api/dashboard?action=config');
   } catch {
-    /* static-only deploy */
+    /* static-only deploy ou HTML/404 */
   }
   return null;
 }
@@ -486,7 +486,7 @@ async function fetchWithTimeout(url, timeoutMs = RUNTIME_REFRESH_TIMEOUT_MS) {
 async function fetchRuntimeDashboardRefresh(force, mode = 'light') {
   const path =
     mode === 'full' ? '/api/dashboard?action=refresh' : '/api/dashboard?action=current-nps';
-  const url = `${path}?force=${force ? '1' : '0'}`;
+  const url = `${path}&force=${force ? '1' : '0'}`;
   let res;
   try {
     res = await fetchWithTimeout(url);
@@ -496,9 +496,17 @@ async function fetchRuntimeDashboardRefresh(force, mode = 'light') {
     err.cause = cause;
     throw err;
   }
+  const contentType = res.headers.get('content-type') ?? '';
+  const text = await res.text();
+  if (!contentType.includes('json') && text.trimStart().startsWith('<')) {
+    const err = new Error('[analytics-store] Runtime refresh returned HTML (rota /api ausente?)');
+    err.code = 'RUNTIME_INVALID_JSON';
+    err.status = res.status;
+    throw err;
+  }
   let json;
   try {
-    json = await res.json();
+    json = text ? JSON.parse(text) : null;
   } catch {
     const err = new Error('[analytics-store] Runtime refresh invalid JSON');
     err.code = 'RUNTIME_INVALID_JSON';

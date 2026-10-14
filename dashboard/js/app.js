@@ -44,7 +44,6 @@ import {
 } from './pages/plano-de-acao.js';
 import { renderJornadaPerfil } from './pages/jornada-perfil.js';
 import { renderSafrasCobertura, closeSafrasDrawer } from './pages/safras-cobertura.js';
-import { renderHistoricoNps, closeHistoricoDrawer } from './pages/historico-nps.js';
 import { renderSistemaDocumentacao } from './pages/sistema-documentacao.js';
 import { renderSistemaLogs } from './pages/sistema-logs.js';
 import { beginFilterBindings, beginPageBindings } from './utils/page-bindings.js';
@@ -93,11 +92,6 @@ function showDashboardToast(message, { variant = 'neutral' } = {}) {
 const ROUTES = {
   executivo: { title: 'Executivo', topbar: 'Visão executiva', render: renderExecutivo },
   movimento: { title: 'Movimento', topbar: 'Movimento', render: renderMovimento },
-  'historico-nps': {
-    title: 'Histórico NPS',
-    topbar: 'Histórico NPS',
-    render: renderHistoricoNps,
-  },
   eps: { title: 'Eng. Patrimoniais', topbar: 'Engenheiros Patrimoniais', render: renderEps },
   'voz-do-cliente': {
     title: 'Voz do Cliente',
@@ -134,7 +128,22 @@ const ROUTES = {
 
 const LAZY_ROUTE_META = {
   'previsao-nps': { title: 'Projeção NPS', topbar: 'Projeção NPS' },
+  'historico-nps': { title: 'Histórico NPS', topbar: 'Histórico NPS' },
 };
+
+/** @type {import('./pages/historico-nps.js') | null} */
+let historicoNpsModule = null;
+
+async function ensureHistoricoNpsModule() {
+  if (!historicoNpsModule) {
+    historicoNpsModule = await import('./pages/historico-nps.js');
+  }
+  return historicoNpsModule;
+}
+
+function closeHistoricoDrawer() {
+  historicoNpsModule?.closeHistoricoDrawer?.();
+}
 
 function routeMeta(route) {
   return ROUTES[route] ?? LAZY_ROUTE_META[route] ?? ROUTES.executivo;
@@ -438,6 +447,29 @@ function renderFiltersBar() {
   );
 }
 
+function renderPageError(container, route, err) {
+  console.error(`[route-render] ${route}`, err);
+  container.innerHTML = `<div class="gd-status gd-status--error" role="alert">
+    <p><strong>Não foi possível carregar esta página.</strong></p>
+    <p class="note-muted">${escapeHtml(err?.message ?? String(err))}</p>
+    <p class="note-muted">Veja o Console do navegador para o stack trace.</p>
+    <button type="button" class="btn btn--secondary" id="route-retry-btn">Tentar novamente</button>
+  </div>`;
+  container.querySelector('#route-retry-btn')?.addEventListener('click', () => renderPage());
+}
+
+async function renderHistoricoNpsLazy(container, { signal } = {}) {
+  container.innerHTML =
+    '<div class="gd-status" role="status"><p>Carregando Histórico NPS…</p></div>';
+  try {
+    const mod = await ensureHistoricoNpsModule();
+    if (signal?.aborted) return;
+    mod.renderHistoricoNps(container, { signal });
+  } catch (err) {
+    renderPageError(container, 'historico-nps', err);
+  }
+}
+
 async function renderPrevisaoNpsLazy(container, { signal } = {}) {
   container.innerHTML =
     '<div class="gd-status" role="status"><p>Carregando projeção NPS…</p></div>';
@@ -446,8 +478,7 @@ async function renderPrevisaoNpsLazy(container, { signal } = {}) {
     if (signal?.aborted) return;
     mod.renderPrevisaoNps(container, { signal });
   } catch (err) {
-    console.error('[dashboard] previsao-nps lazy load failed', err);
-    container.innerHTML = `<div class="gd-status gd-status--error" role="alert"><p><strong>Não foi possível carregar Projeção NPS.</strong></p><p class="note-muted">${escapeHtml(err?.message ?? String(err))}</p></div>`;
+    renderPageError(container, 'previsao-nps', err);
   }
 }
 
@@ -479,14 +510,17 @@ async function renderPage() {
       await renderPrevisaoNpsLazy(content, { signal });
       return;
     }
+    if (route === 'historico-nps') {
+      await renderHistoricoNpsLazy(content, { signal });
+      return;
+    }
     if (route === 'sistema/logs') {
       await renderSistemaLogs(content, { signal });
       return;
     }
     ROUTES[route].render(content, { signal });
   } catch (err) {
-    console.error(`[dashboard] render failed (${route})`, err);
-    content.innerHTML = `<div class="gd-status gd-status--error" role="alert"><p><strong>Não foi possível renderizar esta página.</strong></p><p class="note-muted">${escapeHtml(err?.message ?? String(err))}</p><p class="note-muted">Veja o Console do navegador para o stack trace.</p></div>`;
+    renderPageError(content, route, err);
   }
 }
 

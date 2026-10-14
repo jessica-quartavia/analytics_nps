@@ -117,7 +117,15 @@ export function buildStatic() {
 
   cpSync(join(ROOT, 'dashboard'), DIST, { recursive: true });
   mkdirSync(join(DIST, 'lib', 'analytics'), { recursive: true });
-  cpSync(join(ROOT, 'lib', 'analytics', 'nps.mjs'), join(DIST, 'lib', 'analytics', 'nps.mjs'));
+  /** Módulos importados pelo dashboard no browser (app.js → historico-nps → …). */
+  const browserLibAnalytics = ['nps.mjs', 'nps-cycle-canonical.mjs', 'historico-cycle-pnd.mjs'];
+  for (const name of browserLibAnalytics) {
+    const src = join(ROOT, 'lib', 'analytics', name);
+    if (!existsSync(src)) {
+      throw new Error(`Build abortado — lib browser ausente: lib/analytics/${name}`);
+    }
+    cpSync(src, join(DIST, 'lib', 'analytics', name));
+  }
 
   const copiedData = [];
   const missingSource = [];
