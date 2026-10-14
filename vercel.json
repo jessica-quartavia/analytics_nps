@@ -4,8 +4,7 @@
   "outputDirectory": "dist",
   "functions": {
     "api/voc-classify.mjs": {
-      "maxDuration": 300,
-      "memory": 1024
+      "maxDuration": 300
     },
     "api/voc-classify/health.mjs": {
       "maxDuration": 10
@@ -14,8 +13,7 @@
       "maxDuration": 60
     },
     "api/voc-sync.mjs": {
-      "maxDuration": 300,
-      "memory": 1024
+      "maxDuration": 300
     },
     "api/voc-sync/health.mjs": {
       "maxDuration": 10
@@ -24,8 +22,7 @@
       "maxDuration": 60
     },
     "api/action-classify.mjs": {
-      "maxDuration": 120,
-      "memory": 1024
+      "maxDuration": 120
     },
     "api/action-operational/plans.mjs": {
       "maxDuration": 60
@@ -36,16 +33,23 @@
     "api/system/logs.mjs": {
       "maxDuration": 30
     },
+    "api/dashboard-refresh.mjs": {
+      "maxDuration": 120
+    },
+    "api/dashboard-config.mjs": {
+      "maxDuration": 10
+    },
+    "api/dashboard-current-nps.mjs": {
+      "maxDuration": 60
+    },
     "api/dashboard/refresh.mjs": {
-      "maxDuration": 120,
-      "memory": 1024
+      "maxDuration": 120
     },
     "api/dashboard/config.mjs": {
       "maxDuration": 10
     },
     "api/dashboard/current-nps.mjs": {
-      "maxDuration": 60,
-      "memory": 512
+      "maxDuration": 60
     }
   },
   "rewrites": [
@@ -59,9 +63,9 @@
     { "source": "/api/action-operational/plans", "destination": "/api/action-operational/plans" },
     { "source": "/api/portal-audit/logs", "destination": "/api/portal-audit/logs" },
     { "source": "/api/system/logs", "destination": "/api/system/logs" },
-    { "source": "/api/dashboard/refresh", "destination": "/api/dashboard/refresh" },
-    { "source": "/api/dashboard/config", "destination": "/api/dashboard/config" },
-    { "source": "/api/dashboard/current-nps", "destination": "/api/dashboard/current-nps" }
+    { "source": "/api/dashboard/refresh", "destination": "/api/dashboard-refresh" },
+    { "source": "/api/dashboard/config", "destination": "/api/dashboard-config" },
+    { "source": "/api/dashboard/current-nps", "destination": "/api/dashboard-current-nps" }
   ],
   "headers": [
     {
