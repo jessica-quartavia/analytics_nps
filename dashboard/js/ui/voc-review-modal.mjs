@@ -197,7 +197,7 @@ export function openVocReviewModal(ctx, { onSaved } = {}) {
       saveBtn.disabled = true;
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers.Authorization = `Bearer ${token}`;
-      const res = await fetch('/api/voc-manual-review', {
+      const res = await fetch('/api/voc?action=review', {
         method: 'POST',
         headers,
         body: JSON.stringify(body),

@@ -6,7 +6,7 @@ let loadWarnings = [];
 let tableState = { search: '', action: '', email: '', page: '', periodFrom: '', periodTo: '' };
 
 async function fetchLogs() {
-  const endpoints = ['/api/system/logs', '/api/portal-audit/logs'];
+  const endpoints = ['/api/system?action=logs', '/api/system?action=portal-audit'];
   let lastError = null;
   for (const url of endpoints) {
     try {

@@ -7,7 +7,7 @@ export async function postActionOperational(body) {
   const token = await getAccessToken();
   const headers = { 'Content-Type': 'application/json' };
   if (token) headers.Authorization = `Bearer ${token}`;
-  const res = await fetch('/api/action-operational/plans', {
+  const res = await fetch('/api/actions?action=plans', {
     method: 'POST',
     headers,
     body: JSON.stringify({
@@ -93,7 +93,7 @@ export async function logPortalAuditEvent(payload) {
     const token = await getAccessToken();
     const headers = { 'Content-Type': 'application/json' };
     if (token) headers.Authorization = `Bearer ${token}`;
-    await fetch('/api/portal-audit/logs', {
+    await fetch('/api/system?action=portal-audit', {
       method: 'POST',
       headers,
       body: JSON.stringify(payload),

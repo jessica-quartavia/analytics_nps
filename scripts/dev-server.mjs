@@ -1,6 +1,7 @@
 /**
  * Servidor estático local — serve dashboard/ e data/ (sem Supabase).
  * POST /api/operational/action_tracking persiste tracking operacional (file-based).
+ * APIs consolidadas: /api/dashboard|voc|actions|system?action=… (+ rotas legadas).
  */
 import http from 'node:http';
 import { readFile, writeFile } from 'node:fs/promises';
@@ -8,16 +9,7 @@ import { join, extname, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { upsertTrackingEntry } from '../lib/analytics/action-tracking.mjs';
 import './load-dotenv.mjs';
-import { handleVocSyncVercel } from '../lib/persistence/voc-sync-http.mjs';
-import { handleVocSyncHealthVercel } from '../lib/persistence/voc-sync-health.mjs';
-import {
-  handleVocClassifyVercel,
-  handleVocClassifyHealthVercel,
-  handleVocPrepareVercel,
-} from '../lib/persistence/voc-classify-http.mjs';
-import { handleVocManualReviewVercel } from '../lib/persistence/voc-manual-review-http.mjs';
-import { handleActionClassifyVercel } from '../lib/persistence/action-classify-http.mjs';
-import { handleActionOperationalVercel } from '../lib/persistence/action-operational-http.mjs';
+import { tryHandleConsolidatedApi } from '../lib/server/http-api-router.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT) || 5173;
@@ -100,147 +92,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (urlPath === '/api/voc-classify/health') {
-    try {
-      await handleVocClassifyHealthVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/voc-classify') {
-    try {
-      await handleVocClassifyVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/voc-manual-review') {
-    try {
-      await handleVocManualReviewVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/portal-audit/logs' || urlPath === '/api/system/logs') {
-    try {
-      const handler =
-        urlPath === '/api/system/logs'
-          ? (await import('../lib/persistence/system-logs-http.mjs')).handleSystemLogsVercel
-          : (await import('../lib/persistence/portal-audit-http.mjs')).handlePortalAuditVercel;
-      await handler(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/dashboard/config') {
-    try {
-      const { handleDashboardConfigVercel } = await import(
-        '../lib/persistence/dashboard-config-http.mjs'
-      );
-      await handleDashboardConfigVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/dashboard/current-nps') {
-    try {
-      const { handleDashboardCurrentNpsVercel } = await import(
-        '../lib/persistence/dashboard-current-nps-http.mjs'
-      );
-      await handleDashboardCurrentNpsVercel(req, res);
-    } catch (err) {
-      res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/dashboard/refresh') {
-    try {
-      const env = await import('../lib/persistence/dashboard-config-http.mjs');
-      const cfg = env.getDashboardServerConfig();
-      console.info(
-        '[dev-server] BASE_QV_SUPABASE_URL configured:',
-        cfg.base_qv.url_configured,
-        '| service_role key configured:',
-        cfg.base_qv.service_role_key_configured,
-        '| key role:',
-        cfg.base_qv.service_role_key_role,
-      );
-      const { handleDashboardRefreshVercel } = await import(
-        '../lib/persistence/dashboard-refresh-http.mjs'
-      );
-      await handleDashboardRefreshVercel(req, res);
-    } catch (err) {
-      res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/action-operational/plans') {
-    try {
-      await handleActionOperationalVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/action-classify') {
-    try {
-      await handleActionClassifyVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/voc-prepare') {
-    try {
-      await handleVocPrepareVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/voc-sync/health') {
-    try {
-      await handleVocSyncHealthVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
-  }
-
-  if (urlPath === '/api/voc-sync') {
-    try {
-      await handleVocSyncVercel(req, res);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
-    }
-    return;
+  if (urlPath.startsWith('/api/')) {
+    const handled = await tryHandleConsolidatedApi(req, res, req.url ?? urlPath);
+    if (handled) return;
   }
 
   try {

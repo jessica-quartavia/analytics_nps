@@ -149,7 +149,7 @@ async function fetchJson(url, { bust = false } = {}) {
 
 async function fetchOperationalPlansDoc({ bust = false } = {}) {
   try {
-    const url = withCacheBust('/api/action-operational/plans', bust);
+    const url = withCacheBust('/api/actions?action=plans', bust);
     const res = await fetch(url, { cache: 'no-store' });
     if (res.ok) {
       const doc = await res.json();
@@ -210,7 +210,7 @@ export function getDashboardServerConfigSnapshot() {
 
 async function fetchDashboardServerConfig() {
   try {
-    const res = await fetch('/api/dashboard/config', { cache: 'no-store' });
+    const res = await fetch('/api/dashboard?action=config', { cache: 'no-store' });
     if (res.ok) return await res.json();
   } catch {
     /* static-only deploy */
@@ -485,7 +485,7 @@ async function fetchWithTimeout(url, timeoutMs = RUNTIME_REFRESH_TIMEOUT_MS) {
 
 async function fetchRuntimeDashboardRefresh(force, mode = 'light') {
   const path =
-    mode === 'full' ? '/api/dashboard/refresh' : '/api/dashboard/current-nps';
+    mode === 'full' ? '/api/dashboard?action=refresh' : '/api/dashboard?action=current-nps';
   const url = `${path}?force=${force ? '1' : '0'}`;
   let res;
   try {

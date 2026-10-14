@@ -73,7 +73,7 @@ export function openActionPriorityReviewModal(row, { onSaved } = {}) {
     try {
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers.Authorization = `Bearer ${token}`;
-      const res = await fetch('/api/action-operational/plans', {
+      const res = await fetch('/api/actions?action=priority-review', {
         method: 'POST',
         headers,
         body: JSON.stringify(body),

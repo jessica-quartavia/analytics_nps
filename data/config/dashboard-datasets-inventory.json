@@ -32,7 +32,7 @@
     },
     {
       "id": "action_plans",
-      "path": "/api/action-operational/plans",
+      "path": "/api/actions?action=plans",
       "origin": "Business Data Postgres",
       "static_in_dist": false,
       "runtime_refresh": true

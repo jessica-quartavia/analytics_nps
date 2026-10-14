@@ -3,69 +3,25 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/voc-classify.mjs": {
-      "maxDuration": 300
-    },
-    "api/voc-classify/health.mjs": {
-      "maxDuration": 10
-    },
-    "api/voc-prepare.mjs": {
-      "maxDuration": 60
-    },
-    "api/voc-sync.mjs": {
-      "maxDuration": 300
-    },
-    "api/voc-sync/health.mjs": {
-      "maxDuration": 10
-    },
-    "api/voc-manual-review.mjs": {
-      "maxDuration": 60
-    },
-    "api/action-classify.mjs": {
-      "maxDuration": 120
-    },
-    "api/action-operational/plans.mjs": {
-      "maxDuration": 60
-    },
-    "api/portal-audit/logs.mjs": {
-      "maxDuration": 30
-    },
-    "api/system/logs.mjs": {
-      "maxDuration": 30
-    },
-    "api/dashboard-refresh.mjs": {
-      "maxDuration": 120
-    },
-    "api/dashboard-config.mjs": {
-      "maxDuration": 10
-    },
-    "api/dashboard-current-nps.mjs": {
-      "maxDuration": 60
-    },
-    "api/dashboard/refresh.mjs": {
-      "maxDuration": 120
-    },
-    "api/dashboard/config.mjs": {
-      "maxDuration": 10
-    },
-    "api/dashboard/current-nps.mjs": {
-      "maxDuration": 60
-    }
+    "api/dashboard.mjs": { "maxDuration": 120 },
+    "api/voc.mjs": { "maxDuration": 300 },
+    "api/actions.mjs": { "maxDuration": 120 },
+    "api/system.mjs": { "maxDuration": 30 }
   },
   "rewrites": [
-    { "source": "/api/voc-classify", "destination": "/api/voc-classify" },
-    { "source": "/api/voc-classify/health", "destination": "/api/voc-classify/health" },
-    { "source": "/api/voc-prepare", "destination": "/api/voc-prepare" },
-    { "source": "/api/voc-sync", "destination": "/api/voc-sync" },
-    { "source": "/api/voc-sync/health", "destination": "/api/voc-sync/health" },
-    { "source": "/api/voc-manual-review", "destination": "/api/voc-manual-review" },
-    { "source": "/api/action-classify", "destination": "/api/action-classify" },
-    { "source": "/api/action-operational/plans", "destination": "/api/action-operational/plans" },
-    { "source": "/api/portal-audit/logs", "destination": "/api/portal-audit/logs" },
-    { "source": "/api/system/logs", "destination": "/api/system/logs" },
-    { "source": "/api/dashboard/refresh", "destination": "/api/dashboard-refresh" },
-    { "source": "/api/dashboard/config", "destination": "/api/dashboard-config" },
-    { "source": "/api/dashboard/current-nps", "destination": "/api/dashboard-current-nps" }
+    { "source": "/api/dashboard/config", "destination": "/api/dashboard?action=config" },
+    { "source": "/api/dashboard/refresh", "destination": "/api/dashboard?action=refresh" },
+    { "source": "/api/dashboard/current-nps", "destination": "/api/dashboard?action=current-nps" },
+    { "source": "/api/voc-classify/health", "destination": "/api/voc?action=classify-health" },
+    { "source": "/api/voc-classify", "destination": "/api/voc?action=classify" },
+    { "source": "/api/voc-prepare", "destination": "/api/voc?action=prepare" },
+    { "source": "/api/voc-manual-review", "destination": "/api/voc?action=review" },
+    { "source": "/api/voc-sync/health", "destination": "/api/voc?action=sync-health" },
+    { "source": "/api/voc-sync", "destination": "/api/voc?action=sync" },
+    { "source": "/api/action-classify", "destination": "/api/actions?action=classify" },
+    { "source": "/api/action-operational/plans", "destination": "/api/actions?action=plans" },
+    { "source": "/api/system/logs", "destination": "/api/system?action=logs" },
+    { "source": "/api/portal-audit/logs", "destination": "/api/system?action=portal-audit" }
   ],
   "headers": [
     {
