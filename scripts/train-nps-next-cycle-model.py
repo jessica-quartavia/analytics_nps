@@ -242,7 +242,7 @@ def predict_proba_resp(pipe, X) -> np.ndarray:
 
 def temporal_folds(cycles: list[str]) -> list[tuple[list[str], str]]:
     folds = []
-    for i in range(2, len(cycles)):
+    for i in range(1, len(cycles)):
         folds.append((cycles[:i], cycles[i]))
     return folds
 
@@ -564,9 +564,16 @@ def main() -> None:
     official_by = {c["ciclo"]: c.get("nps_official") for c in panel["cycles"]}
 
     last_nps = official_by.get(panel["meta"]["last_official_cycle"])
+    current_nps = panel["meta"].get("current_nps")
+    current_nps_source = panel["meta"].get("current_nps_source")
     delta_vs_last = (
         round(expected_nps - last_nps, 1)
         if last_nps is not None and not math.isnan(expected_nps)
+        else None
+    )
+    delta_vs_current = (
+        round(expected_nps - current_nps, 1)
+        if current_nps is not None and not math.isnan(expected_nps)
         else None
     )
 
@@ -586,6 +593,13 @@ def main() -> None:
         "target_cycle": target_cycle,
         "model_version": MODEL_VERSION,
         "seed": SEED,
+        "source": panel["meta"].get("source", "BASE_QV"),
+        "current_nps": current_nps,
+        "current_nps_source": current_nps_source,
+        "current_nps_at_train": current_nps,
+        "training_cycles": panel["meta"].get("training_cycles") or cycles,
+        "training_responses": panel["meta"].get("training_responses"),
+        "model_trained_at": datetime.now(timezone.utc).isoformat(),
         "training_window": training_window,
         "training_start": panel["meta"].get("training_start"),
         "training_end": panel["meta"].get("training_end"),
@@ -611,7 +625,9 @@ def main() -> None:
             "expected_responses": expected_responses,
             "eligible_clients": len(proj),
             "last_official_nps": last_nps,
+            "current_nps": current_nps,
             "delta_vs_last_official": delta_vs_last,
+            "delta_vs_current_nps": delta_vs_current,
             "trustworthy": trustworthy,
             "disclaimer":
                 "Estimativa estatística baseada em padrões históricos; não é garantia do resultado futuro.",
@@ -654,12 +670,7 @@ def main() -> None:
             "cycles": len(cycles),
             "quality_grade": quality_grade,
             "quality_note": quality_note,
-            "warnings": []
-            if quality_grade != "Baixa"
-            else [
-                quality_note,
-                "Modelo exploratório — histórico ainda limitado.",
-            ],
+            "warnings": [] if quality_grade != "Baixa" else [quality_note],
         },
         "backtest": [
             {
@@ -674,6 +685,12 @@ def main() -> None:
 
     report = {
         "generated_at": prediction_doc["generated_at"],
+        "source": prediction_doc.get("source"),
+        "training_window": training_window,
+        "current_nps": current_nps,
+        "current_nps_source": current_nps_source,
+        "training_cycles": prediction_doc.get("training_cycles"),
+        "training_responses": prediction_doc.get("training_responses"),
         "panel_path": str(PANEL_PATH.relative_to(ROOT)),
         "training_rows": len(rows),
         "cycles": panel["cycles"],

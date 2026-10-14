@@ -4,6 +4,74 @@ import { matchesOfficialSourceCycleWindow } from '../../../lib/analytics/nps.mjs
 
 const CURRENT_SET_CYCLE = 'NPS-2026-SET-PHARUS';
 
+/** Campos derivados do pipeline estático — preservados no refresh leve BASE QV. */
+const MOVEMENT_DERIVED_FIELDS = [
+  'previous_response_id',
+  'previous_score',
+  'previous_category',
+  'score_delta',
+  'nps_migration',
+  'evolution_status',
+  'is_paired_with_previous',
+  'cycles_answered',
+  'recurring_respondent',
+  'critical_flag',
+  '_promotor_consistent',
+  '_consecutive_detractor',
+  'ep_id',
+  'ep_name',
+  'ep_resolution_method',
+  'ep_resolution_confidence',
+  'journey_stage',
+  'segment',
+];
+
+function indexResponsesByClientCycle(responses) {
+  const map = new Map();
+  for (const r of responses ?? []) {
+    if (!r?.client_id || !r.analytical_cycle_code) continue;
+    map.set(`${r.client_id}\0${r.analytical_cycle_code}`, r);
+  }
+  return map;
+}
+
+function mergeWindowResponsesPreservingMovement(existingResponses, incomingRows) {
+  const idx = indexResponsesByClientCycle(existingResponses);
+  return (incomingRows ?? []).map((row) => {
+    const key = `${row.client_id}\0${row.analytical_cycle_code}`;
+    const prev = idx.get(key);
+    if (!prev) return row;
+    const merged = { ...prev, ...row };
+    for (const field of MOVEMENT_DERIVED_FIELDS) {
+      if (merged[field] == null && prev[field] != null) merged[field] = prev[field];
+    }
+    if (merged.previous_score != null && merged.score != null) {
+      merged.score_delta = Number(merged.score) - Number(merged.previous_score);
+    }
+    return merged;
+  });
+}
+
+function pairedCyclesPayloadUsable(doc) {
+  return (
+    doc &&
+    typeof doc === 'object' &&
+    doc.current_cycle &&
+    Array.isArray(doc.paired_client_ids) &&
+    doc.paired_client_ids.length > 0
+  );
+}
+
+function migrationMatrixPayloadUsable(doc) {
+  return (
+    doc &&
+    typeof doc === 'object' &&
+    doc.current_cycle &&
+    Array.isArray(doc.cells) &&
+    doc.cells.some((c) => (c.count ?? 0) > 0)
+  );
+}
+
 /**
  * Aplica payload runtime ao state (substitui datasets, não só metadata).
  * @param {object} state
@@ -19,8 +87,8 @@ export function applyRuntimeRefreshPayload(state, runtime, helpers) {
     state.responses = d.responses;
   }
   if (d.cycle_summary) state.cycleSummaryDoc = d.cycle_summary;
-  if (d.paired_cycles) state.pairedCycles = d.paired_cycles;
-  if (d.migration_matrix) state.migrationMatrix = d.migration_matrix;
+  if (pairedCyclesPayloadUsable(d.paired_cycles)) state.pairedCycles = d.paired_cycles;
+  if (migrationMatrixPayloadUsable(d.migration_matrix)) state.migrationMatrix = d.migration_matrix;
   if (d.ep_summary) state.epSummaryDoc = d.ep_summary;
   if (d.executive_diagnosis) state.executiveDiagnosisDoc = d.executive_diagnosis;
   if (Array.isArray(d.response_topics)) state.responseTopics = d.response_topics;
@@ -68,7 +136,10 @@ export function applyLightCurrentNpsPayload(state, lightPayload) {
     return { applied: false, reason: 'missing_window_responses' };
   }
   const bounds = lightPayload.window_bounds ?? {};
-  const incoming = lightPayload.datasets.window_responses;
+  const incoming = mergeWindowResponsesPreservingMovement(
+    state.responses ?? [],
+    lightPayload.datasets.window_responses,
+  );
   const kept = (state.responses ?? []).filter((r) => !matchesOfficialSourceCycleWindow(r, bounds));
   state.responses = [...kept, ...incoming];
 

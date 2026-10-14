@@ -1,6 +1,9 @@
 import {
   getActionQueue,
   getGlobalFilterContext,
+  getPairedCycles,
+  getMigrationMatrix,
+  getPreviousCycle,
 } from '../data/analytics-store.js';
 import { getFilters, setFilter } from '../filters/global-filters.js';
 import {
@@ -348,6 +351,18 @@ export function renderMovimento(root, ctx = {}) {
   const matrix = filterCtx?.migrationMatrix ?? null;
   const { rows, actionQueue } = buildFilterContext(filters.cycleCode, filters);
   const kpis = movementKpis(rows);
+  const pairedDoc = getPairedCycles(filters.cycleCode);
+  const migrationDoc = getMigrationMatrix(filters.cycleCode);
+  const prevCycle = getPreviousCycle(filters.cycleCode);
+  console.debug('[Movement]', {
+    pairedClients: pairedDoc?.paired_clients ?? pairedDoc?.paired_client_ids?.length ?? 0,
+    migrationCells: migrationDoc?.cells?.length ?? 0,
+    rowsMovement: rows.length,
+    rowsWithPrevious: rows.filter((r) => r.previous_score != null).length,
+    currentCycle: filters.cycleCode,
+    previousCycle: prevCycle?.cycle_code ?? null,
+    kpis,
+  });
   const priorities = countActionPriorities(
     filters.priority ? actionQueue.filter((a) => a.priority === filters.priority) : actionQueue,
   );

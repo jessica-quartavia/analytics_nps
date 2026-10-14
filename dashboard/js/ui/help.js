@@ -40,7 +40,7 @@ export function kpiLabelWithTip(label, tip) {
 
 export const TIPS = {
   npsAtual:
-    'NPS calculado sobre a última resposta válida de cada cliente no ciclo selecionado (0–10). Promotores 9–10, Neutros 7–8, Detratores 0–6. NPS = (Promotores − Detratores) ÷ total de respostas × 100.',
+    'NPS = (% Promotores − % Detratores) × 100. O portal exibe 1 casa decimal. O BASE QV exibe o NPS arredondado como inteiro (pode aparecer como 65).',
   npsAnterior: 'É o resultado do ciclo anterior usado para comparação.',
   variacao: 'Mostra quantos pontos o NPS subiu ou caiu em relação ao ciclo anterior.',
   basePareada: 'Clientes que responderam nos dois ciclos comparados.',

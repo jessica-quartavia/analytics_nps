@@ -184,6 +184,12 @@
   border: 1px solid rgba(180, 120, 110, 0.18);
 }
 
+.nav-badge--construction {
+  color: var(--color-coral, #c44a2a);
+  background: color-mix(in srgb, var(--color-coral, #e85d3a) 12%, white);
+  border: 1px solid color-mix(in srgb, var(--color-coral, #e85d3a) 28%, transparent);
+}
+
 .sidebar-nav a.is-active .nav-icon,
 .sidebar-nav__link.is-active .nav-icon {
   opacity: 1;

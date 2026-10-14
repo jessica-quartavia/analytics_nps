@@ -53,7 +53,7 @@ export const PAGE_DATA_SOURCES = {
   },
   'historico-nps': {
     lead: 'Bases utilizadas',
-    text: 'Os dados históricos e enriquecimentos temporais vêm da BASE0. A BASE QV é utilizada para dados operacionais atuais quando aplicável.',
+    text: 'BASE0 / histórico estático: medições e reconstruções históricas para leitura longitudinal. BASE QV: enriquecimentos operacionais atuais quando aplicável.',
     sourceIds: ['base0', 'base_qv'],
   },
   eps: {
@@ -97,9 +97,12 @@ export const PAGE_DATA_SOURCES = {
     sourceIds: ['action_queue'],
   },
   'previsao-nps': {
-    lead: 'Bases utilizadas',
-    text: 'O modelo usa histórico consolidado da BASE0 e variáveis derivadas do pipeline analítico.',
-    sourceIds: ['base0', 'nps_pipeline', 'modeling'],
-    extraBadges: [{ label: 'Em construção', variant: 'muted' }],
+    lead: 'Fonte oficial',
+    text: 'A projeção utiliza exclusivamente dados de NPS da BASE QV, mesma fonte usada para o NPS atual do Executivo.',
+    sourceIds: ['base_qv', 'nps_pipeline', 'modeling'],
+    extraBadges: [
+      { label: 'BASE QV', variant: 'method' },
+      { label: 'Em construção', variant: 'muted' },
+    ],
   },
 };

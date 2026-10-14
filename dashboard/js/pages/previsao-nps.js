@@ -1,6 +1,11 @@
-import { getNpsPredictionDoc } from '../data/analytics-store.js';
+import {
+  getNpsPredictionDoc,
+  getCurrentOfficialNpsState,
+  subscribeDataRefresh,
+} from '../data/analytics-store.js';
+import { getFilters } from '../filters/global-filters.js';
 import { escapeHtml } from '../utils/escape-html.js';
-import { formatNps, formatPct, formatDate, formatNpsRange } from '../utils/format.js';
+import { formatNps, formatPct, formatDate, formatDateTime, formatNpsRange, formatNpsMeanScore } from '../utils/format.js';
 import { helpTip } from '../ui/help.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
@@ -13,6 +18,8 @@ function npsTechnologyScenario(baseProjectedNps, technologyUpliftPp = 0) {
 }
 
 let backtestChart = null;
+/** @type {(() => void) | null} */
+let previsaoDataRefreshUnsub = null;
 /** @type {number} uplift assumido em p.p. (simulação — não altera o modelo). */
 let technologyUpliftPp = 5;
 
@@ -85,6 +92,50 @@ function bindTechScenarioControls(container, onChange) {
 function displayNum(value) {
   if (value == null || Number.isNaN(Number(value))) return '—';
   return String(value);
+}
+
+function renderOfficialCurrentNpsSection(officialState) {
+  if (officialState.status === 'loading') {
+    return `<section class="card previsao-card" aria-busy="true">
+        <h2 class="section-title">NPS atual <span class="badge badge--method">BASE QV</span></h2>
+        <p class="section-lead">Calculado sobre a última resposta válida de cada cliente no ciclo atual — mesmo kernel do Executivo.</p>
+        <div class="gd-status" role="status"><p>Carregando NPS atual…</p></div>
+        <p class="note-muted">Aguardando runtime BASE QV. O modelo estatístico não é retreinado a cada refresh.</p>
+      </section>`;
+  }
+  if (officialState.status === 'unavailable') {
+    const cacheNote = officialState.usingCache
+      ? ' Os KPIs do painel podem estar em cache estático até o runtime voltar.'
+      : '';
+    return `<section class="card previsao-card">
+        <h2 class="section-title">NPS atual <span class="badge badge--method">BASE QV</span></h2>
+        <p class="section-lead">Calculado sobre a última resposta válida de cada cliente no ciclo atual — mesmo kernel do Executivo.</p>
+        <div class="gd-status gd-status--warn" role="status"><p><strong>NPS atual indisponível no momento.</strong></p><p class="note-muted">Runtime BASE QV não pôde ser aplicado.${escapeHtml(cacheNote)}</p></div>
+        <p class="note-muted">Use ↻ Atualizar agora quando o servidor estiver configurado. O modelo estatístico não é retreinado a cada refresh.</p>
+      </section>`;
+  }
+  const s = officialState.summary;
+  return `<section class="card previsao-card">
+        <h2 class="section-title">NPS atual <span class="badge badge--method">BASE QV</span></h2>
+        <p class="section-lead">Calculado sobre a última resposta válida de cada cliente no ciclo atual — mesmo kernel do Executivo.</p>
+        <div class="previsao-kpi-grid previsao-kpi-grid--inline">
+          <div><p class="kpi-label">NPS atual</p><p class="kpi-value kpi-value--primary">${formatNps(s?.nps)}</p></div>
+          <div><p class="kpi-label">Nota média</p><p class="kpi-value">${formatNpsMeanScore(s?.average_score)}</p></div>
+          <div><p class="kpi-label">Respostas válidas</p><p class="kpi-value">${displayNum(s?.valid_responses)}</p></div>
+        </div>
+        <p class="note-muted">O BASE QV exibe o NPS arredondado como inteiro (pode aparecer como 65). O modelo estatístico não é retreinado a cada refresh.</p>
+      </section>`;
+}
+
+function renderHeroDeltaMeta(officialState, deltaVsCurrent) {
+  if (officialState.status === 'loading') {
+    return `<div><dt>Delta vs NPS atual</dt><dd class="note-muted">Carregando NPS atual…</dd></div>`;
+  }
+  if (officialState.status === 'unavailable') {
+    return `<div><dt>Delta vs NPS atual</dt><dd class="note-muted">Indisponível (runtime BASE QV)</dd></div>`;
+  }
+  const currentNpsLive = officialState.summary?.nps;
+  return `<div><dt>Delta vs NPS atual</dt><dd>${formatDeltaPtsDisplay(deltaVsCurrent)} (atual ${formatNps(currentNpsLive)})</dd></div>`;
 }
 
 function friendlyDriverName(raw) {
@@ -207,6 +258,8 @@ export function renderPrevisaoNps(container) {
 }
 
 function renderPrevisaoNpsInner(container) {
+  previsaoDataRefreshUnsub?.();
+  previsaoDataRefreshUnsub = null;
   destroyCharts();
   const doc = getNpsPredictionDoc();
   const missing =
@@ -237,9 +290,17 @@ function renderPrevisaoNpsInner(container) {
   const cmp = doc.model_comparison ?? {};
   const trainWindow = doc.training_window ?? '2026';
   const targetCycle = doc.target_cycle ?? '—';
-  const updated = formatDate(doc.generated_at?.slice(0, 10));
-  const warnings = q.warnings ?? [];
-  const showWarn = p.trustworthy === false || warnings.length > 0;
+  const modelTrainedAt = formatDateTime(doc.model_trained_at ?? doc.generated_at);
+  const dataSource = doc.source ?? 'BASE_QV';
+  const filters = getFilters();
+  const officialState = getCurrentOfficialNpsState(filters.cycleCode);
+  const currentNpsLive = officialState.status === 'ready' ? officialState.summary?.nps : null;
+  const deltaVsCurrent =
+    currentNpsLive != null && p.expected_nps != null
+      ? Math.round((Number(p.expected_nps) - Number(currentNpsLive)) * 10) / 10
+      : null;
+  const exploreNote =
+    q.warnings?.[0] ?? doc.methodology_caveat ?? 'Modelo exploratório — histórico 2026 ainda limitado para backtest robusto.';
   const backtest = (doc.backtest ?? []).filter(
     (b) => b.nps_actual != null && b.nps_predicted != null && !Number.isNaN(b.nps_predicted),
   );
@@ -253,8 +314,9 @@ function renderPrevisaoNpsInner(container) {
           <h1>Projeção NPS <span class="nav-badge nav-badge--muted">Em construção</span></h1>
           <p class="page-lead">Estimativa matemática exploratória do próximo NPS.</p>
           <div class="previsao-page-header__badges">
+            <span class="badge badge--method">${escapeHtml(dataSource)}</span>
             <span class="badge badge--method">Modelagem preditiva</span>
-            <span class="badge badge--neutral-soft" title="Esta projeção prioriza os dados mais recentes para refletir melhor o cenário atual.">Base de treinamento: ${escapeHtml(trainWindow)}</span>
+            <span class="badge badge--neutral-soft" title="Treino apenas com ciclos ${escapeHtml(trainWindow)} disponíveis na BASE QV.">Treino: ${escapeHtml(trainWindow)}</span>
           </div>
         </div>
       </header>
@@ -262,15 +324,37 @@ function renderPrevisaoNpsInner(container) {
       ${renderDataSourceNotice('previsao-nps')}
 
       <div class="callout callout--info previsao-callout" role="note">
-        <p>${escapeHtml(doc.methodology_note ?? 'O modelo principal utiliza dados de 2026 para refletir melhor o comportamento recente da carteira.')}</p>
-        <p class="note-muted">${escapeHtml(doc.methodology_caveat ?? 'Uma janela mais recente aumenta a aderência ao cenário atual, mas reduz a quantidade de histórico disponível.')}</p>
+        <p><strong>Fonte oficial:</strong> ${escapeHtml(doc.methodology_note ?? 'A projeção utiliza exclusivamente dados de NPS da BASE QV, mesma fonte usada para o NPS atual do Executivo.')}</p>
+        <p class="note-muted">Modelo treinado em ${escapeHtml(modelTrainedAt)} · Fonte ${escapeHtml(dataSource)} · Ciclos: ${escapeHtml((doc.training_cycles ?? []).join(', ') || '—')}</p>
       </div>
 
-      ${
-        showWarn
-          ? `<div class="callout callout--warn previsao-callout" role="status">${escapeHtml(warnings.join(' ') || 'Projeção com incerteza elevada — trate como estimativa exploratória.')}</div>`
-          : ''
-      }
+      <div class="callout callout--warn previsao-callout" role="status">${escapeHtml(exploreNote)}</div>
+
+      ${renderOfficialCurrentNpsSection(officialState)}
+
+      <section class="card previsao-card previsao-hero">
+        <div class="previsao-hero__grid">
+          <div class="previsao-hero__stats">
+            <p class="previsao-hero__eyebrow">Próximo NPS projetado (modelo)</p>
+            <p class="previsao-hero__value">${formatNps(baseNps)}</p>
+            <dl class="previsao-hero__meta">
+              <div><dt>Faixa estimada</dt><dd>${formatNps(p.interval_low)} a ${formatNps(p.interval_high)}</dd></div>
+              ${renderHeroDeltaMeta(officialState, deltaVsCurrent)}
+              <div><dt>Próxima medição estimada</dt><dd>${escapeHtml(targetCycle)}</dd></div>
+            </dl>
+          </div>
+          <div class="previsao-hero__chart">
+            <p class="previsao-chart-title">Visual da projeção-base</p>
+            <div class="prediction-chart-frame prediction-chart-frame--hero">
+              ${
+                officialState.status === 'ready'
+                  ? renderProjectionBullet(currentNpsLive, p.expected_nps, p.interval_low, p.interval_high)
+                  : '<p class="note-muted" role="status">Carregando NPS atual para o comparativo visual…</p>'
+              }
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section class="card previsao-card previsao-innovation-hero">
         <div class="previsao-innovation-hero__head">
@@ -298,26 +382,6 @@ function renderPrevisaoNpsInner(container) {
         ${renderTechUpliftControl(technologyUpliftPp)}
         <div class="previsao-prose previsao-prose--compact">
           <p>A projeção estatística não é alterada. O cenário de inovação adiciona um impacto assumido em pontos de NPS para simular o possível efeito das iniciativas tecnológicas.</p>
-        </div>
-      </section>
-
-      <section class="card previsao-card previsao-hero">
-        <div class="previsao-hero__grid">
-          <div class="previsao-hero__stats">
-            <p class="previsao-hero__eyebrow">Próximo NPS projetado (modelo)</p>
-            <p class="previsao-hero__value">${formatNps(baseNps)}</p>
-            <dl class="previsao-hero__meta">
-              <div><dt>Faixa estimada</dt><dd>${formatNps(p.interval_low)} a ${formatNps(p.interval_high)}</dd></div>
-              <div><dt>Comparação</dt><dd>${formatDeltaPtsDisplay(p.delta_vs_last_official)} vs último NPS observado (${formatNps(p.last_official_nps)})</dd></div>
-              <div><dt>Próxima medição estimada</dt><dd>${escapeHtml(targetCycle)}</dd></div>
-            </dl>
-          </div>
-          <div class="previsao-hero__chart">
-            <p class="previsao-chart-title">Visual da projeção-base</p>
-            <div class="prediction-chart-frame prediction-chart-frame--hero">
-              ${renderProjectionBullet(p.last_official_nps, p.expected_nps, p.interval_low, p.interval_high)}
-            </div>
-          </div>
         </div>
       </section>
 
@@ -378,7 +442,9 @@ function renderPrevisaoNpsInner(container) {
       </section>
 
       ${
-        cmp['2026_only'] && cmp.full_history
+        cmp['2026_only'] &&
+        cmp.full_history &&
+        cmp.full_history.folds !== cmp['2026_only'].folds
           ? `<section class="card previsao-card">
         <h2 class="section-title">Diagnóstico: janela 2026 vs histórico completo</h2>
         <div class="table-wrap">
@@ -483,6 +549,11 @@ function renderPrevisaoNpsInner(container) {
   };
   bindTechScenarioControls(container, refreshScenarioDisplay);
 
+  previsaoDataRefreshUnsub = subscribeDataRefresh(() => {
+    if (!container.isConnected) return;
+    renderPrevisaoNpsInner(container);
+  });
+
   if (backtest.length && window.Chart) {
     const canvas = container.querySelector('#proj-backtest-chart');
     if (canvas) {
@@ -516,5 +587,7 @@ function renderPrevisaoNpsInner(container) {
 }
 
 export function closePrevisaoDrawer() {
+  previsaoDataRefreshUnsub?.();
+  previsaoDataRefreshUnsub = null;
   destroyCharts();
 }

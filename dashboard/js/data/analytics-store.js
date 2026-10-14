@@ -684,6 +684,40 @@ export function getExecutiveOfficialSummary(cycleCode) {
   };
 }
 
+/**
+ * NPS atual oficial (BASE QV runtime) — mesma regra para Executivo e Projeção.
+ * Enquanto o refresh não conclui, status `loading` (não usar snapshot estático como NPS atual).
+ */
+export function getCurrentOfficialNpsState(cycleCode) {
+  const source = dataFreshness.dataSource;
+  const awaitingRuntime =
+    refreshInProgress || (source === 'static' && dataFreshness.runtimeErrorCode == null);
+
+  if (awaitingRuntime) {
+    return { status: 'loading', summary: null, usingCache: source === 'static' };
+  }
+  if (source !== 'runtime') {
+    return {
+      status: 'unavailable',
+      summary: null,
+      usingCache: true,
+      errorCode: dataFreshness.runtimeErrorCode ?? 'RUNTIME_UNAVAILABLE',
+    };
+  }
+  const summary = getExecutiveOfficialSummary(cycleCode);
+  const nps = summary?.nps;
+  if (nps == null || Number.isNaN(Number(nps))) {
+    return { status: 'unavailable', summary: null, usingCache: false };
+  }
+  return { status: 'ready', summary, usingCache: false };
+}
+
+/** Resumo oficial quando runtime BASE QV está pronto; caso contrário `null`. */
+export function getCurrentOfficialNps(cycleCode) {
+  const official = getCurrentOfficialNpsState(cycleCode);
+  return official.status === 'ready' ? official.summary : null;
+}
+
 export function getExecutivePreviousOfficialSummary(currentCycleCode) {
   const prevDef = getPreviousCycle(currentCycleCode);
   if (!prevDef?.cycle_code) return null;

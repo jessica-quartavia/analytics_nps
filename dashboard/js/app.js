@@ -43,6 +43,7 @@ import {
   openActionPlanFromHashParams,
 } from './pages/plano-de-acao.js';
 import { renderJornadaPerfil } from './pages/jornada-perfil.js';
+import { renderPrevisaoNpsStub } from './pages/previsao-nps-stub.js';
 import { renderSafrasCobertura, closeSafrasDrawer } from './pages/safras-cobertura.js';
 import { renderSistemaDocumentacao } from './pages/sistema-documentacao.js';
 import { renderSistemaLogs } from './pages/sistema-logs.js';
@@ -114,6 +115,11 @@ const ROUTES = {
     topbar: 'Plano de Ação',
     render: renderPlanoDeAcao,
   },
+  'previsao-nps': {
+    title: 'Projeção NPS',
+    topbar: 'Projeção NPS',
+    render: renderPrevisaoNpsStub,
+  },
   'sistema/documentacao': {
     title: 'Documentação',
     topbar: 'Sistema · Documentação',
@@ -127,7 +133,6 @@ const ROUTES = {
 };
 
 const LAZY_ROUTE_META = {
-  'previsao-nps': { title: 'Projeção NPS', topbar: 'Projeção NPS' },
   'historico-nps': { title: 'Histórico NPS', topbar: 'Histórico NPS' },
 };
 
@@ -470,18 +475,6 @@ async function renderHistoricoNpsLazy(container, { signal } = {}) {
   }
 }
 
-async function renderPrevisaoNpsLazy(container, { signal } = {}) {
-  container.innerHTML =
-    '<div class="gd-status" role="status"><p>Carregando projeção NPS…</p></div>';
-  try {
-    const mod = await import('./pages/previsao-nps.js');
-    if (signal?.aborted) return;
-    mod.renderPrevisaoNps(container, { signal });
-  } catch (err) {
-    renderPageError(container, 'previsao-nps', err);
-  }
-}
-
 async function renderPage() {
   renderFiltersBar();
   const route = getRoute();
@@ -506,10 +499,6 @@ async function renderPage() {
   const signal = beginPageBindings();
   mountFilterScrollWatch(signal);
   try {
-    if (route === 'previsao-nps') {
-      await renderPrevisaoNpsLazy(content, { signal });
-      return;
-    }
     if (route === 'historico-nps') {
       await renderHistoricoNpsLazy(content, { signal });
       return;

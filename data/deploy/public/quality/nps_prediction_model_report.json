@@ -1,116 +1,121 @@
 {
-  "generated_at": "2026-10-09T14:48:43.826211+00:00",
+  "generated_at": "2026-10-14T18:24:14.159086+00:00",
+  "source": "BASE_QV",
+  "training_window": "2026",
+  "current_nps": 61.48409893992933,
+  "current_nps_source": "source_window_geral_dedupe_latest_per_client",
+  "training_cycles": [
+    "2026-Q2",
+    "2026-Q3"
+  ],
+  "training_responses": 537,
   "panel_path": "data\\processed\\nps_prediction_training_panel.json",
-  "training_rows": 7239,
+  "training_rows": 1248,
   "cycles": [
     {
-      "ciclo": "2026-Q1",
-      "cutoff": "2026-01-01",
-      "eligible_clients": 2037,
-      "responses": 0,
-      "nps_official": 45.9
-    },
-    {
       "ciclo": "2026-Q2",
-      "cutoff": "2026-04-01",
-      "eligible_clients": 2452,
-      "responses": 203,
-      "nps_official": 68.7
+      "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+      "cutoff": "2026-06-16",
+      "eligible_clients": 271,
+      "responses": 254,
+      "nps_official": 68.11023622047244,
+      "average_score": 8.866141732283465
     },
     {
       "ciclo": "2026-Q3",
-      "cutoff": "2026-07-01",
-      "eligible_clients": 2750,
-      "responses": 246,
-      "nps_official": 59.6
+      "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+      "cutoff": "2026-09-15",
+      "eligible_clients": 977,
+      "responses": 283,
+      "nps_official": 61.48409893992933,
+      "average_score": 8.692579505300353
     }
   ],
   "missingness": {},
   "folds": [
     {
       "train_cycles": [
-        "2026-Q1",
         "2026-Q2"
       ],
       "test_cycle": "2026-Q3",
-      "n_train": 4489,
-      "n_test": 2750,
-      "nps_predicted": 40.7,
-      "nps_actual": 60.2,
-      "nps_abs_error": 19.5,
-      "response_roc_auc": 0.9495782357983324,
-      "response_pr_auc": 0.46614374227295147,
-      "response_brier": 0.056377593140830434,
-      "category_macro_f1": 0.8225136451436147,
-      "category_balanced_accuracy": 0.8623092408597962
+      "n_train": 271,
+      "n_test": 977,
+      "nps_predicted": 68.2,
+      "nps_actual": 61.5,
+      "nps_abs_error": 6.700000000000003,
+      "response_roc_auc": 0.5,
+      "response_pr_auc": 0.2896622313203685,
+      "response_brier": 0.25,
+      "category_macro_f1": 0.28005464480874315,
+      "category_balanced_accuracy": 0.3333333333333333
     }
   ],
-  "mae_nps": 19.5,
+  "mae_nps": 6.7,
   "baselines": {
-    "last_nps": 8.5,
-    "mean_history": 2.9,
-    "minimal_features_model": 20.4
+    "last_nps": 6.61,
+    "mean_history": 6.61,
+    "minimal_features_model": 6.7
   },
   "metrics": {
-    "response_roc_auc_mean": 0.95,
-    "response_pr_auc_mean": 0.466,
-    "response_brier_mean": 0.0564,
-    "category_macro_f1_mean": 0.823,
-    "category_balanced_accuracy_mean": 0.862
+    "response_roc_auc_mean": 0.5,
+    "response_pr_auc_mean": 0.29,
+    "response_brier_mean": 0.25,
+    "category_macro_f1_mean": 0.28,
+    "category_balanced_accuracy_mean": 0.333
   },
   "quality_grade": "Baixa",
   "feature_importance": [
     {
-      "variable": "num__avg_nps_score",
-      "direction": "positiva",
+      "variable": "cat__tenure_bucket_Otimização",
+      "direction": "negativa",
       "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 3.084)"
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -0.368)"
+    },
+    {
+      "variable": "num__days_since_last_nps",
+      "direction": "positiva",
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.234)"
+    },
+    {
+      "variable": "cat__tenure_bucket_Implementação",
+      "direction": "positiva",
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.229)"
+    },
+    {
+      "variable": "num__response_propensity_history",
+      "direction": "positiva",
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.200)"
+    },
+    {
+      "variable": "num__prior_nps_count",
+      "direction": "positiva",
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.200)"
+    },
+    {
+      "variable": "num__missing_last_nps",
+      "direction": "negativa",
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -0.200)"
+    },
+    {
+      "variable": "num__missing_days_since_last_nps",
+      "direction": "negativa",
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -0.200)"
     },
     {
       "variable": "num__last_nps_score",
       "direction": "positiva",
-      "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 2.925)"
-    },
-    {
-      "variable": "num__days_since_last_nps",
-      "direction": "negativa",
-      "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -1.179)"
-    },
-    {
-      "variable": "cat__tenure_bucket_Não informado",
-      "direction": "negativa",
-      "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -0.462)"
-    },
-    {
-      "variable": "num__amount_paid_before",
-      "direction": "positiva",
-      "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.431)"
-    },
-    {
-      "variable": "num__missing_days_since_last_meeting",
-      "direction": "negativa",
-      "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. -0.399)"
-    },
-    {
-      "variable": "num__nps_score_delta",
-      "direction": "positiva",
-      "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.370)"
-    },
-    {
-      "variable": "num__recent_nps_change",
-      "direction": "positiva",
-      "intensity": "forte",
-      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.370)"
+      "intensity": "moderada",
+      "interpretation": "associada no modelo à probabilidade de Promotor (coef. 0.171)"
     }
   ],
   "calibration": {
-    "response_brier_mean": 0.0564
+    "response_brier_mean": 0.25
   },
   "features": [
     "months_since_entry",
@@ -141,26 +146,24 @@
     "tenure_bucket"
   ],
   "warnings": [
-    "Modelo exploratório — histórico 2026 ainda limitado para backtest robusto.",
-    "Modelo exploratório — histórico ainda limitado."
+    "Modelo exploratório — histórico 2026 ainda limitado para backtest robusto."
   ],
-  "training_window": "2026",
   "model_comparison": {
     "2026_only": {
       "window": "2026",
-      "mae_nps": 19.5,
-      "rmse_nps": 19.5,
-      "nps_bias_mean": -19.5,
-      "projected_nps": 54.3,
+      "mae_nps": 6.7,
+      "rmse_nps": 6.7,
+      "nps_bias_mean": 6.7,
+      "projected_nps": 48.3,
       "folds": 1
     },
     "full_history": {
       "window": "full",
-      "mae_nps": 27.93,
-      "rmse_nps": 30.03,
-      "nps_bias_mean": -27.93,
-      "projected_nps": 40.8,
-      "folds": 4
+      "mae_nps": 6.7,
+      "rmse_nps": 6.7,
+      "nps_bias_mean": 6.7,
+      "projected_nps": 68.2,
+      "folds": 1
     }
   }
 }

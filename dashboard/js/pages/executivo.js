@@ -115,8 +115,9 @@ function renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle) 
   return `
     <div class="metric-hero-grid">
       <article class="metric-hero metric-hero--primary">
-        <div class="metric-hero__label">${helpTip('NPS atual', `${TIPS.npsAtual} Quando arredondado para inteiro, pode diferir da tela operacional se ela usar outra regra de universo.`)}</div>
+        <div class="metric-hero__label">${helpTip('NPS atual', TIPS.npsAtual)}</div>
         <div class="metric-hero__value">${escapeHtml(formatNps(nps))}</div>
+        <p class="metric-hero__rounding note-muted">O BASE QV exibe o NPS arredondado como inteiro (pode aparecer como 65).</p>
         <div class="metric-hero__note">${escapeHtml(currentCycle?.cycle_name ?? '—')}</div>
       </article>
       <article class="metric-hero">

@@ -1485,7 +1485,8 @@ input[type='submit']:not(.btn) {
   margin-left: auto;
 }
 
-.historico-base0-notice {
+.historico-base0-notice,
+.historico-static-warning {
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
@@ -1495,6 +1496,38 @@ input[type='submit']:not(.btn) {
   border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   border-radius: var(--radius-md);
   max-width: 52rem;
+}
+
+.historico-static-warning {
+  background: color-mix(in srgb, #f5f0e6 55%, var(--surface));
+  border-color: color-mix(in srgb, #d4c4a0 35%, var(--border));
+}
+
+.historico-static-warning__title {
+  margin: 0 0 0.35rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.historico-static-warning__text {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.historico-static-warning__icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.metric-hero__rounding {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  max-width: 16rem;
 }
 
 .historico-base0-notice__icon {
@@ -2358,6 +2391,49 @@ input[type='submit']:not(.btn) {
   .historico-mech-compare {
     grid-template-columns: 1fr;
   }
+}
+
+/* ——— Projeção NPS (stub temporário) ——— */
+.previsao-nps-stub__wrap {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-xl, 2rem) var(--space-md, 1rem) var(--space-2xl, 3rem);
+}
+
+.previsao-nps-stub__card {
+  max-width: 32rem;
+  width: 100%;
+  text-align: center;
+  padding: 2rem 1.75rem;
+  background: var(--surface-raised, #fff);
+  border: 1px solid color-mix(in srgb, var(--color-coral, #e85d3a) 18%, var(--border-subtle, #e5e7eb));
+  box-shadow: var(--shadow-sm, 0 4px 12px rgba(15, 23, 42, 0.06));
+}
+
+.previsao-nps-stub__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: 0 auto 1rem;
+  border-radius: 999px;
+  color: var(--color-coral, #e85d4c);
+  background: color-mix(in srgb, var(--color-coral, #e85d3a) 10%, white);
+}
+
+.previsao-nps-stub__eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary, #111827);
+}
+
+.previsao-nps-stub__text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-secondary, #4b5563);
 }
 
 /* ——— Projeção NPS ——— */

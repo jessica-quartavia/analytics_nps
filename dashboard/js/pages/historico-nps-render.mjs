@@ -10,18 +10,29 @@ export function renderHistoricoBase0Notice() {
   return renderDataSourceNotice('historico-nps');
 }
 
+export function renderHistoricoStaticWarning() {
+  return `<div class="historico-static-warning" role="note">
+    <span class="historico-static-warning__icon" aria-hidden="true">ℹ</span>
+    <div class="historico-static-warning__body">
+      <p class="historico-static-warning__title">Dados históricos</p>
+      <p class="historico-static-warning__text">Esta página utiliza uma base histórica estática para preservar a leitura longitudinal dos ciclos anteriores. Por isso, alguns números podem não refletir atualizações em tempo real da BASE QV.</p>
+    </div>
+  </div>`;
+}
+
 export function renderHistoricoHeader(updatedLabel) {
   return `<header class="page-header historico-page-header">
     <div>
       <p class="eyebrow">PHARUS · Longitudinal</p>
       <h1>Histórico NPS</h1>
       <p class="page-lead">Evolução da satisfação ao longo do relacionamento com o cliente.</p>
+      ${renderHistoricoStaticWarning()}
       ${renderDataSourceNotice('historico-nps')}
       <p class="historico-page-header__note">Resultados oficiais por medição + análises derivadas por recorte.</p>
       <p class="historico-page-header__pit note-muted" title="Point-in-time">Análises de reuniões, mecanismos, pagamentos e transferências usam apenas eventos ocorridos até a data de cada resposta NPS.</p>
     </div>
     <div class="historico-page-header__badge">
-      <span class="badge badge--coral-soft">Dados atualizados em ${escapeHtml(updatedLabel)}</span>
+      <span class="badge badge--neutral-soft" title="Snapshot longitudinal — não substitui o status global de atualização BASE QV.">Base histórica estática</span>
     </div>
   </header>`;
 }
