@@ -15,4 +15,9 @@ export {
   calculateNps,
   calculateNpsSummary,
   filterValidNpsResponses,
+  latestNpsResponseMeta,
+  aggregateNpsForAnalyticalCycle,
+  aggregateNpsForOfficialSourceCycleWindow,
+  filterOfficialSourceCycleWindowRows,
+  meanNpsScoreFromRows,
 } from '../../../lib/analytics/nps.mjs';

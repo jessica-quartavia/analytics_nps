@@ -40,7 +40,7 @@ export function kpiLabelWithTip(label, tip) {
 
 export const TIPS = {
   npsAtual:
-    'NPS atual PHARUS: última resposta válida (0–10) de cada cliente em responses.json (dedupe por client_id). Promotores 9–10, Neutros 7–8, Detratores 0–6. NPS = (Promotores − Detratores) ÷ respostas válidas × 100. Não é a média de NPS por ciclo nem por EP — é recálculo direto sobre clientes.',
+    'NPS calculado sobre a última resposta válida de cada cliente no ciclo selecionado (0–10). Promotores 9–10, Neutros 7–8, Detratores 0–6. NPS = (Promotores − Detratores) ÷ total de respostas × 100.',
   npsAnterior: 'É o resultado do ciclo anterior usado para comparação.',
   variacao: 'Mostra quantos pontos o NPS subiu ou caiu em relação ao ciclo anterior.',
   basePareada: 'Clientes que responderam nos dois ciclos comparados.',

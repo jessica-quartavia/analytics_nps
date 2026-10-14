@@ -29,6 +29,8 @@
     "source_cycle_ids": ["7f9f8b42-84ae-4e00-a408-d22bea7c4407"],
     "source_cycle_names": ["NPS 2026-T3"],
     "resolution_method": "source_cycle_window",
+    "official_nps_universe": "source_window_geral_dedupe_latest_per_client",
+    "official_nps_universe_note": "KPIs do ciclo corrente (NPS 2026-T3 / GERAL): janela operacional Set–Out/2026, tipo_de_forms vazio ou prefixo NPS, todos os programas; última resposta válida por client_id. Envios = nps_sends do ciclo T3. Divergência vs tela operacional documentada em nps_official_reconciliation_from_csv.json.",
     "absorbs_source_cycle_pharus": false,
     "historical_expected_responses": null
   }

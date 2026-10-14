@@ -188,20 +188,13 @@ function renderEmptyState(cycleCode) {
     </div>`;
 }
 
-function renderHero(cycle, summary) {
-  const dataState = getDataState();
-  const cutoff = formatDate(summary?.data_cutoff ?? dataState?.dataCutoff);
+function renderHero() {
   return `
     <header class="page-header">
       <div>
         <p class="eyebrow">Voz do cliente</p>
         <h1 class="hero__title">O que os clientes estão dizindo</h1>
         <p class="page-header__lead">Organiza os comentários por tema e tom para mostrar o que aparece com mais frequência. A valência de cada tema é analisada por IA a partir do conteúdo do comentário e do contexto da pergunta.</p>
-      </div>
-      <div class="chip-row">
-        <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>
-        <span class="chip-modern">${escapeHtml(cycleStatusLabel(summary?.status))}</span>
-        <span class="chip-modern">Atualizado ${escapeHtml(cutoff)}</span>
       </div>
     </header>`;
 }

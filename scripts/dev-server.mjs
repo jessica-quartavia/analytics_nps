@@ -144,6 +144,55 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (urlPath === '/api/dashboard/config') {
+    try {
+      const { handleDashboardConfigVercel } = await import(
+        '../lib/persistence/dashboard-config-http.mjs'
+      );
+      await handleDashboardConfigVercel(req, res);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
+    return;
+  }
+
+  if (urlPath === '/api/dashboard/current-nps') {
+    try {
+      const { handleDashboardCurrentNpsVercel } = await import(
+        '../lib/persistence/dashboard-current-nps-http.mjs'
+      );
+      await handleDashboardCurrentNpsVercel(req, res);
+    } catch (err) {
+      res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
+    return;
+  }
+
+  if (urlPath === '/api/dashboard/refresh') {
+    try {
+      const env = await import('../lib/persistence/dashboard-config-http.mjs');
+      const cfg = env.getDashboardServerConfig();
+      console.info(
+        '[dev-server] BASE_QV_SUPABASE_URL configured:',
+        cfg.base_qv.url_configured,
+        '| service_role key configured:',
+        cfg.base_qv.service_role_key_configured,
+        '| key role:',
+        cfg.base_qv.service_role_key_role,
+      );
+      const { handleDashboardRefreshVercel } = await import(
+        '../lib/persistence/dashboard-refresh-http.mjs'
+      );
+      await handleDashboardRefreshVercel(req, res);
+    } catch (err) {
+      res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: { message: err.message ?? 'Internal error' } }));
+    }
+    return;
+  }
+
   if (urlPath === '/api/action-operational/plans') {
     try {
       await handleActionOperationalVercel(req, res);

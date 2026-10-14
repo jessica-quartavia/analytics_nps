@@ -19,9 +19,10 @@ import {
   formatPct,
   formatDeltaPts,
   formatDate,
+  formatDateTime,
   cycleStatusLabel,
-  formatNpsRange,
   formatCsatAverageWithScale,
+  formatNpsMeanScore,
 } from '../utils/format.js';
 import { escapeHtml } from '../utils/escape-html.js';
 import { sectionLead, helpTip, TIPS } from '../ui/help.js';
@@ -86,20 +87,13 @@ function renderQualityNotes(current, previous) {
   return `<div class="quality-box"><strong>Qualidade da leitura</strong><ul>${items.map((i) => `<li>${escapeHtml(i)}</li>`).join('')}</ul></div>`;
 }
 
-function renderHero(currentCycle, currentSummary) {
-  const dataState = getDataState();
-  const cutoff = formatDate(currentSummary?.data_cutoff ?? dataState?.dataCutoff);
+function renderHero() {
   return `
     <header class="page-header">
       <div>
         <p class="eyebrow">Visão executiva</p>
         <h1 class="hero__title">NPS — Diagnóstico de Gestão</h1>
         <p class="page-header__lead">Resumo geral do NPS, comparação com o ciclo anterior e principais sinais de atenção.</p>
-      </div>
-      <div class="chip-row">
-        <span class="chip-modern">${escapeHtml(currentCycle?.cycle_name ?? '—')}</span>
-        <span class="chip-modern">${escapeHtml(cycleStatusLabel(currentSummary?.status ?? currentCycle?.status))}</span>
-        <span class="chip-modern">Atualizado ${escapeHtml(cutoff)}</span>
       </div>
     </header>`;
 }
@@ -121,9 +115,14 @@ function renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle) 
   return `
     <div class="metric-hero-grid">
       <article class="metric-hero metric-hero--primary">
-        <div class="metric-hero__label">${helpTip('NPS atual', TIPS.npsAtual)}</div>
+        <div class="metric-hero__label">${helpTip('NPS atual', `${TIPS.npsAtual} Quando arredondado para inteiro, pode diferir da tela operacional se ela usar outra regra de universo.`)}</div>
         <div class="metric-hero__value">${escapeHtml(formatNps(nps))}</div>
         <div class="metric-hero__note">${escapeHtml(currentCycle?.cycle_name ?? '—')}</div>
+      </article>
+      <article class="metric-hero">
+        <div class="metric-hero__label">${helpTip('Nota média', 'Média das notas NPS válidas no recorte selecionado.')}</div>
+        <div class="metric-hero__value">${escapeHtml(formatNpsMeanScore(currentSummary?.average_score))}</div>
+        <div class="metric-hero__note">Escala 0–10</div>
       </article>
       <article class="metric-hero">
         <div class="metric-hero__label">${helpTip('NPS anterior', TIPS.npsAnterior)}</div>
@@ -145,10 +144,6 @@ function renderSampleRow(currentSummary, officialSummary, recorteActive) {
     !recorteActive && officialSummary?.response_rate != null
       ? formatPct(officialSummary.response_rate * 100, 1)
       : '—';
-  const ci =
-    recorteActive || officialSummary?.nps_ci_low == null
-      ? '—'
-      : formatNpsRange(officialSummary?.nps_ci_low, officialSummary?.nps_ci_high);
   const rateTip = recorteActive
     ? 'Taxa de resposta oficial do ciclo — não se aplica ao recorte filtrado.'
     : POPULATION_TIPS.responseRate(valid, eligible);
@@ -160,16 +155,16 @@ function renderSampleRow(currentSummary, officialSummary, recorteActive) {
         <button type="button" class="link-button" id="btn-ver-respondentes">Ver respondentes</button>
       </div>
       <div class="metric-context">
+        <div class="metric-context__label">${helpTip('Última resposta NPS', 'Data e hora da resposta NPS válida mais recente registrada no ciclo selecionado (respeita filtros do recorte).')}</div>
+        <div class="metric-context__value">${escapeHtml(formatDateTime(currentSummary?.latest_nps_response_at))}</div>
+      </div>
+      <div class="metric-context">
         <div class="metric-context__label">${helpTip(EXECUTIVE_KPI_LABELS.clientsWithSend, TIPS.clientsWithSend)}</div>
         <div class="metric-context__value">${recorteActive ? '—' : escapeHtml(String(officialSummary?.eligible_clients ?? '—'))}</div>
       </div>
       <div class="metric-context" title="${escapeHtml(rateTip)}">
         <div class="metric-context__label">${helpTip(EXECUTIVE_KPI_LABELS.responseRate, rateTip)}</div>
         <div class="metric-context__value">${escapeHtml(rr)}</div>
-      </div>
-      <div class="metric-context">
-        <div class="metric-context__label">${helpTip('IC95 NPS', recorteActive ? 'IC95 só está definido para o ciclo oficial completo.' : TIPS.ic95)}</div>
-        <div class="metric-context__value">${escapeHtml(ci)}</div>
       </div>
     </div>`;
 }
@@ -293,7 +288,6 @@ function openDiagnosisDrawer(diagnosis) {
       ${section('Resultado geral', list([
         `NPS: ${formatNps(diagnosis.overall?.current_nps)} (Δ ${formatDeltaPts(diagnosis.overall?.current_nps, diagnosis.overall?.previous_nps)})`,
         `Respostas: ${diagnosis.overall?.valid_responses ?? '—'}`,
-        `IC95: ${formatNpsRange(diagnosis.overall?.ci95?.low, diagnosis.overall?.ci95?.high)}`,
       ]))}
       ${section('Mesmos clientes', `<p>${escapeHtml(diagnosis.paired?.comparison_text ?? '—')}</p><p>${escapeHtml(String(diagnosis.paired?.paired_clients ?? 0))} pareados · Δ NPS ${formatNps(diagnosis.paired?.delta_nps_paired)}</p>`)}
       ${section('Movimento', `<p>${escapeHtml(diagnosis.movement?.reading ?? '—')}</p>`)}
@@ -430,15 +424,11 @@ function mountHistoryChart(canvas) {
   const cycles = getCycles();
   const labels = [];
   const npsData = [];
-  const low = [];
-  const high = [];
   for (const c of cycles) {
     const s = getCycleSummary(c.cycle_code);
     if (!s) continue;
     labels.push(c.cycle_name);
     npsData.push(s.nps);
-    low.push(s.nps_ci_low);
-    high.push(s.nps_ci_high);
   }
   const coral = getComputedStyle(document.documentElement).getPropertyValue('--color-coral').trim();
   const coralSoft = getComputedStyle(document.documentElement).getPropertyValue('--color-coral-soft').trim();
@@ -456,21 +446,6 @@ function mountHistoryChart(canvas) {
             tension: 0.2,
             fill: true,
           },
-          {
-            label: 'IC95 inferior',
-            data: low,
-            borderColor: 'transparent',
-            pointRadius: 0,
-            fill: false,
-          },
-          {
-            label: 'IC95 superior',
-            data: high,
-            borderColor: 'transparent',
-            backgroundColor: coralSoft,
-            pointRadius: 0,
-            fill: '-1',
-          },
         ],
       },
       options: chartPresentationOptions({
@@ -479,8 +454,7 @@ function mountHistoryChart(canvas) {
           tooltip: {
             callbacks: {
               label(ctx) {
-                if (ctx.dataset.label === 'NPS') return ` NPS: ${formatNps(ctx.raw)}`;
-                return ` ${ctx.dataset.label}: ${formatNps(ctx.raw)}`;
+                return ` NPS: ${formatNps(ctx.raw)}`;
               },
             },
           },
@@ -545,7 +519,7 @@ export function renderExecutivo(root, ctx = {}) {
     <div class="section-head"><h2 class="section-title">Distribuição das notas</h2><p class="section-subtitle">Frequência de cada nota de 0 a 10</p></div>
     <article class="chart-card"><div class="chart-wrap"><canvas id="chart-dist" aria-label="Distribuição das notas"></canvas></div></article>
     ${stackedSection}
-    <div class="section-head"><h2 class="section-title">Histórico de NPS</h2><p class="section-subtitle">Evolução por ciclo analítico com IC95</p></div>
+    <div class="section-head"><h2 class="section-title">Histórico de NPS</h2><p class="section-subtitle">Evolução por ciclo analítico</p></div>
     <article class="chart-card"><div class="chart-wrap chart-wrap--tall"><canvas id="chart-history" aria-label="NPS por ciclo"></canvas></div></article>
     ${
       diagnosis

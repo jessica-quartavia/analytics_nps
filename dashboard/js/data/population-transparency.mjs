@@ -9,18 +9,18 @@ function classifyNpsScore(score) {
 }
 
 export const EXECUTIVE_KPI_LABELS = {
-  clientsWithSend: 'Clientes com envio',
-  validResponses: 'Respostas válidas',
+  clientsWithSend: 'Envios (ciclo T3)',
+  validResponses: 'Respostas',
   responseRate: 'Taxa de resposta',
 };
 
 export const POPULATION_TIPS = {
   clientsWithSend:
-    'Clientes PHARUS para os quais a pesquisa NPS deste ciclo foi enviada. Cada cliente é contado uma única vez.',
+    'Registros em nps_sends do ciclo NPS 2026-T3 (GERAL — PHARUS + DAVOS). Um registro por cliente enviado.',
   responseRate: (valid, eligible) =>
-    `Percentual dos clientes que receberam a pesquisa e responderam com uma resposta válida. Neste ciclo: ${valid} de ${eligible} clientes PHARUS.`,
+    `Respostas válidas no universo oficial ÷ envios do ciclo. Neste ciclo: ${valid} respostas / ${eligible} envios.`,
   validResponses:
-    'Clientes PHARUS com resposta válida no ciclo, após validação e tratamento de respostas duplicadas.',
+    'Respostas NPS válidas no ciclo: uma por cliente (última resposta válida na janela T3 / GERAL).',
 };
 
 /** Status CRM documentado na auditoria Set/2026 (snapshot elegíveis). */

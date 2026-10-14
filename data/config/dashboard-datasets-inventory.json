@@ -1,0 +1,41 @@
+{
+  "updated_at": "2026-10-14",
+  "note": "Refresh runtime recalcula via BASE QV (read-only). JSON em /data/processed só muda com npm run refresh:nps + sync/build.",
+  "datasets": [
+    {
+      "id": "responses",
+      "path": "/data/processed/responses.json",
+      "origin": "BASE_QV nps_responses + pipeline analítico",
+      "static_in_dist": true,
+      "runtime_refresh": true
+    },
+    {
+      "id": "cycle_summary",
+      "path": "/data/processed/cycle_summary.json",
+      "origin": "derivado das respostas analíticas",
+      "static_in_dist": true,
+      "runtime_refresh": true
+    },
+    {
+      "id": "executive_diagnosis",
+      "path": "/data/processed/executive_diagnosis.json",
+      "origin": "derivado no pipeline",
+      "static_in_dist": true,
+      "runtime_refresh": true
+    },
+    {
+      "id": "historical_nps_enriched",
+      "path": "/data/processed/historical_nps_enriched.json",
+      "origin": "pipeline fase histórico / BASE0",
+      "static_in_dist": true,
+      "runtime_refresh": false
+    },
+    {
+      "id": "action_plans",
+      "path": "/api/action-operational/plans",
+      "origin": "Business Data Postgres",
+      "static_in_dist": false,
+      "runtime_refresh": true
+    }
+  ]
+}

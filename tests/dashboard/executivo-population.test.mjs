@@ -17,9 +17,9 @@ function loadJson(rel) {
 }
 
 describe('executivo — transparência população Set/2026', () => {
-  it('label Clientes com envio', () => {
-    assert.equal(EXECUTIVE_KPI_LABELS.clientsWithSend, 'Clientes com envio');
-    assert.equal(EXECUTIVE_KPI_LABELS.validResponses, 'Respostas válidas');
+  it('labels KPI executivo (universo T3 / GERAL)', () => {
+    assert.equal(EXECUTIVE_KPI_LABELS.clientsWithSend, 'Envios (ciclo T3)');
+    assert.equal(EXECUTIVE_KPI_LABELS.validResponses, 'Respostas');
   });
 
   it('respondentes alinhados ao cycle_summary, client_id únicos, 0 DAVOS', () => {

@@ -1,5 +1,7 @@
 import {
   loadAnalyticsData,
+  bootstrapAnalyticsStaticShell,
+  startBackgroundAnalyticsRefresh,
   isLoaded,
   getLatestCycle,
   getCycles,
@@ -15,7 +17,12 @@ import {
   getPairedCycles,
   getNpsChangeDrivers,
   getNpsAllPeriodsDoc,
+  getDataFreshness,
 } from './data/analytics-store.js';
+import {
+  startDashboardRefreshController,
+  refreshDashboardNow,
+} from './data/dashboard-refresh-controller.mjs';
 import { showNpsPeriodFilter, buildNpsPeriodSelectOptions } from './filters/nps-period.mjs';
 import {
   subscribeFilters,
@@ -42,7 +49,11 @@ import { renderSistemaDocumentacao } from './pages/sistema-documentacao.js';
 import { renderSistemaLogs } from './pages/sistema-logs.js';
 import { beginFilterBindings, beginPageBindings } from './utils/page-bindings.js';
 import { escapeHtml, escapeAttr } from './utils/escape-html.js';
-import { formatDate, cycleStatusLabel } from './utils/format.js';
+import { formatDate } from './utils/format.js';
+import {
+  renderDashboardDataStatus,
+  bindDashboardDataStatus,
+} from './ui/dashboard-data-status.mjs';
 import {
   stickyFiltersEnabled,
   setStickyFiltersEnabled,
@@ -61,6 +72,23 @@ import {
 } from './auth/dashboard-auth.mjs';
 
 let dashboardAuthRequired = false;
+let refreshToastTimer = null;
+
+function showDashboardToast(message, { variant = 'neutral' } = {}) {
+  let el = document.getElementById('dashboard-refresh-toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'dashboard-refresh-toast';
+    el.className = 'dashboard-refresh-toast';
+    el.setAttribute('role', 'status');
+    document.body.appendChild(el);
+  }
+  el.textContent = message;
+  el.classList.toggle('dashboard-refresh-toast--error', variant === 'error');
+  el.classList.add('is-visible');
+  if (refreshToastTimer) clearTimeout(refreshToastTimer);
+  refreshToastTimer = setTimeout(() => el.classList.remove('is-visible'), 5000);
+}
 
 const ROUTES = {
   executivo: { title: 'Executivo', topbar: 'Visão executiva', render: renderExecutivo },
@@ -170,49 +198,58 @@ function setNavActive(route) {
   });
 }
 
+function runtimeRefreshErrorMessage(error) {
+  const code = error?.code ?? error?.payload?.code;
+  if (code === 'BASE_QV_INVALID_KEY') {
+    return 'Runtime BASE QV indisponível: a chave configurada no servidor é anon — use a chave secreta do projeto BASE QV (Settings → API).';
+  }
+  if (code === 'BASE_QV_UNAVAILABLE') {
+    return 'Runtime BASE QV indisponível: configure as variáveis BASE QV no servidor (URL + chave secreta).';
+  }
+  if (code === 'RUNTIME_REQUIRED_FAILED') {
+    return 'Runtime BASE QV indisponível.';
+  }
+  if (code === 'RUNTIME_TIMEOUT') {
+    return 'Não foi possível concluir a atualização agora. O painel continua exibindo a última versão disponível.';
+  }
+  return 'Não foi possível buscar dados novos. Continuamos exibindo a última versão disponível.';
+}
+
+async function handleManualDashboardRefresh(route) {
+  updateTopbar(route);
+  const result = await refreshDashboardNow();
+  if (result.status === 'failed') {
+    console.error('[dashboard-refresh]', result.error);
+    showDashboardToast(runtimeRefreshErrorMessage(result.error), { variant: 'error' });
+  } else {
+    if (result.dataSource === 'runtime') {
+      renderPage();
+    }
+    if (result.status === 'changed') {
+      showDashboardToast('Novos dados carregados.');
+    } else if (result.status === 'unchanged') {
+      showDashboardToast('Dados já estavam atualizados.');
+    }
+  }
+  updateTopbar(route);
+}
+
 function updateTopbar(route) {
   const titleEl = document.getElementById('topbar-title');
   const metaEl = document.getElementById('topbar-meta');
   if (!titleEl || !metaEl || !isLoaded()) return;
 
   titleEl.textContent = routeMeta(route).topbar ?? 'NPS';
-  const filters = getFilters();
-  const summary = getCycleSummary(filters.cycleCode);
-  const dataState = getDataState();
-  const snapshot = getSnapshot();
-  const cutoff = formatDate(summary?.data_cutoff ?? dataState?.dataCutoff ?? snapshot?.data_cutoff);
-  const status = cycleStatusLabel(summary?.status);
-  const currentCycle = getCycles().find((c) => c.cycle_code === filters.cycleCode);
-  const cycleEndLabel = formatDate(currentCycle?.ends_at);
   const user = getAuthSessionUser();
   const authChip =
     dashboardAuthRequired && user?.email
       ? `<button type="button" class="topbar-chip topbar-chip--auth" id="topbar-sign-out" title="Sair">${escapeHtml(user.email)}</button>`
       : '';
 
-  let statusTitle = '';
-  if (summary?.status === 'open') {
-    statusTitle = cycleEndLabel
-      ? `Ciclo em coleta até ${cycleEndLabel} (fim do dia, horário de Brasília). Indicadores podem mudar.`
-      : 'Ciclo ainda em coleta — indicadores podem mudar.';
-  } else if (summary?.status === 'closed') {
-    statusTitle = cycleEndLabel
-      ? `Ciclo encerrado em ${cycleEndLabel} (horário de Brasília).`
-      : 'Ciclo encerrado.';
-  }
-  const meth = snapshot?.methodology?.nps_method_version ?? '—';
-  const staleHint =
-    snapshot?.status && snapshot.status !== 'success'
-      ? `<span class="topbar-chip topbar-chip--warn" title="Execute npm run refresh:nps">Refresh incompleto</span>`
-      : '';
-
-  metaEl.innerHTML = `
-    ${authChip}
-    <span class="topbar-chip" title="Dados atualizados até ${escapeAttr(cutoff)}">Atualizado ${escapeHtml(cutoff)}</span>
-    <span class="topbar-chip" title="Versões em data/config/methodology.json">Metodologia v${escapeHtml(String(meth))}</span>
-    ${staleHint}
-    <span class="topbar-chip topbar-chip--status" title="${escapeAttr(statusTitle)}">${escapeHtml(status)}</span>
-  `;
+  metaEl.innerHTML = renderDashboardDataStatus({ authHtml: authChip });
+  bindDashboardDataStatus(metaEl, {
+    onRefresh: () => handleManualDashboardRefresh(route),
+  });
   metaEl.querySelector('#topbar-sign-out')?.addEventListener('click', async () => {
     await signOutDashboard();
     await ensureDashboardAccess();
@@ -486,7 +523,7 @@ async function ensureDashboardAccess() {
 async function bootAnalytics() {
   showState('loading', escapeHtml('Carregando dados analíticos…'));
   try {
-    await loadAnalyticsData();
+    await bootstrapAnalyticsStaticShell();
     bindMethodologyTrigger(() => {
       const cycleCode = getFilters()?.cycleCode;
       return {
@@ -505,6 +542,17 @@ async function bootAnalytics() {
     applyStickyFiltersDom();
     renderFiltersBar();
     mountFilterScrollWatch();
+    startDashboardRefreshController({
+      onResult(detail) {
+        if (detail.phase === 'done' && detail.dataSource === 'runtime') {
+          renderPage();
+        }
+        if (detail.phase === 'error') {
+          showDashboardToast(runtimeRefreshErrorMessage(detail.error), { variant: 'error' });
+        }
+        updateTopbar(getRoute());
+      },
+    });
     subscribeFilters(() => {
       renderFiltersBar();
       updateTopbar(getRoute());
@@ -515,10 +563,27 @@ async function bootAnalytics() {
       renderPage();
     });
     renderPage();
+    updateTopbar(getRoute());
+    void startBackgroundAnalyticsRefresh().then((result) => {
+      if (result.status === 'changed' || result.status === 'unchanged') {
+        renderPage();
+      } else if (result.status === 'failed') {
+        console.error('[dashboard-refresh] background failed', result.error);
+        showDashboardToast(runtimeRefreshErrorMessage(result.error), { variant: 'error' });
+      }
+      updateTopbar(getRoute());
+    });
   } catch (err) {
     console.error(err);
     let message;
-    if (err?.code === 'DATASET_NOT_FOUND' && err.url) {
+    if (
+      err?.code === 'RUNTIME_REQUIRED_FAILED' ||
+      err?.code === 'BASE_QV_INVALID_KEY' ||
+      err?.code === 'BASE_QV_UNAVAILABLE' ||
+      err?.code === 'RUNTIME_HTTP_ERROR'
+    ) {
+      message = escapeHtml(runtimeRefreshErrorMessage(err));
+    } else if (err?.code === 'DATASET_NOT_FOUND' && err.url) {
       message = `<strong>Dataset ausente no deploy (404):</strong> <code>${escapeHtml(err.url)}</code>. Verifique <code>npm run build</code> e se <code>data/deploy/public/</code> está no repositório.`;
     } else if (err?.code === 'INVALID_JSON' && err.url) {
       message = `<strong>JSON inválido:</strong> <code>${escapeHtml(err.url)}</code>.`;

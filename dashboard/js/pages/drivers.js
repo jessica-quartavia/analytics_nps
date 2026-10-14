@@ -26,20 +26,13 @@ import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 let tableState = { filterOutcome: '', filterSig: '' };
 
-function renderHero(cycle, summary) {
-  const dataState = getDataState();
-  const cutoff = formatDate(summary?.data_cutoff ?? dataState?.dataCutoff);
+function renderHero() {
   return `
     <header class="page-header">
       <div>
         <p class="eyebrow">Drivers</p>
         <h1 class="hero__title">Drivers do NPS</h1>
         <p class="page-header__lead">Fatores associados às notas — relação observada, não causalidade.</p>
-      </div>
-      <div class="chip-row">
-        <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>
-        <span class="chip-modern">${escapeHtml(cycleStatusLabel(summary?.status))}</span>
-        <span class="chip-modern">Atualizado ${escapeHtml(cutoff)}</span>
       </div>
     </header>`;
 }

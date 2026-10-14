@@ -35,6 +35,17 @@
     },
     "api/system/logs.mjs": {
       "maxDuration": 30
+    },
+    "api/dashboard/refresh.mjs": {
+      "maxDuration": 120,
+      "memory": 1024
+    },
+    "api/dashboard/config.mjs": {
+      "maxDuration": 10
+    },
+    "api/dashboard/current-nps.mjs": {
+      "maxDuration": 60,
+      "memory": 512
     }
   },
   "rewrites": [
@@ -47,7 +58,10 @@
     { "source": "/api/action-classify", "destination": "/api/action-classify" },
     { "source": "/api/action-operational/plans", "destination": "/api/action-operational/plans" },
     { "source": "/api/portal-audit/logs", "destination": "/api/portal-audit/logs" },
-    { "source": "/api/system/logs", "destination": "/api/system/logs" }
+    { "source": "/api/system/logs", "destination": "/api/system/logs" },
+    { "source": "/api/dashboard/refresh", "destination": "/api/dashboard/refresh" },
+    { "source": "/api/dashboard/config", "destination": "/api/dashboard/config" },
+    { "source": "/api/dashboard/current-nps", "destination": "/api/dashboard/current-nps" }
   ],
   "headers": [
     {

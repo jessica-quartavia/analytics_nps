@@ -31,9 +31,26 @@ import {
   buildExecutiveCurrentNpsSummary,
   buildExecutivePreviousNpsSummary,
 } from './executive-official-nps.mjs';
+import { applyRuntimeRefreshPayload, applyLightCurrentNpsPayload } from './dashboard-runtime-merge.mjs';
+import { logDashboardRefreshDiagnostics } from './dashboard-refresh-diagnostics.mjs';
 
 let state = null;
 let summaryMap = null;
+let refreshInProgress = false;
+/** @type {{ dataUpdatedAt: string | null, lastCheckedAt: string | null, snapshotFingerprint: string | null, runtimeFingerprint: string | null, dataSource: 'static' | 'runtime' | null, runtimeErrorCode: string | null }} */
+let dataFreshness = {
+  dataUpdatedAt: null,
+  lastCheckedAt: null,
+  snapshotFingerprint: null,
+  runtimeFingerprint: null,
+  dataSource: null,
+  runtimeErrorCode: null,
+  runtimeRefreshMode: null,
+};
+const RUNTIME_REFRESH_TIMEOUT_MS = 30_000;
+/** @type {object | null} */
+let dashboardServerConfig = null;
+const dataRefreshListeners = new Set();
 
 const PATHS = {
   cycles: '/data/processed/cycles.json',
@@ -90,10 +107,17 @@ function logStoreError(message, detail) {
   console.error(`[analytics-store] ${message}`, detail ?? '');
 }
 
-async function fetchJson(url) {
+function withCacheBust(url, bust) {
+  if (!bust) return url;
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}v=${Date.now()}`;
+}
+
+async function fetchJson(url, { bust = false } = {}) {
+  const fetchUrl = withCacheBust(url, bust);
   let res;
   try {
-    res = await fetch(url, { cache: 'no-store' });
+    res = await fetch(fetchUrl, { cache: 'no-store' });
   } catch (cause) {
     logStoreError(`Failed to load ${url}`, 'fetch blocked or network error');
     const err = new Error(`[analytics-store] Failed to load ${url} (network)`);
@@ -123,9 +147,10 @@ async function fetchJson(url) {
   }
 }
 
-async function fetchOperationalPlansDoc() {
+async function fetchOperationalPlansDoc({ bust = false } = {}) {
   try {
-    const res = await fetch('/api/action-operational/plans', { cache: 'no-store' });
+    const url = withCacheBust('/api/action-operational/plans', bust);
+    const res = await fetch(url, { cache: 'no-store' });
     if (res.ok) {
       const doc = await res.json();
       if (doc?.entries) return doc;
@@ -133,13 +158,95 @@ async function fetchOperationalPlansDoc() {
   } catch {
     logStoreError('Operational plans API unavailable', 'using static JSON');
   }
-  return fetchJsonOptional(PATHS.actionPlans);
+  return fetchJsonOptional(PATHS.actionPlans, { bust });
 }
 
-async function fetchJsonOptional(url) {
+function computeSnapshotFingerprint(snapshot, historicalNpsEnrichedDoc) {
+  const parts = [
+    snapshot?.refresh_id,
+    snapshot?.generated_at,
+    snapshot?.data_cutoff,
+    historicalNpsEnrichedDoc?.meta?.generated_at,
+  ].filter(Boolean);
+  return parts.length ? parts.join('|') : null;
+}
+
+function resolveDataUpdatedAt(snapshot, cycleSummaryDoc, historicalNpsEnrichedDoc) {
+  const candidates = [
+    snapshot?.generated_at,
+    snapshot?.data_cutoff,
+    cycleSummaryDoc?.cycles?.[0]?.data_cutoff,
+    historicalNpsEnrichedDoc?.meta?.generated_at,
+  ].filter(Boolean);
+  if (!candidates.length) return null;
+  let best = candidates[0];
+  for (const c of candidates.slice(1)) {
+    if (Date.parse(c) > Date.parse(best)) best = c;
+  }
+  return best;
+}
+
+function notifyDataRefresh(detail) {
+  for (const fn of dataRefreshListeners) {
+    try {
+      fn(detail);
+    } catch (err) {
+      logStoreError('data refresh listener', err);
+    }
+  }
+}
+
+export function getDataFreshness() {
+  return { ...dataFreshness };
+}
+
+export function getAnalyticsDataSource() {
+  return dataFreshness.dataSource;
+}
+
+export function getDashboardServerConfigSnapshot() {
+  return dashboardServerConfig;
+}
+
+async function fetchDashboardServerConfig() {
+  try {
+    const res = await fetch('/api/dashboard/config', { cache: 'no-store' });
+    if (res.ok) return await res.json();
+  } catch {
+    /* static-only deploy */
+  }
+  return null;
+}
+
+function executiveKpisForDiagnostics(cycleCode) {
+  if (!cycleCode || !state) return {};
+  const summary = buildExecutiveCurrentNpsSummary(
+    state.responses ?? [],
+    getCycleSummaryFromMap(summaryMap, cycleCode) ?? {},
+    (state.cycles ?? []).find((c) => c.cycle_code === cycleCode) ?? {},
+  );
+  return {
+    validResponses: summary?.valid_responses ?? null,
+    nps: summary?.nps ?? null,
+    averageScore: summary?.average_score ?? null,
+    latestResponse: summary?.latest_nps_response_at ?? null,
+  };
+}
+
+export function isAnalyticsRefreshInProgress() {
+  return refreshInProgress;
+}
+
+export function subscribeDataRefresh(listener) {
+  dataRefreshListeners.add(listener);
+  return () => dataRefreshListeners.delete(listener);
+}
+
+async function fetchJsonOptional(url, { bust = false } = {}) {
+  const fetchUrl = withCacheBust(url, bust);
   let res;
   try {
-    res = await fetch(url, { cache: 'no-store' });
+    res = await fetch(fetchUrl, { cache: 'no-store' });
   } catch {
     logStoreError(`Optional load failed ${url}`, 'network');
     return null;
@@ -156,7 +263,57 @@ async function fetchJsonOptional(url) {
   }
 }
 
-export async function loadAnalyticsData() {
+async function fetchAllAnalyticsDatasets({ bust = false } = {}) {
+  const fetchOpts = { bust };
+  return Promise.all([
+    fetchJson(PATHS.cycles, fetchOpts),
+    fetchJson(PATHS.responses, fetchOpts),
+    fetchJson(PATHS.cycleSummary, fetchOpts),
+    fetchJson(PATHS.paired, fetchOpts),
+    fetchJson(PATHS.migration, fetchOpts),
+    fetchJson(PATHS.eligible, fetchOpts),
+    fetchJson(PATHS.actionQueue, fetchOpts),
+    fetchJson(PATHS.quality, fetchOpts),
+    fetchJson(PATHS.snapshot, fetchOpts),
+    fetchJsonOptional(PATHS.epSummary, fetchOpts),
+    fetchJsonOptional(PATHS.responseTopics, fetchOpts),
+    fetchJsonOptional(PATHS.topicSummary, fetchOpts),
+    fetchJsonOptional(PATHS.csatSummary, fetchOpts),
+    fetchJsonOptional(PATHS.clientSatisfaction, fetchOpts),
+    fetchJsonOptional(PATHS.driversSummary, fetchOpts),
+    fetchJsonOptional(PATHS.driverTests, fetchOpts),
+    fetchJsonOptional(PATHS.commentDrivers, fetchOpts),
+    fetchJsonOptional(PATHS.actionQueueEnriched, fetchOpts),
+    fetchJsonOptional(PATHS.actionTracking, fetchOpts),
+    fetchOperationalPlansDoc(fetchOpts),
+    fetchJsonOptional(PATHS.executiveDiagnosis, fetchOpts),
+    fetchJsonOptional(PATHS.populationAudit, fetchOpts),
+    fetchJsonOptional(PATHS.npsClientMilestones, fetchOpts),
+    fetchJsonOptional(PATHS.npsMilestonesSummary, fetchOpts),
+    fetchJsonOptional(PATHS.npsBetweenCycleEvents, fetchOpts),
+    fetchJsonOptional(PATHS.npsMilestonesQa, fetchOpts),
+    fetchJsonOptional(PATHS.npsChangeDrivers, fetchOpts),
+    fetchJsonOptional(PATHS.npsFinancialProfile, fetchOpts),
+    fetchJsonOptional(PATHS.npsManagementInsights, fetchOpts),
+    fetchJsonOptional(PATHS.customerNpsCohorts, fetchOpts),
+    fetchJsonOptional(PATHS.customerNpsHistory, fetchOpts),
+    fetchJsonOptional(PATHS.safrasCoberturaSummaries, fetchOpts),
+    fetchJsonOptional(PATHS.safrasCoberturaAudit, fetchOpts),
+    fetchJsonOptional(PATHS.historicalNpsSummary, fetchOpts),
+    fetchJsonOptional(PATHS.historicalNpsResponses, fetchOpts),
+    fetchJsonOptional(PATHS.historicalNpsClients, fetchOpts),
+    fetchJsonOptional(PATHS.historicalNpsFieldCoverage, fetchOpts),
+    fetchJsonOptional(PATHS.historicalNpsEnriched, fetchOpts),
+    fetchJsonOptional(PATHS.historicalNpsEnrichedQuality, fetchOpts),
+    fetchJsonOptional(PATHS.cohortPaymentDateAudit, fetchOpts),
+    fetchJsonOptional(PATHS.npsAllPeriods, fetchOpts),
+    fetchJsonOptional(PATHS.npsMechanismsAtResponse, fetchOpts),
+    fetchJsonOptional(PATHS.vocAllPeriods, fetchOpts),
+    fetchJsonOptional(PATHS.npsPredictionNextCycle, fetchOpts),
+  ]);
+}
+
+function applyAnalyticsPayload(datasets) {
   const [
     cycles,
     responses,
@@ -202,52 +359,7 @@ export async function loadAnalyticsData() {
     npsMechanismsAtResponseDoc,
     vocAllPeriodsDoc,
     npsPredictionNextCycleDoc,
-  ] = await Promise.all([
-    fetchJson(PATHS.cycles),
-    fetchJson(PATHS.responses),
-    fetchJson(PATHS.cycleSummary),
-    fetchJson(PATHS.paired),
-    fetchJson(PATHS.migration),
-    fetchJson(PATHS.eligible),
-    fetchJson(PATHS.actionQueue),
-    fetchJson(PATHS.quality),
-    fetchJson(PATHS.snapshot),
-    fetchJsonOptional(PATHS.epSummary),
-    fetchJsonOptional(PATHS.responseTopics),
-    fetchJsonOptional(PATHS.topicSummary),
-    fetchJsonOptional(PATHS.csatSummary),
-    fetchJsonOptional(PATHS.clientSatisfaction),
-    fetchJsonOptional(PATHS.driversSummary),
-    fetchJsonOptional(PATHS.driverTests),
-    fetchJsonOptional(PATHS.commentDrivers),
-    fetchJsonOptional(PATHS.actionQueueEnriched),
-    fetchJsonOptional(PATHS.actionTracking),
-    fetchOperationalPlansDoc(),
-    fetchJsonOptional(PATHS.executiveDiagnosis),
-    fetchJsonOptional(PATHS.populationAudit),
-    fetchJsonOptional(PATHS.npsClientMilestones),
-    fetchJsonOptional(PATHS.npsMilestonesSummary),
-    fetchJsonOptional(PATHS.npsBetweenCycleEvents),
-    fetchJsonOptional(PATHS.npsMilestonesQa),
-    fetchJsonOptional(PATHS.npsChangeDrivers),
-    fetchJsonOptional(PATHS.npsFinancialProfile),
-    fetchJsonOptional(PATHS.npsManagementInsights),
-    fetchJsonOptional(PATHS.customerNpsCohorts),
-    fetchJsonOptional(PATHS.customerNpsHistory),
-    fetchJsonOptional(PATHS.safrasCoberturaSummaries),
-    fetchJsonOptional(PATHS.safrasCoberturaAudit),
-    fetchJsonOptional(PATHS.historicalNpsSummary),
-    fetchJsonOptional(PATHS.historicalNpsResponses),
-    fetchJsonOptional(PATHS.historicalNpsClients),
-    fetchJsonOptional(PATHS.historicalNpsFieldCoverage),
-    fetchJsonOptional(PATHS.historicalNpsEnriched),
-    fetchJsonOptional(PATHS.historicalNpsEnrichedQuality),
-    fetchJsonOptional(PATHS.cohortPaymentDateAudit),
-    fetchJsonOptional(PATHS.npsAllPeriods),
-    fetchJsonOptional(PATHS.npsMechanismsAtResponse),
-    fetchJsonOptional(PATHS.vocAllPeriods),
-    fetchJsonOptional(PATHS.npsPredictionNextCycle),
-  ]);
+  ] = datasets;
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
   const trackingNormalized = actionTrackingDoc ?? { entries: [] };
@@ -310,7 +422,214 @@ export async function loadAnalyticsData() {
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
+  dataFreshness.dataUpdatedAt = resolveDataUpdatedAt(
+    snapshot,
+    cycleSummaryDoc,
+    historicalNpsEnrichedDoc,
+  );
+  dataFreshness.snapshotFingerprint = computeSnapshotFingerprint(
+    snapshot,
+    historicalNpsEnrichedDoc,
+  );
   return state;
+}
+
+export async function loadAnalyticsData() {
+  const datasets = await fetchAllAnalyticsDatasets({ bust: false });
+  dataFreshness.lastCheckedAt = new Date().toISOString();
+  return applyAnalyticsPayload(datasets);
+}
+
+/** Boot: apenas snapshot local (não bloqueia em BASE QV). */
+export async function bootstrapAnalyticsStaticShell() {
+  dashboardServerConfig = await fetchDashboardServerConfig();
+  await loadAnalyticsData();
+  dataFreshness.dataSource = 'static';
+  const cycleCode = getLatestCycleBySequence(state?.cycles ?? [])?.cycle_code;
+  const staticKpis = executiveKpisForDiagnostics(cycleCode);
+  logDashboardRefreshDiagnostics({ source: 'static-fallback', ...staticKpis });
+  return state;
+}
+
+/** Dispara refresh BASE QV em background (não await no boot). */
+export function startBackgroundAnalyticsRefresh() {
+  return refreshAnalyticsData({ force: true, mode: 'light', background: true });
+}
+
+/** @deprecated use bootstrapAnalyticsStaticShell + startBackgroundAnalyticsRefresh */
+export async function bootstrapAnalyticsData() {
+  await bootstrapAnalyticsStaticShell();
+  return startBackgroundAnalyticsRefresh();
+}
+
+/**
+ * Recarrega datasets (cache bust opcional). Não altera filtros/rota.
+ * @returns {Promise<{ status: 'changed' | 'unchanged' | 'failed' | 'skipped', changed?: boolean }>}
+ */
+async function fetchWithTimeout(url, timeoutMs = RUNTIME_REFRESH_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { cache: 'no-store', signal: controller.signal });
+  } catch (cause) {
+    if (cause?.name === 'AbortError') {
+      const err = new Error('[analytics-store] Runtime refresh timeout');
+      err.code = 'RUNTIME_TIMEOUT';
+      throw err;
+    }
+    throw cause;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function fetchRuntimeDashboardRefresh(force, mode = 'light') {
+  const path =
+    mode === 'full' ? '/api/dashboard/refresh' : '/api/dashboard/current-nps';
+  const url = `${path}?force=${force ? '1' : '0'}`;
+  let res;
+  try {
+    res = await fetchWithTimeout(url);
+  } catch (cause) {
+    const err = new Error('[analytics-store] Runtime refresh network error');
+    err.code = 'RUNTIME_FETCH_BLOCKED';
+    err.cause = cause;
+    throw err;
+  }
+  let json;
+  try {
+    json = await res.json();
+  } catch {
+    const err = new Error('[analytics-store] Runtime refresh invalid JSON');
+    err.code = 'RUNTIME_INVALID_JSON';
+    throw err;
+  }
+  if (!res.ok) {
+    const err = new Error(json.message ?? `Runtime refresh HTTP ${res.status}`);
+    err.code = json.code ?? 'RUNTIME_HTTP_ERROR';
+    err.status = res.status;
+    err.payload = json;
+    throw err;
+  }
+  return json;
+}
+
+function mergeLightCurrentNpsPayload(light) {
+  if (!state || !light?.ok) return false;
+  const mergeResult = applyLightCurrentNpsPayload(state, light);
+  if (!mergeResult.applied) return false;
+  summaryMap = mergeResult.summaryMap;
+  dataFreshness.dataSource = 'runtime';
+  dataFreshness.runtimeErrorCode = null;
+  dataFreshness.runtimeRefreshMode = 'light';
+  if (light.refreshed_at) {
+    dataFreshness.dataUpdatedAt = light.refreshed_at;
+  }
+  if (light.fingerprint) dataFreshness.runtimeFingerprint = light.fingerprint;
+  return true;
+}
+
+function mergeRuntimeRefreshPayload(runtime) {
+  if (!state || !runtime?.datasets) return false;
+  const mergeResult = applyRuntimeRefreshPayload(state, runtime, {
+    buildClientSatMap,
+    refreshActionQueueEnrichedEntries,
+  });
+  if (!mergeResult.applied) return false;
+  summaryMap = mergeResult.summaryMap;
+  dataFreshness.dataSource = 'runtime';
+  dataFreshness.runtimeErrorCode = null;
+  dataFreshness.runtimeRefreshMode = 'full';
+  if (runtime.refreshed_at) {
+    dataFreshness.dataUpdatedAt = runtime.refreshed_at;
+  } else if (runtime.source_max_updated_at) {
+    dataFreshness.dataUpdatedAt = runtime.source_max_updated_at;
+  } else if (runtime.datasets?.snapshot?.generated_at) {
+    dataFreshness.dataUpdatedAt = runtime.datasets.snapshot.generated_at;
+  }
+  if (runtime.fingerprint) dataFreshness.runtimeFingerprint = runtime.fingerprint;
+  return true;
+}
+
+export async function refreshAnalyticsData({ force = false, mode = 'light', background = false } = {}) {
+  if (refreshInProgress) return { status: 'skipped', reason: 'in_progress' };
+  refreshInProgress = true;
+  const prevFingerprint =
+    dataFreshness.runtimeFingerprint ?? dataFreshness.snapshotFingerprint;
+  try {
+    const runtime = await fetchRuntimeDashboardRefresh(force, mode);
+    const merged =
+      mode === 'full'
+        ? mergeRuntimeRefreshPayload(runtime)
+        : mergeLightCurrentNpsPayload(runtime);
+    if (!merged) {
+      throw new Error('[analytics-store] Runtime refresh sem datasets aplicáveis');
+    }
+    if (mode === 'full') {
+      const plansDoc = await fetchOperationalPlansDoc({ bust: force });
+      if (plansDoc?.entries) {
+        state.actionPlansDoc = plansDoc;
+        refreshActionQueueEnrichedEntries();
+      }
+    }
+    dataFreshness.lastCheckedAt = new Date().toISOString();
+    const nextFp = runtime.fingerprint ?? dataFreshness.runtimeFingerprint;
+    const changed =
+      prevFingerprint == null
+        ? Boolean(nextFp)
+        : nextFp != null && prevFingerprint !== nextFp;
+    const status = changed ? 'changed' : 'unchanged';
+    const cycleCode = getLatestCycleBySequence(state?.cycles ?? [])?.cycle_code;
+    const kpis = runtime.executive_current_kpis ?? executiveKpisForDiagnostics(cycleCode);
+    logDashboardRefreshDiagnostics({
+      source: 'runtime',
+      validResponses: kpis.valid_responses ?? kpis.validResponses ?? null,
+      nps: kpis.nps ?? null,
+      averageScore: kpis.average_score ?? kpis.averageScore ?? null,
+      latestResponse: kpis.latest_nps_response_at ?? kpis.latestResponse ?? null,
+    });
+    notifyDataRefresh({
+      status,
+      changed,
+      force,
+      runtime: true,
+      dataSource: 'runtime',
+      mode,
+      background,
+    });
+    return {
+      status,
+      changed: Boolean(changed),
+      stats: runtime.stats ?? null,
+      dataSource: 'runtime',
+      mode,
+      durationMs: runtime.duration_ms ?? null,
+      executiveKpis: runtime.executive_current_kpis ?? null,
+    };
+  } catch (error) {
+    dataFreshness.lastCheckedAt = new Date().toISOString();
+    dataFreshness.runtimeErrorCode = error.code ?? 'REFRESH_FAILED';
+    logDashboardRefreshDiagnostics({
+      source: 'static-fallback',
+      errorCode: dataFreshness.runtimeErrorCode,
+      httpStatus: error.status ?? null,
+    });
+    notifyDataRefresh({
+      status: 'failed',
+      error,
+      force,
+      dataSource: dataFreshness.dataSource,
+      mode,
+      background,
+    });
+    if (!background && dashboardServerConfig?.require_runtime_refresh) {
+      error.code = error.code ?? 'RUNTIME_REQUIRED_FAILED';
+      throw error;
+    }
+    return { status: 'failed', error, background };
+  } finally {
+    refreshInProgress = false;
+  }
 }
 
 export function isLoaded() {
@@ -347,7 +666,14 @@ export function getCycleSummary(cycleCode) {
 export function getExecutiveOfficialSummary(cycleCode) {
   const template = getCycleSummary(cycleCode);
   if (!template || !state) return template;
-  return buildExecutiveCurrentNpsSummary(state.responses ?? [], template);
+  const cycleDef = (state.cycles ?? []).find((c) => c.cycle_code === cycleCode) ?? {};
+  const live = buildExecutiveCurrentNpsSummary(state.responses ?? [], template, cycleDef);
+  return {
+    ...live,
+    eligible_clients: template.eligible_clients ?? live.eligible_clients,
+    response_rate: template.response_rate ?? live.response_rate,
+    latest_nps_response_at: live.latest_nps_response_at ?? template.latest_nps_response_at,
+  };
 }
 
 export function getExecutivePreviousOfficialSummary(currentCycleCode) {

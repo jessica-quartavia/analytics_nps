@@ -8,6 +8,7 @@ import {
   dedupeLatestNpsByClient,
   isValidNpsScore,
   npsScoreFromRow,
+  latestNpsResponseMeta,
 } from '../utils/nps-kernel.mjs';
 import { resolveActionPriority } from './action-priority.mjs';
 
@@ -22,6 +23,7 @@ function calculateNpsSummaryFromRows(rows) {
     passivePct: agg.neutral_pct,
     detractorPct: agg.detractor_pct,
     nps: agg.nps,
+    average_score: agg.average_score,
   };
 }
 
@@ -988,6 +990,7 @@ export function dedupeClientIdsFromRows(rows) {
 export function summaryLikeFromResponses(rows, template = {}) {
   const calc = calculateNpsSummaryFromRows(rows);
   const dist = buildScoreDistributionFromRows(rows);
+  const latest = latestNpsResponseMeta(rows, { dedupe: true, requireClientId: true });
   return {
     ...template,
     valid_responses: calc.total,
@@ -998,11 +1001,16 @@ export function summaryLikeFromResponses(rows, template = {}) {
     passive_pct: calc.passivePct,
     detractor_pct: calc.detractorPct,
     nps: calc.nps,
+    average_score: calc.average_score,
     score_distribution: dist,
     nps_ci_low: null,
     nps_ci_high: null,
     response_rate: null,
     eligible_clients: null,
+    latest_nps_response_at: latest.latest_nps_response_at,
+    latest_nps_response_id: latest.latest_nps_response_id,
+    latest_nps_client_id: latest.latest_nps_client_id,
+    latest_nps_score: latest.latest_nps_score,
   };
 }
 

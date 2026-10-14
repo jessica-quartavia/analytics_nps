@@ -54,6 +54,10 @@ import { openHistoricoClientDrawer, closeHistoricoClientDrawer } from '../ui/his
 import { closeHistoricoResponseDrawer } from '../ui/historico-response-drawer.mjs';
 import { stickyFiltersEnabled, setStickyFiltersEnabled } from '../utils/sticky-filters.js';
 import {
+  aggregateHistoricoPndByCanonicalCycle,
+  overlayHistoricoCyclePnd,
+} from '../../../lib/analytics/historico-cycle-pnd.mjs';
+import {
   prepareHistoricoDisplayCycles,
   uniqueCanonicalCycleList,
   formatNpsCycleLabel,
@@ -104,8 +108,15 @@ function renderKpis(summary, meta, enrichedFiltered, recMap, lastOff, prevOff, c
   </div>`;
 }
 
-function bindCharts(summary, filteredSummary, meta, safraEntrada, safraNps, tenureData, meetingsData, recencyData) {
-  const cycles = prepareHistoricoDisplayCycles(summary?.cycles ?? []);
+function historicoDisplayCycles(summary, enrichedRows) {
+  const base = prepareHistoricoDisplayCycles(summary?.cycles ?? []);
+  if (!enrichedRows?.length) return base;
+  const pndMap = aggregateHistoricoPndByCanonicalCycle(enrichedRows);
+  return overlayHistoricoCyclePnd(base, pndMap);
+}
+
+function bindCharts(summary, filteredSummary, meta, safraEntrada, safraNps, tenureData, meetingsData, recencyData, enrichedRows) {
+  const cycles = historicoDisplayCycles(summary, enrichedRows);
   const labels = cycles.map((c) => formatNpsCycleLabel(c.ciclo));
   const official = cycles.map((c) => c.nps_oficial);
   const filMap = new Map(
@@ -182,6 +193,36 @@ function bindCharts(summary, filteredSummary, meta, safraEntrada, safraNps, tenu
         options: {
           maintainAspectRatio: false,
           scales: { x: { stacked: true }, y: { stacked: true, max: 100, ticks: { callback: (v) => `${v}%` } } },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title(items) {
+                  const c = cycles[items[0]?.dataIndex];
+                  return c ? formatNpsCycleLabel(c.ciclo) : '';
+                },
+                afterBody(ctx) {
+                  const c = cycles[ctx[0]?.dataIndex];
+                  if (!c) return [];
+                  const valid =
+                    c.respostas_derivadas ??
+                    (c.promotores ?? 0) + (c.neutros ?? 0) + (c.detratores ?? 0);
+                  const npsLine =
+                    c.nps_oficial != null
+                      ? `NPS oficial: ${formatNps(c.nps_oficial)}`
+                      : c.nps_derivado != null
+                        ? `NPS derivado: ${formatNps(c.nps_derivado)}`
+                        : null;
+                  return [
+                    `Promotores: ${c.promotores ?? '—'} (${formatPct(c.pct_promotores)})`,
+                    `Neutros: ${c.neutros ?? '—'} (${formatPct(c.pct_neutros)})`,
+                    `Detratores: ${c.detratores ?? '—'} (${formatPct(c.pct_detratores)})`,
+                    `Respostas válidas: ${valid}`,
+                    npsLine,
+                  ].filter(Boolean);
+                },
+              },
+            },
+          },
         },
       }),
     );
@@ -522,13 +563,13 @@ export function renderHistoricoNps(root) {
       )}
     </section>
 
-    <section class="historico-block">${renderOfficialTable(prepareHistoricoDisplayCycles(summary.cycles))}</section>
+    <section class="historico-block">${renderOfficialTable(historicoDisplayCycles(summary, enrichedAll))}</section>
     <section class="historico-block">${renderClientExplorerTable(explorerRows, clientPage, PAGE_SIZE)}</section>
     ${renderQualityFooter(paymentAudit, quality, updatedLabel)}
   </div>`;
 
   bindCharts(
-    { ...summary, cycles: prepareHistoricoDisplayCycles(summary.cycles) },
+    summary,
     filteredSummary,
     meta,
     safraEntrada,
@@ -536,6 +577,7 @@ export function renderHistoricoNps(root) {
     tenureData,
     meetingsData,
     recencyData,
+    enrichedAll,
   );
   bindPage(root, { enrichedAll, cohorts });
 }

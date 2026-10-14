@@ -115,7 +115,7 @@ export function renderFilterRecorteBanner(ctx) {
   return `<div class="filter-recorte-banner" role="status">
     <strong>Recorte ativo.</strong>
     KPIs, composição e distribuição refletem os filtros selecionados.
-    Histórico multi-ciclo, IC95, clientes com envio e diagnóstico executivo permanecem do ciclo oficial.
+    Histórico multi-ciclo, envios do ciclo e diagnóstico executivo permanecem do ciclo oficial.
   </div>`;
 }
 

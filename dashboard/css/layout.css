@@ -294,6 +294,110 @@
   color: var(--text);
 }
 
+.topbar-chip--action {
+  cursor: pointer;
+  font: inherit;
+  color: var(--primary-dark);
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface-soft));
+  border-color: color-mix(in srgb, var(--primary) 25%, var(--border));
+}
+
+.topbar-chip--action:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--primary) 14%, var(--surface-soft));
+}
+
+.topbar-chip--action:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.dashboard-refresh-toast {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  max-width: min(420px, calc(100vw - 2rem));
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface, #fff);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.12));
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dashboard-refresh-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dashboard-refresh-toast--error {
+  border-color: color-mix(in srgb, #c44a2a 40%, var(--border));
+}
+
+.dashboard-data-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--surface, #fff);
+  border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(15, 23, 42, 0.06));
+}
+
+.dashboard-data-status__fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.25rem;
+}
+
+.dashboard-data-status__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 7.5rem;
+}
+
+.dashboard-data-status__label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dashboard-data-status__hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-muted, #64748b);
+  margin-top: 0.15rem;
+}
+
+.dashboard-data-status__value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.dashboard-data-status__btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  min-height: 2.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: 600;
+}
+
+.topbar__meta {
+  align-items: center;
+}
+
 .filter-shell {
   margin: var(--space-md) var(--space-xl) 0;
   background: var(--surface);

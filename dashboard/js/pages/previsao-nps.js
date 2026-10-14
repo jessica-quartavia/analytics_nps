@@ -255,7 +255,6 @@ function renderPrevisaoNpsInner(container) {
           <div class="previsao-page-header__badges">
             <span class="badge badge--method">Modelagem preditiva</span>
             <span class="badge badge--neutral-soft" title="Esta projeção prioriza os dados mais recentes para refletir melhor o cenário atual.">Base de treinamento: ${escapeHtml(trainWindow)}</span>
-            <span class="badge badge--neutral-soft">Atualizado em ${escapeHtml(updated)}</span>
           </div>
         </div>
       </header>

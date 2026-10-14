@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T17:35:30.466Z",
+  "generated_at": "2026-10-14T17:23:29.467Z",
   "pharus_project_ref": "qvtqufdivpbmubooawdm",
   "app_source": "core.personal_info",
   "app_table_column_mapping": {
@@ -46,7 +46,7 @@
       "ok": true,
       "error": null,
       "sample_count": 3,
-      "total_count": 510
+      "total_count": 516
     },
     {
       "schema": "core",
@@ -209,7 +209,7 @@
       "total_count": null
     }
   ],
-  "app_records": 510,
+  "app_records": 516,
   "base_clients": 3152,
   "base_identifier_audit": {
     "pharus_clients_in_universe": 3152,
@@ -220,15 +220,15 @@
     "with_any_identifier": 3110,
     "insufficient_identifiers": 42
   },
-  "matched_clients": 411,
-  "unmatched_clients": 2699,
+  "matched_clients": 413,
+  "unmatched_clients": 2697,
   "ambiguous_clients": 0,
   "insufficient_identifiers": 42,
   "match_by_cpf": 21,
-  "match_by_email": 8,
+  "match_by_email": 9,
   "match_by_phone": 0,
-  "match_by_multiple": 382,
-  "coverage_pct": 13,
+  "match_by_multiple": 383,
+  "coverage_pct": 13.1,
   "warning": null,
   "qa_samples": {
     "matched_cpf": [

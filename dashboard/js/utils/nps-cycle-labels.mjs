@@ -39,29 +39,57 @@ export function formatNpsPeriodLabel(value) {
   return map[value] ?? value;
 }
 
+function historicoPndSampleSize(row) {
+  if (!row) return 0;
+  const derived = row.respostas_derivadas;
+  if (Number.isFinite(derived)) return derived;
+  const sum = (row.promotores ?? 0) + (row.neutros ?? 0) + (row.detratores ?? 0);
+  return sum;
+}
+
+function pickRicherHistoricoPnd(a, b) {
+  return historicoPndSampleSize(b) > historicoPndSampleSize(a) ? b : a;
+}
+
+function mergeHistoricoCycleRows(prev, next, key) {
+  const metaBase =
+    next.is_official && !prev.is_official
+      ? { ...next, ciclo: key }
+      : prev.is_official && !next.is_official
+        ? { ...prev, ciclo: key }
+        : { ...prev, ...next, ciclo: key };
+  const pnd = pickRicherHistoricoPnd(prev, next);
+  return {
+    ...metaBase,
+    promotores: pnd.promotores,
+    neutros: pnd.neutros,
+    detratores: pnd.detratores,
+    pct_promotores: pnd.pct_promotores,
+    pct_neutros: pnd.pct_neutros,
+    pct_detratores: pnd.pct_detratores,
+    respostas_derivadas: Math.max(
+      historicoPndSampleSize(prev),
+      historicoPndSampleSize(next),
+    ),
+    clientes_unicos: Math.max(prev.clientes_unicos ?? 0, next.clientes_unicos ?? 0),
+  };
+}
+
 /**
  * Remove ciclos técnicos duplicados quando o trimestre canônico já existe.
- * Preferir linha oficial (is_official) ao mesclar.
+ * Preferir linha oficial (is_official) para NPS oficial; P/N/D da amostra mais completa.
  */
 export function prepareHistoricoDisplayCycles(cycles) {
   const list = cycles ?? [];
-  const canonicalPresent = new Set(list.map((c) => canonicalizeNpsCycle(c.ciclo)));
-
-  const filtered = list.filter((c) => {
-    if (!isTechnicalNpsCycle(c.ciclo)) return true;
-    const canon = canonicalizeNpsCycle(c.ciclo);
-    return !canonicalPresent.has(canon) || c.ciclo === canon;
-  });
-
   const byCanon = new Map();
-  for (const c of filtered) {
+  for (const c of list) {
     const key = canonicalizeNpsCycle(c.ciclo);
     const prev = byCanon.get(key);
     if (!prev) {
       byCanon.set(key, { ...c, ciclo: key });
       continue;
     }
-    if (c.is_official && !prev.is_official) byCanon.set(key, { ...c, ciclo: key });
+    byCanon.set(key, mergeHistoricoCycleRows(prev, c, key));
   }
 
   return [...byCanon.values()].sort((a, b) => cycleSortKey(a.ciclo) - cycleSortKey(b.ciclo));

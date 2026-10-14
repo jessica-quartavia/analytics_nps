@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T17:35:30.466Z",
+  "generated_at": "2026-10-14T17:23:29.467Z",
   "app_source": "core.personal_info",
   "entries": [
     {
@@ -1215,10 +1215,10 @@
     },
     {
       "client_id": "0e3bb371-eed6-4d4b-b241-9db3f61ce960",
-      "has_app": false,
-      "app_match_status": "unmatched",
-      "app_match_method": null,
-      "app_registered_at": null
+      "has_app": true,
+      "app_match_status": "matched",
+      "app_match_method": "multiple",
+      "app_registered_at": "2026-10-12T16:31:05.386904Z"
     },
     {
       "client_id": "0e412b1f-6a16-41bb-8da2-5d432fa1272e",
@@ -20010,10 +20010,10 @@
     },
     {
       "client_id": "e6573215-1c61-4aa3-a448-add2dd5b0b94",
-      "has_app": false,
-      "app_match_status": "unmatched",
-      "app_match_method": null,
-      "app_registered_at": null
+      "has_app": true,
+      "app_match_status": "matched",
+      "app_match_method": "email",
+      "app_registered_at": "2026-10-13T22:06:52.736261Z"
     },
     {
       "client_id": "e66e9ac4-94f7-4554-bd11-999d9dc70c79",

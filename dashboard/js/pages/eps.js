@@ -105,20 +105,13 @@ function epReconstructBadge(entry) {
   return `<span class="badge badge--method" title="Parte das respostas foi associada ao EP atual por ausência de histórico suficiente na data da pesquisa.">EP aproximado</span> <span class="note-muted">${n} de ${total} (${pct})</span>`;
 }
 
-function renderHero(cycle, summary) {
-  const dataState = getDataState();
-  const cutoff = formatDate(summary?.data_cutoff ?? dataState?.dataCutoff);
+function renderHero() {
   return `
     <header class="page-header">
       <div>
         <p class="eyebrow">Carteiras</p>
         <h1 class="hero__title">Engenheiros Patrimoniais</h1>
         <p class="page-header__lead">Compara as carteiras dos engenheiros patrimoniais com foco em amostra, variação e sinais de atenção.</p>
-      </div>
-      <div class="chip-row">
-        <span class="chip-modern">${escapeHtml(cycle?.cycle_name ?? '—')}</span>
-        <span class="chip-modern">${escapeHtml(cycleStatusLabel(summary?.status))}</span>
-        <span class="chip-modern">Atualizado ${escapeHtml(cutoff)}</span>
       </div>
     </header>`;
 }

@@ -528,10 +528,7 @@ export function renderPlanoDeAcao(root, ctx = {}) {
           <span class="badge badge--neutral-soft">Manual</span>
         </div>
       </div>
-      <div class="chip-row">
-        <span class="chip-modern">Atualizado ${escapeHtml(cutoff)}</span>
-        <span class="chip-modern">${allRows.length} na fila</span>
-      </div>
+      <p class="page-header__lead page-header__lead--meta">${allRows.length} clientes na fila</p>
     </header>
     ${renderDataSourceNotice('plano-de-acao')}
     <div id="action-kpi-host">${renderKpiStrip(queueKpis)}</div>
