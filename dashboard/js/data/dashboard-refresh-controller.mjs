@@ -32,7 +32,8 @@ async function runRefresh({ manual = false } = {}) {
   }
   emit({ phase: 'start', manual });
   try {
-    const result = await refreshAnalyticsData({ force: true, mode: 'light', background: !manual });
+    const mode = manual ? 'full' : 'light';
+    const result = await refreshAnalyticsData({ force: true, mode, background: !manual });
     lastScheduledAt = Date.now();
     emit({ phase: 'done', manual, ...result, dataSource: result.dataSource ?? null });
     return result;

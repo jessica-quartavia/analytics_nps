@@ -1,6 +1,6 @@
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatDateTime, formatTime } from '../utils/format.js';
-import { getDataFreshness } from '../data/analytics-store.js';
+import { getDataFreshness, getDashboardServerConfigSnapshot } from '../data/analytics-store.js';
 import { isDashboardRefreshInProgress } from '../data/dashboard-refresh-controller.mjs';
 
 /**
@@ -13,9 +13,14 @@ export function renderDashboardDataStatus(ctx = {}) {
   const dataUpdatedLabel = formatDateTime(dataUpdatedRaw);
   const lastCheckLabel = freshness.lastCheckedAt ? formatTime(freshness.lastCheckedAt) : '—';
   const busy = isDashboardRefreshInProgress();
+  const serverCfg = getDashboardServerConfigSnapshot();
+  const baseQvNotReady = serverCfg?.base_qv && serverCfg.base_qv.ready === false;
+  const cacheTitle = baseQvNotReady
+    ? 'Runtime BASE QV indisponível no servidor (verifique BASE_QV_SUPABASE_SERVICE_ROLE_KEY = service_role na Vercel Production). KPIs vêm do snapshot estático.'
+    : 'KPIs do ciclo corrente podem vir do snapshot estático até o refresh BASE QV concluir.';
   const cacheBadge =
     freshness.dataSource === 'static'
-      ? '<span class="badge badge--coral-soft dashboard-data-status__cache" title="KPIs do ciclo corrente podem vir do snapshot estático até o refresh BASE QV concluir.">Dados em cache</span>'
+      ? `<span class="badge badge--coral-soft dashboard-data-status__cache" title="${escapeAttr(cacheTitle)}">Dados em cache</span>`
       : '';
   const updatingNote = busy
     ? '<span class="dashboard-data-status__hint">Buscando dados mais recentes…</span>'
