@@ -38,6 +38,17 @@ async function assertJsonOk(path) {
   await res.json();
 }
 
+async function assertJsOk(path) {
+  const res = await fetch(`${BASE}${path.replace(/^\//, '')}`);
+  if (res.status !== 200) {
+    throw new Error(`${path} → HTTP ${res.status}`);
+  }
+  const text = await res.text();
+  if (!text.includes('import ') && !text.includes('export ')) {
+    throw new Error(`${path} → resposta não parece módulo JS`);
+  }
+}
+
 async function run() {
   buildStatic();
 
@@ -55,6 +66,9 @@ async function run() {
     for (const rel of REQUIRED_BOOT_DATASETS) {
       await assertJsonOk(publicUrlForDataset(rel));
     }
+
+    await assertJsOk('js/pages/nps-historico.js');
+    await assertJsOk('lib/analytics/nps-historico-measurements.mjs');
 
     let puppeteer;
     try {

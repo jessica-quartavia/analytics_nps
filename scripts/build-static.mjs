@@ -74,6 +74,67 @@ function walkFiles(dir, files = []) {
   return files;
 }
 
+const LIB_ANALYTICS_IMPORT_RE =
+  /from\s+['"]\.\.\/\.\.\/\.\.\/lib\/analytics\/([^'"]+)['"]/g;
+
+/** Módulos lib/analytics referenciados pelo dashboard (browser). */
+function discoverBrowserLibAnalyticsModules() {
+  const dashboardDir = join(ROOT, 'dashboard');
+  const needed = new Set([
+    'nps.mjs',
+    'nps-cycle-canonical.mjs',
+    'historico-cycle-pnd.mjs',
+    'nps-historico-measurements.mjs',
+  ]);
+  for (const file of walkFiles(dashboardDir)) {
+    if (!/\.(js|mjs)$/i.test(file)) continue;
+    let text;
+    try {
+      text = readFileSync(file, 'utf8');
+    } catch {
+      continue;
+    }
+    let match;
+    LIB_ANALYTICS_IMPORT_RE.lastIndex = 0;
+    while ((match = LIB_ANALYTICS_IMPORT_RE.exec(text))) {
+      needed.add(match[1]);
+    }
+  }
+  return [...needed].sort();
+}
+
+const REQUIRED_PRODUCTION_PAGES = ['js/pages/nps-historico.js'];
+
+function assertRequiredProductionPages(distDir = DIST) {
+  const missing = REQUIRED_PRODUCTION_PAGES.filter(
+    (rel) => !existsSync(join(distDir, rel)),
+  );
+  if (missing.length) {
+    throw new Error(
+      `Missing NPS Histórico page in production output:\n${missing.map((m) => `  - dist/${m}`).join('\n')}`,
+    );
+  }
+}
+
+function copyBrowserLibAnalytics(distDir = DIST) {
+  const modules = discoverBrowserLibAnalyticsModules();
+  mkdirSync(join(distDir, 'lib', 'analytics'), { recursive: true });
+  for (const name of modules) {
+    const src = join(ROOT, 'lib', 'analytics', name);
+    if (!existsSync(src)) {
+      throw new Error(`Build abortado — lib browser ausente: lib/analytics/${name}`);
+    }
+    const body = readFileSync(src, 'utf8');
+    if (/from\s+['"]node:/.test(body)) {
+      throw new Error(
+        `Build abortado — lib/analytics/${name} importa node:* (não publicável no browser)`,
+      );
+    }
+    cpSync(src, join(distDir, 'lib', 'analytics', name));
+  }
+  return modules;
+}
+
 export function auditDistSecurity(distDir = DIST) {
   const errors = [];
   const relPaths = walkFiles(distDir).map((p) => relative(distDir, p).replace(/\\/g, '/'));
@@ -116,16 +177,8 @@ export function buildStatic() {
   mkdirSync(DIST, { recursive: true });
 
   cpSync(join(ROOT, 'dashboard'), DIST, { recursive: true });
-  mkdirSync(join(DIST, 'lib', 'analytics'), { recursive: true });
-  /** Módulos importados pelo dashboard no browser (app.js → historico-nps → …). */
-  const browserLibAnalytics = ['nps.mjs', 'nps-cycle-canonical.mjs', 'historico-cycle-pnd.mjs'];
-  for (const name of browserLibAnalytics) {
-    const src = join(ROOT, 'lib', 'analytics', name);
-    if (!existsSync(src)) {
-      throw new Error(`Build abortado — lib browser ausente: lib/analytics/${name}`);
-    }
-    cpSync(src, join(DIST, 'lib', 'analytics', name));
-  }
+  const browserLibAnalytics = copyBrowserLibAnalytics(DIST);
+  assertRequiredProductionPages(DIST);
 
   const copiedData = [];
   const missingSource = [];
@@ -155,6 +208,7 @@ export function buildStatic() {
     dist: DIST,
     copiedData,
     indexHtml: join(DIST, 'index.html'),
+    browserLibAnalytics,
   };
 }
 
