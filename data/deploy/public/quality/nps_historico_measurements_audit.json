@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-15T23:44:31.725Z",
-  "dataset_version": "nps-historico-5732a2d2e9e8",
-  "build_commit": "5732a2d2e9e8d2bd70baf76159a99c190fe12d48",
+  "generated_at": "2026-10-15T23:49:39.738Z",
+  "dataset_version": "nps-historico-9a3577a21c72",
+  "build_commit": "9a3577a21c72a8cbddb42975e1971a53db14ace4",
   "source": "processed/responses.json",
   "dedupe_rule": "Última resposta válida por client_id dentro de cada medição canônica (BASE QV).",
   "measurement_counts": [
@@ -151,6 +151,6 @@
   },
   "file_hashes": {
     "processed/responses.json": "01da3002170778dd6ea9572315aaa2db257ceae5118b9c8edabc42d5e6fb05c1",
-    "processed/historico2_clients_enriched.json": "efe447577b59c13d614d4d56baa3ddf1eab9cba0f70da5f7c66e4954dcc1a071"
+    "processed/historico2_clients_enriched.json": "f2eba9ecccdab5679f04058feebddf01d5a977c9b6d09b7803c8b574ec73e8d9"
   }
 }

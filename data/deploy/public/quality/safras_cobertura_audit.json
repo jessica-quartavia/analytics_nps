@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T23:44:26.025Z",
+  "generated_at": "2026-10-15T23:49:35.478Z",
   "safra_entry_field_chosen": "clients.data_inicio_ciclo",
   "safra_fallback_chain": [
     "clients.data_inicio_ciclo",

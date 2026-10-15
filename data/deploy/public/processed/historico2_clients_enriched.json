@@ -1,16 +1,16 @@
 {
   "meta": {
-    "generated_at": "2026-10-15T23:44:31.725Z",
+    "generated_at": "2026-10-15T23:49:39.738Z",
     "as_of_date": "2026-10-15",
     "nps_source": "base_qv.processed/responses.json",
     "entry_date_source": "base0.clientes.data_entrada",
     "attributes_source": "base_qv",
     "page_key": "nps-historico",
     "page_title": "NPS Histórico",
-    "dataset_version": "nps-historico-5732a2d2e9e8",
-    "build_commit": "5732a2d2e9e8d2bd70baf76159a99c190fe12d48",
+    "dataset_version": "nps-historico-9a3577a21c72",
+    "build_commit": "9a3577a21c72a8cbddb42975e1971a53db14ace4",
     "responses_source": "processed/responses.json",
-    "responses_source_max_updated_at": "2026-10-15T23:44:31.725Z",
+    "responses_source_max_updated_at": "2026-10-15T23:49:39.738Z",
     "measurement_dedupe_rule": "Última resposta válida por client_id dentro de cada medição canônica (BASE QV)."
   },
   "kpis": {
