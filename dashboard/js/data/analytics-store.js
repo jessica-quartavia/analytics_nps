@@ -102,6 +102,8 @@ const PATHS = {
   npsMechanismsAtResponse: '/data/processed/nps_mechanisms_at_response.json',
   vocAllPeriods: '/data/processed/voc_all_periods.json',
   npsPredictionNextCycle: '/data/processed/nps_prediction_next_cycle.json',
+  historico2ClientsEnriched: '/data/processed/historico2_clients_enriched.json',
+  historico2MatchAudit: '/data/quality/historico2_entry_date_match_audit.json',
 };
 
 function logStoreError(message, detail) {
@@ -310,6 +312,8 @@ async function fetchAllAnalyticsDatasets({ bust = false } = {}) {
     fetchJsonOptional(PATHS.npsMechanismsAtResponse, fetchOpts),
     fetchJsonOptional(PATHS.vocAllPeriods, fetchOpts),
     fetchJsonOptional(PATHS.npsPredictionNextCycle, fetchOpts),
+    fetchJsonOptional(PATHS.historico2ClientsEnriched, fetchOpts),
+    fetchJsonOptional(PATHS.historico2MatchAudit, fetchOpts),
   ]);
 }
 
@@ -359,6 +363,8 @@ function applyAnalyticsPayload(datasets) {
     npsMechanismsAtResponseDoc,
     vocAllPeriodsDoc,
     npsPredictionNextCycleDoc,
+    historico2ClientsEnrichedDoc,
+    historico2MatchAuditDoc,
   ] = datasets;
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -419,6 +425,8 @@ function applyAnalyticsPayload(datasets) {
     npsMechanismsAtResponseDoc: npsMechanismsAtResponseDoc ?? null,
     vocAllPeriodsDoc: vocAllPeriodsDoc ?? null,
     npsPredictionNextCycleDoc: npsPredictionNextCycleDoc ?? null,
+    historico2ClientsEnrichedDoc: historico2ClientsEnrichedDoc ?? null,
+    historico2MatchAuditDoc: historico2MatchAuditDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -1035,6 +1043,14 @@ export function getCohortPaymentDateAudit() {
 
 export function getNpsPredictionDoc() {
   return state?.npsPredictionNextCycleDoc ?? null;
+}
+
+export function getHistorico2Doc() {
+  return state?.historico2ClientsEnrichedDoc ?? null;
+}
+
+export function getHistorico2MatchAudit() {
+  return state?.historico2MatchAuditDoc ?? null;
 }
 
 function refreshActionQueueEnrichedEntries() {

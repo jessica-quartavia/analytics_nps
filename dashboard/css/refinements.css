@@ -448,11 +448,126 @@
   min-width: 0;
 }
 
-/* Executivo — leitura */
-.exec-reading {
+/* Executivo — layout enxuto */
+.executivo-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1200px;
+}
+
+.executivo-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.page-header--compact .page-header__lead {
+  max-width: 42rem;
+}
+
+.section-head--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.exec-chart-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-coral, #e85d4c);
+  text-decoration: none;
+}
+
+.exec-chart-link:hover {
+  text-decoration: underline;
+}
+
+.exec-reading--compact {
+  max-width: 720px;
+  padding: 1rem 1.25rem;
+}
+
+.exec-diagnosis__bullets--compact {
+  margin: 0.65rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.925rem;
+}
+
+.exec-diagnosis__bullets--compact li + li {
+  margin-top: 0.35rem;
+}
+
+.exec-diagnosis__headline {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  margin: 0.35rem 0 0;
+}
+
+.exec-diagnosis__cta {
+  font-weight: 600;
+}
+
+.exec-modal-kpi-grid {
   display: grid;
-  grid-template-columns: 1fr minmax(200px, 280px);
-  gap: var(--space-lg);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.exec-modal-kpi {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border-subtle, #e5e7eb);
+  border-radius: 8px;
+  background: var(--surface-soft, #f8fafc);
+}
+
+.exec-modal-kpi__label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary, #64748b);
+}
+
+.exec-modal-kpi__value {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.exec-modal-section + .exec-modal-section {
+  margin-top: 1.25rem;
+}
+
+.exec-modal-section__title {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem;
+}
+
+.exec-modal-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  line-height: 1.5;
+}
+
+.exec-modal-migration {
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.65rem;
+  border-left: 3px solid var(--color-coral-soft, #f4a598);
+  background: var(--surface-soft, #f8fafc);
+  border-radius: 0 6px 6px 0;
+}
+
+.data-source-notice.historico-base0-notice .data-source-notice__text {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Executivo — leitura (legado) */
+.exec-reading {
+  display: block;
   align-items: start;
 }
 

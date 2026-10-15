@@ -51,6 +51,13 @@ export function formatDeltaPts(current, previous) {
   return `${sign}${formatNps(d)} pts`;
 }
 
+/** Variação em pontos percentuais (ex.: NPS pareado por EP). */
+export function formatDeltaPp(value) {
+  if (value == null || Number.isNaN(value)) return '—';
+  const sign = value > 0 ? '+' : '';
+  return `${sign}${formatNps(value)} p.p.`;
+}
+
 export function formatDeltaValue(delta) {
   if (delta == null || Number.isNaN(delta)) return '—';
   const sign = delta > 0 ? '+' : '';

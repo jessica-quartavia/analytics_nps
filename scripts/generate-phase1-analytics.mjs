@@ -306,6 +306,13 @@ async function main() {
     safraDist[c.safra_trimestre] = (safraDist[c.safra_trimestre] ?? 0) + 1;
   }
 
+  try {
+    const { generateHistorico2Pack } = await import('./generate-historico2.mjs');
+    await generateHistorico2Pack();
+  } catch (e) {
+    console.warn('[phase1] historico2 skipped:', e.message ?? e);
+  }
+
   console.log(
     JSON.stringify(
       {

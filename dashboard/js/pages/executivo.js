@@ -3,7 +3,6 @@ import {
   getPreviousCycle,
   getPairedCycles,
   getCycles,
-  getDataState,
   getCsatSummary,
   hasCsatArtifacts,
   getExecutiveDiagnosis,
@@ -13,22 +12,24 @@ import {
 } from '../data/analytics-store.js';
 import { getFilters } from '../filters/global-filters.js';
 import { renderFilterRecorteBanner } from '../filters/filter-context.mjs';
-import { buildExecutiveReading } from '../data/store-core.mjs';
 import {
   formatNps,
   formatPct,
   formatDeltaPts,
+  formatDeltaPp,
   formatDate,
   formatDateTime,
-  cycleStatusLabel,
   formatCsatAverageWithScale,
   formatNpsMeanScore,
 } from '../utils/format.js';
-import { escapeHtml } from '../utils/escape-html.js';
-import { sectionLead, helpTip, TIPS } from '../ui/help.js';
+import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
+import { helpTip, TIPS } from '../ui/help.js';
+import {
+  buildExecutiveHighlights,
+  buildExecutiveModalModel,
+} from '../data/executive-highlights.mjs';
 import { EXECUTIVE_KPI_LABELS, POPULATION_TIPS } from '../data/population-transparency.mjs';
 import { bindRespondentsDrawer, closeRespondentsDrawer } from '../ui/respondents-drawer.js';
-import { renderExecutivoManagementInsightsSection } from './executivo-management-insights.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 let charts = [];
@@ -89,11 +90,11 @@ function renderQualityNotes(current, previous) {
 
 function renderHero() {
   return `
-    <header class="page-header">
+    <header class="page-header page-header--compact">
       <div>
         <p class="eyebrow">Visão executiva</p>
         <h1 class="hero__title">NPS — Diagnóstico de Gestão</h1>
-        <p class="page-header__lead">Resumo geral do NPS, comparação com o ciclo anterior e principais sinais de atenção.</p>
+        <p class="page-header__lead">KPIs, leitura rápida e gráficos do ciclo selecionado.</p>
       </div>
     </header>`;
 }
@@ -117,8 +118,7 @@ function renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle) 
       <article class="metric-hero metric-hero--primary">
         <div class="metric-hero__label">${helpTip('NPS atual', TIPS.npsAtual)}</div>
         <div class="metric-hero__value">${escapeHtml(formatNps(nps))}</div>
-        <p class="metric-hero__rounding note-muted">O BASE QV exibe o NPS arredondado como inteiro (pode aparecer como 65).</p>
-        <div class="metric-hero__note">${escapeHtml(currentCycle?.cycle_name ?? '—')}</div>
+        <div class="metric-hero__note" title="O BASE QV pode exibir o NPS arredondado como inteiro.">${escapeHtml(currentCycle?.cycle_name ?? '—')}</div>
       </article>
       <article class="metric-hero">
         <div class="metric-hero__label">${helpTip('Nota média', 'Média das notas NPS válidas no recorte selecionado.')}</div>
@@ -222,43 +222,20 @@ function renderComposition(currentSummary) {
     </div>`;
 }
 
-function sourcesHint(artifacts) {
-  if (!artifacts?.length) return '';
-  return `<span class="exec-diagnosis__sources" title="Fonte da leitura">Fonte: ${escapeHtml(artifacts.join(', '))}</span>`;
-}
-
-function renderExecutiveDiagnosisBlock(diagnosis) {
-  if (!diagnosis) {
-    return `<p class="placeholder-note" role="status">Diagnóstico executivo indisponível. Execute <code>npm run generate:diagnosis</code>.</p>`;
-  }
-  const bullets = (diagnosis.executive_summary ?? []).map(
-    (b) => `<li>${escapeHtml(b.text)} ${sourcesHint(b.source_artifacts)}</li>`,
-  );
-  const questions = (diagnosis.management_questions ?? [])
-    .map(
-      (q) => `
-      <details class="mgmt-q">
-        <summary>${escapeHtml(q.question)}</summary>
-        <p>${escapeHtml(q.answer)}</p>
-        ${sourcesHint(q.source_artifacts)}
-      </details>`,
-    )
-    .join('');
+function renderExecutiveReadingCard({ headline, highlights }) {
+  const bullets =
+    highlights.length > 0
+      ? highlights.map((t) => `<li>${escapeHtml(t)}</li>`).join('')
+      : '<li class="note-muted">Sem sinais adicionais para o recorte atual.</li>';
   return `
-    <section class="exec-diagnosis card exec-reading" aria-labelledby="exec-diagnosis-title">
-      <div class="exec-reading__main">
-        <h2 class="section-title section-title--flush" id="exec-diagnosis-title">Leitura executiva</h2>
-        ${sectionLead('Síntese automática com base nos mesmos arquivos do dashboard — sem alterar os números oficiais.')}
-        <p class="exec-diagnosis__headline">${escapeHtml(diagnosis.headline?.text ?? '—')}</p>
-        <ul class="exec-diagnosis__bullets">${bullets.join('') || '<li>Sem bullets para este ciclo.</li>'}</ul>
-        <div class="exec-reading__actions">
-          <button type="button" class="btn btn--secondary" id="btn-diagnosis-full">Ver diagnóstico completo</button>
-        </div>
+    <section class="exec-diagnosis card exec-reading exec-reading--compact" aria-labelledby="exec-diagnosis-title">
+      <h2 class="section-title section-title--flush" id="exec-diagnosis-title">Leitura executiva</h2>
+      <p class="exec-diagnosis__headline">${escapeHtml(headline)}</p>
+      <ul class="exec-diagnosis__bullets exec-diagnosis__bullets--compact">${bullets}</ul>
+      <div class="exec-reading__actions">
+        <button type="button" class="btn btn--ghost btn--sm exec-diagnosis__cta" id="btn-diagnosis-full">Ver diagnóstico completo →</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="btn-diagnosis-explore">Explorar diagnóstico</button>
       </div>
-      <aside class="exec-reading__aside">
-        <h3 class="section-title section-title--flush">Responder em 5 minutos</h3>
-        <div class="mgmt-questions">${questions}</div>
-      </aside>
     </section>`;
 }
 
@@ -269,36 +246,76 @@ export function closeDiagnosisDrawer() {
   backdrop?.setAttribute('aria-expanded', 'false');
 }
 
-function openDiagnosisDrawer(diagnosis) {
+function renderModalKpi(label, value) {
+  return `<article class="exec-modal-kpi"><span class="exec-modal-kpi__label">${escapeHtml(label)}</span><span class="exec-modal-kpi__value">${value}</span></article>`;
+}
+
+function openDiagnosisDrawer(modalModel, { exploreOnly = false } = {}) {
   const drawer = document.getElementById('diagnosis-drawer');
   const backdrop = document.getElementById('diagnosis-drawer-backdrop');
-  if (!drawer || !diagnosis) return;
+  if (!drawer || !modalModel) return;
 
   const section = (title, body) =>
-    `<section><h3>${escapeHtml(title)}</h3>${body}</section>`;
+    `<section class="exec-modal-section"><h3 class="exec-modal-section__title">${escapeHtml(title)}</h3>${body}</section>`;
 
-  const list = (items) =>
-    `<ul>${items.map((i) => `<li>${escapeHtml(String(i))}</li>`).join('')}</ul>`;
+  const mov = modalModel.movement;
+  const movText =
+    mov?.available && mov.worsened_clients > 0
+      ? `<p>${escapeHtml(String(mov.paired ?? 0))} clientes pareados · ${escapeHtml(String(mov.worsened_clients))} migraram para categoria inferior.</p>`
+      : '<p class="note-muted">Sem migração negativa relevante no recorte.</p>';
+  const topMig = mov?.topNegative
+    ? `<p class="exec-modal-migration"><strong>${escapeHtml(mov.topNegative.migration)}</strong><br>${escapeHtml(String(mov.topNegative.count))} clientes</p>`
+    : '';
+
+  const epList = (modalModel.eps ?? [])
+    .map(
+      (e) =>
+        `<li><strong>${escapeHtml(e.ep_name)}</strong> · n=${escapeHtml(String(e.n))} · Δ pareado ${escapeHtml(formatDeltaPp(e.delta_nps_paired))}</li>`,
+    )
+    .join('');
+
+  const voc = modalModel.voc;
+  const vocBlock = voc
+    ? `<p><strong>${escapeHtml(voc.topic)}</strong></p>
+       <ul class="exec-modal-list">
+         <li>${escapeHtml(formatPct(voc.pctResponses, 1))} dos comentários classificados</li>
+         <li>${escapeHtml(formatPct(voc.negativePct, 1))} de valência negativa no tema</li>
+       </ul>`
+    : '<p class="note-muted">Sem tema negativo destacado.</p>';
+
+  const driversBlock =
+    modalModel.drivers?.length > 0
+      ? `<ul class="exec-modal-list">${modalModel.drivers.map((d) => `<li>${escapeHtml(d)}</li>`).join('')}</ul>`
+      : '<p class="note-muted">Drivers indisponíveis para este ciclo.</p>';
+
+  const exploreBlock =
+    modalModel.managementQuestions?.length > 0
+      ? `<div class="mgmt-questions">${modalModel.managementQuestions
+          .map(
+            (q) => `<details class="mgmt-q"><summary>${escapeHtml(q.question)}</summary><p>${escapeHtml(q.answer)}</p></details>`,
+          )
+          .join('')}</div>`
+      : '<p class="note-muted">Perguntas de gestão indisponíveis.</p>';
+
+  const summaryBlock = `<div class="exec-modal-kpi-grid">
+        ${renderModalKpi('NPS atual', escapeHtml(formatNps(modalModel.overall?.nps)))}
+        ${renderModalKpi('Variação', escapeHtml(formatDeltaPts(modalModel.overall?.nps, modalModel.overall?.previousNps)))}
+        ${renderModalKpi('Respostas', escapeHtml(String(modalModel.overall?.validResponses ?? '—')))}
+        ${renderModalKpi('Clientes pareados', escapeHtml(String(modalModel.overall?.pairedClients ?? '—')))}
+      </div>`;
 
   drawer.innerHTML = `
     <header class="drawer__header">
-      <h2>Diagnóstico — ${escapeHtml(diagnosis.cycle_name ?? '')}</h2>
+      <h2>${exploreOnly ? 'Explorar diagnóstico' : 'Diagnóstico'} — ${escapeHtml(modalModel.cycleName ?? '')}</h2>
       <button type="button" class="drawer__close" id="diagnosis-drawer-close" aria-label="Fechar">×</button>
     </header>
-    <div class="drawer__body">
-      ${section('Resultado geral', list([
-        `NPS: ${formatNps(diagnosis.overall?.current_nps)} (Δ ${formatDeltaPts(diagnosis.overall?.current_nps, diagnosis.overall?.previous_nps)})`,
-        `Respostas: ${diagnosis.overall?.valid_responses ?? '—'}`,
-      ]))}
-      ${section('Mesmos clientes', `<p>${escapeHtml(diagnosis.paired?.comparison_text ?? '—')}</p><p>${escapeHtml(String(diagnosis.paired?.paired_clients ?? 0))} pareados · Δ NPS ${formatNps(diagnosis.paired?.delta_nps_paired)}</p>`)}
-      ${section('Movimento', `<p>${escapeHtml(diagnosis.movement?.reading ?? '—')}</p>`)}
-      ${section('Carteiras EP', list((diagnosis.eps?.eps_attention ?? []).map((e) => `${e.ep_name} (n=${e.n}, Δ pareado ${e.delta_nps_paired ?? '—'})`)) || ['Nenhum destaque.'])}
-      ${section('Voz do Cliente', list((diagnosis.voc?.executive_lines ?? []).length ? diagnosis.voc.executive_lines : ['Sem leitura VoC.']))}
-      ${section('Drivers', list((diagnosis.drivers?.executive_drivers ?? []).map((d) => d.text) || [diagnosis.drivers?.message ?? 'Indisponível']))}
-      ${section('CSAT', `<p>Média ${formatCsatAverageWithScale(diagnosis.csat?.current_average)} · Satisfeitos ${formatPct(diagnosis.csat?.current_satisfied_pct, 1)}%</p>`)}
-      ${section('Plano de ação', `<p>${escapeHtml(diagnosis.actions?.executive_line ?? '—')}</p>`)}
-      ${section('Qualidade', list(diagnosis.quality?.flags ?? ['Sem flags']))}
-      ${section('Metodologia', list(diagnosis.methodology_notes ?? []))}
+    <div class="drawer__body exec-modal-body">
+      ${exploreOnly ? section('Perguntas de gestão', exploreBlock) : ''}
+      ${!exploreOnly ? section('Resumo', summaryBlock) : ''}
+      ${!exploreOnly ? section('Movimento', `${movText}${topMig}`) : ''}
+      ${!exploreOnly ? section('EPs em atenção', epList ? `<ul class="exec-modal-list">${epList}</ul>` : '<p class="note-muted">Nenhum EP em destaque.</p>') : ''}
+      ${!exploreOnly ? section('Voz do Cliente', vocBlock) : ''}
+      ${!exploreOnly ? section('Drivers', driversBlock) : ''}
     </div>`;
 
   drawer.classList.add('is-open');
@@ -310,15 +327,11 @@ function openDiagnosisDrawer(diagnosis) {
   backdrop?.addEventListener('click', closeDiagnosisDrawer, { once: true });
 }
 
-function renderTotalVsPaired(currentSummary, previousSummary, paired, reading, comparisonText, recorteActive) {
-  const pairedInsight = recorteActive
-    ? ''
-    : comparisonText ?? reading.find((l) => l.includes('mesmos clientes') || l.includes('base pareada')) ?? '';
+function renderTotalVsPaired(currentSummary, previousSummary, paired, recorteActive) {
   return `
     <div class="section-head">
       <h2 class="section-title">Total × mesmos clientes</h2>
-      <p class="section-subtitle">${recorteActive ? 'Recorte atual vs mesmos clientes no recorte (com nota anterior)' : 'Denominadores distintos — interpretar cada bloco separadamente'}</p>
-      ${sectionLead(recorteActive ? 'Com filtros ativos, ambos os blocos usam o mesmo conjunto de clientes do recorte.' : 'Aqui comparamos o resultado geral com o resultado de quem respondeu nos dois ciclos.')}
+      <p class="section-subtitle">${recorteActive ? 'Recorte atual vs mesmos clientes no recorte' : 'Base total vs clientes com resposta nos dois ciclos'}</p>
     </div>
     <div class="compare-hero">
       <div class="compare-hero__col">
@@ -333,8 +346,23 @@ function renderTotalVsPaired(currentSummary, previousSummary, paired, reading, c
         <div class="compare-hero__delta">${escapeHtml(formatDeltaPts(paired?.current_nps_paired, paired?.previous_nps_paired))}</div>
         <div class="compare-hero__meta">${escapeHtml(String(paired?.paired_clients ?? 0))} clientes pareados</div>
       </div>
-      ${pairedInsight ? `<p class="compare-hero__insight">${escapeHtml(pairedInsight)}</p>` : ''}
     </div>`;
+}
+
+function chartSection(title, subtitle, canvasId, href, ariaLabel, wrapClass = '') {
+  const link = href
+    ? `<a class="exec-chart-link" href="${escapeAttr(href)}">Ver análise →</a>`
+    : '';
+  const wrapExtra = wrapClass ? ` ${wrapClass}` : '';
+  return `
+    <div class="section-head section-head--row">
+      <div>
+        <h2 class="section-title">${escapeHtml(title)}</h2>
+        ${subtitle ? `<p class="section-subtitle">${escapeHtml(subtitle)}</p>` : ''}
+      </div>
+      ${link}
+    </div>
+    <article class="chart-card exec-chart-card"><div class="chart-wrap${wrapExtra}"><canvas id="${escapeAttr(canvasId)}" aria-label="${escapeAttr(ariaLabel)}"></canvas></div></article>`;
 }
 
 function mountDistributionChart(canvas, summary) {
@@ -493,50 +521,62 @@ export function renderExecutivo(root, ctx = {}) {
     return;
   }
 
-  const reading = recorteActive
-    ? []
-    : buildExecutiveReading({
-        currentSummary: officialSummary,
-        previousSummary: prevCycle ? getCycleSummary(prevCycle.cycle_code) : null,
-        paired: getPairedCycles(filters.cycleCode),
-      });
+  const pairedForView = filterCtx?.pairedDisplay ?? paired;
+  const highlights = buildExecutiveHighlights({
+    currentSummary,
+    previousSummary,
+    paired: pairedForView,
+    migrationMatrix: filterCtx?.migrationMatrix,
+    diagnosisFallback: diagnosis,
+  });
+  const modalModel = buildExecutiveModalModel({
+    currentSummary,
+    previousSummary,
+    paired: pairedForView,
+    migrationMatrix: filterCtx?.migrationMatrix,
+    diagnosisFallback: diagnosis,
+    currentCycleName: currentCycle?.cycle_name ?? diagnosis?.cycle_name,
+  });
+
   const stackedSection = previousSummary
-    ? `<div class="section-head"><h2 class="section-title">Composição comparada</h2><p class="section-subtitle">Detratores, neutros e promotores — empilhado por ciclo</p></div>
-    <article class="chart-card"><div class="chart-wrap"><canvas id="chart-stack" aria-label="Composição NPS empilhada"></canvas></div></article>`
-    : `<div class="section-head"><h2 class="section-title">Composição comparada</h2></div>
-    <p class="placeholder-note" role="status">Comparativo empilhado disponível a partir do segundo ciclo analítico.</p>`;
+    ? chartSection(
+        'Composição comparada',
+        'P/N/D empilhado por ciclo',
+        'chart-stack',
+        '#/movimento',
+        'Composição NPS empilhada',
+      )
+    : '';
 
   root.innerHTML = `
-    ${renderHero(currentCycle, officialSummary)}
+    <div class="executivo-page">
+    ${renderHero()}
     ${renderDataSourceNotice('executivo')}
     ${renderFilterRecorteBanner(filterCtx)}
-    ${renderExecutiveDiagnosisBlock(diagnosis)}
-    ${renderExecutivoManagementInsightsSection()}
     ${renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle)}
     ${renderSampleRow(currentSummary, officialSummary, recorteActive)}
+    ${renderExecutiveReadingCard(highlights)}
+    <section class="executivo-charts" aria-label="Gráficos principais">
+      ${chartSection('Histórico de NPS', 'Evolução por ciclo analítico', 'chart-history', '#/historico-nps', 'NPS por ciclo', 'chart-wrap--tall')}
+      ${renderComposition(currentSummary)}
+      ${stackedSection}
+      ${chartSection('Distribuição das notas', 'Frequência de 0 a 10', 'chart-dist', '#/movimento', 'Distribuição das notas')}
+    </section>
+    ${renderTotalVsPaired(currentSummary, previousSummary, pairedForView, recorteActive)}
     ${renderCsatComplementary(filters.cycleCode)}
-    ${renderComposition(currentSummary)}
-    ${renderTotalVsPaired(currentSummary, previousSummary, paired, reading, diagnosis?.paired?.comparison_text, recorteActive)}
-    <div class="section-head"><h2 class="section-title">Distribuição das notas</h2><p class="section-subtitle">Frequência de cada nota de 0 a 10</p></div>
-    <article class="chart-card"><div class="chart-wrap"><canvas id="chart-dist" aria-label="Distribuição das notas"></canvas></div></article>
-    ${stackedSection}
-    <div class="section-head"><h2 class="section-title">Histórico de NPS</h2><p class="section-subtitle">Evolução por ciclo analítico</p></div>
-    <article class="chart-card"><div class="chart-wrap chart-wrap--tall"><canvas id="chart-history" aria-label="NPS por ciclo"></canvas></div></article>
-    ${
-      diagnosis
-        ? ''
-        : `<div class="insight-box">
-      <h2 class="section-title section-title--flush">Leitura do ciclo</h2>
-      <ul>${reading.map((l) => `<li>${escapeHtml(l)}</li>`).join('') || '<li>Sem leitura automática para os filtros atuais.</li>'}</ul>
-    </div>`
-    }
     ${renderQualityNotes(officialSummary, prevCycle ? getCycleSummary(prevCycle.cycle_code) : null)}
+    </div>
   `;
 
   const opts = signal ? { signal } : undefined;
   document.getElementById('btn-diagnosis-full')?.addEventListener(
     'click',
-    () => openDiagnosisDrawer(diagnosis),
+    () => openDiagnosisDrawer(modalModel),
+    opts,
+  );
+  document.getElementById('btn-diagnosis-explore')?.addEventListener(
+    'click',
+    () => openDiagnosisDrawer(modalModel, { exploreOnly: true }),
     opts,
   );
   bindRespondentsDrawer(filters.cycleCode, signal);

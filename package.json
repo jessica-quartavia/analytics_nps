@@ -57,6 +57,7 @@
     "generate:pharus-app-match": "node scripts/generate-pharus-app-match.mjs",
     "generate:safras-cobertura": "node scripts/generate-safras-cobertura.mjs",
     "generate:historico-nps": "node scripts/generate-historico-nps.mjs",
+    "generate:historico2": "node scripts/generate-historico2.mjs",
     "audit:upgrade-phase0": "node scripts/audit-upgrade-phase0.mjs",
     "refresh:base-qv": "node scripts/refresh-base-qv.mjs",
     "refresh:base-qv-mcp": "node scripts/refresh-base-qv-from-partials.mjs",

@@ -134,6 +134,7 @@ const ROUTES = {
 
 const LAZY_ROUTE_META = {
   'historico-nps': { title: 'Histórico NPS', topbar: 'Histórico NPS' },
+  'historico-2': { title: 'Histórico 2', topbar: 'Histórico 2' },
 };
 
 /** @type {import('./pages/historico-nps.js') | null} */
@@ -148,6 +149,20 @@ async function ensureHistoricoNpsModule() {
 
 function closeHistoricoDrawer() {
   historicoNpsModule?.closeHistoricoDrawer?.();
+}
+
+/** @type {import('./pages/historico2.js') | null} */
+let historico2Module = null;
+
+async function ensureHistorico2Module() {
+  if (!historico2Module) {
+    historico2Module = await import('./pages/historico2.js');
+  }
+  return historico2Module;
+}
+
+function closeHistorico2Drawer() {
+  historico2Module?.closeHistorico2Drawer?.();
 }
 
 function routeMeta(route) {
@@ -277,6 +292,7 @@ function renderFiltersBar() {
   if (
     route === 'safras-cobertura' ||
     route === 'historico-nps' ||
+    route === 'historico-2' ||
     route === 'previsao-nps' ||
     route === 'sistema/documentacao' ||
     route === 'sistema/logs'
@@ -475,6 +491,18 @@ async function renderHistoricoNpsLazy(container, { signal } = {}) {
   }
 }
 
+async function renderHistorico2Lazy(container, { signal } = {}) {
+  container.innerHTML =
+    '<div class="gd-status" role="status"><p>Carregando Histórico 2…</p></div>';
+  try {
+    const mod = await ensureHistorico2Module();
+    if (signal?.aborted) return;
+    mod.renderHistorico2(container);
+  } catch (err) {
+    renderPageError(container, 'historico-2', err);
+  }
+}
+
 async function renderPage() {
   renderFiltersBar();
   const route = getRoute();
@@ -488,6 +516,7 @@ async function renderPage() {
   closeDrawer();
   closeSafrasDrawer();
   closeHistoricoDrawer();
+  closeHistorico2Drawer();
   closeEpDrawer();
   closeVocDrawer();
   closeDriverDrawer();
@@ -501,6 +530,10 @@ async function renderPage() {
   try {
     if (route === 'historico-nps') {
       await renderHistoricoNpsLazy(content, { signal });
+      return;
+    }
+    if (route === 'historico-2') {
+      await renderHistorico2Lazy(content, { signal });
       return;
     }
     if (route === 'sistema/logs') {

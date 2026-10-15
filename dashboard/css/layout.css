@@ -190,6 +190,12 @@
   border: 1px solid color-mix(in srgb, var(--color-coral, #e85d3a) 28%, transparent);
 }
 
+.nav-badge--beta {
+  color: var(--accent, #2563eb);
+  background: color-mix(in srgb, var(--accent, #2563eb) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--accent, #2563eb) 22%, transparent);
+}
+
 .sidebar-nav a.is-active .nav-icon,
 .sidebar-nav__link.is-active .nav-icon {
   opacity: 1;

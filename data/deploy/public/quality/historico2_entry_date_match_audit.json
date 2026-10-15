@@ -1,0 +1,164 @@
+{
+  "generated_at": "2026-10-15T23:18:01.200Z",
+  "as_of_date": "2026-10-15",
+  "base_qv_total": 3152,
+  "matched_total": 2469,
+  "with_entry_date": 2466,
+  "without_entry_date": 686,
+  "coverage_pct": 78.2,
+  "by_method": {
+    "base_qv_id": 2459,
+    "cpf": 2,
+    "email": 1,
+    "phone": 7,
+    "unmatched": 641,
+    "ambiguous": 42
+  },
+  "unmatched": 641,
+  "ambiguous": 42,
+  "conflicts": 42,
+  "base0_duplicate_audit": {
+    "base_qv_id_multi_date": 0,
+    "cpf_multi_date": 2,
+    "email_multi_date": 4,
+    "phone_multi_date": 42
+  },
+  "future_entry_dates": 3,
+  "qa_samples": {
+    "base_qv_id": [
+      {
+        "client_id": "0006917d-682b-4c05-917b-f3763a264a3d",
+        "entry_date": "2025-07-06",
+        "method": "base_qv_id"
+      },
+      {
+        "client_id": "0007eb62-0ead-4f1f-8f70-c1685b739094",
+        "entry_date": "2026-08-03",
+        "method": "base_qv_id"
+      },
+      {
+        "client_id": "000e7037-d04e-436f-a8ba-baa31fe7a808",
+        "entry_date": "2025-01-29",
+        "method": "base_qv_id"
+      },
+      {
+        "client_id": "001c4726-0f49-446e-8f81-8802a4628717",
+        "entry_date": "2025-07-15",
+        "method": "base_qv_id"
+      },
+      {
+        "client_id": "002dde03-02ed-4af3-9ea0-108137b376cc",
+        "entry_date": "2025-06-18",
+        "method": "base_qv_id"
+      }
+    ],
+    "cpf": [
+      {
+        "client_id": "122e087d-9da2-4e5f-b254-63a3372ae054",
+        "entry_date": "2026-06-01",
+        "method": "cpf"
+      },
+      {
+        "client_id": "ebc811e2-a22f-47cc-af39-90e5599bd8a5",
+        "entry_date": "2026-04-17",
+        "method": "cpf"
+      }
+    ],
+    "email": [
+      {
+        "client_id": "f66b4008-0127-449d-a63c-26b419e32032",
+        "entry_date": "2023-07-07",
+        "method": "email"
+      }
+    ],
+    "phone": [
+      {
+        "client_id": "2f5f715f-4d29-4255-b0bf-5a10d7936b99",
+        "entry_date": "2024-02-26",
+        "method": "phone"
+      },
+      {
+        "client_id": "39ce79fe-f22f-45a1-a27b-dd6bcb1a844f",
+        "entry_date": "2025-02-03",
+        "method": "phone"
+      },
+      {
+        "client_id": "7d55d860-c7af-4cb6-8e5a-2a98bb10a6ad",
+        "entry_date": "2025-05-12",
+        "method": "phone"
+      },
+      {
+        "client_id": "91ef8559-a0f5-4bb3-8db9-fd003238a039",
+        "entry_date": "2024-09-18",
+        "method": "phone"
+      },
+      {
+        "client_id": "936ae458-2919-40f0-a0ec-2aceabd2e8a0",
+        "entry_date": "2024-03-06",
+        "method": "phone"
+      }
+    ],
+    "unmatched": [
+      {
+        "client_id": "00739be6-26c0-43a3-8cac-045d7eb1bd73",
+        "entry_date": null,
+        "method": "unmatched"
+      },
+      {
+        "client_id": "012c9339-9218-46dc-91fe-569820b60eb0",
+        "entry_date": null,
+        "method": "unmatched"
+      },
+      {
+        "client_id": "01749103-30b7-4ac5-8acb-1fae1ae7d957",
+        "entry_date": null,
+        "method": "unmatched"
+      },
+      {
+        "client_id": "01a27bb3-4446-473f-8bb8-1bc5edb079d9",
+        "entry_date": null,
+        "method": "unmatched"
+      },
+      {
+        "client_id": "01ac55f6-0ace-45b1-8d92-65c0283d28df",
+        "entry_date": null,
+        "method": "unmatched"
+      }
+    ],
+    "ambiguous": [
+      {
+        "client_id": "00bdf087-5bb6-4912-8ceb-4451acb645f3",
+        "entry_date": null,
+        "method": "ambiguous"
+      },
+      {
+        "client_id": "15df488b-8d2e-4e7f-8b09-ff6c967c95c2",
+        "entry_date": null,
+        "method": "ambiguous"
+      },
+      {
+        "client_id": "16282d10-33a9-489f-aeba-04b22c96caa1",
+        "entry_date": null,
+        "method": "ambiguous"
+      },
+      {
+        "client_id": "185ac43b-9e4e-4df0-bedc-58f267946c7f",
+        "entry_date": null,
+        "method": "ambiguous"
+      },
+      {
+        "client_id": "186ef3f0-8e9f-4526-b09e-9ad740f29b5c",
+        "entry_date": null,
+        "method": "ambiguous"
+      }
+    ]
+  },
+  "kpis": {
+    "clients_with_entry_date": 2466,
+    "clients_without_entry_date": 686,
+    "match_coverage_pct": 78.2,
+    "distinct_entry_cohorts": 12,
+    "nps_responses_considered": 443,
+    "base_qv_clients": 3152
+  }
+}
