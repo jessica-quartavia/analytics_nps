@@ -1,24 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  buildMeasurementResponseSeries,
   enrichedRowsForHistorico2Clients,
   buildHistorico2ExecutiveKpis,
 } from '../../dashboard/js/data/historico2-executive-kpis.mjs';
-
-test('buildMeasurementResponseSeries agrupa por trimestre canônico 2025+', () => {
-  const rows = [
-    { client_id: 'a', nps_cycle: 'NPS-2026-JUN-JUL-PHARUS' },
-    { client_id: 'b', nps_cycle: 'NPS-2026-JUN-JUL-PHARUS' },
-    { client_id: 'c', nps_cycle: 'NPS-2026-SET-PHARUS' },
-    { client_id: 'd', nps_cycle: 'Onda 1 (jun a jul/26)' },
-  ];
-  const series = buildMeasurementResponseSeries(rows);
-  assert.deepEqual(series, [
-    { measurement: '2026-Q2', responses: 3 },
-    { measurement: '2026-Q3', responses: 1 },
-  ]);
-});
 
 test('enrichedRowsForHistorico2Clients respeita recorte de clientes', () => {
   const doc = {

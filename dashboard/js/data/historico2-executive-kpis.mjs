@@ -1,18 +1,9 @@
-import { cycleSortKey } from '../utils/cycle-sort.mjs';
 import { canonicalizeNpsCycle, formatNpsCycleLabel } from '../utils/nps-cycle-labels.mjs';
 import { median } from './historico-nps-enriched-view.mjs';
 
 function officialCyclesFromSummary(summaryDoc) {
   const cycles = summaryDoc?.summary?.cycles ?? summaryDoc?.cycles ?? [];
   return cycles.filter((c) => c.is_official);
-}
-
-function isCanonicalQuarter(label) {
-  return /^\d{4}-Q\d$/.test(String(label ?? ''));
-}
-
-function quarterYear(label) {
-  return Number(String(label).slice(0, 4));
 }
 
 /** Respostas enriquecidas (PIT) restritas ao recorte de clientes Histórico 2. */
@@ -38,12 +29,15 @@ function recurrenceCounts(enrichedRows) {
 export function buildHistorico2ExecutiveKpis({
   filteredClients,
   enrichedDoc,
+  measurementsPack,
   historicalSummaryDoc,
   liveOfficialSummary,
   livePreviousOfficialSummary,
   currentCycleCode,
 }) {
   const enrichedRows = enrichedRowsForHistorico2Clients(enrichedDoc, filteredClients);
+  const clientIds = new Set((filteredClients ?? []).map((c) => c.client_id).filter(Boolean));
+  const measurementIndex = measurementsPack?.response_index ?? [];
   const official = officialCyclesFromSummary(historicalSummaryDoc);
   const lastOff = official[official.length - 1] ?? null;
   const prevOff = official[official.length - 2] ?? null;
@@ -75,9 +69,16 @@ export function buildHistorico2ExecutiveKpis({
     variation = lastOff.variacao_vs_anterior;
   }
 
-  const cycleResponses = currentCanonical
-    ? enrichedRows.filter((r) => canonicalizeNpsCycle(r.nps_cycle) === currentCanonical).length
-    : enrichedRows.length;
+  const cycleResponses =
+    measurementIndex.length > 0
+      ? measurementIndex.filter((r) => {
+          if (clientIds.size && !clientIds.has(r.client_id)) return false;
+          if (currentCanonical) return r.measurement === currentCanonical;
+          return true;
+        }).length
+      : currentCanonical
+        ? enrichedRows.filter((r) => canonicalizeNpsCycle(r.nps_cycle) === currentCanonical).length
+        : enrichedRows.length;
 
   const recMap = recurrenceCounts(enrichedRows);
   const uniqueHistoricalClients = recMap.size;
@@ -110,16 +111,3 @@ export function buildHistorico2ExecutiveKpis({
   };
 }
 
-/** Respostas por medição (trimestre canônico), 2025+. */
-export function buildMeasurementResponseSeries(enrichedRows) {
-  const counts = new Map();
-  for (const r of enrichedRows ?? []) {
-    const canon = canonicalizeNpsCycle(r.nps_cycle);
-    if (!isCanonicalQuarter(canon)) continue;
-    if (quarterYear(canon) < 2025) continue;
-    counts.set(canon, (counts.get(canon) ?? 0) + 1);
-  }
-  return [...counts.entries()]
-    .sort(([a], [b]) => cycleSortKey(a) - cycleSortKey(b))
-    .map(([measurement, responses]) => ({ measurement, responses }));
-}

@@ -61,6 +61,11 @@ export const PAGE_DATA_SOURCES = {
     text: 'As informações analíticas e cadastrais vêm da BASE QV. O BASE0 é utilizado apenas para recuperar a data de entrada do cliente e calcular sua safra.',
     sourceIds: ['base_qv', 'base0'],
   },
+  'nps-historico': {
+    lead: 'Bases utilizadas',
+    text: 'NPS e respostas vêm da BASE QV (processed/responses.json). BASE0 só fornece data de entrada e safra.',
+    sourceIds: ['base_qv', 'base0'],
+  },
   eps: {
     lead: 'Bases utilizadas',
     text: 'Carteiras e respostas por EP usam summaries do pipeline NPS (BASE QV + respostas processadas).',

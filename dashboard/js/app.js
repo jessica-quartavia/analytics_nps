@@ -134,7 +134,8 @@ const ROUTES = {
 
 const LAZY_ROUTE_META = {
   'historico-nps': { title: 'Histórico NPS', topbar: 'Histórico NPS' },
-  'historico-2': { title: 'Histórico 2', topbar: 'Histórico 2' },
+  'nps-historico': { title: 'NPS Histórico', topbar: 'NPS Histórico' },
+  'historico-2': { title: 'NPS Histórico', topbar: 'NPS Histórico' },
 };
 
 /** @type {import('./pages/historico-nps.js') | null} */
@@ -151,12 +152,12 @@ function closeHistoricoDrawer() {
   historicoNpsModule?.closeHistoricoDrawer?.();
 }
 
-/** @type {import('./pages/historico2.js') | null} */
+/** @type {import('./pages/nps-historico.js') | null} */
 let historico2Module = null;
 
 async function ensureHistorico2Module() {
   if (!historico2Module) {
-    historico2Module = await import('./pages/historico2.js');
+    historico2Module = await import('./pages/nps-historico.js');
   }
   return historico2Module;
 }
@@ -176,7 +177,14 @@ function isKnownRoute(routeKey) {
 function parseHashRoute() {
   const raw = location.hash.replace(/^#\/?/, '') || 'executivo';
   const [pathPart] = raw.split('#');
-  const [routeKey, queryString] = pathPart.split('?');
+  let [routeKey, queryString] = pathPart.split('?');
+  if (routeKey === 'historico-2') {
+    const suffix = queryString ? `?${queryString}` : '';
+    if (location.hash !== `#/nps-historico${suffix}`) {
+      history.replaceState(null, '', `#/nps-historico${suffix}`);
+    }
+    routeKey = 'nps-historico';
+  }
   const route = isKnownRoute(routeKey) ? routeKey : 'executivo';
   const params = new URLSearchParams(queryString ?? '');
   return { route, params };
@@ -292,6 +300,7 @@ function renderFiltersBar() {
   if (
     route === 'safras-cobertura' ||
     route === 'historico-nps' ||
+    route === 'nps-historico' ||
     route === 'historico-2' ||
     route === 'previsao-nps' ||
     route === 'sistema/documentacao' ||
@@ -493,7 +502,7 @@ async function renderHistoricoNpsLazy(container, { signal } = {}) {
 
 async function renderHistorico2Lazy(container, { signal } = {}) {
   container.innerHTML =
-    '<div class="gd-status" role="status"><p>Carregando Histórico 2…</p></div>';
+    '<div class="gd-status" role="status"><p>Carregando NPS Histórico…</p></div>';
   try {
     const mod = await ensureHistorico2Module();
     if (signal?.aborted) return;
@@ -532,7 +541,7 @@ async function renderPage() {
       await renderHistoricoNpsLazy(content, { signal });
       return;
     }
-    if (route === 'historico-2') {
+    if (route === 'nps-historico' || route === 'historico-2') {
       await renderHistorico2Lazy(content, { signal });
       return;
     }

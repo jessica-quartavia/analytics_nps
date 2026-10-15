@@ -11,11 +11,8 @@ import { getFilters } from '../filters/global-filters.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatNps, formatDate, formatPct } from '../utils/format.js';
 import { historicoKpiCard } from './historico-nps-render.mjs';
-import {
-  buildHistorico2ExecutiveKpis,
-  buildMeasurementResponseSeries,
-  enrichedRowsForHistorico2Clients,
-} from '../data/historico2-executive-kpis.mjs';
+import { buildHistorico2ExecutiveKpis } from '../data/historico2-executive-kpis.mjs';
+import { buildMeasurementChartSeries } from '../data/nps-historico-measurements-view.mjs';
 import { helpTip } from '../ui/help.js';
 import {
   defaultHistorico2Filters,
@@ -666,7 +663,15 @@ function bindCharts(viewModel, measurementSeries) {
               return mLabels[i] ?? '';
             },
             label(ctx) {
-              return `Total de respostas: ${ctx.raw ?? '—'}`;
+              const row = measurementSeries[ctx.dataIndex];
+              if (!row) return '';
+              return [
+                `Respostas válidas: ${row.responses ?? '—'}`,
+                `Clientes únicos: ${row.distinct_clients ?? '—'}`,
+                `Promotores: ${row.promoters ?? 0}`,
+                `Neutros: ${row.neutrals ?? 0}`,
+                `Detratores: ${row.detractors ?? 0}`,
+              ];
             },
           },
         },
@@ -783,13 +788,29 @@ function bindPage(allClients, filtered) {
   });
 }
 
+function logNpsHistoricoDataset(doc) {
+  const meta = doc?.meta ?? {};
+  const payload = {
+    dataset_version: meta.dataset_version,
+    generated_at: meta.generated_at,
+    build_commit: meta.build_commit,
+    clients: doc?.clients?.length,
+    measurement_rows: doc?.measurements?.response_index?.length,
+    source: meta.responses_source,
+  };
+  if (typeof console !== 'undefined') {
+    console.info('[NPS Histórico]', payload);
+  }
+  return payload;
+}
+
 export function renderHistorico2(container) {
   pageRoot = container;
   destroyCharts();
   const doc = getHistorico2Doc();
   if (!doc?.clients?.length) {
     container.innerHTML = `<div class="gd-status" role="status">
-      <p><strong>Histórico 2</strong></p>
+      <p><strong>NPS Histórico</strong></p>
       <p class="note-muted">Dataset ainda não gerado. Execute <code>npm run generate:historico2</code> ou <code>npm run build</code>.</p>
     </div>`;
     return;
@@ -804,21 +825,23 @@ export function renderHistorico2(container) {
   const liveOfficial =
     officialState.status === 'ready' ? officialState.summary : null;
   const livePrevious = cycleCode ? getExecutivePreviousOfficialSummary(cycleCode) : null;
+  const measurementsPack = doc.measurements ?? null;
   const executiveKpis = buildHistorico2ExecutiveKpis({
     filteredClients: filtered,
     enrichedDoc,
+    measurementsPack,
     historicalSummaryDoc: getHistoricalNpsSummary(),
     liveOfficialSummary: liveOfficial,
     livePreviousOfficialSummary: livePrevious,
     currentCycleCode: cycleCode,
   });
-  const enrichedFiltered = enrichedRowsForHistorico2Clients(enrichedDoc, filtered);
-  const measurementSeries = buildMeasurementResponseSeries(enrichedFiltered);
+  const measurementSeries = buildMeasurementChartSeries(measurementsPack, filtered);
+  logNpsHistoricoDataset(doc);
 
   container.innerHTML = `
     <div class="historico2-page">
       <header class="page-header">
-        <h1>Histórico 2 <span class="nav-badge nav-badge--pill nav-badge--beta">Beta</span></h1>
+        <h1>NPS Histórico</h1>
         <p class="page-header__lead">Análise de NPS por safra com dados atuais da BASE QV e data de entrada histórica do BASE0.</p>
       </header>
       ${renderSourceBanner()}

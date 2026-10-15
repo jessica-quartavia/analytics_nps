@@ -63,6 +63,7 @@
     "refresh:base-qv-mcp": "node scripts/refresh-base-qv-from-partials.mjs",
     "generate:phase1": "node scripts/generate-phase1-analytics.mjs",
     "qa:historico-phase2": "node scripts/qa-historico-phase2.mjs",
+    "qa:nps-historico-sync": "node scripts/qa-nps-historico-sync.mjs",
     "qa:mechanisms": "node scripts/qa-mechanisms-crosscheck.mjs",
     "model:nps-next": "node scripts/run-nps-next-model.mjs",
     "import:base0": "node scripts/import-base0.mjs",

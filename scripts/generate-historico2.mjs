@@ -11,8 +11,34 @@ import { createBusinessDataClient } from '../lib/persistence/business-data-clien
 import { fetchAllPaginated } from '../lib/analytics/payment-entry-date.mjs';
 import { loadPharusClientIdentifiers } from '../lib/pharus/base-identifiers.mjs';
 import { buildHistorico2Dataset } from '../lib/analytics/historico2-entry-date-match.mjs';
+import {
+  buildNpsHistoricoMeasurements,
+  MEASUREMENT_DEDUPE_RULE,
+  MEASUREMENT_SOURCE,
+} from '../lib/analytics/nps-historico-measurements.mjs';
+import { sha256Json } from '../lib/analytics/nps-historico-measurements-hash.mjs';
+import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+function gitHead() {
+  try {
+    return execSync('git rev-parse HEAD', { cwd: root, encoding: 'utf8' }).trim();
+  } catch {
+    return null;
+  }
+}
+
+function fileSha256(absPath) {
+  try {
+    const buf = readFileSync(absPath);
+    return createHash('sha256').update(buf).digest('hex');
+  } catch {
+    return null;
+  }
+}
 dotenv.config({ path: join(root, '.env') });
 
 const AS_OF = process.env.ANALYTICS_AS_OF_DATE ?? new Date().toISOString().slice(0, 10);
@@ -65,7 +91,60 @@ export async function generateHistorico2Pack() {
     asOfDate: AS_OF,
   });
 
+  const pharusIds = new Set(pack.clients.map((c) => c.client_id));
+  const measurements = buildNpsHistoricoMeasurements(npsResponses, { clientIds: pharusIds });
+  const buildCommit = gitHead();
+  const generatedAt = pack.meta.generated_at;
+  const datasetVersion = buildCommit
+    ? `nps-historico-${buildCommit.slice(0, 12)}`
+    : `nps-historico-${generatedAt}`;
+
+  pack.meta = {
+    ...pack.meta,
+    page_key: 'nps-historico',
+    page_title: 'NPS Histórico',
+    dataset_version: datasetVersion,
+    build_commit: buildCommit,
+    responses_source: MEASUREMENT_SOURCE,
+    responses_source_max_updated_at: generatedAt,
+    measurement_dedupe_rule: MEASUREMENT_DEDUPE_RULE,
+  };
+
+  pack.measurements = {
+    meta: {
+      source: measurements.source,
+      dedupe_rule: measurements.dedupe_rule,
+      universe: 'PHARUS client_id from historico2 pack',
+    },
+    series: measurements.series,
+    response_index: measurements.response_index,
+  };
+
   await writeJson('processed/historico2_clients_enriched.json', pack);
+
+  const responsesPath = join(root, 'data/processed/responses.json');
+  await writeJson('quality/nps_historico_measurements_audit.json', {
+    generated_at: generatedAt,
+    dataset_version: datasetVersion,
+    build_commit: buildCommit,
+    source: measurements.source,
+    dedupe_rule: measurements.dedupe_rule,
+    measurement_counts: measurements.series,
+    per_cycle_audit: measurements.per_cycle_audit,
+    qa_samples: {
+      '2026-Q1': measurements.response_index.filter((r) => r.measurement === '2026-Q1'),
+      '2026-Q2': measurements.response_index.filter((r) => r.measurement === '2026-Q2').slice(0, 5),
+      '2026-Q3': measurements.response_index.filter((r) => r.measurement === '2026-Q3').slice(0, 5),
+    },
+    file_hashes: {
+      'processed/responses.json': fileSha256(responsesPath),
+      'processed/historico2_clients_enriched.json': sha256Json({
+        meta: pack.meta,
+        measurements: pack.measurements,
+        clients_count: pack.clients.length,
+      }),
+    },
+  });
   await writeJson('quality/historico2_entry_date_match_audit.json', {
     generated_at: pack.meta.generated_at,
     as_of_date: pack.meta.as_of_date,

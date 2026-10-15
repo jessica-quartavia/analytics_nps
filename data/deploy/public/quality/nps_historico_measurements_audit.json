@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-10-15T23:44:31.725Z",
+  "dataset_version": "nps-historico-5732a2d2e9e8",
+  "build_commit": "5732a2d2e9e8d2bd70baf76159a99c190fe12d48",
+  "source": "processed/responses.json",
+  "dedupe_rule": "Última resposta válida por client_id dentro de cada medição canônica (BASE QV).",
+  "measurement_counts": [
+    {
+      "measurement": "2026-Q2",
+      "raw_responses": 254,
+      "valid_responses": 254,
+      "distinct_clients": 254,
+      "deduped_responses": 254,
+      "promoters": 198,
+      "neutrals": 31,
+      "detractors": 25,
+      "nps": 68.11023622047244
+    },
+    {
+      "measurement": "2026-Q3",
+      "raw_responses": 283,
+      "valid_responses": 283,
+      "distinct_clients": 283,
+      "deduped_responses": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933
+    }
+  ],
+  "per_cycle_audit": [
+    {
+      "cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "measurement": "2026-Q2",
+      "raw_responses": 254,
+      "valid_responses": 254,
+      "distinct_clients": 254,
+      "deduped_responses": 254,
+      "promoters": 198,
+      "neutrals": 31,
+      "detractors": 25
+    },
+    {
+      "cycle": "NPS-2026-SET-PHARUS",
+      "measurement": "2026-Q3",
+      "raw_responses": 283,
+      "valid_responses": 283,
+      "distinct_clients": 283,
+      "deduped_responses": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31
+    }
+  ],
+  "qa_samples": {
+    "2026-Q1": [],
+    "2026-Q2": [
+      {
+        "response_id": "5ed56aac-04dc-4f72-b96d-02cd8298f7af",
+        "client_id": "11151df2-cae1-4972-94ec-c50ecf79c2ca",
+        "measurement": "2026-Q2",
+        "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+        "score": 0,
+        "nps_category": "Detrator",
+        "submitted_at": "2026-06-16T13:36:55+00:00"
+      },
+      {
+        "response_id": "f7f4f297-7c8b-4b4c-a6bf-7d0b2c5ce45d",
+        "client_id": "eedd4b83-8924-49b4-bbb3-a4ab8f2a2078",
+        "measurement": "2026-Q2",
+        "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+        "score": 10,
+        "nps_category": "Promotor",
+        "submitted_at": "2026-06-16T13:44:49+00:00"
+      },
+      {
+        "response_id": "98f2b234-728c-4f6b-a755-23cc73c4caf6",
+        "client_id": "1b5737cf-9f06-48ef-aeb7-533921707e0f",
+        "measurement": "2026-Q2",
+        "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+        "score": 7,
+        "nps_category": "Neutro",
+        "submitted_at": "2026-06-16T14:46:53+00:00"
+      },
+      {
+        "response_id": "7af7e018-f887-4c20-9713-6cc9bebaa17e",
+        "client_id": "8a621649-ced3-423e-bba6-3ead2ea17e40",
+        "measurement": "2026-Q2",
+        "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+        "score": 8,
+        "nps_category": "Neutro",
+        "submitted_at": "2026-06-16T17:25:04+00:00"
+      },
+      {
+        "response_id": "3dd327aa-07d0-4beb-b0db-b7857b630980",
+        "client_id": "4b2e6150-e99f-41df-9f7c-072dafc40acd",
+        "measurement": "2026-Q2",
+        "analytical_cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+        "score": 10,
+        "nps_category": "Promotor",
+        "submitted_at": "2026-06-16T17:36:18+00:00"
+      }
+    ],
+    "2026-Q3": [
+      {
+        "response_id": "c659c90a-00ee-428a-83cd-80ad5c63279d",
+        "client_id": "eedd4b83-8924-49b4-bbb3-a4ab8f2a2078",
+        "measurement": "2026-Q3",
+        "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+        "score": 9,
+        "nps_category": "Promotor",
+        "submitted_at": "2026-09-22T14:23:36+00:00"
+      },
+      {
+        "response_id": "5d70482d-43c1-44aa-962b-826dbc9b619b",
+        "client_id": "09ed4608-b617-40ce-b43a-88b99043e3b3",
+        "measurement": "2026-Q3",
+        "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+        "score": 10,
+        "nps_category": "Promotor",
+        "submitted_at": "2026-09-18T20:03:43+00:00"
+      },
+      {
+        "response_id": "1d2234d5-47be-426d-a2d4-126eff3c588f",
+        "client_id": "29f7a69f-c4a7-40d3-9fd5-77edb6af1d74",
+        "measurement": "2026-Q3",
+        "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+        "score": 10,
+        "nps_category": "Promotor",
+        "submitted_at": "2026-09-18T21:33:42+00:00"
+      },
+      {
+        "response_id": "82ec52ee-8740-4f1d-a4ab-7df6998dec91",
+        "client_id": "f53decbd-a8df-4269-9a6b-24290231dcfc",
+        "measurement": "2026-Q3",
+        "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+        "score": 10,
+        "nps_category": "Promotor",
+        "submitted_at": "2026-09-16T16:32:12+00:00"
+      },
+      {
+        "response_id": "03f021d0-44c5-4d9d-b427-fe3cdb8cf204",
+        "client_id": "535220df-04c5-4b91-ba66-56c820a54cb9",
+        "measurement": "2026-Q3",
+        "analytical_cycle_code": "NPS-2026-SET-PHARUS",
+        "score": 10,
+        "nps_category": "Promotor",
+        "submitted_at": "2026-09-18T13:51:13+00:00"
+      }
+    ]
+  },
+  "file_hashes": {
+    "processed/responses.json": "01da3002170778dd6ea9572315aaa2db257ceae5118b9c8edabc42d5e6fb05c1",
+    "processed/historico2_clients_enriched.json": "efe447577b59c13d614d4d56baa3ddf1eab9cba0f70da5f7c66e4954dcc1a071"
+  }
+}
