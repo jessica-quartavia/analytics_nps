@@ -33,11 +33,26 @@ export function defaultHistorico2Filters() {
     ep: '',
     npsCategory: '',
     status: '',
-    entryYear: ENTRY_YEAR_2025_PLUS,
+    entryYear: ENTRY_YEAR_ALL,
     hasEntryDate: '',
     matchMethod: '',
     search: '',
   };
+}
+
+/** Filtros que recortam KPIs oficiais do ciclo (safra 2025+ sozinha não recorta). */
+export function hasExplicitHistorico2Filters(filters) {
+  return Boolean(
+    filters?.cohort ||
+      filters?.program ||
+      filters?.ep ||
+      filters?.npsCategory ||
+      filters?.status ||
+      (filters?.entryYear && filters.entryYear !== ENTRY_YEAR_ALL) ||
+      filters?.hasEntryDate ||
+      filters?.matchMethod ||
+      filters?.search?.trim(),
+  );
 }
 
 export function displaySafra(client) {
@@ -266,11 +281,11 @@ export function filterChipList(filters) {
   push('ep', 'EP', filters.ep);
   push('npsCategory', 'Categoria', filters.npsCategory);
   push('status', 'Status', filters.status);
-  if (filters.entryYear && filters.entryYear !== ENTRY_YEAR_2025_PLUS) {
+  if (filters.entryYear && filters.entryYear !== ENTRY_YEAR_ALL) {
     const labels = {
       [ENTRY_YEAR_ALL]: 'Todos os anos',
       [ENTRY_YEAR_NO_DATE]: 'Sem data de entrada',
-      '2025+': '2025+',
+      [ENTRY_YEAR_2025_PLUS]: '2025+',
     };
     push('entryYear', 'Ano entrada', labels[filters.entryYear] ?? filters.entryYear);
   }

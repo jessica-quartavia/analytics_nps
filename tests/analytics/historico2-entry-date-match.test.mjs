@@ -49,7 +49,7 @@ describe('historico2 entry date match', () => {
     assert.equal(m.entry_date, '2024-01-15');
   });
 
-  it('marks ambiguous when identifiers disagree', () => {
+  it('prefers base_qv_id mesmo se CPF/email apontam para outro registro', () => {
     const indexes = buildBase0EntryDateIndexes([
       { base_qv_id: 'id-a', data_entrada: '2024-01-15', cpf_norm: '11111111111' },
       { base_qv_id: 'id-b', data_entrada: '2024-08-01', cpf_norm: '22222222222', email_norm: 'x@test.com' },
@@ -58,8 +58,8 @@ describe('historico2 entry date match', () => {
       { client_id: 'id-a', cpf: '22222222222', email: 'x@test.com', phone: null },
       indexes,
     );
-    assert.equal(m.entry_date_match_method, 'ambiguous');
-    assert.equal(m.entry_date, null);
+    assert.equal(m.entry_date_match_method, 'base_qv_id');
+    assert.equal(m.entry_date, '2024-01-15');
   });
 
   it('marks conflict when duplicate base_qv_id with different dates', () => {

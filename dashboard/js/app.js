@@ -157,7 +157,13 @@ let historico2Module = null;
 
 async function ensureHistorico2Module() {
   if (!historico2Module) {
-    historico2Module = await import('./pages/nps-historico.js');
+    const moduleUrl = new URL('./pages/nps-historico.js', import.meta.url).href;
+    try {
+      historico2Module = await import('./pages/nps-historico.js');
+    } catch (err) {
+      console.error('[NPS Histórico import failed]', { moduleUrl, error: err });
+      throw err;
+    }
   }
   return historico2Module;
 }

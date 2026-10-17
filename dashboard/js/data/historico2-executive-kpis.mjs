@@ -1,5 +1,7 @@
 import { canonicalizeNpsCycle, formatNpsCycleLabel } from '../utils/nps-cycle-labels.mjs';
 import { median } from './historico-nps-enriched-view.mjs';
+import { buildExecutiveCurrentNpsSummary } from './executive-official-nps.mjs';
+import { hasExplicitHistorico2Filters } from './historico2-view.mjs';
 
 function officialCyclesFromSummary(summaryDoc) {
   const cycles = summaryDoc?.summary?.cycles ?? summaryDoc?.cycles ?? [];
@@ -14,22 +16,34 @@ export function enrichedRowsForHistorico2Clients(enrichedDoc, filteredClients) {
   return (Array.isArray(rows) ? rows : []).filter((r) => ids.has(r.client_id));
 }
 
-function recurrenceCounts(enrichedRows) {
-  const map = new Map();
-  for (const r of enrichedRows) {
-    if (!r.client_id) continue;
-    map.set(r.client_id, (map.get(r.client_id) ?? 0) + 1);
-  }
-  return map;
+export function filterResponsesToClientIds(responses, clientIds) {
+  if (!clientIds?.size) return responses ?? [];
+  return (responses ?? []).filter((r) => r.client_id && clientIds.has(String(r.client_id)));
+}
+
+function resolveOfficialCycleSummary({
+  responses,
+  cycleDef,
+  cycleSummaryTemplate,
+  clientIdsForKpi,
+}) {
+  if (!responses?.length || !cycleDef) return null;
+  const pool = clientIdsForKpi?.size
+    ? filterResponsesToClientIds(responses, clientIdsForKpi)
+    : responses;
+  return buildExecutiveCurrentNpsSummary(pool, cycleSummaryTemplate ?? {}, cycleDef);
 }
 
 /**
- * KPIs executivos (mesma família do Histórico NPS), recalculados no recorte filtrado quando aplicável.
+ * KPIs executivos — ciclo atual usa o mesmo kernel do Executivo (janela oficial T3 quando aplicável).
  */
 export function buildHistorico2ExecutiveKpis({
   filteredClients,
+  clientFilters,
   enrichedDoc,
-  measurementsPack,
+  responses,
+  cycleDef,
+  cycleSummaryTemplate,
   historicalSummaryDoc,
   liveOfficialSummary,
   livePreviousOfficialSummary,
@@ -37,7 +51,9 @@ export function buildHistorico2ExecutiveKpis({
 }) {
   const enrichedRows = enrichedRowsForHistorico2Clients(enrichedDoc, filteredClients);
   const clientIds = new Set((filteredClients ?? []).map((c) => c.client_id).filter(Boolean));
-  const measurementIndex = measurementsPack?.response_index ?? [];
+  const explicitFilters = hasExplicitHistorico2Filters(clientFilters ?? {});
+  const kpiClientIds = explicitFilters ? clientIds : null;
+
   const official = officialCyclesFromSummary(historicalSummaryDoc);
   const lastOff = official[official.length - 1] ?? null;
   const prevOff = official[official.length - 2] ?? null;
@@ -49,18 +65,29 @@ export function buildHistorico2ExecutiveKpis({
         ? canonicalizeNpsCycle(currentCycleCode)
         : null;
 
+  const computedOfficial = resolveOfficialCycleSummary({
+    responses,
+    cycleDef,
+    cycleSummaryTemplate,
+    clientIdsForKpi: kpiClientIds,
+  });
+
+  const cycleOfficial =
+    computedOfficial ??
+    (!explicitFilters && liveOfficialSummary ? liveOfficialSummary : null);
+
   let officialNps = lastOff?.nps_oficial ?? null;
   let officialCycleLabel = lastOff?.ciclo ? formatNpsCycleLabel(lastOff.ciclo) : currentCanonical ?? '—';
 
-  if (liveOfficialSummary?.nps != null && !Number.isNaN(Number(liveOfficialSummary.nps))) {
-    officialNps = Number(liveOfficialSummary.nps);
+  if (cycleOfficial?.nps != null && !Number.isNaN(Number(cycleOfficial.nps))) {
+    officialNps = Number(cycleOfficial.nps);
     if (currentCycleCode) {
       officialCycleLabel = formatNpsCycleLabel(currentCycleCode);
     }
   }
 
   let variation = null;
-  if (liveOfficialSummary?.nps != null && livePreviousOfficialSummary?.nps != null) {
+  if (liveOfficialSummary?.nps != null && livePreviousOfficialSummary?.nps != null && !explicitFilters) {
     variation =
       Math.round((Number(liveOfficialSummary.nps) - Number(livePreviousOfficialSummary.nps)) * 10) / 10;
   } else if (lastOff?.nps_oficial != null && prevOff?.nps_oficial != null) {
@@ -69,16 +96,7 @@ export function buildHistorico2ExecutiveKpis({
     variation = lastOff.variacao_vs_anterior;
   }
 
-  const cycleResponses =
-    measurementIndex.length > 0
-      ? measurementIndex.filter((r) => {
-          if (clientIds.size && !clientIds.has(r.client_id)) return false;
-          if (currentCanonical) return r.measurement === currentCanonical;
-          return true;
-        }).length
-      : currentCanonical
-        ? enrichedRows.filter((r) => canonicalizeNpsCycle(r.nps_cycle) === currentCanonical).length
-        : enrichedRows.length;
+  const cycleResponses = cycleOfficial?.valid_responses ?? 0;
 
   const recMap = recurrenceCounts(enrichedRows);
   const uniqueHistoricalClients = recMap.size;
@@ -101,6 +119,7 @@ export function buildHistorico2ExecutiveKpis({
     variation,
     cycleResponses,
     currentCanonical,
+    cycleOfficial,
     uniqueHistoricalClients,
     recurringClients,
     tenureMedianMonths: tenureMed,
@@ -108,6 +127,15 @@ export function buildHistorico2ExecutiveKpis({
     meetingsMedian: meetMed,
     mechanismPct: mechPct,
     mechanismKnownN: mechKnown.length,
+    kpiUniverse: explicitFilters ? 'filtered_clients' : 'official_executive',
   };
 }
 
+function recurrenceCounts(enrichedRows) {
+  const map = new Map();
+  for (const r of enrichedRows) {
+    if (!r.client_id) continue;
+    map.set(r.client_id, (map.get(r.client_id) ?? 0) + 1);
+  }
+  return map;
+}

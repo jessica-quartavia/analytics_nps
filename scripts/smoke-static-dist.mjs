@@ -69,6 +69,7 @@ async function run() {
 
     await assertJsOk('js/pages/nps-historico.js');
     await assertJsOk('lib/analytics/nps-historico-measurements.mjs');
+    await assertJsOk('lib/analytics/nps-historico-measurements-constants.mjs');
 
     let puppeteer;
     try {

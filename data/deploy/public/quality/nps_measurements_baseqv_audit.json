@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-10-16T23:43:21.119Z",
+  "dataset_version": "nps-measurements-baseqv-c536d8b4c4b2",
+  "build_commit": "c536d8b4c4b2bcd7d5e9470ba753397f51c72af0",
+  "source": "BASE_QV:nps_responses+nps_cycles",
+  "base_qv_cycles": [
+    {
+      "cycle_id": "5d1bb5b4-43b2-4ad0-ba75-3430d21dfa6a",
+      "cycle_code": "NPS 2026-T2",
+      "label": "NPS 2026-T2",
+      "start_at": "2026-07-02T03:00:00+00:00",
+      "end_at": "2026-08-13T02:59:59+00:00",
+      "status": null
+    },
+    {
+      "cycle_id": "7f9f8b42-84ae-4e00-a408-d22bea7c4407",
+      "cycle_code": "NPS 2026-T3",
+      "label": "NPS 2026-T3",
+      "start_at": "2026-09-15T03:00:00+00:00",
+      "end_at": null,
+      "status": null
+    }
+  ],
+  "measurement_table": [
+    {
+      "cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+      "label": "2026-Q2",
+      "start_at": "2026-06-16T00:00:00+00:00",
+      "end_at": "2026-08-13T02:59:59+00:00",
+      "cycle_type": "historical_reconstruction",
+      "aggregation": "analytical_cycle_pharus",
+      "raw_responses": 255,
+      "valid_responses": 254,
+      "unique_clients": 254,
+      "deduped_responses": 254,
+      "promoters": 198,
+      "neutrals": 31,
+      "detractors": 25,
+      "nps": 68.11023622047244,
+      "average_score": 8.866141732283465
+    },
+    {
+      "cycle_code": "NPS-2026-SET-PHARUS",
+      "label": "2026-Q3",
+      "start_at": "2026-09-15T03:00:00+00:00",
+      "end_at": "2026-10-16T02:59:59.999Z",
+      "cycle_type": "source_cycle",
+      "aggregation": "official_source_window",
+      "raw_responses": 418,
+      "valid_responses": 408,
+      "unique_clients": 408,
+      "deduped_responses": 408,
+      "promoters": 299,
+      "neutrals": 70,
+      "detractors": 39,
+      "nps": 63.725490196078425,
+      "average_score": 8.757352941176471
+    }
+  ],
+  "legacy_vs_baseqv": [
+    {
+      "measurement": "2026-Q2",
+      "base_qv_valid": 254,
+      "materialized_chart_legacy": 165,
+      "graph_should_match": 254
+    },
+    {
+      "measurement": "2026-Q3",
+      "base_qv_valid": 408,
+      "materialized_chart_legacy": 338,
+      "graph_should_match": 408
+    }
+  ],
+  "parity_notes": {
+    "current_cycle_uses": "aggregateNpsForOfficialSourceCycleWindow",
+    "reconstruction_uses": "matchesAnalyticalCycle + dedupeByClientAndAnalyticalCycle"
+  }
+}

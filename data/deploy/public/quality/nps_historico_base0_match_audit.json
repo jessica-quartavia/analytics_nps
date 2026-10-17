@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-10-16T23:43:20.878Z",
+  "dataset_version": "nps-historico-c536d8b4c4b2",
+  "build_commit": "c536d8b4c4b2bcd7d5e9470ba753397f51c72af0",
+  "base_qv_total": 3152,
+  "base_qv_distinct_ids": 3152,
+  "base0_total": 3447,
+  "base0_with_base_qv_id": 3447,
+  "base0_base_qv_id_null": 0,
+  "base0_base_qv_id_invalid_uuid": 0,
+  "base0_distinct_base_qv_id": 3447,
+  "id_intersection": 3125,
+  "id_intersection_pct": 90.7,
+  "base0_ids_not_in_base_qv": 322,
+  "base_qv_ids_not_in_base0": 27,
+  "duplicate_base_qv_id_rows": 0,
+  "conflicting_entry_dates": 0,
+  "samples": {
+    "base0_ids_not_in_base_qv": [
+      "2a528262-f4b0-4309-bf0e-14ca9ed11c9d",
+      "11dbc796-cad4-4b5d-931b-42bf3d0abea8",
+      "484d576b-bccd-4204-bd0b-c42c630f0aec",
+      "a4a5f281-0a1f-45ac-b8fe-9d6152f27050",
+      "beff25ab-ee20-460c-a9f9-e7f350b8b4c7",
+      "80aa458e-29ad-46d8-9cc0-9078d5e2bddb",
+      "bf8e4664-bb29-48e7-9804-a1bb8c2cb26b",
+      "becad99e-18a0-4a0d-a80b-698f71dc6845",
+      "6e8a7062-d8d3-422d-81e9-ac72311568f5",
+      "284e37ee-9000-4aca-87bb-0abf09ddf2a1"
+    ],
+    "base_qv_ids_not_in_base0": [
+      "078133a0-6820-49e6-b4bd-d201c6fda180",
+      "11ed1ed3-46a1-42ea-a16d-1d6519bf3278",
+      "2830e92a-63d0-46f7-8e9b-3297faefbbd9",
+      "2a0d479d-49c6-435c-83f9-3c4cf582feab",
+      "2ba32c79-fe68-45d0-ae6b-5dab818c8d40",
+      "300e79c6-88e7-4932-ab53-26a3eacc0652",
+      "349d3bfd-ae4d-4206-8d8d-91e94964ba1d",
+      "3b7a8205-7b45-473f-aa73-b01208b2c1da",
+      "42880dee-8873-471d-bd71-4d876a760a8f",
+      "56049494-a986-404d-934c-eecb704ff47a"
+    ],
+    "duplicate_base_qv_id": []
+  },
+  "matched_by_id": 2501,
+  "matched_by_cpf": 2,
+  "matched_by_email": 1,
+  "matched_by_phone": 7,
+  "unmatched": 641,
+  "ambiguous": 0,
+  "reason_breakdown": {
+    "base0_base_qv_id_null": 0,
+    "base0_base_qv_id_invalid_uuid": 0,
+    "base0_id_not_in_base_qv": 322,
+    "base_qv_clients_unmatched": 641,
+    "base_qv_clients_ambiguous": 0
+  }
+}

@@ -116,8 +116,39 @@ function assertRequiredProductionPages(distDir = DIST) {
   }
 }
 
+const LIB_ANALYTICS_REL_IMPORT_RE = /from\s+['"]\.\/([^'"]+)['"]/g;
+
+/** Fecha o grafo de imports relativos em lib/analytics (evita dep Node-only no browser). */
+function closureBrowserLibAnalyticsModules(seedModules) {
+  const needed = new Set(seedModules);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const name of [...needed]) {
+      const src = join(ROOT, 'lib', 'analytics', name);
+      if (!existsSync(src)) continue;
+      let text;
+      try {
+        text = readFileSync(src, 'utf8');
+      } catch {
+        continue;
+      }
+      LIB_ANALYTICS_REL_IMPORT_RE.lastIndex = 0;
+      let match;
+      while ((match = LIB_ANALYTICS_REL_IMPORT_RE.exec(text))) {
+        const dep = match[1];
+        if (!needed.has(dep)) {
+          needed.add(dep);
+          changed = true;
+        }
+      }
+    }
+  }
+  return [...needed].sort();
+}
+
 function copyBrowserLibAnalytics(distDir = DIST) {
-  const modules = discoverBrowserLibAnalyticsModules();
+  const modules = closureBrowserLibAnalyticsModules(discoverBrowserLibAnalyticsModules());
   mkdirSync(join(distDir, 'lib', 'analytics'), { recursive: true });
   for (const name of modules) {
     const src = join(ROOT, 'lib', 'analytics', name);

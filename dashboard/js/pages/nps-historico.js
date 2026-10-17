@@ -1,21 +1,25 @@
 import {
   getHistorico2Doc,
+  getNpsMeasurementsBaseQvDoc,
+  getNpsMeasurementsConsolidatedDoc,
   getDataState,
   getHistoricalNpsEnriched,
   getHistoricalNpsSummary,
   getCurrentOfficialNpsState,
   getExecutivePreviousOfficialSummary,
   getCycles,
+  getCycleSummary,
 } from '../data/analytics-store.js';
 import { getFilters } from '../filters/global-filters.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatNps, formatDate, formatPct } from '../utils/format.js';
 import { historicoKpiCard } from './historico-nps-render.mjs';
 import { buildHistorico2ExecutiveKpis } from '../data/historico2-executive-kpis.mjs';
-import { buildMeasurementChartSeries } from '../data/nps-historico-measurements-view.mjs';
+import { buildMeasurementChartSeriesForPage } from '../data/nps-historico-measurements-view.mjs';
 import { helpTip } from '../ui/help.js';
 import {
   defaultHistorico2Filters,
+  hasExplicitHistorico2Filters,
   filterHistorico2Clients,
   buildHistorico2ViewModel,
   distinctOptions,
@@ -84,10 +88,10 @@ function renderSourceBanner() {
       </div>
       <div class="historico2-info-card__badges">
         <span class="badge badge--method">BASE QV</span>
-        <span class="badge badge--neutral-soft">Business Data</span>
-        <span class="badge badge--neutral-soft">BASE0</span>
+        <span class="badge badge--neutral-soft">Business Data · NPS Histórico</span>
+        <span class="badge badge--neutral-soft">Business Data · BASE0</span>
       </div>
-      <p class="historico2-info-card__text">Todas as informações analíticas e cadastrais vêm da BASE QV. O BASE0 é utilizado exclusivamente para recuperar a data de entrada e calcular a safra.</p>
+      <p class="historico2-info-card__text">Os dados atuais de NPS vêm da BASE QV. As medições históricas anteriores disponíveis apenas na base consolidada vêm do histórico oficial do NPS. O BASE0 é utilizado exclusivamente para recuperar a data de entrada e calcular a safra.</p>
     </article>
     <article class="card historico2-info-card">
       <h2 class="historico2-info-card__title">Como os dados são cruzados</h2>
@@ -121,9 +125,9 @@ function renderExecutiveKpis(exec, matchQuality) {
       'historico-kpi-card--variation',
     )}
     ${historicoKpiCard(
-      'Respostas do ciclo',
+      'Respostas do ciclo atual',
       String(exec.cycleResponses ?? 0),
-      exec.currentCanonical ? `ciclo ${exec.currentCanonical}` : 'recorte filtrado',
+      exec.currentCanonical ? `ciclo ${exec.currentCanonical}` : 'metodologia Executivo',
     )}
     ${historicoKpiCard(
       'Clientes únicos históricos',
@@ -148,13 +152,13 @@ function renderExecutiveKpis(exec, matchQuality) {
     )}
   </section>
   <section class="card historico2-quality-card">
-    <h2 class="section-title section-title--flush">Qualidade do cruzamento</h2>
+    <h2 class="section-title section-title--flush">Qualidade do cruzamento ${helpTip('BASE0 é usado apenas para recuperar data_entrada. O match prioriza base_qv_id, seguido de CPF, e-mail e telefone.')}</h2>
     <div class="historico2-quality-chips">
       <span class="historico2-mini-stat">ID <strong>${matchQuality.base_qv_id ?? 0}</strong></span>
       <span class="historico2-mini-stat">CPF <strong>${matchQuality.cpf ?? 0}</strong></span>
       <span class="historico2-mini-stat">Email <strong>${matchQuality.email ?? 0}</strong></span>
       <span class="historico2-mini-stat">Telefone <strong>${matchQuality.phone ?? 0}</strong></span>
-      <span class="historico2-mini-stat historico2-mini-stat--muted">Sem match <strong>${matchQuality.unmatched ?? 0}</strong></span>
+      <span class="historico2-mini-stat historico2-mini-stat--muted" title="Clientes sem correspondência no BASE0 continuam na análise com dados da BASE QV; apenas sem data de entrada/safra.">Sem match ${helpTip('Clientes sem correspondência no BASE0 continuam integralmente na análise usando os dados da BASE QV; apenas não possuem data de entrada/safra.')} <strong>${matchQuality.unmatched ?? 0}</strong></span>
       <span class="historico2-mini-stat historico2-mini-stat--warn">Ambíguos <strong>${matchQuality.ambiguous ?? 0}</strong></span>
     </div>
   </section>`;
@@ -203,11 +207,11 @@ function renderFilters(allClients) {
       </div>
       <div class="filter-field"><label for="h2-entry-year">Ano de entrada</label>
         <select id="h2-entry-year" class="select-input" data-filter="entryYear">
+          ${opt(ENTRY_YEAR_ALL, 'Todos os anos', pageFilters.entryYear === ENTRY_YEAR_ALL)}
           ${opt(ENTRY_YEAR_2025_PLUS, '2025+', pageFilters.entryYear === ENTRY_YEAR_2025_PLUS)}
           ${opt('2025', '2025', pageFilters.entryYear === '2025')}
           ${opt('2026', '2026', pageFilters.entryYear === '2026')}
           ${opt(ENTRY_YEAR_NO_DATE, 'Sem data de entrada', pageFilters.entryYear === ENTRY_YEAR_NO_DATE)}
-          ${opt(ENTRY_YEAR_ALL, 'Todos os anos', pageFilters.entryYear === ENTRY_YEAR_ALL)}
         </select>
       </div>
       <div class="filter-field"><label for="h2-program">Programa</label>
@@ -270,7 +274,7 @@ function renderChartsSection() {
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">Clientes por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-clients"></canvas></div></article>
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">Nota média por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-avg"></canvas></div></article>
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">P/N/D por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-pnd"></canvas></div></article>
-    <article class="card chart-card historico2-chart-card historico2-chart-card--wide"><h2 class="section-title">Respostas por medição</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-responses"></canvas></div></article>
+    <article class="card chart-card historico2-chart-card historico2-chart-card--wide"><h2 class="section-title">Respostas por medição</h2><p class="note-muted historico2-chart-subtitle">Quantidade de respostas NPS por medição, combinando o histórico oficial e os dados atuais da BASE QV.</p><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-responses"></canvas></div></article>
   </section>`;
 }
 
@@ -660,7 +664,8 @@ function bindCharts(viewModel, measurementSeries) {
           callbacks: {
             title(items) {
               const i = items[0]?.dataIndex;
-              return mLabels[i] ?? '';
+              const m = mLabels[i] ?? '';
+              return m ? `Medição ${m}` : '';
             },
             label(ctx) {
               const row = measurementSeries[ctx.dataIndex];
@@ -671,7 +676,9 @@ function bindCharts(viewModel, measurementSeries) {
                 `Promotores: ${row.promoters ?? 0}`,
                 `Neutros: ${row.neutrals ?? 0}`,
                 `Detratores: ${row.detractors ?? 0}`,
-              ];
+                row.nps != null ? `NPS: ${formatNps(row.nps)}` : 'NPS: —',
+                row.source_label ? `Fonte: ${row.source_label}` : '',
+              ].filter(Boolean);
             },
           },
         },
@@ -733,7 +740,7 @@ function bindPage(allClients, filtered) {
       const key = btn.getAttribute('data-chip-key');
       const next = { ...pageFilters };
       if (key === 'search') next.search = '';
-      else if (key === 'entryYear') next.entryYear = ENTRY_YEAR_2025_PLUS;
+      else if (key === 'entryYear') next.entryYear = ENTRY_YEAR_ALL;
       else if (key in next) next[key] = '';
       pageFilters = next;
       tablePage = 1;
@@ -797,6 +804,8 @@ function logNpsHistoricoDataset(doc) {
     clients: doc?.clients?.length,
     measurement_rows: doc?.measurements?.response_index?.length,
     source: meta.responses_source,
+    measurements_consolidated_version: getNpsMeasurementsConsolidatedDoc()?.meta?.dataset_version,
+    measurements_consolidated_points: getNpsMeasurementsConsolidatedDoc()?.measurements?.length,
   };
   if (typeof console !== 'undefined') {
     console.info('[NPS Histórico]', payload);
@@ -820,22 +829,41 @@ export function renderHistorico2(container) {
   const filtered = filterHistorico2Clients(allClients, pageFilters);
   const viewModel = buildHistorico2ViewModel(filtered);
   const enrichedDoc = getHistoricalNpsEnriched();
+  const dataState = getDataState();
+  const responses = dataState?.responses ?? [];
   const cycleCode = getFilters().cycleCode ?? getCycles()?.[0]?.cycle_code;
+  const cycleDef = (getCycles() ?? []).find((c) => c.cycle_code === cycleCode) ?? null;
+  const cycleSummaryTemplate = cycleCode ? getCycleSummary(cycleCode) : null;
   const officialState = cycleCode ? getCurrentOfficialNpsState(cycleCode) : { status: 'unavailable' };
   const liveOfficial =
     officialState.status === 'ready' ? officialState.summary : null;
   const livePrevious = cycleCode ? getExecutivePreviousOfficialSummary(cycleCode) : null;
-  const measurementsPack = doc.measurements ?? null;
+  const consolidatedDoc = getNpsMeasurementsConsolidatedDoc();
+  const baseQvDoc = getNpsMeasurementsBaseQvDoc();
   const executiveKpis = buildHistorico2ExecutiveKpis({
     filteredClients: filtered,
+    clientFilters: pageFilters,
     enrichedDoc,
-    measurementsPack,
+    responses,
+    cycleDef,
+    cycleSummaryTemplate,
     historicalSummaryDoc: getHistoricalNpsSummary(),
     liveOfficialSummary: liveOfficial,
     livePreviousOfficialSummary: livePrevious,
     currentCycleCode: cycleCode,
   });
-  const measurementSeries = buildMeasurementChartSeries(measurementsPack, filtered);
+  const measurementClientScope = hasExplicitHistorico2Filters(pageFilters)
+    ? filtered
+    : allClients;
+  const measurementSeries = buildMeasurementChartSeriesForPage({
+    consolidatedDoc,
+    baseQvDoc,
+    responses,
+    cycles: getCycles(),
+    historico2Doc: doc,
+    filteredClients: measurementClientScope,
+    clientFilters: pageFilters,
+  });
   logNpsHistoricoDataset(doc);
 
   container.innerHTML = `

@@ -58,6 +58,8 @@
     "generate:safras-cobertura": "node scripts/generate-safras-cobertura.mjs",
     "generate:historico-nps": "node scripts/generate-historico-nps.mjs",
     "generate:historico2": "node scripts/generate-historico2.mjs",
+    "generate:nps-measurements-baseqv": "node scripts/generate-nps-measurements-baseqv.mjs",
+    "generate:nps-measurements-consolidated": "node scripts/generate-nps-measurements-consolidated.mjs",
     "audit:upgrade-phase0": "node scripts/audit-upgrade-phase0.mjs",
     "refresh:base-qv": "node scripts/refresh-base-qv.mjs",
     "refresh:base-qv-mcp": "node scripts/refresh-base-qv-from-partials.mjs",

@@ -104,6 +104,8 @@ const PATHS = {
   npsPredictionNextCycle: '/data/processed/nps_prediction_next_cycle.json',
   historico2ClientsEnriched: '/data/processed/historico2_clients_enriched.json',
   historico2MatchAudit: '/data/quality/historico2_entry_date_match_audit.json',
+  npsMeasurementsBaseQv: '/data/processed/nps_measurements_baseqv.json',
+  npsMeasurementsConsolidated: '/data/processed/nps_measurements_consolidated.json',
 };
 
 function logStoreError(message, detail) {
@@ -314,6 +316,8 @@ async function fetchAllAnalyticsDatasets({ bust = false } = {}) {
     fetchJsonOptional(PATHS.npsPredictionNextCycle, fetchOpts),
     fetchJsonOptional(PATHS.historico2ClientsEnriched, fetchOpts),
     fetchJsonOptional(PATHS.historico2MatchAudit, fetchOpts),
+    fetchJsonOptional(PATHS.npsMeasurementsBaseQv, fetchOpts),
+    fetchJsonOptional(PATHS.npsMeasurementsConsolidated, fetchOpts),
   ]);
 }
 
@@ -365,6 +369,8 @@ function applyAnalyticsPayload(datasets) {
     npsPredictionNextCycleDoc,
     historico2ClientsEnrichedDoc,
     historico2MatchAuditDoc,
+    npsMeasurementsBaseQvDoc,
+    npsMeasurementsConsolidatedDoc,
   ] = datasets;
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -427,6 +433,8 @@ function applyAnalyticsPayload(datasets) {
     npsPredictionNextCycleDoc: npsPredictionNextCycleDoc ?? null,
     historico2ClientsEnrichedDoc: historico2ClientsEnrichedDoc ?? null,
     historico2MatchAuditDoc: historico2MatchAuditDoc ?? null,
+    npsMeasurementsBaseQvDoc: npsMeasurementsBaseQvDoc ?? null,
+    npsMeasurementsConsolidatedDoc: npsMeasurementsConsolidatedDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -1051,6 +1059,14 @@ export function getHistorico2Doc() {
 
 export function getHistorico2MatchAudit() {
   return state?.historico2MatchAuditDoc ?? null;
+}
+
+export function getNpsMeasurementsBaseQvDoc() {
+  return state?.npsMeasurementsBaseQvDoc ?? null;
+}
+
+export function getNpsMeasurementsConsolidatedDoc() {
+  return state?.npsMeasurementsConsolidatedDoc ?? null;
 }
 
 function refreshActionQueueEnrichedEntries() {

@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-10-16T23:55:00.000Z",
+  "source": "nps_historico.medicoes (Business Data)",
+  "rows": [
+    {
+      "ciclo": "2025-Q2",
+      "medicao": "Jun/2025",
+      "janela_datas": "01/04/2025 a 31/08/2025",
+      "respostas": 108,
+      "promotores": 44,
+      "neutros": 43,
+      "detratores": 21,
+      "nps": "21.3",
+      "nota_media": "7.81481481481482"
+    },
+    {
+      "ciclo": "2025-Q3",
+      "medicao": "Out/2025",
+      "janela_datas": "01/09/2025 a 30/11/2025",
+      "respostas": 50,
+      "promotores": 23,
+      "neutros": 16,
+      "detratores": 11,
+      "nps": "24.0",
+      "nota_media": "8.0"
+    },
+    {
+      "ciclo": "2025-Q4",
+      "medicao": "Dez/2025",
+      "janela_datas": "01/12/2025 a 28/02/2026",
+      "respostas": 171,
+      "promotores": 95,
+      "neutros": 41,
+      "detratores": 35,
+      "nps": "35.1",
+      "nota_media": "7.86549707602339"
+    },
+    {
+      "ciclo": "2026-Q1",
+      "medicao": "Mar/2026",
+      "janela_datas": "01/03/2026 a 31/05/2026",
+      "respostas": 194,
+      "promotores": 121,
+      "neutros": 41,
+      "detratores": 32,
+      "nps": "45.9",
+      "nota_media": "8.0"
+    },
+    {
+      "ciclo": "2026-Q2",
+      "medicao": "Jun–Jul/2026 (T2)",
+      "janela_datas": "01/06/2026 a 14/09/2026",
+      "respostas": 262,
+      "promotores": 205,
+      "neutros": 32,
+      "detratores": 25,
+      "nps": "68.7",
+      "nota_media": "8.88549618320611"
+    },
+    {
+      "ciclo": "2026-Q3",
+      "medicao": "Set/2026 (T3)",
+      "janela_datas": "15/09/2026 em diante (aberta)",
+      "respostas": 282,
+      "promotores": 201,
+      "neutros": 48,
+      "detratores": 33,
+      "nps": "59.6",
+      "nota_media": "8.63829787234043"
+    }
+  ]
+}

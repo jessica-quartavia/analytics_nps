@@ -1,0 +1,209 @@
+{
+  "generated_at": "2026-10-16T23:49:27.120Z",
+  "dataset_version": "nps-measurements-consolidated-c536d8b4c4b2",
+  "build_commit": "c536d8b4c4b2bcd7d5e9470ba753397f51c72af0",
+  "current_cycle_label": "2026-Q3",
+  "measurement_table": [
+    {
+      "cycle": "2025-Q2",
+      "source": "nps_historico",
+      "source_table": "nps_historico.respostas",
+      "raw": 108,
+      "valid": 108,
+      "unique_clients": 108,
+      "P": 44,
+      "N": 43,
+      "D": 21,
+      "nps": 21.3,
+      "medicoes_validation": {
+        "ok": true,
+        "responses_delta": 0,
+        "nps_delta": -0.004,
+        "medicoes_nps": 21.3,
+        "calculated_nps": 21.296296296296298
+      }
+    },
+    {
+      "cycle": "2025-Q3",
+      "source": "nps_historico",
+      "source_table": "nps_historico.respostas",
+      "raw": 50,
+      "valid": 50,
+      "unique_clients": 50,
+      "P": 23,
+      "N": 16,
+      "D": 11,
+      "nps": 24,
+      "medicoes_validation": {
+        "ok": true,
+        "responses_delta": 0,
+        "nps_delta": 0,
+        "medicoes_nps": 24,
+        "calculated_nps": 24
+      }
+    },
+    {
+      "cycle": "2025-Q4",
+      "source": "nps_historico",
+      "source_table": "nps_historico.respostas",
+      "raw": 171,
+      "valid": 171,
+      "unique_clients": 171,
+      "P": 95,
+      "N": 41,
+      "D": 35,
+      "nps": 35.1,
+      "medicoes_validation": {
+        "ok": true,
+        "responses_delta": 0,
+        "nps_delta": -0.012,
+        "medicoes_nps": 35.1,
+        "calculated_nps": 35.08771929824561
+      }
+    },
+    {
+      "cycle": "2026-Q1",
+      "source": "nps_historico",
+      "source_table": "nps_historico.respostas",
+      "raw": 194,
+      "valid": 194,
+      "unique_clients": 194,
+      "P": 121,
+      "N": 41,
+      "D": 32,
+      "nps": 45.9,
+      "medicoes_validation": {
+        "ok": true,
+        "responses_delta": 0,
+        "nps_delta": -0.024,
+        "medicoes_nps": 45.9,
+        "calculated_nps": 45.876288659793815
+      }
+    },
+    {
+      "cycle": "2026-Q2",
+      "source": "nps_historico",
+      "source_table": "nps_historico.respostas",
+      "raw": 262,
+      "valid": 262,
+      "unique_clients": 262,
+      "P": 205,
+      "N": 32,
+      "D": 25,
+      "nps": 68.7,
+      "medicoes_validation": {
+        "ok": true,
+        "responses_delta": 0,
+        "nps_delta": 0.002,
+        "medicoes_nps": 68.7,
+        "calculated_nps": 68.70229007633588
+      }
+    },
+    {
+      "cycle": "2026-Q3",
+      "source": "BASE_QV",
+      "source_table": "BASE_QV.nps_responses",
+      "raw": 418,
+      "valid": 408,
+      "unique_clients": 408,
+      "P": 299,
+      "N": 70,
+      "D": 39,
+      "nps": 63.725490196078425,
+      "base_qv_vs_historico_medicoes": {
+        "historico_respostas": 282,
+        "base_qv_valid": 408,
+        "delta": 126
+      }
+    }
+  ],
+  "historico_medicoes": [
+    {
+      "ciclo": "2025-Q2",
+      "medicao": "Jun/2025",
+      "janela_datas": "01/04/2025 a 31/08/2025",
+      "respostas": 108,
+      "promotores": 44,
+      "neutros": 43,
+      "detratores": 21,
+      "nps": "21.3",
+      "nota_media": "7.81481481481482"
+    },
+    {
+      "ciclo": "2025-Q3",
+      "medicao": "Out/2025",
+      "janela_datas": "01/09/2025 a 30/11/2025",
+      "respostas": 50,
+      "promotores": 23,
+      "neutros": 16,
+      "detratores": 11,
+      "nps": "24.0",
+      "nota_media": "8.0"
+    },
+    {
+      "ciclo": "2025-Q4",
+      "medicao": "Dez/2025",
+      "janela_datas": "01/12/2025 a 28/02/2026",
+      "respostas": 171,
+      "promotores": 95,
+      "neutros": 41,
+      "detratores": 35,
+      "nps": "35.1",
+      "nota_media": "7.86549707602339"
+    },
+    {
+      "ciclo": "2026-Q1",
+      "medicao": "Mar/2026",
+      "janela_datas": "01/03/2026 a 31/05/2026",
+      "respostas": 194,
+      "promotores": 121,
+      "neutros": 41,
+      "detratores": 32,
+      "nps": "45.9",
+      "nota_media": "8.0"
+    },
+    {
+      "ciclo": "2026-Q2",
+      "medicao": "Jun–Jul/2026 (T2)",
+      "janela_datas": "01/06/2026 a 14/09/2026",
+      "respostas": 262,
+      "promotores": 205,
+      "neutros": 32,
+      "detratores": 25,
+      "nps": "68.7",
+      "nota_media": "8.88549618320611"
+    },
+    {
+      "ciclo": "2026-Q3",
+      "medicao": "Set/2026 (T3)",
+      "janela_datas": "15/09/2026 em diante (aberta)",
+      "respostas": 282,
+      "promotores": 201,
+      "neutros": 48,
+      "detratores": 33,
+      "nps": "59.6",
+      "nota_media": "8.63829787234043"
+    }
+  ],
+  "base_qv_q2_reconstruction": {
+    "cycle_code": "NPS-2026-JUN-JUL-PHARUS",
+    "label": "2026-Q2",
+    "start_at": "2026-06-16T00:00:00+00:00",
+    "end_at": "2026-08-13T02:59:59+00:00",
+    "cycle_type": "historical_reconstruction",
+    "aggregation": "analytical_cycle_pharus",
+    "raw_responses": 255,
+    "valid_responses": 254,
+    "unique_clients": 254,
+    "deduped_responses": 254,
+    "promoters": 198,
+    "neutrals": 31,
+    "detractors": 25,
+    "nps": 68.11023622047244,
+    "average_score": 8.866141732283465
+  },
+  "precedence": {
+    "closed_cycles": "nps_historico.respostas validated by nps_historico.medicoes",
+    "current_cycle": "BASE_QV official window (not summed with historico for same label)"
+  }
+}

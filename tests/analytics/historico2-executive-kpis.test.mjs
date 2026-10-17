@@ -27,7 +27,11 @@ test('buildHistorico2ExecutiveKpis calcula recorrentes no recorte', () => {
   };
   const kpis = buildHistorico2ExecutiveKpis({
     filteredClients: [{ client_id: '1' }, { client_id: '2' }],
+    clientFilters: { cohort: '2026-Q1' },
     enrichedDoc,
+    responses: [],
+    cycleDef: null,
+    cycleSummaryTemplate: null,
     historicalSummaryDoc: {
       summary: {
         cycles: [
@@ -42,6 +46,6 @@ test('buildHistorico2ExecutiveKpis calcula recorrentes no recorte', () => {
   });
   assert.equal(kpis.uniqueHistoricalClients, 2);
   assert.equal(kpis.recurringClients, 1);
-  assert.equal(kpis.cycleResponses, 2);
+  assert.equal(kpis.cycleResponses, 0);
   assert.equal(kpis.mechanismPct, 50);
 });

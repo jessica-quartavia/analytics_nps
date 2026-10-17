@@ -13,9 +13,12 @@ import { loadPharusClientIdentifiers } from '../lib/pharus/base-identifiers.mjs'
 import { buildHistorico2Dataset } from '../lib/analytics/historico2-entry-date-match.mjs';
 import {
   buildNpsHistoricoMeasurements,
+  enrichMeasurementAuditWithCycles,
   MEASUREMENT_DEDUPE_RULE,
   MEASUREMENT_SOURCE,
 } from '../lib/analytics/nps-historico-measurements.mjs';
+import { buildNpsHistoricoBase0MatchAudit } from '../lib/analytics/nps-historico-base0-match-audit.mjs';
+import { loadBaseQvResponsesForMeasurements } from '../lib/analytics/nps-historico-response-loader.mjs';
 import { sha256Json } from '../lib/analytics/nps-historico-measurements-hash.mjs';
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -75,7 +78,8 @@ export async function generateHistorico2Pack() {
     };
   });
 
-  const npsResponses = readDataJson(root, 'processed/responses.json', []);
+  const npsResponsesProcessed = readDataJson(root, 'processed/responses.json', []);
+  const npsResponses = await loadBaseQvResponsesForMeasurements(root);
 
   let base0Rows = [];
   try {
@@ -87,12 +91,18 @@ export async function generateHistorico2Pack() {
   const pack = buildHistorico2Dataset({
     baseQvClients,
     base0Rows,
-    npsResponses,
+    npsResponses: npsResponsesProcessed,
     asOfDate: AS_OF,
   });
 
   const pharusIds = new Set(pack.clients.map((c) => c.client_id));
   const measurements = buildNpsHistoricoMeasurements(npsResponses, { clientIds: pharusIds });
+  const cycles = readDataJson(root, 'processed/cycles.json', []) ?? [];
+  const measurementAuditTable = enrichMeasurementAuditWithCycles(
+    measurements.per_cycle_audit,
+    cycles,
+  );
+  const base0MatchAudit = buildNpsHistoricoBase0MatchAudit({ baseQvClients, base0Rows });
   const buildCommit = gitHead();
   const generatedAt = pack.meta.generated_at;
   const datasetVersion = buildCommit
@@ -105,7 +115,8 @@ export async function generateHistorico2Pack() {
     page_title: 'NPS Histórico',
     dataset_version: datasetVersion,
     build_commit: buildCommit,
-    responses_source: MEASUREMENT_SOURCE,
+    responses_source: 'BASE_QV:nps_responses (>=2025-01-01) + processed/responses.json',
+    measurements_responses_rows: npsResponses.length,
     responses_source_max_updated_at: generatedAt,
     measurement_dedupe_rule: MEASUREMENT_DEDUPE_RULE,
   };
@@ -130,7 +141,8 @@ export async function generateHistorico2Pack() {
     source: measurements.source,
     dedupe_rule: measurements.dedupe_rule,
     measurement_counts: measurements.series,
-    per_cycle_audit: measurements.per_cycle_audit,
+    per_cycle_audit: measurementAuditTable,
+    measurement_audit_table: measurementAuditTable,
     qa_samples: {
       '2026-Q1': measurements.response_index.filter((r) => r.measurement === '2026-Q1'),
       '2026-Q2': measurements.response_index.filter((r) => r.measurement === '2026-Q2').slice(0, 5),
@@ -145,6 +157,38 @@ export async function generateHistorico2Pack() {
       }),
     },
   });
+  try {
+    const { generateNpsMeasurementsBaseQv } = await import('./generate-nps-measurements-baseqv.mjs');
+    await generateNpsMeasurementsBaseQv();
+    const { generateNpsMeasurementsConsolidated } = await import(
+      './generate-nps-measurements-consolidated.mjs'
+    );
+    await generateNpsMeasurementsConsolidated();
+  } catch (err) {
+    console.warn('[historico2] nps measurements packs skipped:', err.message ?? err);
+  }
+
+  await writeJson('quality/nps_historico_base0_match_audit.json', {
+    generated_at: pack.meta.generated_at,
+    dataset_version: datasetVersion,
+    build_commit: buildCommit,
+    ...base0MatchAudit,
+    matched_by_id: pack.audit.by_method.base_qv_id ?? 0,
+    matched_by_cpf: pack.audit.by_method.cpf ?? 0,
+    matched_by_email: pack.audit.by_method.email ?? 0,
+    matched_by_phone: pack.audit.by_method.phone ?? 0,
+    unmatched: pack.audit.by_method.unmatched ?? 0,
+    ambiguous: pack.audit.by_method.ambiguous ?? 0,
+    conflicting_entry_dates: base0MatchAudit.conflicting_entry_dates,
+    reason_breakdown: {
+      base0_base_qv_id_null: base0MatchAudit.base0_base_qv_id_null,
+      base0_base_qv_id_invalid_uuid: base0MatchAudit.base0_base_qv_id_invalid_uuid,
+      base0_id_not_in_base_qv: base0MatchAudit.base0_ids_not_in_base_qv,
+      base_qv_clients_unmatched: pack.audit.by_method.unmatched ?? 0,
+      base_qv_clients_ambiguous: pack.audit.by_method.ambiguous ?? 0,
+    },
+  });
+
   await writeJson('quality/historico2_entry_date_match_audit.json', {
     generated_at: pack.meta.generated_at,
     as_of_date: pack.meta.as_of_date,

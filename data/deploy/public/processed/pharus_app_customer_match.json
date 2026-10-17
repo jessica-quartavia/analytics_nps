@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T23:49:23.832Z",
+  "generated_at": "2026-10-16T23:42:57.014Z",
   "app_source": "core.personal_info",
   "entries": [
     {
@@ -3847,10 +3847,10 @@
     },
     {
       "client_id": "2d5ade9e-db97-42ac-ab79-38815f581f31",
-      "has_app": false,
-      "app_match_status": "unmatched",
-      "app_match_method": null,
-      "app_registered_at": null
+      "has_app": true,
+      "app_match_status": "matched",
+      "app_match_method": "multiple",
+      "app_registered_at": "2026-10-16T19:25:42.823727Z"
     },
     {
       "client_id": "2d61ac55-3d59-4c65-abd9-fadbd4abbc5e",
