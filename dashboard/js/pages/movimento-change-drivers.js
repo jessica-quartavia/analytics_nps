@@ -11,7 +11,8 @@ function qualityBadge(quality) {
 }
 
 function fmtMed(v) {
-  return v == null ? '—' : Number(v).toFixed(1);
+  if (v == null || !Number.isFinite(Number(v))) return '—';
+  return Number(v).toFixed(1);
 }
 
 function renderMeetingsBlock(meetings, coverage) {
@@ -35,8 +36,8 @@ function renderMeetingsBlock(meetings, coverage) {
 
   return `
     <article class="card change-driver-card">
-      <h3>Reuniões ${cov ? qualityBadge(cov.quality) : ''}</h3>
-      <p class="note-muted">Média, mediana e IQR por evolução (base pareada).</p>
+      <h3>Reuniões entre ciclos ${cov ? qualityBadge(cov.quality) : ''}</h3>
+      <p class="note-muted">Quantidade de reuniões entre a resposta anterior e a atual (base pareada). IQR = intervalo entre Q1 e Q3 (50% centrais). Associação observada — não implica causalidade.</p>
       <div class="table-scroll"><table class="gd-table gd-table--compact">
         <thead><tr><th>Evolução</th><th>Cobertura</th><th>Média</th><th>Mediana</th><th>IQR</th></tr></thead>
         <tbody>${rows || '<tr><td colspan="5">Sem dados</td></tr>'}</tbody>
@@ -82,7 +83,8 @@ function renderEpBlock(epChange) {
   if (!t && !f) return '';
   return `
     <article class="card change-driver-card">
-      <h3>Troca de EP</h3>
+      <h3>Troca de EP entre respostas</h3>
+      <p class="note-muted">Comparado apenas entre a resposta do ciclo anterior e a do ciclo atual (não “já trocou alguma vez”).</p>
       <div class="table-scroll"><table class="gd-table gd-table--compact">
         <thead><tr><th>Trocou EP</th><th>n</th><th>Δ médio</th><th>% piora</th><th>% recuperação</th></tr></thead>
         <tbody>
@@ -168,11 +170,6 @@ export function renderMovimentoChangeDriversSection() {
       ${renderChurnBlock(doc.churn)}
     </div>
     <p class="note-muted">VoC × mecanismos (perfil estático): ver <a href="#/jornada-perfil?tema=Resultados&amp;valencia=Negativa">Jornada &amp; Perfil · Temas × perfil</a>.</p>
-    <div class="card">
-      <h3>Principais associações (automáticas)</h3>
-      ${renderInsights(doc.auto_insights)}
-      ${doc.limitations?.length ? `<p class="note-muted"><strong>Limitações:</strong> ${escapeHtml(doc.limitations.join(' '))}</p>` : ''}
-    </div>
     </div>
   `;
 }

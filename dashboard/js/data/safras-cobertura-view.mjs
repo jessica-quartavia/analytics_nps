@@ -1,11 +1,14 @@
 import { isSafrasPeriodSpecific, historyMatchesSafrasNpsPeriod } from './safras-nps-period.mjs';
 import { canonicalizeNpsCycle } from '../utils/nps-cycle-labels.mjs';
 import { cycleSortKey } from '../utils/cycle-sort.mjs';
+import { normalizeClientStatus } from '../../../lib/analytics/analytical-active-client.mjs';
+
+export { normalizeClientStatus };
 
 export function defaultSafrasFilters() {
   return {
     npsPeriod: 'all',
-    carteira: 'active',
+    carteira: 'all',
     safra: '',
     programa: '',
     ep: '',
@@ -13,7 +16,17 @@ export function defaultSafrasFilters() {
     answered: 'all',
     categoria: '',
     minResponses: '',
+    search: '',
+    status: '',
   };
+}
+
+/** status_cliente (BASE QV) → normalized_status para filtros/UI. */
+export function enrichSafrasNormalizedStatus(customers) {
+  return (customers ?? []).map((c) => {
+    const normalized_status = normalizeClientStatus(c.status_cliente) || '—';
+    return { ...c, normalized_status };
+  });
 }
 
 /** Heurística de exclusão (cohort tem cliente_ativo oficial; motivo detalhado via status). */
@@ -88,20 +101,31 @@ export function applySafrasFilters(customers, filters) {
   if (carteira === 'active') {
     rows = rows.filter((r) => r.cliente_ativo === true);
   }
-  if (filters.safra) rows = rows.filter((r) => r.safra_trimestre === filters.safra);
+  if (filters.safra) {
+    rows = rows.filter((r) =>
+      filters.safra === 'Sem data' ? r.safra_trimestre === 'Sem data' : r.safra_trimestre === filters.safra,
+    );
+  }
   if (filters.programa) rows = rows.filter((r) => (r.programa ?? '').toUpperCase() === filters.programa.toUpperCase());
   if (filters.ep) rows = rows.filter((r) => r.ep === filters.ep);
-  if (filters.app === 'yes') rows = rows.filter((r) => r.has_app === true || r.has_app_access === true);
+  if (filters.status) {
+    rows = rows.filter((r) => (r.normalized_status ?? normalizeClientStatus(r.status_cliente)) === filters.status);
+  }
+  if (filters.app === 'yes') {
+    rows = rows.filter((r) => r.app_match === true || r.has_app_access === true);
+  }
   if (filters.app === 'no') {
     rows = rows.filter(
       (r) =>
-        (r.has_app === false || r.has_app_access === false) &&
-        (r.app_match_status === 'unmatched' || r.app_match_status === 'not_found'),
+        r.app_match === false &&
+        r.app_match_status === 'unmatched' &&
+        !r.app_match_conflict,
     );
   }
   if (filters.app === 'unknown') {
     rows = rows.filter((r) =>
-      ['ambiguous', 'insufficient_identifiers'].includes(r.app_match_status),
+      ['ambiguous', 'insufficient_identifiers', 'not_found'].includes(r.app_match_status) ||
+        r.app_match_conflict === true,
     );
   }
   rows = rows.filter((r) => customerAnsweredForFilter(r, filters));
@@ -124,25 +148,43 @@ export function applySafrasFilters(customers, filters) {
       });
     }
   }
+  const q = (filters.search ?? '').trim().toLowerCase();
+  if (q) {
+    rows = rows.filter((r) => {
+      const hay = `${r.client_name ?? ''} ${r.client_email ?? ''} ${r.client_id ?? ''}`.toLowerCase();
+      return hay.includes(q);
+    });
+  }
   return rows;
 }
 
-export function computeSafrasKpis(customers, { npsPeriod = 'all' } = {}) {
+export function computeSafrasKpis(customers, { npsPeriod = 'all', appUnavailable = false } = {}) {
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const n = customers.length;
+  const appDataMissing = appUnavailable;
   const answered = customers.filter((c) =>
     periodSpecific ? c.answered_selected_period : c.ever_answered_nps,
   ).length;
   const never = n - answered;
-  const appYes = customers.filter((c) => c.has_app_access === true).length;
-  const appNo = customers.filter(
-    (c) => c.has_app_access === false && c.app_match_status === 'unmatched',
-  ).length;
-  const appAndAnswered = customers.filter((c) =>
-    periodSpecific
-      ? c.has_app_access === true && c.answered_selected_period
-      : c.has_app_access === true && c.ever_answered_nps,
-  ).length;
+  const appYes = appDataMissing
+    ? null
+    : customers.filter((c) => c.app_match === true || c.has_app_access === true).length;
+  const appNo = appDataMissing
+    ? null
+    : customers.filter((c) => c.app_match_status === 'unmatched').length;
+  const appConflicts = appDataMissing
+    ? null
+    : customers.filter((c) => c.app_match_conflict || c.app_match_status === 'ambiguous').length;
+  const appInsufficient = appDataMissing
+    ? null
+    : customers.filter((c) => c.app_match_status === 'insufficient_identifiers').length;
+  const appAndAnswered = appDataMissing
+    ? null
+    : customers.filter((c) =>
+        periodSpecific
+          ? (c.app_match === true || c.has_app_access === true) && c.answered_selected_period
+          : (c.app_match === true || c.has_app_access === true) && c.ever_answered_nps,
+      ).length;
   const scores = customers
     .map((c) => (periodSpecific ? c.period_nps_score : c.last_nps_score))
     .filter((s) => s != null);
@@ -160,11 +202,15 @@ export function computeSafrasKpis(customers, { npsPeriod = 'all' } = {}) {
     never,
     pctNever: n ? Math.round((1000 * never) / n) / 10 : null,
     appYes,
-    pctApp: n ? Math.round((1000 * appYes) / n) / 10 : null,
+    pctApp: appYes != null && n ? Math.round((1000 * appYes) / n) / 10 : null,
     appNo,
-    pctNoApp: n ? Math.round((1000 * appNo) / n) / 10 : null,
+    pctNoApp: appNo != null && n ? Math.round((1000 * appNo) / n) / 10 : null,
     appAndAnswered,
-    pctAppAnswered: appYes ? Math.round((1000 * appAndAnswered) / appYes) / 10 : null,
+    pctAppAnswered:
+      appYes != null && appYes ? Math.round((1000 * appAndAnswered) / appYes) / 10 : null,
+    appDataMissing,
+    appConflicts,
+    appInsufficient,
     nps,
     medianDays,
   };
@@ -198,9 +244,9 @@ function responseRateForGroup(customers, periodSpecific) {
 /** NPS e taxa de resposta — com App vs sem App (não causal). */
 export function computeNpsByApp(customers, { npsPeriod = 'all' } = {}) {
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
-  const withApp = customers.filter((c) => c.has_app_access === true);
+  const withApp = customers.filter((c) => c.app_match === true || c.has_app_access === true);
   const withoutApp = customers.filter(
-    (c) => c.has_app_access === false && c.app_match_status === 'unmatched',
+    (c) => c.app_match_status === 'unmatched' && !c.app_match_conflict,
   );
   return {
     withApp: {
@@ -248,6 +294,20 @@ export function epOptions(customers) {
   return [...new Set(customers.map((c) => c.ep).filter(Boolean))].sort((a, b) =>
     a.localeCompare(b, 'pt-BR'),
   );
+}
+
+export function programOptions(customers) {
+  return [...new Set(customers.map((c) => c.programa).filter(Boolean))].sort((a, b) =>
+    a.localeCompare(b, 'pt-BR'),
+  );
+}
+
+export function statusOptions(customers) {
+  const set = new Set(
+    (customers ?? []).map((c) => c.normalized_status ?? normalizeClientStatus(c.status_cliente)).filter(Boolean),
+  );
+  set.delete('—');
+  return [...set].sort((a, b) => a.localeCompare(b, 'pt-BR'));
 }
 
 export function buildSafraMedicaoPivot(history, customers, metric = 'nps', npsPeriod = 'all') {

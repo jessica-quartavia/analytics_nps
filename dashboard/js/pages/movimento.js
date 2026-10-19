@@ -4,7 +4,9 @@ import {
   getPairedCycles,
   getMigrationMatrix,
   getPreviousCycle,
+  getResponses,
 } from '../data/analytics-store.js';
+import { auditPairedClientsBetweenCycles } from '../../../lib/analytics/nps-paired-recurring-audit.mjs';
 import { getFilters, setFilter } from '../filters/global-filters.js';
 import {
   movementKpis,
@@ -20,6 +22,7 @@ import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { sectionHead, sectionLead } from '../ui/help.js';
 import { drawerShell, drawerMetaGrid } from '../ui/drawer-layout.mjs';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
+import { exportFilteredCsv } from '../utils/export-filtered-csv.mjs';
 
 const CATEGORIES = ['Detrator', 'Neutro', 'Promotor'];
 const POSITIVE_CELLS = new Set([
@@ -350,7 +353,17 @@ export function renderMovimento(root, ctx = {}) {
   const filterCtx = getGlobalFilterContext(filters.cycleCode, filters);
   const matrix = filterCtx?.migrationMatrix ?? null;
   const { rows, actionQueue } = buildFilterContext(filters.cycleCode, filters);
-  const kpis = movementKpis(rows);
+  const prevCycleForAudit = getPreviousCycle(filters.cycleCode);
+  const pairedAudit =
+    prevCycleForAudit?.cycle_code && filters.cycleCode
+      ? auditPairedClientsBetweenCycles(
+          prevCycleForAudit.cycle_code,
+          filters.cycleCode,
+          getResponses(),
+        )
+      : null;
+  const kernelPairedSet = new Set(pairedAudit?.paired_client_ids ?? []);
+  const kpis = movementKpis(rows, { pairedClientIds: kernelPairedSet });
   const pairedDoc = getPairedCycles(filters.cycleCode);
   const migrationDoc = getMigrationMatrix(filters.cycleCode);
   const prevCycle = getPreviousCycle(filters.cycleCode);
@@ -383,14 +396,14 @@ export function renderMovimento(root, ctx = {}) {
     <header class="page-header">
       <div>
         <p class="eyebrow">Movimento</p>
-        <h1 class="hero__title">Quem mudou e o que aconteceu entre os ciclos?</h1>
-        <p class="page-header__lead">Migração de categorias, evolução de nota e eventos observados entre respostas consecutivas (base pareada).</p>
+        <h1 class="hero__title">Movimento entre ciclos</h1>
+        <p class="page-header__lead">Migração de categorias e evolução de nota na base pareada (mesmo client_id nos dois ciclos consecutivos).</p>
       </div>
     </header>
     ${renderDataSourceNotice('movimento')}
     ${renderFilterRecorteBanner(filterCtx)}
     <div class="metric-compact-grid">
-      <article class="metric-compact"><div class="metric-compact__label">Clientes pareados</div><div class="metric-compact__value">${escapeHtml(String(kpis.paired))}</div></article>
+      <article class="metric-compact" title="Resposta NPS válida (última por ciclo) no ciclo anterior e no atual — kernel auditPairedClientsBetweenCycles, não snapshot materializado."><div class="metric-compact__label">Clientes pareados</div><div class="metric-compact__value">${escapeHtml(String(kpis.paired))}</div>${pairedAudit ? `<div class="metric-compact__note">Anterior n=${pairedAudit.previous_n} · Atual n=${pairedAudit.current_n}</div>` : ''}</article>
       <article class="metric-compact"><div class="metric-compact__label">Melhoraram</div><div class="metric-compact__value">${escapeHtml(String(kpis.improved))}</div></article>
       <article class="metric-compact"><div class="metric-compact__label">Estáveis</div><div class="metric-compact__value">${escapeHtml(String(kpis.stable))}</div></article>
       <article class="metric-compact"><div class="metric-compact__label">Pioraram</div><div class="metric-compact__value">${escapeHtml(String(kpis.declined + kpis.severe))}</div><div class="metric-compact__note">Queda severa: ${kpis.severe}</div></article>
@@ -414,7 +427,13 @@ export function renderMovimento(root, ctx = {}) {
         .join('')}
       <button type="button" class="chip ${!filters.priority ? 'is-active' : ''}" data-priority="" aria-pressed="${!filters.priority}">Todas</button>
     </div>
-    <h2 class="section-title">Clientes</h2>
+    <div class="table-toolbar table-toolbar--actions">
+      <h2 class="section-title section-title--flush">Clientes</h2>
+      <div class="btn-group">
+        <button type="button" class="btn btn--secondary btn--sm" id="movimento-export-clients" aria-label="Exportar clientes filtrados">Exportar clientes</button>
+        <button type="button" class="btn btn--secondary btn--sm" id="movimento-export-changes" aria-label="Exportar alterações pareadas">Exportar alterações</button>
+      </div>
+    </div>
     <div id="movimento-table-host"></div>
   `;
 
@@ -450,4 +469,72 @@ export function renderMovimento(root, ctx = {}) {
 
   rerenderTable();
   bindMovimentoBetweenCycles(root, filterCtx, signal);
+
+  const cycleLabel = filters.cycleCode?.replace(/[^a-zA-Z0-9-]+/g, '-') ?? 'ciclo';
+  const exportRows = () => buildFilterContext(filters.cycleCode, getFilters()).rows;
+
+  document.getElementById('movimento-export-clients')?.addEventListener(
+    'click',
+    () => {
+      exportFilteredCsv({
+        filename: `movimento_clientes_${cycleLabel}.csv`,
+        columns: [
+          { header: 'Cliente', key: 'client_name' },
+          { header: 'Client ID', key: 'client_id' },
+          { header: 'EP', key: 'ep_name' },
+          { header: 'Programa', key: 'program' },
+          { header: 'Nota anterior', key: 'previous_score' },
+          { header: 'Categoria anterior', key: 'previous_category' },
+          { header: 'Nota atual', key: 'score' },
+          { header: 'Categoria atual', key: 'nps_category' },
+          { header: 'Delta', key: 'score_delta' },
+          { header: 'Migração', key: 'nps_migration' },
+          { header: 'Evolução', key: 'evolution_status' },
+        ],
+        rows: exportRows(),
+      });
+    },
+    opts,
+  );
+
+  document.getElementById('movimento-export-changes')?.addEventListener(
+    'click',
+    () => {
+      const exportPairedSet = new Set(
+        auditPairedClientsBetweenCycles(
+          prevCycleForAudit?.cycle_code,
+          filters.cycleCode,
+          getResponses(),
+        )?.paired_client_ids ?? [],
+      );
+      const pairedRows = exportRows().filter((r) => exportPairedSet.has(r.client_id));
+      exportFilteredCsv({
+        filename: `movimento_alteracoes_${cycleLabel}.csv`,
+        columns: [
+          { header: 'Cliente', key: 'client_name' },
+          { header: 'Client ID', key: 'client_id' },
+          { header: 'Programa', key: 'program' },
+          { header: 'EP', key: 'ep_name' },
+          { header: 'Nota anterior', key: 'previous_score' },
+          { header: 'Categoria anterior', key: 'previous_category' },
+          { header: 'Nota atual', key: 'score' },
+          { header: 'Categoria atual', key: 'nps_category' },
+          { header: 'Delta', key: 'score_delta' },
+          { header: 'Migração', key: 'nps_migration' },
+          {
+            header: 'Classificação da mudança',
+            value: (r) => {
+              const s = r.evolution_status ?? '';
+              if (s === 'Melhora' || s === 'Grande melhora') return 'Melhorou';
+              if (s === 'Estável') return 'Estável';
+              if (s === 'Queda' || s === 'Queda severa') return 'Piorou';
+              return s || '—';
+            },
+          },
+        ],
+        rows: pairedRows,
+      });
+    },
+    opts,
+  );
 }

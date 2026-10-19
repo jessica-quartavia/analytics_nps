@@ -24,8 +24,17 @@ function qualityBadge(quality) {
 }
 
 function fmtMed(v) {
-  return v == null ? '—' : Number(v).toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+  if (v == null || !Number.isFinite(Number(v))) return '—';
+  return Number(v).toLocaleString('pt-BR', { maximumFractionDigits: 0 });
 }
+
+function fmtIqr(v, detail) {
+  if (detail?.insufficient) return 'amostra insuficiente';
+  return fmtMed(v);
+}
+
+const IQR_TIP =
+  'IQR = intervalo entre o 1º e o 3º quartil, representando os 50% centrais da distribuição.';
 
 function fmtP(v) {
   return v == null ? '—' : Number(v).toFixed(3);
@@ -76,7 +85,11 @@ function renderResultadosTier(block) {
     testName.toLowerCase().includes('chi') ? 'Qui-quadrado' : testName;
   return `
     <article class="card change-driver-card">
-      <h3>Resultados × Tier</h3>
+      <h3>${helpTip(
+        'Resultados × Tier',
+        'Compara a incidência de menções negativas ao tema Resultados entre tiers (T1–T4). Associação descritiva — não implica causalidade.',
+        'resultados-tier',
+      )}</h3>
       <p class="note-muted">${escapeHtml(block?.question ?? '')}</p>
       <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table resultados-tier-table"><colgroup>
         <col style="width:24%" /><col style="width:38%" /><col style="width:38%" />
@@ -96,19 +109,19 @@ function renderReserveContribution(reserve, contribution) {
     <article class="card change-driver-card">
       <h3>Reserva e aporte (Resultados negativo vs demais)</h3>
       <div class="table-scroll"><table class="gd-table gd-table--compact analytic-table">
-        <thead><tr><th class="col-label">Métrica</th><th class="col-number">Mediana neg.</th><th class="col-number">Mediana demais</th><th class="col-number">IQR neg.</th><th class="col-number">IQR demais</th><th class="col-number">p (MWU)</th></tr></thead>
+        <thead><tr><th class="col-label">Métrica</th><th class="col-number">Mediana neg.</th><th class="col-number">Mediana demais</th><th class="col-number">${helpTip('IQR neg.', IQR_TIP, 'iqr-neg')}</th><th class="col-number">${helpTip('IQR demais', IQR_TIP, 'iqr-out')}</th><th class="col-number">p (MWU)</th></tr></thead>
         <tbody>
           <tr><th scope="row">Reserva</th>
             <td class="num">${fmtMed(reserve?.median_negative)}</td>
             <td class="num">${fmtMed(reserve?.median_others)}</td>
-            <td class="num">${fmtMed(reserve?.iqr_negative)}</td>
-            <td class="num">${fmtMed(reserve?.iqr_others)}</td>
+            <td class="num">${fmtIqr(reserve?.iqr_negative, reserve?.iqr_negative_detail)}</td>
+            <td class="num">${fmtIqr(reserve?.iqr_others, reserve?.iqr_others_detail)}</td>
             <td class="num">${fmtP(reserve?.mann_whitney?.p_value)}</td></tr>
           <tr><th scope="row">Aporte (proxy)</th>
             <td class="num">${fmtMed(contribution?.median_negative)}</td>
             <td class="num">${fmtMed(contribution?.median_others)}</td>
-            <td class="num">${fmtMed(contribution?.iqr_negative)}</td>
-            <td class="num">${fmtMed(contribution?.iqr_others)}</td>
+            <td class="num">${fmtIqr(contribution?.iqr_negative, contribution?.iqr_negative_detail)}</td>
+            <td class="num">${fmtIqr(contribution?.iqr_others, contribution?.iqr_others_detail)}</td>
             <td class="num">${fmtP(contribution?.mann_whitney?.p_value)}</td></tr>
         </tbody>
       </table></div>

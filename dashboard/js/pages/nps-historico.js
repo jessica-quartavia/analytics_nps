@@ -38,6 +38,7 @@ import {
   clientDisplayName,
 } from '../data/historico2-view.mjs';
 import { renderHistorico2Pagination } from '../ui/historico2-pagination.mjs';
+import { exportFilteredCsv } from '../utils/export-filtered-csv.mjs';
 
 const COLORS = {
   promoter: 'rgba(22, 101, 52, 0.85)',
@@ -137,7 +138,7 @@ function renderExecutiveKpis(exec, matchQuality) {
     ${historicoKpiCard(
       'Clientes recorrentes',
       exec.recurringClients != null ? String(exec.recurringClients) : '—',
-      '2+ respostas',
+      '2+ respostas no histórico enriched (PIT) — não é o mesmo que pareados entre os 2 últimos ciclos',
     )}
     ${historicoKpiCard(
       'Mediana tempo de relacionamento',
@@ -270,7 +271,7 @@ function renderFilters(allClients) {
 
 function renderChartsSection() {
   return `<section class="historico2-charts-grid">
-    <article class="card chart-card historico2-chart-card"><h2 class="section-title">NPS por safra (2025+)</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-nps"></canvas></div></article>
+    <article class="card chart-card historico2-chart-card"><h2 class="section-title">NPS por safra</h2><p class="note-muted historico2-chart-subtitle">Evolução do NPS por safra de entrada (clientes com data de entrada; eixo mostra safra e volume de respostas consideradas).</p><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-nps"></canvas></div></article>
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">Clientes por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-clients"></canvas></div></article>
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">Nota média por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-avg"></canvas></div></article>
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">P/N/D por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-pnd"></canvas></div></article>
@@ -365,8 +366,9 @@ function renderExplorer(clients) {
   };
 
   return `<section class="card historico2-explorer" id="historico2-explorer">
-    <div class="historico2-explorer__head">
+    <div class="historico2-explorer__head historico2-explorer__head--actions">
       <h2 class="section-title section-title--flush">Cliente Explorer</h2>
+      <button type="button" class="btn btn--secondary btn--sm" id="historico2-export-clients">Exportar clientes</button>
     </div>
     <div class="historico2-sort-row">${sortBtn('name', 'Cliente')} ${sortBtn('entry_date', 'Data entrada')} ${sortBtn('safra', 'Safra')} ${sortBtn('nps_score', 'Última nota')} ${sortBtn('nps_submitted_at', 'Última resposta')}</div>
     <div class="table-wrap">
@@ -509,6 +511,11 @@ function bindCharts(viewModel, measurementSeries) {
         legend: { display: false },
         tooltip: {
           callbacks: {
+            title(items) {
+              const i = items[0]?.dataIndex;
+              const row = rows[i];
+              return row ? `Safra ${row.entry_cohort}` : '';
+            },
             label(ctx) {
               const row = rows[ctx.dataIndex];
               return row?.nps != null ? `NPS: ${row.nps.toFixed(1)}` : 'NPS: —';
@@ -518,10 +525,10 @@ function bindCharts(viewModel, measurementSeries) {
               const row = rows[i];
               if (!row) return [];
               return [
-                `Respostas: ${row.nps_responses}`,
-                `Promotores: ${row.promoters}`,
-                `Neutros: ${row.neutrals}`,
-                `Detratores: ${row.detractors}`,
+                `n: ${row.nps_responses ?? row.clients ?? '—'}`,
+                `Promotores: ${row.promoters ?? '—'}`,
+                `Neutros: ${row.neutrals ?? '—'}`,
+                `Detratores: ${row.detractors ?? '—'}`,
               ];
             },
           },
@@ -733,6 +740,26 @@ function bindPage(allClients, filtered) {
     tablePage = 1;
     epPage = 1;
     renderHistorico2(pageRoot);
+  });
+
+  pageRoot.querySelector('#historico2-export-clients')?.addEventListener('click', () => {
+    exportFilteredCsv({
+      filename: 'nps_historico_clientes.csv',
+      columns: [
+        { header: 'Cliente', value: (c) => clientDisplayName(c) },
+        { header: 'Client ID', key: 'client_id' },
+        { header: 'Programa', key: 'program' },
+        { header: 'EP', key: 'ep' },
+        { header: 'Status', key: 'status' },
+        { header: 'Data de entrada', key: 'entry_date' },
+        { header: 'Safra', value: (c) => displaySafra(c) },
+        { header: 'Última nota NPS', key: 'nps_score' },
+        { header: 'Categoria', key: 'nps_category' },
+        { header: 'Data última resposta', key: 'nps_submitted_at' },
+        { header: 'Método do match', key: 'match_method_label' },
+      ],
+      rows: filtered,
+    });
   });
 
   pageRoot.querySelectorAll('[data-chip-key]').forEach((btn) => {

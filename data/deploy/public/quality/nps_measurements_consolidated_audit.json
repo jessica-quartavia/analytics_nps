@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-16T23:49:27.120Z",
-  "dataset_version": "nps-measurements-consolidated-c536d8b4c4b2",
-  "build_commit": "c536d8b4c4b2bcd7d5e9470ba753397f51c72af0",
+  "generated_at": "2026-10-19T23:01:56.414Z",
+  "dataset_version": "nps-measurements-consolidated-3c71903c95b9",
+  "build_commit": "3c71903c95b90a0a1584508bc89fd5c92ae67e98",
   "current_cycle_label": "2026-Q3",
   "measurement_table": [
     {

@@ -56,6 +56,7 @@
     "smoke:pharus-app": "node scripts/smoke-pharus-app.mjs",
     "generate:pharus-app-match": "node scripts/generate-pharus-app-match.mjs",
     "generate:safras-cobertura": "node scripts/generate-safras-cobertura.mjs",
+    "generate:safras-nps-consistency-audit": "node scripts/generate-safras-nps-consistency-audit.mjs",
     "generate:historico-nps": "node scripts/generate-historico-nps.mjs",
     "generate:historico2": "node scripts/generate-historico2.mjs",
     "generate:nps-measurements-baseqv": "node scripts/generate-nps-measurements-baseqv.mjs",

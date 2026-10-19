@@ -1720,8 +1720,32 @@ input[type='submit']:not(.btn) {
   min-width: 640px;
 }
 
+.table-shell.safras-explorer-shell {
+  max-height: min(70vh, 720px);
+  overflow: auto;
+}
+
 .table-shell .data-table.safras-explorer-table {
-  min-width: 1100px;
+  min-width: 1200px;
+}
+
+.data-table.safras-explorer-table .safras-col-client {
+  min-width: 12rem;
+  max-width: 18rem;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.data-table.safras-explorer-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--surface-soft) 45%, var(--surface));
+}
+
+.safras-explorer-table__head th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface-soft);
+  box-shadow: 0 1px 0 var(--border);
 }
 
 .data-table.safras-data-table thead th {
@@ -1903,6 +1927,22 @@ input[type='submit']:not(.btn) {
   flex-wrap: wrap;
   gap: var(--space-2);
   align-items: center;
+}
+
+.safras-pager__btn {
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border));
+  font-weight: 600;
+}
+
+.safras-pager__btn:hover:not(:disabled) {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.safras-pager__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .safras-empty {

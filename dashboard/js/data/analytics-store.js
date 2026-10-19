@@ -106,6 +106,8 @@ const PATHS = {
   historico2MatchAudit: '/data/quality/historico2_entry_date_match_audit.json',
   npsMeasurementsBaseQv: '/data/processed/nps_measurements_baseqv.json',
   npsMeasurementsConsolidated: '/data/processed/nps_measurements_consolidated.json',
+  pharusAppCustomerMatch: '/data/processed/pharus_app_customer_match.json',
+  pharusAppMatchAudit: '/data/quality/pharus_app_match_audit.json',
 };
 
 function logStoreError(message, detail) {
@@ -318,6 +320,8 @@ async function fetchAllAnalyticsDatasets({ bust = false } = {}) {
     fetchJsonOptional(PATHS.historico2MatchAudit, fetchOpts),
     fetchJsonOptional(PATHS.npsMeasurementsBaseQv, fetchOpts),
     fetchJsonOptional(PATHS.npsMeasurementsConsolidated, fetchOpts),
+    fetchJsonOptional(PATHS.pharusAppCustomerMatch, fetchOpts),
+    fetchJsonOptional(PATHS.pharusAppMatchAudit, fetchOpts),
   ]);
 }
 
@@ -371,6 +375,8 @@ function applyAnalyticsPayload(datasets) {
     historico2MatchAuditDoc,
     npsMeasurementsBaseQvDoc,
     npsMeasurementsConsolidatedDoc,
+    pharusAppCustomerMatchDoc,
+    pharusAppMatchAuditDoc,
   ] = datasets;
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -435,6 +441,8 @@ function applyAnalyticsPayload(datasets) {
     historico2MatchAuditDoc: historico2MatchAuditDoc ?? null,
     npsMeasurementsBaseQvDoc: npsMeasurementsBaseQvDoc ?? null,
     npsMeasurementsConsolidatedDoc: npsMeasurementsConsolidatedDoc ?? null,
+    pharusAppCustomerMatchDoc: pharusAppCustomerMatchDoc ?? null,
+    pharusAppMatchAuditDoc: pharusAppMatchAuditDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -1019,6 +1027,14 @@ export function getSafrasCoberturaSummaries() {
 
 export function getSafrasCoberturaAudit() {
   return state?.safrasCoberturaAuditDoc ?? null;
+}
+
+export function getPharusAppCustomerMatch() {
+  return state?.pharusAppCustomerMatchDoc ?? null;
+}
+
+export function getPharusAppMatchAudit() {
+  return state?.pharusAppMatchAuditDoc ?? null;
 }
 
 export function getHistoricalNpsSummary() {

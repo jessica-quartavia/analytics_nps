@@ -29,9 +29,10 @@ import { openEpDrawerFromUI, closeEpDrawerFromUI } from '../ui/ep-drawer.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
 
 let bubbleChart = null;
+let epBarChart = null;
 let rankingSortMode = 'nps_desc';
-let rankingPage = 1;
-const RANKING_PAGE_SIZE = 6;
+let epVisibleCount = 6;
+const EP_VISIBLE_STEP = 6;
 let tableState = { page: 1, pageSize: 25, sortKey: 'nps', sortDir: 'desc' };
 /** Busca local da tabela — não usa filters.search global (evita zerar ranking/KPIs). */
 let epTableSearch = '';
@@ -61,6 +62,81 @@ function beginTableBindings() {
 function destroyBubbleChart() {
   bubbleChart?.destroy();
   bubbleChart = null;
+}
+
+function destroyEpBarChart() {
+  epBarChart?.destroy();
+  epBarChart = null;
+}
+
+function sortedEpEntriesForChart(entries, minSample, overallNps = null) {
+  const enriched = entries.map((e) => ({
+    ...e,
+    _status: epManagementStatus(e, overallNps),
+  }));
+  return sortEpForRanking(enriched, rankingSortMode === 'attention' ? 'attention' : 'nps_desc');
+}
+
+function mountEpHorizontalBarChart(canvas, entries, overallNps, minSample) {
+  destroyEpBarChart();
+  const sorted = sortedEpEntriesForChart(entries, minSample, overallNps);
+  const slice = sorted.slice(0, epVisibleCount);
+  const labels = slice.map((e) => {
+    const small = e.valid_responses > 0 && e.valid_responses < minSample ? ' · amostra pequena' : '';
+    return `${e.ep_name}${small}`;
+  });
+  const coral = getComputedStyle(document.documentElement).getPropertyValue('--color-coral').trim() || '#E85D4C';
+  epBarChart = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'NPS',
+          data: slice.map((e) => e.nps),
+          backgroundColor: `${coral}cc`,
+          borderColor: coral,
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { left: 8, right: 16 } },
+      scales: {
+        x: { min: -100, max: 100, title: { display: true, text: 'NPS' } },
+        y: { ticks: { autoSkip: false, font: { size: 11 } } },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label(ctx) {
+              const e = slice[ctx.dataIndex];
+              if (!e) return '';
+              const delta =
+                e.nps != null && overallNps != null
+                  ? formatDeltaPts(e.nps, overallNps)
+                  : '—';
+              return [
+                `NPS: ${formatNps(e.nps)}`,
+                `Respostas: ${e.valid_responses ?? 0}`,
+                `Δ vs NPS geral: ${delta}`,
+              ];
+            },
+          },
+        },
+      },
+      onClick(_ev, elements) {
+        if (!elements.length) return;
+        const e = slice[elements[0].index];
+        if (e) openEpDrawerFromUI(e);
+      },
+    },
+  });
+  return { total: sorted.length, shown: slice.length };
 }
 
 function clientFilterActive(filters) {
@@ -152,59 +228,16 @@ function deltaClass(arrow) {
 }
 
 function renderEpRanking(entries, overallNps, minSample) {
-  const enriched = entries.map((e) => {
-    const status = epManagementStatus(e, overallNps);
-    return { ...e, _statusKey: status.key, _status: status };
-  });
-  const sorted = sortEpForRanking(enriched, rankingSortMode === 'attention' ? 'attention' : 'nps_desc');
+  const sorted = sortedEpEntriesForChart(entries, minSample, overallNps);
   const total = sorted.length;
-  const totalPages = Math.max(1, Math.ceil(total / RANKING_PAGE_SIZE));
-  if (rankingPage > totalPages) rankingPage = totalPages;
-  if (rankingPage < 1) rankingPage = 1;
-  const start = (rankingPage - 1) * RANKING_PAGE_SIZE;
-  const pageRows = sorted.slice(start, start + RANKING_PAGE_SIZE);
-  const refPct = npsBarPercent(overallNps);
-  const rangeFrom = total ? start + 1 : 0;
-  const rangeTo = total ? Math.min(start + RANKING_PAGE_SIZE, total) : 0;
-
-  const items = pageRows
-    .map((e) => {
-      const delta = formatEpDeltaBadge(e.delta_nps_paired);
-      const barPct = npsBarPercent(e.nps);
-      const pairedNote =
-        e.paired_clients > 0
-          ? `n=${e.valid_responses} · pareados=${e.paired_clients}`
-          : `n=${e.valid_responses} · sem comparação histórica`;
-      const sample = smallSampleBadge(e, minSample);
-      return `<li class="ep-ranking-row ep-ranking-row--animate" role="button" tabindex="0" data-ep-id="${escapeAttr(e.ep_id ?? '')}" data-ep-name="${escapeAttr(e.ep_name)}" aria-label="Abrir detalhes ${escapeAttr(e.ep_name)}">
-        <div class="ep-ranking-row__head">
-          <p class="ep-ranking-row__name">${escapeHtml(e.ep_name)} ${sample}</p>
-          <p class="ep-ranking-row__meta">${escapeHtml(pairedNote)}</p>
-          <span class="${statusPillClass(e._statusKey)}" title="${escapeAttr(e._status.label)}">${escapeHtml(e._status.short === '—' ? e._status.label : e._status.short)}</span>
-        </div>
-        <div class="ep-ranking-bar-wrap" aria-hidden="true">
-          <span class="ep-ranking-bar-ref" style="left:${refPct}%"></span>
-          <span class="ep-ranking-bar-fill" style="width:${barPct}%"></span>
-        </div>
-        <div class="ep-ranking-row__stats">
-          <div class="ep-ranking-nps">${escapeHtml(formatNps(e.nps))}</div>
-          <span class="${deltaClass(delta.arrow)}" title="${escapeAttr(delta.title)}">${escapeHtml(delta.text)}</span>
-        </div>
-      </li>`;
-    })
-    .join('');
-
-  const pageButtons = Array.from({ length: totalPages }, (_, i) => i + 1)
-    .map(
-      (p) =>
-        `<button type="button" class="ep-ranking-pager__page${p === rankingPage ? ' is-active' : ''}" data-page="${p}" aria-label="Página ${p}" aria-current="${p === rankingPage ? 'page' : 'false'}">${p}</button>`,
-    )
-    .join('');
+  const shown = Math.min(epVisibleCount, total);
+  const canMore = shown < total;
+  const canLess = epVisibleCount > EP_VISIBLE_STEP;
 
   return `
     <div class="section-head">
       <h2 class="section-title">Desempenho por Engenheiro Patrimonial</h2>
-      <p class="section-subtitle">Barras = NPS atual (−100 a +100). Linha coral = NPS geral do ciclo. Δ = mesmos clientes nos dois períodos.</p>
+      <p class="section-subtitle">Barras horizontais = NPS do ciclo. Clique na barra para abrir detalhes. n &lt; ${minSample}: amostra pequena (rótulo).</p>
     </div>
     <div class="ep-ranking-toolbar">
       <label>Ordenar
@@ -213,91 +246,55 @@ function renderEpRanking(entries, overallNps, minSample) {
           <option value="attention" ${rankingSortMode === 'attention' ? 'selected' : ''}>Prioridade de atenção</option>
         </select>
       </label>
-      <span class="note-muted">NPS geral: <strong>${escapeHtml(formatNps(overallNps))}</strong></span>
+      <span class="note-muted">NPS geral: <strong>${escapeHtml(formatNps(overallNps))}</strong> · ${shown} de ${total} EPs</span>
     </div>
-    <div class="ep-ranking-pager-wrap">
-      <button type="button" class="ep-ranking-pager__side ep-ranking-pager__side--prev" id="ep-ranking-side-prev" aria-label="Página anterior" ${rankingPage <= 1 ? 'disabled' : ''}>‹</button>
-      <div class="ep-ranking-pager__main">
-        <ul class="ep-ranking-list" id="ep-ranking-list">${items || '<li class="placeholder-note">Nenhuma carteira neste recorte.</li>'}</ul>
-        <nav class="ep-ranking-pager" aria-label="Paginação do ranking de EP">
-          <button type="button" class="ep-ranking-pager__btn ep-ranking-pager__btn--primary" id="ep-ranking-prev" ${rankingPage <= 1 ? 'disabled' : ''}>← Anterior</button>
-          <div class="ep-ranking-pager__center">
-            <span class="ep-ranking-pager__meta">Mostrando ${rangeFrom}–${rangeTo} de ${total} engenheiros · Página ${rankingPage} de ${totalPages}</span>
-            <div class="ep-ranking-pager__pages" role="group" aria-label="Número da página">${pageButtons}</div>
-          </div>
-          <button type="button" class="ep-ranking-pager__btn ep-ranking-pager__btn--primary" id="ep-ranking-next" ${rankingPage >= totalPages ? 'disabled' : ''}>Próxima →</button>
-        </nav>
-      </div>
-      <button type="button" class="ep-ranking-pager__side ep-ranking-pager__side--next" id="ep-ranking-side-next" aria-label="Próxima página" ${rankingPage >= totalPages ? 'disabled' : ''}>›</button>
+    <article class="chart-card chart-card--ep-bars"><div class="chart-wrap chart-wrap--ep-bars" style="min-height:${Math.max(220, shown * 36)}px"><canvas id="chart-ep-bars" aria-label="NPS por EP"></canvas></div></article>
+    <div class="btn-group ep-bars-expand">
+      <button type="button" class="btn btn--secondary btn--sm" id="ep-bars-more" ${canMore ? '' : 'disabled'}>Exibir mais</button>
+      <button type="button" class="btn btn--secondary btn--sm" id="ep-bars-less" ${canLess ? '' : 'hidden'}>Exibir menos</button>
     </div>`;
 }
 
 function refreshRankingHost(entries, signal) {
   const host = document.getElementById('ep-ranking-host');
   const summary = getCycleSummary(getFilters().cycleCode);
+  const minSample = getDataState()?.epSummaryDoc?.min_ep_sample ?? 5;
+  const ranked = filterEpSummaries(entries, filtersForEpRanking(getFilters()));
   if (!host) return;
-  host.innerHTML = renderEpRanking(
-    filterEpSummaries(entries, filtersForEpRanking(getFilters())),
-    summary?.nps,
-    getDataState()?.epSummaryDoc?.min_ep_sample ?? 5,
-  );
+  host.innerHTML = renderEpRanking(ranked, summary?.nps, minSample);
+  const canvas = document.getElementById('chart-ep-bars');
+  if (canvas) mountEpHorizontalBarChart(canvas, ranked, summary?.nps, minSample);
   bindRanking(entries, signal);
 }
 
 function bindRanking(entries, signal) {
+  const minSample = getDataState()?.epSummaryDoc?.min_ep_sample ?? 5;
+  const ranked = () => filterEpSummaries(entries, filtersForEpRanking(getFilters()));
   document.getElementById('ep-ranking-sort')?.addEventListener(
     'change',
     (ev) => {
       rankingSortMode = ev.target.value;
-      rankingPage = 1;
       refreshRankingHost(entries, signal);
     },
     { signal },
   );
-  document.getElementById('ep-ranking-prev')?.addEventListener(
+  document.getElementById('ep-bars-more')?.addEventListener(
     'click',
     () => {
-      if (rankingPage > 1) {
-        rankingPage -= 1;
-        refreshRankingHost(entries, signal);
-      }
-    },
-    { signal },
-  );
-  document.getElementById('ep-ranking-next')?.addEventListener(
-    'click',
-    () => {
-      rankingPage += 1;
+      const total = sortedEpEntriesForChart(ranked(), minSample).length;
+      epVisibleCount = Math.min(total, epVisibleCount + EP_VISIBLE_STEP);
       refreshRankingHost(entries, signal);
     },
     { signal },
   );
-  const goPage = (p) => {
-    rankingPage = p;
-    refreshRankingHost(entries, signal);
-  };
-  document.getElementById('ep-ranking-side-prev')?.addEventListener('click', () => {
-    if (rankingPage > 1) goPage(rankingPage - 1);
-  }, { signal });
-  document.getElementById('ep-ranking-side-next')?.addEventListener('click', () => {
-    goPage(rankingPage + 1);
-  }, { signal });
-  document.querySelectorAll('.ep-ranking-pager__page').forEach((btn) => {
-    btn.addEventListener('click', () => goPage(Number(btn.dataset.page) || 1), { signal });
-  });
-  document.querySelectorAll('.ep-ranking-row[data-ep-name]').forEach((row) => {
-    const epName = row.dataset.epName;
-    const epId = row.dataset.epId;
-    const entry = entries.find((e) => e.ep_name === epName && (epId ? e.ep_id === epId : true));
-    const open = () => entry && openEpDrawer(entry);
-    row.addEventListener('click', open, { signal });
-    row.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        open();
-      }
-    }, { signal });
-  });
+  document.getElementById('ep-bars-less')?.addEventListener(
+    'click',
+    () => {
+      epVisibleCount = Math.max(EP_VISIBLE_STEP, epVisibleCount - EP_VISIBLE_STEP);
+      refreshRankingHost(entries, signal);
+    },
+    { signal },
+  );
 }
 
 function mountBubbleChart(canvas, entries, cycleNps) {
@@ -590,8 +587,9 @@ function bindTable(allEntries, minSample, signal, cycleCode) {
 
 export function renderEps(root, ctx = {}) {
   destroyBubbleChart();
+  destroyEpBarChart();
   closeEpDrawer();
-  rankingPage = 1;
+  epVisibleCount = EP_VISIBLE_STEP;
   epTableSearch = '';
   const signal = ctx.signal;
 
@@ -645,6 +643,8 @@ export function renderEps(root, ctx = {}) {
   document.getElementById('eps-table-host').innerHTML = renderEpTable(tableEntries, minSample, filters);
   bindTable(allEntries, minSample, signal, cycleCode);
   bindRanking(bubbleEntries, signal);
+  const barCanvas = document.getElementById('chart-ep-bars');
+  if (barCanvas) mountEpHorizontalBarChart(barCanvas, bubbleEntries, summary?.nps, minSample);
 
   const canvas = document.getElementById('chart-ep-bubble');
   const mountAdvancedChart = () => {

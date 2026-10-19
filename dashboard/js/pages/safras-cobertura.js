@@ -3,7 +3,21 @@ import {
   getCustomerNpsHistory,
   getSafrasCoberturaSummaries,
   getSafrasCoberturaAudit,
+  getHistorico2Doc,
+  getPharusAppCustomerMatch,
+  getPharusAppMatchAudit,
 } from '../data/analytics-store.js';
+import {
+  safrasCustomersFromHistorico2,
+  enrichSafrasRowsWithNpsHistory,
+  enrichSafrasRowsWithPharusAppMatch,
+  buildSafrasCohortSummariesFromHistorico2Clients,
+  historico2ClientsForSafrasCohort,
+  isSafrasAppUnavailableUsingHistorico2,
+} from '../data/historico2-safras-adapter.mjs';
+import { isPharusAppMatchAvailable } from '../data/pharus-app-availability.mjs';
+import { cohortSort } from '../data/historico2-view.mjs';
+import { exportFilteredCsv } from '../utils/export-filtered-csv.mjs';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatNps, formatPct, formatDate } from '../utils/format.js';
 import {
@@ -18,6 +32,9 @@ import {
   computeSafrasKpis,
   safraOptions,
   epOptions,
+  programOptions,
+  statusOptions,
+  enrichSafrasNormalizedStatus,
   buildSafraMedicaoPivot,
   enrichCustomersForNpsPeriod,
   getSafraCoverageRows,
@@ -43,8 +60,7 @@ import {
 let pageFilters = defaultSafrasFilters();
 let chartInstances = [];
 let tablePage = 1;
-let explorerSearch = '';
-const PAGE_SIZE = 25;
+const PAGE_SIZE = 20;
 
 function destroyCharts() {
   for (const c of chartInstances) c.destroy();
@@ -100,7 +116,7 @@ function renderPageHeader() {
     </div>
     <div class="safras-page__actions">
       <button type="button" class="btn btn--secondary btn--sm" data-safras-refresh>Atualizar</button>
-      <button type="button" class="btn btn--secondary btn--sm" data-safras-export-csv>Exportar CSV</button>
+      <button type="button" class="btn btn--secondary btn--sm" data-safras-export-csv>↓ Exportar clientes</button>
     </div>
   </header>`;
 }
@@ -111,9 +127,9 @@ const SAFRAS_TIPS = {
   safra:
     'Safra representa o trimestre de entrada do cliente, definido pela data de pagamento do programa.',
   appUnavailable:
-    'Matching App ainda não executado — configure PHARUS_SUPABASE_* e rode generate:pharus-app-match.',
+    'Dados do App Pharus indisponíveis. Configure PHARUS_SUPABASE_* e rode npm run generate:pharus-app-match.',
   appTooltip:
-    'Cliente localizado na base cadastral do App PHARUS por identificador seguro (CPF, e-mail ou telefone).',
+    'Cliente encontrado na base cadastral do App Pharus por CPF, e-mail ou telefone.',
   carteira:
     'Ativos considera apenas clientes que ainda fazem parte da carteira. Cancelamentos efetivos e clientes congelados ficam fora.',
 };
@@ -125,6 +141,8 @@ function filterLabelWithTip(forId, text, tip) {
 function renderFilters(customers) {
   const safras = safraOptions(customers).sort(sortSafraLabel);
   const eps = epOptions(customers);
+  const programas = programOptions(customers);
+  const statuses = statusOptions(customers);
   const stickyOn = stickyFiltersEnabled();
   return `<div class="card filters-panel safras-filters-card ${stickyOn ? 'safras-filters-card--sticky' : ''}" id="safras-page-filters">
     <div class="safras-filters-card__head">
@@ -163,6 +181,30 @@ function renderFilters(customers) {
             .map(
               (s) =>
                 `<option value="${escapeAttr(s)}" ${pageFilters.safra === s ? 'selected' : ''}>${escapeHtml(s)}</option>`,
+            )
+            .join('')}
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="sf-programa">Programa</label>
+        <select id="sf-programa" class="select-input" data-f="programa">
+          <option value="">Todos</option>
+          ${programas
+            .map(
+              (p) =>
+                `<option value="${escapeAttr(p)}" ${pageFilters.programa === p ? 'selected' : ''}>${escapeHtml(p)}</option>`,
+            )
+            .join('')}
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="sf-status">Status</label>
+        <select id="sf-status" class="select-input" data-f="status">
+          <option value="">Todos</option>
+          ${statuses
+            .map(
+              (s) =>
+                `<option value="${escapeAttr(s)}" ${pageFilters.status === s ? 'selected' : ''}>${escapeHtml(s)}</option>`,
             )
             .join('')}
         </select>
@@ -225,12 +267,12 @@ function renderFilters(customers) {
   </div>`;
 }
 
-function renderKpiGrid(kpis, audit, npsPeriod) {
-  const appUnavail = isAppSourceUnavailable(audit);
+function renderKpiGrid(kpis, audit, npsPeriod, appUnavailable) {
+  const appUnavail = appUnavailable || kpis.appDataMissing || isAppSourceUnavailable(audit);
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const appValue = appUnavail ? '—' : String(kpis.appYes);
   const appSub = appUnavail
-    ? '<span class="safras-kpi__sub safras-kpi__sub--muted">Fonte de acesso ao App ainda não disponível</span>'
+    ? '<span class="safras-kpi__sub safras-kpi__sub--muted" title="Dados do App Pharus indisponíveis neste snapshot.">Dados do App Pharus indisponíveis neste snapshot.</span>'
     : `<span class="safras-kpi__sub">${formatPct(kpis.pctApp, 1)} da base</span>`;
   const appAnsSub = appUnavail
     ? '<span class="safras-kpi__sub safras-kpi__sub--muted">—</span>'
@@ -301,6 +343,10 @@ function renderKpiGrid(kpis, audit, npsPeriod) {
     },
   ];
 
+  const conflictNote =
+    !appUnavail && (kpis.appConflicts ?? 0) > 0
+      ? `<p class="note-muted safras-kpi-grid__note">${kpis.appConflicts} cliente(s) com conflito de match App (CPF/e-mail apontam cadastros distintos).</p>`
+      : '';
   return `<div class="safras-kpi-grid">${items
     .map(
       (it) => `<article class="safras-kpi">
@@ -309,7 +355,7 @@ function renderKpiGrid(kpis, audit, npsPeriod) {
         <div class="safras-kpi__sub">${it.rawSub ? it.sub : escapeHtml(it.sub)}</div>
       </article>`,
     )
-    .join('')}</div>`;
+    .join('')}${conflictNote}</div>`;
 }
 
 function renderAppNpsSection(appNps, appUnavailable, npsPeriod) {
@@ -423,7 +469,12 @@ function renderMatrix(history, customers, npsPeriod) {
       const val = cellMetric(scores, 'nps');
       const heat = npsHeatClass(val);
       const display = val == null ? '—' : formatNps(val);
-      body += `<td class="safras-matrix-cell ${heat}" title="NPS ${display} · n=${scores.length}">${display}</td>`;
+      const small = scores.length > 0 && scores.length < 5 ? ' safras-matrix-cell--small-n' : '';
+      const cellBody =
+        val == null
+          ? '—'
+          : `<span class="safras-matrix-nps">${display}</span><span class="safras-matrix-n">n=${scores.length}</span>${scores.length > 0 && scores.length < 5 ? '<span class="safras-matrix-warn">Amostra pequena</span>' : ''}`;
+      body += `<td class="safras-matrix-cell ${heat}${small}" title="Safra ${s} · Medição ${formatNpsCycleLabel(c)} · NPS ${display} · n=${scores.length}">${cellBody}</td>`;
     }
     body += '</tr>';
   }
@@ -439,15 +490,9 @@ function renderMatrix(history, customers, npsPeriod) {
   </div>`;
 }
 
-function filterExplorerRows(rows) {
-  const q = explorerSearch.trim().toLowerCase();
-  if (!q) return rows;
-  return rows.filter((r) => (r.client_name ?? '').toLowerCase().includes(q));
-}
-
 function renderExplorerSection(rows, appUnavailable, npsPeriod) {
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
-  const filtered = filterExplorerRows(rows);
+  const filtered = rows;
   const total = filtered.length;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   if (tablePage > pages) tablePage = pages;
@@ -472,18 +517,28 @@ function renderExplorerSection(rows, appUnavailable, npsPeriod) {
     .map((r) => {
       const entrada = r.data_entrada ? formatDate(r.data_entrada) : '—';
       const clientLabel = r.client_name ?? 'Cliente';
+      const qtd = periodSpecific ? (r.period_response_count ?? 0) : (r.nps_response_count ?? 0);
+      const avg =
+        qtd >= 2 && r.avg_nps_score != null ? formatNotaMedia(r.avg_nps_score) : '—';
+      const dias =
+        r.data_entrada && r.days_entry_to_first_nps_valid != null
+          ? r.days_entry_to_first_nps_valid
+          : '—';
       return `<tr class="safras-explorer-table__row--clickable" data-client-id="${escapeAttr(r.client_id)}" tabindex="0" role="button" aria-label="Ver detalhes de ${escapeAttr(clientLabel)}">
-        <td class="col-client">${escapeHtml(r.client_name ?? '—')}</td>
+        <td class="col-client safras-col-client">${escapeHtml(r.client_name ?? '—')}</td>
         <td>${escapeHtml(r.safra_trimestre ?? '—')}</td>
         <td class="col-date">${escapeHtml(entrada)}</td>
+        <td>${escapeHtml(r.programa ?? '—')}</td>
         <td>${escapeHtml(r.ep ?? '—')}</td>
+        <td>${escapeHtml(r.normalized_status ?? '—')}</td>
         <td>${badgeApp(r, appUnavailable)}</td>
         <td>${badgeAnswered(periodSpecific ? r.answered_selected_period : r.ever_answered_nps)}</td>
-        <td class="num">${periodSpecific ? (r.period_response_count ?? 0) : (r.nps_response_count ?? 0)}</td>
-        <td class="num">${badgeCategory(periodSpecific ? r.period_nps_category : r.last_nps_category, periodSpecific ? r.period_nps_score : r.last_nps_score)}</td>
-        <td class="num">${periodSpecific ? formatNotaMedia(r.period_nps_score) : r.avg_nps_score != null ? formatNotaMedia(r.avg_nps_score) : '—'}</td>
+        <td class="num">${qtd}</td>
+        <td class="num">${periodSpecific ? (r.period_nps_score ?? '—') : (r.last_nps_score ?? '—')}</td>
+        <td>${escapeHtml(periodSpecific ? (r.period_nps_category ?? '—') : (r.last_nps_category ?? '—'))}</td>
+        <td class="num">${avg}</td>
         <td>${escapeHtml(periodSpecific ? (friendlyCicloLabel(r.period_last_ciclo) ?? '—') : (r.last_nps_cycle ?? '—'))}</td>
-        <td class="num">${r.days_entry_to_first_nps_valid ?? '—'}</td>
+        <td class="num">${dias}</td>
       </tr>`;
     })
     .join('');
@@ -494,17 +549,12 @@ function renderExplorerSection(rows, appUnavailable, npsPeriod) {
       <p class="safras-section-card__lead">Histórico de participação no NPS por cliente.</p>
     </div>
     ${renderExplorerToolbar(total)}
-    <div class="table-shell">
+    <div class="table-shell safras-explorer-shell">
       <table class="data-table safras-data-table safras-explorer-table">
-        <colgroup>
-          <col style="width:21%" /><col style="width:8%" /><col style="width:10%" /><col style="width:13%" />
-          <col style="width:8%" /><col style="width:9%" /><col style="width:5%" /><col style="width:8%" />
-          <col style="width:8%" /><col style="width:16%" /><col style="width:10%" />
-        </colgroup>
-        <thead><tr>
-          <th>Cliente</th><th>Safra</th><th>Entrada</th><th>EP</th><th>App</th><th>Respondeu?</th>
-          <th class="num">Qtd</th><th class="num">Última nota</th><th class="num">Média</th>
-          <th>Último ciclo</th><th class="num">${helpTip('Dias 1º NPS', 'Quantidade de dias entre a data de entrada por pagamento e a primeira resposta NPS do cliente.')}</th>
+        <thead class="safras-explorer-table__head"><tr>
+          <th>Cliente</th><th>Safra</th><th>Entrada</th><th>Programa</th><th>EP</th><th>Status</th><th>App</th><th>Respondeu NPS?</th>
+          <th class="num">Qtd respostas</th><th class="num">Última nota</th><th>Categoria</th><th class="num">Média</th>
+          <th>Último ciclo</th><th class="num">${helpTip('Dias 1º NPS', 'Dias entre data de entrada (BASE0) e a primeira resposta NPS válida (BASE QV).')}</th>
         </tr></thead>
         <tbody>${tbody}</tbody>
       </table>
@@ -515,10 +565,11 @@ function renderExplorerSection(rows, appUnavailable, npsPeriod) {
 
 function renderExplorerToolbar(total) {
   return `<div class="safras-explorer-toolbar">
-    <div class="filter-field">
+    <div class="filter-field safras-explorer-toolbar__search">
       <label for="sf-search">Buscar cliente</label>
-      <input id="sf-search" type="search" class="text-input" placeholder="Nome…" value="${escapeAttr(explorerSearch)}" data-safras-search />
+      <input id="sf-search" type="search" class="text-input" placeholder="Buscar por nome, e-mail ou ID" value="${escapeAttr(pageFilters.search ?? '')}" data-safras-search />
     </div>
+    <button type="button" class="btn btn--secondary btn--sm" data-safras-export-table>↓ Exportar clientes</button>
     <p class="note-muted" style="margin:0">${total} resultado(s)</p>
   </div>`;
 }
@@ -527,11 +578,11 @@ function renderTableFooter(start, total, pages) {
   const from = total ? start + 1 : 0;
   const to = Math.min(start + PAGE_SIZE, total);
   return `<div class="safras-table-footer">
-    <span>${from}–${to} de ${total} clientes</span>
+    <span class="safras-table-footer__range">Mostrando ${from}–${to} de ${total}</span>
     <div class="safras-pager">
-      <button type="button" class="btn btn--secondary btn--sm" data-page-prev ${tablePage <= 1 ? 'disabled' : ''}>← Anterior</button>
-      <span>Página ${tablePage} / ${pages}</span>
-      <button type="button" class="btn btn--secondary btn--sm" data-page-next ${tablePage >= pages ? 'disabled' : ''}>Próxima →</button>
+      <button type="button" class="btn btn--secondary btn--sm safras-pager__btn" data-page-prev ${tablePage <= 1 ? 'disabled' : ''}>← Anterior</button>
+      <span class="safras-pager__meta">Página ${tablePage} de ${pages}</span>
+      <button type="button" class="btn btn--secondary btn--sm safras-pager__btn" data-page-next ${tablePage >= pages ? 'disabled' : ''}>Próxima →</button>
     </div>
   </div>`;
 }
@@ -560,7 +611,11 @@ function renderQuality(audit, carteiraAudit) {
 
 export function renderSafrasCobertura(root) {
   destroyCharts();
-  const customersAll = getCustomerNpsCohorts();
+  const historico2 = getHistorico2Doc();
+  const useHistorico2 = Boolean(historico2?.clients?.length);
+  let customersAll = useHistorico2
+    ? safrasCustomersFromHistorico2(historico2)
+    : getCustomerNpsCohorts();
   const historyAll = getCustomerNpsHistory();
   const summaries = getSafrasCoberturaSummaries();
   const audit = getSafrasCoberturaAudit();
@@ -570,6 +625,11 @@ export function renderSafrasCobertura(root) {
     return;
   }
 
+  const pharusMatch = getPharusAppCustomerMatch();
+  const pharusAudit = getPharusAppMatchAudit();
+  customersAll = enrichSafrasRowsWithPharusAppMatch(customersAll, pharusMatch);
+  customersAll = enrichSafrasRowsWithNpsHistory(customersAll, historyAll);
+  customersAll = enrichSafrasNormalizedStatus(customersAll);
   const enrichedAll = enrichCustomersForNpsPeriod(
     customersAll,
     historyAll,
@@ -580,8 +640,20 @@ export function renderSafrasCobertura(root) {
   const history = historyAll.filter(
     (h) => clientIds.has(h.client_id) && historyMatchesSafrasNpsPeriod(h, pageFilters.npsPeriod),
   );
-  const kpis = computeSafrasKpis(customers, { npsPeriod: pageFilters.npsPeriod });
-  const appUnavailable = isAppSourceUnavailable(audit);
+  const appUnavailable =
+    !isPharusAppMatchAvailable(pharusMatch, pharusAudit) &&
+    (isSafrasAppUnavailableUsingHistorico2(historico2, audit, pharusMatch, pharusAudit) ||
+      isAppSourceUnavailable(audit));
+  const kpis = computeSafrasKpis(customers, {
+    npsPeriod: pageFilters.npsPeriod,
+    appUnavailable,
+  });
+
+  let cohortSummaries = [];
+  if (useHistorico2) {
+    const h2ForCohort = historico2ClientsForSafrasCohort(historico2.clients, customers);
+    cohortSummaries = buildSafrasCohortSummariesFromHistorico2Clients(h2ForCohort, { minYear: 2025 });
+  }
   const coverageRows = enrichCoverageRowsWithApp(
     getSafraCoverageRows(
       summaries,
@@ -599,7 +671,7 @@ export function renderSafrasCobertura(root) {
     ${renderPageHeader()}
     ${renderDataSourceNotice('safras-cobertura', { appPharusPending: appUnavailable })}
     ${renderFilters(customersAll)}
-    ${renderKpiGrid(kpis, audit, pageFilters.npsPeriod)}
+    ${renderKpiGrid(kpis, audit, pageFilters.npsPeriod, appUnavailable)}
     ${renderAppNpsSection(appNps, appUnavailable, pageFilters.npsPeriod)}
 
     <div class="safras-section-card">
@@ -612,7 +684,7 @@ export function renderSafrasCobertura(root) {
 
     <div class="safras-charts-row">
       <div class="chart-card"><h3 class="safras-section-card__title">% que já respondeu por safra</h3><canvas id="chart-safra-coverage" height="220"></canvas></div>
-      <div class="chart-card"><h3 class="safras-section-card__title">NPS por safra (clientes da safra)</h3><canvas id="chart-safra-nps" height="220"></canvas></div>
+      <div class="chart-card"><h3 class="safras-section-card__title">NPS por safra</h3><p class="note-muted">Mesmo helper do NPS Histórico (entry_date BASE0 · demais campos BASE QV).</p><canvas id="chart-safra-nps" height="220"></canvas></div>
     </div>
 
     <div class="safras-section-card">
@@ -629,11 +701,11 @@ export function renderSafrasCobertura(root) {
     ${renderQuality(audit, carteiraAudit)}
   </div>`;
 
-  bindSafrasCobertura(root, customersAll, historyAll, customers);
-  bindCharts(coverageRows, pageFilters.safra);
+  bindSafrasCobertura(root, customersAll, historyAll, customers, appUnavailable);
+  bindCharts(coverageRows, cohortSummaries, pageFilters.safra);
 }
 
-function bindCharts(coverageRows, safraFilter) {
+function bindCharts(coverageRows, cohortSummaries, safraFilter) {
   const rows = (coverageRows ?? [])
     .filter((s) => s.safra_trimestre !== 'Não informado' && (!safraFilter || s.safra_trimestre === safraFilter))
     .sort((a, b) => sortSafraLabel(a.safra_trimestre, b.safra_trimestre));
@@ -663,77 +735,134 @@ function bindCharts(coverageRows, safraFilter) {
     );
   }
   if (nps && typeof Chart !== 'undefined') {
+    const cohortRows = (cohortSummaries ?? [])
+      .filter((r) => r.entry_cohort && (!safraFilter || r.entry_cohort === safraFilter))
+      .sort((a, b) => cohortSort(a.entry_cohort, b.entry_cohort));
+    const cohortLabels = cohortRows.map((r) => r.entry_cohort);
+    const npsPlotted = cohortRows.map((r) => r.nps).filter((v) => v != null && !Number.isNaN(v));
+    const yMin = npsPlotted.length && Math.min(...npsPlotted) < 0 ? -100 : 0;
     chartInstances.push(
       new Chart(nps, {
-        type: 'line',
+        type: 'bar',
         data: {
-          labels,
+          labels: cohortLabels,
           datasets: [
             {
               label: 'NPS',
-              data: rows.map((r) => r.nps_atual),
-              borderColor: '#c44a2a',
-              backgroundColor: 'rgba(232, 93, 58, 0.08)',
-              fill: true,
-              tension: 0.25,
+              data: cohortRows.map((r) => r.nps),
+              backgroundColor: '#c44a2a',
+              borderRadius: 4,
             },
           ],
         },
-        options: { plugins: { legend: { display: false } } },
+        options: {
+          layout: { padding: { top: 18 } },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title(items) {
+                  const i = items[0]?.dataIndex;
+                  const row = cohortRows[i];
+                  return row ? `Safra ${row.entry_cohort}` : '';
+                },
+                label(ctx) {
+                  const row = cohortRows[ctx.dataIndex];
+                  return row?.nps != null ? `NPS: ${Number(row.nps).toFixed(1)}` : 'NPS: —';
+                },
+                afterBody(items) {
+                  const i = items[0]?.dataIndex;
+                  const row = cohortRows[i];
+                  if (!row) return [];
+                  return [
+                    `n respostas: ${row.nps_responses ?? '—'}`,
+                    `Promotores: ${row.promoters ?? '—'}`,
+                    `Neutros: ${row.neutrals ?? '—'}`,
+                    `Detratores: ${row.detractors ?? '—'}`,
+                    `Nota média: ${row.average_score != null ? row.average_score.toFixed(1) : '—'}`,
+                  ];
+                },
+              },
+            },
+            datalabels: false,
+          },
+          scales: { y: { min: yMin, max: 100 } },
+        },
+        plugins: [
+          {
+            id: 'safrasNpsBarLabels',
+            afterDatasetsDraw(chart) {
+              const { ctx } = chart;
+              const meta = chart.getDatasetMeta(0);
+              ctx.save();
+              ctx.fillStyle = 'rgba(30, 41, 59, 0.85)';
+              ctx.font = '11px system-ui, sans-serif';
+              ctx.textAlign = 'center';
+              meta.data.forEach((bar, i) => {
+                const row = cohortRows[i];
+                if (row?.nps == null) return;
+                const y = bar.y - 6;
+                ctx.fillText(Number(row.nps).toFixed(1), bar.x, y);
+              });
+              ctx.restore();
+            },
+          },
+        ],
       }),
     );
   }
 }
 
-function exportExplorerCsv(customers) {
-  const rows = filterExplorerRows(customers);
-  const headers = [
-    'cliente',
-    'safra',
-    'entrada',
-    'ep',
-    'app',
-    'respondeu',
-    'qtd',
-    'ultima_nota',
-    'media',
-    'ultimo_ciclo',
-    'dias_primeiro_nps',
-  ];
-  const lines = [headers.join(';')];
-  for (const r of rows) {
-    lines.push(
-      [
-        r.client_name,
-        r.safra_trimestre,
-        r.data_entrada,
-        r.ep,
-        r.has_app_access,
-        r.ever_answered_nps,
-        r.nps_response_count,
-        r.last_nps_score,
-        r.avg_nps_score,
-        r.last_nps_cycle,
-        r.days_entry_to_first_nps_valid,
-      ]
-        .map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`)
-        .join(';'),
-    );
-  }
-  const blob = new Blob(['\ufeff' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'safras-cobertura-clientes.csv';
-  a.click();
-  URL.revokeObjectURL(a.href);
+function exportExplorerCsv(customers, appUnavailable) {
+  const periodSpecific = isSafrasPeriodSpecific(pageFilters.npsPeriod);
+  exportFilteredCsv({
+    filename: 'safras_cobertura_clientes.csv',
+    columns: [
+      { header: 'Cliente', key: 'client_name' },
+      { header: 'Client ID', key: 'client_id' },
+      { header: 'Safra', key: 'safra_trimestre' },
+      { header: 'Data entrada', value: (r) => r.data_entrada ?? '—' },
+      { header: 'Programa', key: 'programa' },
+      { header: 'EP', key: 'ep' },
+      { header: 'Status', value: (r) => r.normalized_status ?? r.status_cliente ?? '—' },
+      {
+        header: 'Última nota',
+        value: (r) => (periodSpecific ? r.period_nps_score : r.last_nps_score) ?? '—',
+      },
+      {
+        header: 'Categoria',
+        value: (r) => (periodSpecific ? r.period_nps_category : r.last_nps_category) ?? '—',
+      },
+      {
+        header: 'Qtd respostas',
+        value: (r) =>
+          periodSpecific ? (r.period_response_count ?? 0) : (r.nps_response_count ?? 0),
+      },
+      {
+        header: 'Último ciclo',
+        value: (r) => (periodSpecific ? r.period_last_ciclo : r.last_nps_cycle) ?? '—',
+      },
+      {
+        header: 'App',
+        value: (r) =>
+          appUnavailable
+            ? '—'
+            : r.app_match === true || r.has_app_access === true
+              ? 'Sim'
+              : r.has_app_access === false
+                ? 'Não'
+                : '—',
+      },
+    ],
+    rows: customers,
+  });
 }
 
 export function closeSafrasDrawer() {
   closeCohortClientDrawer();
 }
 
-function bindSafrasCobertura(root, customersAll, historyAll, customersFiltered) {
-  const appUnavailable = isAppSourceUnavailable(getSafrasCoberturaAudit());
+function bindSafrasCobertura(root, customersAll, historyAll, customersFiltered, appUnavailable) {
 
   root.querySelector('[data-safras-filters]')?.addEventListener('change', (ev) => {
     const t = ev.target;
@@ -758,14 +887,13 @@ function bindSafrasCobertura(root, customersAll, historyAll, customersFiltered) 
   root.querySelectorAll('[data-safras-clear-filters]').forEach((btn) => {
     btn.addEventListener('click', () => {
       pageFilters = defaultSafrasFilters();
-      explorerSearch = '';
       tablePage = 1;
       renderSafrasCobertura(root);
     });
   });
 
   root.querySelector('[data-safras-search]')?.addEventListener('input', (ev) => {
-    explorerSearch = ev.target.value;
+    pageFilters = { ...pageFilters, search: ev.target.value };
     tablePage = 1;
     renderSafrasCobertura(root);
   });
@@ -774,9 +902,9 @@ function bindSafrasCobertura(root, customersAll, historyAll, customersFiltered) 
     window.location.reload();
   });
 
-  root.querySelector('[data-safras-export-csv]')?.addEventListener('click', () => {
-    exportExplorerCsv(customersFiltered);
-  });
+  const doExport = () => exportExplorerCsv(customersFiltered, appUnavailable);
+  root.querySelector('[data-safras-export-csv]')?.addEventListener('click', doExport);
+  root.querySelector('[data-safras-export-table]')?.addEventListener('click', doExport);
 
   root.querySelector('[data-safras-sticky]')?.addEventListener('change', (ev) => {
     setStickyFiltersEnabled(ev.target.checked);

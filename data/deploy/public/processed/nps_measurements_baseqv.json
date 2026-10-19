@@ -1,12 +1,12 @@
 {
   "meta": {
     "source": "BASE_QV:nps_responses+nps_cycles",
-    "generated_at": "2026-10-16T23:43:21.119Z",
-    "dataset_version": "nps-measurements-baseqv-c536d8b4c4b2",
-    "build_commit": "c536d8b4c4b2bcd7d5e9470ba753397f51c72af0",
-    "source_max_updated_at": "2026-10-14T19:10:12.000Z",
+    "generated_at": "2026-10-19T23:01:54.520Z",
+    "dataset_version": "nps-measurements-baseqv-3c71903c95b9",
+    "build_commit": "3c71903c95b90a0a1584508bc89fd5c92ae67e98",
+    "source_max_updated_at": "2026-10-17T15:14:35.000Z",
     "dedupe_rule": "Por ciclo analítico: source_cycle = janela oficial Executivo (dedupe por client_id); reconstruction = PHARUS + dedupe por client_id no ciclo.",
-    "base_qv_responses_rows": 713,
+    "base_qv_responses_rows": 714,
     "base_qv_cycles_rows": 2
   },
   "analytical_cycles_config": [

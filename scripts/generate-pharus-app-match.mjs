@@ -5,7 +5,7 @@
  */
 import { writeJson } from '../lib/data/file-store.mjs';
 import { readDataJson } from '../lib/deploy/build-input.mjs';
-import { matchClientsToApp } from '../lib/analytics/pharus-app-match.mjs';
+import { matchClientsToApp, toPublicPharusMatchEntry } from '../lib/analytics/pharus-app-match.mjs';
 import {
   getPharusSupabaseConfig,
   loadProjectDotenv,
@@ -32,7 +32,9 @@ function previousMatchedCount(prev) {
   if (typeof fromAudit === 'number' && fromAudit > 0) return fromAudit;
   const entries = prev.match?.entries;
   if (!Array.isArray(entries)) return 0;
-  return entries.filter((e) => e.has_app || e.app_match_status === 'matched').length;
+  return entries.filter(
+    (e) => e.app_match === true || e.has_app || e.app_match_status === 'matched',
+  ).length;
 }
 
 function shouldPreservePrevious(appFetch, prevMatched) {
@@ -100,13 +102,24 @@ async function main() {
     app_source: appFetch.source,
     app_table_column_mapping: appFetch.column_mapping ?? null,
     tables_probed: appFetch.tables_probed ?? [],
+    pharus_records: appFetch.records.length,
     app_records: appFetch.records.length,
     base_clients: baseClients.length,
+    base_with_cpf: idAudit.with_cpf,
+    base_with_email: idAudit.with_email,
+    base_with_phone: idAudit.with_phone,
     base_identifier_audit: idAudit,
+    matched_total: matchAudit.matched_clients,
     matched_clients: matchAudit.matched_clients,
     unmatched_clients: matchAudit.unmatched_clients,
+    unmatched: matchAudit.unmatched_clients,
+    conflicts: matchAudit.ambiguous_clients,
     ambiguous_clients: matchAudit.ambiguous_clients,
     insufficient_identifiers: matchAudit.insufficient_identifiers,
+    matched_by_cpf: matchAudit.match_by_cpf,
+    matched_by_email: matchAudit.match_by_email,
+    matched_by_phone: matchAudit.match_by_phone,
+    matched_by_multiple: matchAudit.match_by_multiple,
     match_by_cpf: matchAudit.match_by_cpf,
     match_by_email: matchAudit.match_by_email,
     match_by_phone: matchAudit.match_by_phone,
@@ -132,7 +145,7 @@ async function main() {
   await writeJson(OUT, {
     generated_at: report.generated_at,
     app_source: appFetch.source,
-    entries,
+    entries: entries.map(toPublicPharusMatchEntry),
   });
   await writeJson(AUDIT, report);
   console.log(JSON.stringify(report, null, 2));

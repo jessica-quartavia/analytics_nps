@@ -25,12 +25,12 @@ import {
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { helpTip, TIPS } from '../ui/help.js';
 import {
-  buildExecutiveHighlights,
   buildExecutiveModalModel,
 } from '../data/executive-highlights.mjs';
 import { EXECUTIVE_KPI_LABELS, POPULATION_TIPS } from '../data/population-transparency.mjs';
 import { bindRespondentsDrawer, closeRespondentsDrawer } from '../ui/respondents-drawer.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
+import { renderExecutivoCycleSnapshot } from '../ui/executivo-cycle-snapshot.mjs';
 
 let charts = [];
 
@@ -522,13 +522,6 @@ export function renderExecutivo(root, ctx = {}) {
   }
 
   const pairedForView = filterCtx?.pairedDisplay ?? paired;
-  const highlights = buildExecutiveHighlights({
-    currentSummary,
-    previousSummary,
-    paired: pairedForView,
-    migrationMatrix: filterCtx?.migrationMatrix,
-    diagnosisFallback: diagnosis,
-  });
   const modalModel = buildExecutiveModalModel({
     currentSummary,
     previousSummary,
@@ -555,7 +548,6 @@ export function renderExecutivo(root, ctx = {}) {
     ${renderFilterRecorteBanner(filterCtx)}
     ${renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle)}
     ${renderSampleRow(currentSummary, officialSummary, recorteActive)}
-    ${renderExecutiveReadingCard(highlights)}
     <section class="executivo-charts" aria-label="Gráficos principais">
       ${chartSection('Histórico de NPS', 'Evolução por ciclo analítico', 'chart-history', '#/historico-nps', 'NPS por ciclo', 'chart-wrap--tall')}
       ${renderComposition(currentSummary)}
@@ -563,22 +555,12 @@ export function renderExecutivo(root, ctx = {}) {
       ${chartSection('Distribuição das notas', 'Frequência de 0 a 10', 'chart-dist', '#/movimento', 'Distribuição das notas')}
     </section>
     ${renderTotalVsPaired(currentSummary, previousSummary, pairedForView, recorteActive)}
-    ${renderCsatComplementary(filters.cycleCode)}
+    ${renderExecutivoCycleSnapshot()}
     ${renderQualityNotes(officialSummary, prevCycle ? getCycleSummary(prevCycle.cycle_code) : null)}
     </div>
   `;
 
   const opts = signal ? { signal } : undefined;
-  document.getElementById('btn-diagnosis-full')?.addEventListener(
-    'click',
-    () => openDiagnosisDrawer(modalModel),
-    opts,
-  );
-  document.getElementById('btn-diagnosis-explore')?.addEventListener(
-    'click',
-    () => openDiagnosisDrawer(modalModel, { exploreOnly: true }),
-    opts,
-  );
   bindRespondentsDrawer(filters.cycleCode, signal);
   if (signal) {
     document.addEventListener('keydown', (e) => {

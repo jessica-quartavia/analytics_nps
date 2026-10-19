@@ -25,9 +25,11 @@ export function badgeAppHtml(customerOrFlag, appUnavailable) {
   const hasApp = c.has_app ?? c.has_app_access;
   const st = c.app_match_status;
   if (appUnavailable && hasApp == null && !st) {
-    return '<span class="badge badge--neutral-soft">Não identificado</span>';
+    return '<span class="badge badge--neutral-soft" title="Dados do App Pharus indisponíveis.">Dados indisponíveis</span>';
   }
-  if (hasApp === true) return '<span class="badge badge--coral-soft">Com App</span>';
+  if (hasApp === true || c.app_match === true) {
+    return '<span class="badge badge--coral-soft" title="Cliente encontrado na base cadastral do App Pharus por CPF, e-mail ou telefone.">Com App</span>';
+  }
   if (st === 'ambiguous' || st === 'insufficient_identifiers' || (hasApp == null && st === 'not_found')) {
     return '<span class="badge badge--neutral-soft">Não identificado</span>';
   }
@@ -39,6 +41,8 @@ export function badgeAppHtml(customerOrFlag, appUnavailable) {
 
 function appMatchMethodLabel(method) {
   if (!method) return '—';
+  if (method === 'insufficient') return 'Sem identificador na BASE QV';
+  if (method === 'conflict') return 'Conflito (cadastros distintos)';
   if (method === 'multiple' || method === 'exact_multi') return 'Vários identificadores (concordância)';
   if (method === 'cpf') return 'CPF';
   if (method === 'email') return 'E-mail';
@@ -129,10 +133,16 @@ export function renderCohortClientDrawerHtml(c, historyAll, opts = {}) {
       <div class="safras-drawer-section"><h4>App PHARUS</h4>
         ${drawerMetaGrid([
           {
-            label: 'Status',
-            value: c.has_app ? 'Com App' : c.app_match_status === 'unmatched' ? 'Sem App' : 'Não identificado',
+            label: 'App Pharus',
+            value: c.app_match === true || c.has_app
+              ? 'Com cadastro'
+              : c.app_match_status === 'unmatched'
+                ? 'Sem cadastro'
+                : c.app_match_conflict || c.app_match_status === 'ambiguous'
+                  ? 'Conflito de match'
+                  : 'Não identificado',
           },
-          { label: 'Match', value: appMatchMethodLabel(c.app_match_method) },
+          { label: 'Método de match', value: appMatchMethodLabel(c.app_match_method) },
           { label: 'Cadastro', value: c.app_registered_at ? formatDate(c.app_registered_at) : '—' },
         ])}
       </div>

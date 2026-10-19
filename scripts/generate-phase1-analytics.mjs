@@ -29,6 +29,7 @@ import { buildNpsAllPeriods } from '../lib/analytics/nps-all-periods.mjs';
 import { buildMechanismsAtResponseFromEnriched } from '../lib/analytics/nps-mechanisms-at-response.mjs';
 import { buildVocBase0Pack, mergeVocAllPeriods } from '../lib/analytics/voc-base0-pipeline.mjs';
 import { readJson } from '../lib/data/file-store.mjs';
+import { expandPharusMatchEntry } from '../lib/analytics/pharus-app-match.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 dotenv.config({ path: join(root, '.env') });
@@ -77,11 +78,7 @@ function loadAppRowsFromMatch() {
   const note = doc.app_source ?? 'pharus_app_customer_match.json';
   return doc.entries.map((e) => ({
     client_id: e.client_id,
-    has_app: e.has_app,
-    has_app_access: e.has_app,
-    app_match_status: e.app_match_status,
-    app_match_method: e.app_match_method,
-    app_registered_at: e.app_registered_at,
+    ...expandPharusMatchEntry(e),
     source_note: note,
   }));
 }

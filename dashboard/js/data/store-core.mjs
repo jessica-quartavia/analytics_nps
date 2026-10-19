@@ -244,8 +244,16 @@ export function getCsatSummaryForCycle(csatSummaryDoc, cycleCode) {
   return (csatSummaryDoc?.cycles ?? []).find((c) => c.analytical_cycle_code === cycleCode) ?? null;
 }
 
-export function movementKpis(rows) {
-  const withPrev = rows.filter((r) => r.previous_score != null);
+export function movementKpis(rows, { pairedClientIds = null } = {}) {
+  const pairedSet =
+    pairedClientIds instanceof Set
+      ? pairedClientIds
+      : Array.isArray(pairedClientIds) || pairedClientIds?.length
+        ? new Set(pairedClientIds)
+        : null;
+  const withPrev = pairedSet?.size
+    ? rows.filter((r) => pairedSet.has(r.client_id))
+    : rows.filter((r) => r.is_paired_with_previous === true && r.previous_score != null);
   let improved = 0;
   let stable = 0;
   let declined = 0;

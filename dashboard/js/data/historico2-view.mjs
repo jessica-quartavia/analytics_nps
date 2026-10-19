@@ -1,4 +1,5 @@
 import { calculateNpsSummary, isValidScore } from '../../../lib/analytics/nps.mjs';
+import { buildNpsByEntryCohort } from '../../../lib/analytics/nps-cohort-nps.mjs';
 
 export const COHORT_NO_ENTRY = '__no_entry__';
 export const COHORT_NO_ENTRY_LABEL = 'Sem data de entrada';
@@ -154,25 +155,28 @@ function aggregateNpsScores(scores) {
   };
 }
 
-function buildCohortSummaries(clients, { chartsFrom2025 = true } = {}) {
-  const map = new Map();
-  for (const c of clients) {
-    if (!c.entry_date) continue;
-    const key = c.entry_cohort;
-    if (!key) continue;
-    if (chartsFrom2025 && !isSafra2025Plus(key)) continue;
-    if (!map.has(key)) map.set(key, []);
-    map.get(key).push(c);
-  }
-  return [...map.entries()]
-    .map(([entry_cohort, rows]) => ({
-      entry_cohort,
-      clients: rows.length,
-      ...aggregateNpsScores(
-        rows.filter((r) => r.nps_score != null && isValidScore(r.nps_score)).map((r) => r.nps_score),
-      ),
-    }))
-    .sort((a, b) => cohortSort(a.entry_cohort, b.entry_cohort));
+/** NPS por safra — kernel canônico (entry_date + entry_cohort + nps_score BASE QV). */
+export function buildCohortSummaries(clients, { chartsFrom2025 = true } = {}) {
+  const minYear = chartsFrom2025 ? 2025 : null;
+  const rows = buildNpsByEntryCohort(
+    (clients ?? []).filter((c) => c.entry_date && c.entry_cohort),
+    { minYear },
+  );
+  return rows.map((r) => ({
+    entry_cohort: r.safra,
+    clients: r.clients,
+    nps_responses: r.n,
+    promoters: r.promoters,
+    neutrals: r.neutrals,
+    detractors: r.detractors,
+    nps: r.nps,
+    average_score: r.average_score,
+    promoter_pct: r.n
+      ? Math.round((1000 * r.promoters) / r.n) / 10
+      : null,
+    neutral_pct: r.n ? Math.round((1000 * r.neutrals) / r.n) / 10 : null,
+    detractor_pct: r.n ? Math.round((1000 * r.detractors) / r.n) / 10 : null,
+  }));
 }
 
 function buildDimensionTable(clients, field) {

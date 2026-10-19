@@ -28,9 +28,9 @@ const MARCO_TIPS = {
   mechanisms_2plus: 'Dois ou mais mecanismos implementados antes da resposta.',
   ever_ep: 'Cliente que já trocou de EP alguma vez antes da resposta.',
   ep_since: 'Trocou de EP desde a resposta anterior (base pareada).',
-  frozen: 'Indicador baseado no status disponível no snapshot atual.',
-  churn: 'Pedido de churn registrado antes da resposta.',
-  app: 'Acesso ao App PHARUS conforme snapshot disponível.',
+  frozen: 'Status de congelamento no snapshot (proxy atual — pode não refletir o momento exato da resposta).',
+  churn: 'Pedido de cancelamento antes da resposta. Fonte cancellations vazia no snapshot atual.',
+  app: 'Cadastro/vínculo App PHARUS — sem eventos de login no snapshot; não equivale a “uso”.',
   meetings_mean: 'Média de reuniões até a resposta (point-in-time quando disponível).',
 };
 

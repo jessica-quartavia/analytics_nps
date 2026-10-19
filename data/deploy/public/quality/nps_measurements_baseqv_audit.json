@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-16T23:43:21.119Z",
-  "dataset_version": "nps-measurements-baseqv-c536d8b4c4b2",
-  "build_commit": "c536d8b4c4b2bcd7d5e9470ba753397f51c72af0",
+  "generated_at": "2026-10-19T23:01:54.520Z",
+  "dataset_version": "nps-measurements-baseqv-3c71903c95b9",
+  "build_commit": "3c71903c95b90a0a1584508bc89fd5c92ae67e98",
   "source": "BASE_QV:nps_responses+nps_cycles",
   "base_qv_cycles": [
     {

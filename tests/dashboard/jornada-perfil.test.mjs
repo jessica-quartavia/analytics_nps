@@ -25,7 +25,7 @@ describe('Jornada & Perfil — dashboard 4.9', () => {
     const mov = read('js/pages/movimento-jornada.js');
     assert.doesNotMatch(mov, /Marcos da jornada × NPS/);
     assert.doesNotMatch(mov, /renderMovimentoFinancialProfileSection/);
-    assert.match(mov, /O que aconteceu entre os ciclos/);
+    assert.doesNotMatch(mov, /O que aconteceu entre os ciclos/);
     assert.match(mov, /renderMovimentoChangeDriversSection/);
   });
 

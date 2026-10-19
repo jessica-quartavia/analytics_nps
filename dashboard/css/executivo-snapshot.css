@@ -1,0 +1,56 @@
+.executivo-cycle-snapshot__body {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.executivo-cycle-snapshot__thumb {
+  max-width: 160px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle, #e2e8f0);
+}
+
+.executivo-cycle-snapshot__missing {
+  display: none;
+  margin-top: 0.5rem;
+}
+
+.executivo-cycle-snapshot__figure.is-missing-image .executivo-cycle-snapshot__thumb-link {
+  display: none;
+}
+
+.executivo-cycle-snapshot__figure.is-missing-image .executivo-cycle-snapshot__missing {
+  display: block;
+}
+
+.safras-matrix-cell {
+  vertical-align: middle;
+  line-height: 1.25;
+}
+
+.safras-matrix-nps {
+  display: block;
+  font-weight: 600;
+}
+
+.safras-matrix-n {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted, #64748b);
+}
+
+.safras-matrix-warn {
+  display: block;
+  font-size: 0.65rem;
+  color: #b45309;
+}
+
+.historico2-explorer__head--actions,
+.table-toolbar--actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}

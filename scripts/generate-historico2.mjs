@@ -164,6 +164,8 @@ export async function generateHistorico2Pack() {
       './generate-nps-measurements-consolidated.mjs'
     );
     await generateNpsMeasurementsConsolidated();
+    const { generateNpsCrossPageAudit } = await import('./generate-nps-cross-page-audit.mjs');
+    await generateNpsCrossPageAudit();
   } catch (err) {
     console.warn('[historico2] nps measurements packs skipped:', err.message ?? err);
   }
