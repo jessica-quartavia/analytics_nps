@@ -1,9 +1,70 @@
 {
-  "generated_at": "2026-10-20T19:46:37.897Z",
+  "generated_at": "2026-10-20T20:01:55.842Z",
   "current_cycle": "NPS-2026-SET-PHARUS",
+  "pages": {
+    "executivo": {
+      "registro_ciclo_01_10": true,
+      "satisfacao_complementar_removed": true
+    },
+    "movimento": {
+      "export_alteracoes": true,
+      "export_clientes": true,
+      "fatores_associados": true
+    },
+    "nps_historico": {
+      "nps_por_medicao_chart": true,
+      "respostas_por_medicao": true
+    },
+    "safras": {
+      "nps_por_medicao_canonical": true,
+      "matriz_nps_n": true
+    },
+    "jornada": {
+      "milestone_flags": {
+        "cycle": "NPS-2026-SET-PHARUS",
+        "ever_changed_ep_before_response": {
+          "true": 51,
+          "false": 232,
+          "null": 0,
+          "total": 283
+        },
+        "changed_ep_since_previous_response": {
+          "true": 5,
+          "false": 89,
+          "null": 189,
+          "total": 283
+        },
+        "frozen_at_response": {
+          "true": 3,
+          "false": 280,
+          "null": 0,
+          "total": 283
+        },
+        "churn_requested_before_response": {
+          "true": 0,
+          "false": 0,
+          "null": 283,
+          "total": 283
+        },
+        "app_pharus_access": {
+          "true": 0,
+          "false": 0,
+          "null": 283,
+          "total": 283
+        }
+      }
+    },
+    "ep": {
+      "horizontal_bars": true,
+      "exibir_mais_menos": true
+    }
+  },
   "executive_current": {
     "valid_responses": 283,
-    "nps": 61.48409893992933
+    "nps": 61.48409893992933,
+    "promoters": 205,
+    "passives": 47,
+    "detractors": 31
   },
   "movement_paired": {
     "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
@@ -690,6 +751,47 @@
       "status": "MATCH"
     }
   ],
+  "safra_2026_q3_entry_cohort": {
+    "clients_total": 174,
+    "with_nps_score": 39,
+    "without_nps_score": 135,
+    "with_entry_date": 174,
+    "without_entry_date": 0,
+    "without_base0_match": 0
+  },
+  "jornada_milestone_flags": {
+    "cycle": "NPS-2026-SET-PHARUS",
+    "ever_changed_ep_before_response": {
+      "true": 51,
+      "false": 232,
+      "null": 0,
+      "total": 283
+    },
+    "changed_ep_since_previous_response": {
+      "true": 5,
+      "false": 89,
+      "null": 189,
+      "total": 283
+    },
+    "frozen_at_response": {
+      "true": 3,
+      "false": 280,
+      "null": 0,
+      "total": 283
+    },
+    "churn_requested_before_response": {
+      "true": 0,
+      "false": 0,
+      "null": 283,
+      "total": 283
+    },
+    "app_pharus_access": {
+      "true": 0,
+      "false": 0,
+      "null": 283,
+      "total": 283
+    }
+  },
   "2026-Q3": {
     "executive": {
       "validResponses": 283,
@@ -953,7 +1055,7 @@
       "status": "EXPECTED_DIFFERENCE",
       "executive": 283,
       "historico_consolidated": 283,
-      "note": "Executivo = respostas válidas no ciclo analítico PHARUS (ex.: SET). Histórico consolidado 2026-Q3 = medição oficial BASE QV (408). Universos distintos por design."
+      "note": "UI operacional usa ciclo analítico SET (ex.: 283/61,5). meta.audit.full_t3_base_qv_window guarda 408/63,7 (janela T3 completa) — não KPI principal."
     },
     {
       "id": "movement_paired_vs_historico_recurring",

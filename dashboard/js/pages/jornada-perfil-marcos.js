@@ -29,8 +29,9 @@ const MARCO_TIPS = {
   ever_ep: 'Cliente que já trocou de EP alguma vez antes da resposta.',
   ep_since: 'Trocou de EP desde a resposta anterior (base pareada).',
   frozen: 'Status de congelamento no snapshot (proxy atual — pode não refletir o momento exato da resposta).',
-  churn: 'Pedido de cancelamento antes da resposta. Fonte cancellations vazia no snapshot atual.',
-  app: 'Cadastro/vínculo App PHARUS — sem eventos de login no snapshot; não equivale a “uso”.',
+  churn:
+    'Pedido de cancelamento (intenção) antes da resposta — distinto de churn efetivado. Fonte: cancellations no snapshot BASE QV.',
+  app: 'Match CPF/e-mail/telefone normalizados com cadastro App (pharus_app_customer_match). Não implica login ou uso ativo.',
   meetings_mean: 'Média de reuniões até a resposta (point-in-time quando disponível).',
 };
 

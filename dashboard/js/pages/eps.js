@@ -27,6 +27,7 @@ import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { closeDrawer as closeClientDrawer } from './movimento.js';
 import { openEpDrawerFromUI, closeEpDrawerFromUI } from '../ui/ep-drawer.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
+import { buildValueLabelPlugin } from '../ui/chart-value-labels.mjs';
 
 let bubbleChart = null;
 let epBarChart = null;
@@ -135,6 +136,13 @@ function mountEpHorizontalBarChart(canvas, entries, overallNps, minSample) {
         if (e) openEpDrawerFromUI(e);
       },
     },
+    plugins: [
+      buildValueLabelPlugin({
+        getValue: (i) => slice[i]?.nps,
+        formatKind: 'nps',
+        horizontalBarEnd: true,
+      }),
+    ],
   });
   return { total: sorted.length, shown: slice.length };
 }

@@ -1,27 +1,20 @@
 .executivo-cycle-snapshot__body {
   display: flex;
-  gap: 1.25rem;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-.executivo-cycle-snapshot__thumb {
-  max-width: 160px;
-  border-radius: 6px;
-  border: 1px solid var(--border-subtle, #e2e8f0);
+.executivo-cycle-snapshot__date {
+  margin: 0;
+  font-size: 1.05rem;
 }
 
-.executivo-cycle-snapshot__missing {
-  display: none;
-  margin-top: 0.5rem;
+.executivo-cycle-snapshot__nps {
+  margin: 0;
 }
 
-.executivo-cycle-snapshot__figure.is-missing-image .executivo-cycle-snapshot__thumb-link {
-  display: none;
-}
-
-.executivo-cycle-snapshot__figure.is-missing-image .executivo-cycle-snapshot__missing {
-  display: block;
+.executivo-cycle-snapshot__note {
+  margin: 0.25rem 0 0;
 }
 
 .safras-matrix-cell {

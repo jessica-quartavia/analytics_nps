@@ -4,6 +4,7 @@ import { buildNpsMilestoneArtifacts } from '../lib/analytics/nps-milestones-pipe
 
 const responses = await readJson('processed/responses.json', []);
 const pairedDoc = await readJson('processed/paired_cycles.json', null);
+const pharusAppMatchDoc = await readJson('processed/pharus_app_customer_match.json', null);
 const latest = await readJson('snapshots/latest.json', null);
 
 const rawSnapshotId = process.env.MILESTONES_RAW_SNAPSHOT ?? latest?.raw_snapshot ?? null;
@@ -11,6 +12,7 @@ const rawSnapshotId = process.env.MILESTONES_RAW_SNAPSHOT ?? latest?.raw_snapsho
 const artifacts = await buildNpsMilestoneArtifacts(responses, {
   rawSnapshotId,
   pairedDoc,
+  pharusAppMatchDoc,
   dataCutoff: latest?.data_cutoff ?? new Date().toISOString(),
 });
 

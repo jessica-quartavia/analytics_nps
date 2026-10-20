@@ -246,7 +246,7 @@
         },
         {
           "milestone_key": "churn_requested",
-          "label": "Já solicitou churn",
+          "label": "Solicitou churn (antes da resposta)",
           "categories": {
             "Promotor": {
               "n": 0,
@@ -264,7 +264,7 @@
         },
         {
           "milestone_key": "app_access",
-          "label": "Usa App PHARUS (proxy)",
+          "label": "Com cadastro no App Pharus",
           "categories": {
             "Promotor": {
               "n": 0,
@@ -495,7 +495,7 @@
         },
         {
           "milestone_key": "churn_requested",
-          "label": "Já solicitou churn",
+          "label": "Solicitou churn (antes da resposta)",
           "categories": {
             "Promotor": {
               "n": 0,
@@ -513,7 +513,7 @@
         },
         {
           "milestone_key": "app_access",
-          "label": "Usa App PHARUS (proxy)",
+          "label": "Com cadastro no App Pharus",
           "categories": {
             "Promotor": {
               "n": 0,

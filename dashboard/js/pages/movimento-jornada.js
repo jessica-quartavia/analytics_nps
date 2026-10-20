@@ -1,6 +1,6 @@
 import { renderMovimentoChangeDriversSection, bindMovimentoChangeDrivers } from './movimento-change-drivers.js';
 
-/** Fatores associados à mudança (sem quadrantes “O que aconteceu entre ciclos”). */
+/** Fatores associados à mudança (quadrantes legacy removidos). */
 export function renderMovimentoBetweenCyclesSection(_filterCtx) {
   return renderMovimentoChangeDriversSection();
 }

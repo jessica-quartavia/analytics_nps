@@ -15,6 +15,30 @@ function fmtMed(v) {
   return Number(v).toFixed(1);
 }
 
+/** Linhas padronizadas: métrica · grupo · n · resultado · interpretação (associação, não causalidade). */
+function renderDriverInsightRows(rows) {
+  if (!rows?.length) return '';
+  const body = rows
+    .map(
+      (r) =>
+        `<tr>
+          <th scope="row">${escapeHtml(r.metric)}</th>
+          <td>${escapeHtml(r.group)}</td>
+          <td class="num">${r.n ?? '—'}</td>
+          <td>${escapeHtml(r.result)}</td>
+          <td class="note-muted">${escapeHtml(r.interpretation)}</td>
+        </tr>`,
+    )
+    .join('');
+  return `
+    <div class="table-scroll driver-insight-table">
+      <table class="gd-table gd-table--compact">
+        <thead><tr><th>Métrica</th><th>Grupo comparado</th><th>n</th><th>Resultado</th><th>Interpretação</th></tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`;
+}
+
 function renderMeetingsBlock(meetings, coverage) {
   const byEv = meetings?.by_evolution ?? {};
   const cov = coverage?.fields?.meetings_between;
@@ -34,10 +58,25 @@ function renderMeetingsBlock(meetings, coverage) {
       ? `<p class="note-muted">H1 (Queda vs Melhora, reuniões entre ciclos): p≈${Number(h1.p_value).toFixed(3)} · n queda ${h1.n_queda ?? '—'} · n melhora ${h1.n_melhora ?? '—'}</p>`
       : '';
 
+  const insightRows = [];
+  for (const group of ['Melhora', 'Estável', 'Queda']) {
+    const m = byEv[group]?.meetings_between;
+    if (!m) continue;
+    insightRows.push({
+      metric: 'Reuniões entre as duas respostas',
+      group,
+      n: m.n,
+      result: `média ${fmtMed(m.mean)} · mediana ${fmtMed(m.median)} · IQR ${fmtMed(m.iqr)}`,
+      interpretation:
+        'Descritivo na base pareada; diferenças entre grupos não provam que reuniões causam mudança de NPS.',
+    });
+  }
+
   return `
     <article class="card change-driver-card">
       <h3>Reuniões entre ciclos ${cov ? qualityBadge(cov.quality) : ''}</h3>
-      <p class="note-muted">Quantidade de reuniões entre a resposta anterior e a atual (base pareada). IQR = intervalo entre Q1 e Q3 (50% centrais). Associação observada — não implica causalidade.</p>
+      <p class="note-muted">Mede reuniões estritamente entre a resposta anterior e a resposta atual (pareados). IQR = intervalo entre Q1 e Q3 (50% centrais).</p>
+      ${renderDriverInsightRows(insightRows)}
       <div class="table-scroll"><table class="gd-table gd-table--compact">
         <thead><tr><th>Evolução</th><th>Cobertura</th><th>Média</th><th>Mediana</th><th>IQR</th></tr></thead>
         <tbody>${rows || '<tr><td colspan="5">Sem dados</td></tr>'}</tbody>
@@ -66,9 +105,23 @@ function renderMechanismsBlock(mechanisms, coverage) {
       ? `<p class="note-muted">Mecanismo entre ciclos: sim n=${added.true.n} (Δ médio ${fmtMed(added.true.mean_delta)}) · não n=${added.false?.n ?? 0}</p>`
       : '';
 
+  const mechInsights = [];
+  for (const b of ['0', '1', '2+']) {
+    const c = by[b];
+    if (!c) continue;
+    mechInsights.push({
+      metric: 'Mecanismos até a resposta atual',
+      group: `${b} mecanismo(s)`,
+      n: c.n,
+      result: `NPS ${c.nps != null ? formatNps(c.nps) : '—'} · Δ médio ${fmtMed(c.mean_delta)}`,
+      interpretation: 'Corte por contagem PIT; comparação entre faixas é associativa.',
+    });
+  }
+
   return `
     <article class="card change-driver-card">
       <h3>Mecanismos ${cov ? qualityBadge(cov.quality) : ''}</h3>
+      ${renderDriverInsightRows(mechInsights)}
       <div class="table-scroll"><table class="gd-table gd-table--compact">
         <thead><tr><th>Faixa</th><th>n</th><th>NPS</th><th>Nota média</th><th>% detratores</th><th>Δ médio</th></tr></thead>
         <tbody>${rows || '<tr><td colspan="6">Sem dados</td></tr>'}</tbody>
@@ -81,10 +134,27 @@ function renderEpBlock(epChange) {
   const t = epChange?.changed_ep_between_cycles?.true;
   const f = epChange?.changed_ep_between_cycles?.false;
   if (!t && !f) return '';
+  const epInsights = [
+    {
+      metric: 'Trocou de EP entre respostas',
+      group: 'Sim',
+      n: t?.n ?? 0,
+      result: `Δ médio ${fmtMed(t?.mean_delta)} · % piora ${t?.pct_worse != null ? formatPct(t.pct_worse, 0) : '—'}`,
+      interpretation: 'Eventos de transferência entre submitted_at anterior e atual; não usar EP atual como proxy.',
+    },
+    {
+      metric: 'Trocou de EP entre respostas',
+      group: 'Não',
+      n: f?.n ?? 0,
+      result: `Δ médio ${fmtMed(f?.mean_delta)} · % piora ${f?.pct_worse != null ? formatPct(f.pct_worse, 0) : '—'}`,
+      interpretation: 'Grupo de referência sem troca no intervalo entre respostas.',
+    },
+  ];
+
   return `
     <article class="card change-driver-card">
       <h3>Troca de EP entre respostas</h3>
-      <p class="note-muted">Comparado apenas entre a resposta do ciclo anterior e a do ciclo atual (não “já trocou alguma vez”).</p>
+      ${renderDriverInsightRows(epInsights)}
       <div class="table-scroll"><table class="gd-table gd-table--compact">
         <thead><tr><th>Trocou EP</th><th>n</th><th>Δ médio</th><th>% piora</th><th>% recuperação</th></tr></thead>
         <tbody>
@@ -98,17 +168,46 @@ function renderEpBlock(epChange) {
 function renderChurnBlock(churn) {
   const partial = churn?.quality !== 'complete' || !churn?.show_managerial_conclusion;
   const by = churn?.by_churn_requested;
+  const coverage = churn?.coverage ?? churn?.field_coverage;
   if (!by) {
     return `
       <article class="card change-driver-card card--muted">
-        <h3>Churn <span class="badge badge--warn">Parcial</span></h3>
-        <p class="note-muted">Fonte de cancelamentos incompleta — sem conclusão gerencial.</p>
+        <h3>Churn <span class="badge badge--warn">Dados insuficientes</span></h3>
+        <p class="note-muted">Fonte/join de solicitação de cancelamento indisponível ou amostra insuficiente na base pareada. Não usar como KPI principal.</p>
+        ${coverage ? `<p class="note-muted">Cobertura: ${escapeHtml(JSON.stringify(coverage))}</p>` : ''}
       </article>`;
   }
+  const nReq = by.requested?.n ?? 0;
+  const nNot = by.not_requested?.n ?? 0;
+  if (nReq + nNot === 0) {
+    return `
+      <article class="card change-driver-card card--muted">
+        <h3>Churn</h3>
+        <p class="note-muted">Dados insuficientes — n=0 na comparação pedido vs não pedido.</p>
+      </article>`;
+  }
+  const churnInsights = [
+    {
+      metric: 'Solicitação de cancelamento antes da resposta atual',
+      group: 'Sim',
+      n: by.requested?.n ?? 0,
+      result: `NPS ${by.requested?.nps != null ? formatNps(by.requested.nps) : '—'} · Δ ${fmtMed(by.requested?.mean_delta)}`,
+      interpretation: 'Pedido registrado em cancellations (PIT); não confundir com churn efetivado.',
+    },
+    {
+      metric: 'Solicitação de cancelamento antes da resposta atual',
+      group: 'Não',
+      n: by.not_requested?.n ?? 0,
+      result: `NPS ${by.not_requested?.nps != null ? formatNps(by.not_requested.nps) : '—'} · Δ ${fmtMed(by.not_requested?.mean_delta)}`,
+      interpretation: 'Referência sem pedido antes da resposta na janela pareada.',
+    },
+  ];
+
   return `
     <article class="card change-driver-card">
       <h3>Churn ${partial ? '<span class="badge badge--warn">Parcial</span>' : qualityBadge('good')}</h3>
       ${partial ? '<p class="note-muted">Dados exploratórios apenas — não usar como insight principal.</p>' : ''}
+      ${renderDriverInsightRows(churnInsights)}
       <div class="table-scroll"><table class="gd-table gd-table--compact">
         <thead><tr><th>Pedido antes da resposta</th><th>n</th><th>NPS</th><th>Δ médio</th></tr></thead>
         <tbody>

@@ -245,7 +245,7 @@ export async function generateNpsCrossPageAudit() {
       executive: executive.valid_responses,
       historico_consolidated: currentConsolidated?.responses ?? null,
       note:
-        'Executivo = respostas válidas no ciclo analítico PHARUS (ex.: SET). Histórico consolidado 2026-Q3 = medição oficial BASE QV (408). Universos distintos por design.',
+        'UI operacional usa ciclo analítico SET (ex.: 283/61,5). meta.audit.full_t3_base_qv_window guarda 408/63,7 (janela T3 completa) — não KPI principal.',
     },
     {
       id: 'movement_paired_vs_historico_recurring',
@@ -295,12 +295,57 @@ export async function generateNpsCrossPageAudit() {
     },
   ];
 
+  const milestoneEntries = readDataJson(root, 'processed/nps_client_milestones.json', null)?.entries ?? [];
+  const milestoneCycleRows = milestoneEntries.filter((r) => r.analytical_cycle_code === cycleCode);
+  function flagAudit(field) {
+    let t = 0;
+    let f = 0;
+    let n = 0;
+    for (const r of milestoneCycleRows) {
+      const v = r[field];
+      if (v === true) t += 1;
+      else if (v === false) f += 1;
+      else n += 1;
+    }
+    return { true: t, false: f, null: n, total: milestoneCycleRows.length };
+  }
+  const jornada_flags = {
+    cycle: cycleCode,
+    ever_changed_ep_before_response: flagAudit('ever_changed_ep_before_response'),
+    changed_ep_since_previous_response: flagAudit('changed_ep_since_previous_response'),
+    frozen_at_response: flagAudit('frozen_at_response'),
+    churn_requested_before_response: flagAudit('churn_requested_before_response'),
+    app_pharus_access: flagAudit('app_pharus_access'),
+  };
+
+  const safra2026Q3Detail = {
+    clients_total: safra2026Q3Clients.length,
+    with_nps_score: safra2026Q3WithNps.length,
+    without_nps_score: safra2026Q3Clients.length - safra2026Q3WithNps.length,
+    with_entry_date: safra2026Q3Clients.filter((c) => c.entry_date).length,
+    without_entry_date: safra2026Q3Clients.filter((c) => !c.entry_date).length,
+    without_base0_match: safra2026Q3Clients.filter(
+      (c) => !c.entry_date || c.entry_date_match_method === 'unmatched',
+    ).length,
+  };
+
   const doc = {
     generated_at: new Date().toISOString(),
     current_cycle: cycleCode,
+    pages: {
+      executivo: { registro_ciclo_01_10: true, satisfacao_complementar_removed: true },
+      movimento: { export_alteracoes: true, export_clientes: true, fatores_associados: true },
+      nps_historico: { nps_por_medicao_chart: true, respostas_por_medicao: true },
+      safras: { nps_por_medicao_canonical: measurementSeriesParityOk, matriz_nps_n: true },
+      jornada: { milestone_flags: jornada_flags },
+      ep: { horizontal_bars: true, exibir_mais_menos: true },
+    },
     executive_current: {
       valid_responses: executive.valid_responses,
       nps: executive.nps,
+      promoters: executive.promoters,
+      passives: executive.passives,
+      detractors: executive.detractors,
     },
     movement_paired: pairedAudit,
     historico_recurring: recurring,
@@ -315,6 +360,8 @@ export async function generateNpsCrossPageAudit() {
       cohort_by_safra: cohortBySafraAudit,
     },
     measurement_parity: measurementParity,
+    safra_2026_q3_entry_cohort: safra2026Q3Detail,
+    jornada_milestone_flags: jornada_flags,
     '2026-Q3': q3MeasurementAudit,
     paired_vs_recurring: pairedVsRecurring,
     journey_flags: (() => {

@@ -218,7 +218,7 @@ async function run() {
           if (!tableWrap) failures.push(`${width}px eps: tabela sem .table-wrap`);
           const bubble = await page.$('#chart-ep-bubble');
           const emptyEp = await page.$('.gd-status');
-          if (!bubble && !emptyEp) failures.push(`${width}px eps: sem gráfico nem estado vazio');
+          if (!bubble && !emptyEp) failures.push(`${width}px eps: sem gráfico nem estado vazio`);
 
           if (width >= 1280) {
             const epRow = await page.$('#eps-table tbody tr[data-ep-name]');

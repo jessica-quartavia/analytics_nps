@@ -5,6 +5,7 @@ import {
   getMigrationMatrix,
   getPreviousCycle,
   getResponses,
+  getClientSatisfaction,
 } from '../data/analytics-store.js';
 import { auditPairedClientsBetweenCycles } from '../../../lib/analytics/nps-paired-recurring-audit.mjs';
 import { getFilters, setFilter } from '../filters/global-filters.js';
@@ -522,7 +523,7 @@ export function renderMovimento(root, ctx = {}) {
           { header: 'Delta', key: 'score_delta' },
           { header: 'Migração', key: 'nps_migration' },
           {
-            header: 'Classificação da mudança',
+            header: 'Classificação',
             value: (r) => {
               const s = r.evolution_status ?? '';
               if (s === 'Melhora' || s === 'Grande melhora') return 'Melhorou';

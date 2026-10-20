@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-10-20T19:46:37.350Z",
-    "dataset_version": "nps-measurements-consolidated-46e9ec44c2a7",
-    "build_commit": "46e9ec44c2a7eb73efb288ddb2107082a75cb8f3",
+    "generated_at": "2026-10-20T20:01:55.243Z",
+    "dataset_version": "nps-measurements-consolidated-78bb96351eee",
+    "build_commit": "78bb96351eeee5663275e3fdaa6dd85fcbc888a6",
     "source_rule": "Ciclos fechados: nps_historico (respostas + validação medicoes). Ciclo atual: BASE QV (kernel Executivo). Sem somar a mesma medição nas duas fontes.",
     "measurements_since": "2025-Q2",
     "current_cycle_label": "2026-Q3",
     "historico_respostas_rows": 1067,
     "historico_medicoes_rows": 6,
-    "base_qv_dataset_version": "nps-measurements-baseqv-46e9ec44c2a7",
+    "base_qv_dataset_version": "nps-measurements-baseqv-78bb96351eee",
     "canonical_current_cycle": {
       "measurement": "2026-Q3",
       "responses": 283,

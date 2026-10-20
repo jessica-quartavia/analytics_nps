@@ -29,7 +29,7 @@ function fmtMed(v) {
 }
 
 function fmtIqr(v, detail) {
-  if (detail?.insufficient) return 'amostra insuficiente';
+  if (detail?.insufficient || v == null || !Number.isFinite(Number(v))) return 'Amostra insuficiente';
   return fmtMed(v);
 }
 

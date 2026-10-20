@@ -38,6 +38,7 @@ export function buildValueLabelPlugin(opts = {}) {
     showLast = false,
     showMinMax = false,
     barTop = false,
+    horizontalBarEnd = false,
     offsetY = 10,
   } = opts;
   const id = opts.id ?? `valueLabels-${++labelPluginSeq}`;
@@ -81,8 +82,14 @@ export function buildValueLabelPlugin(opts = {}) {
         if (label == null) continue;
         const pt = meta.data[i];
         if (!pt) continue;
-        const y = barTop ? pt.y - offsetY : pt.y - offsetY;
-        ctx.fillText(label, pt.x, y);
+        let x = pt.x;
+        let y = pt.y - offsetY;
+        if (horizontalBarEnd && chart.config.options?.indexAxis === 'y') {
+          x = Math.max(pt.x, pt.base) + 6;
+          y = pt.y + 4;
+          ctx.textAlign = 'left';
+        }
+        ctx.fillText(label, x, y);
       }
       ctx.restore();
     },
