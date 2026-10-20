@@ -292,6 +292,20 @@
   height: 340px;
 }
 
+.chart-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  margin: 0;
+  text-align: center;
+}
+
+.safras-chart-wrap {
+  height: 260px;
+  min-height: 220px;
+}
+
 /* ——— Sections / misc ——— */
 .insight-box {
   background: var(--surface-soft);

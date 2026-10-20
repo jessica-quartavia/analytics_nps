@@ -2,13 +2,18 @@ import { isSafrasPeriodSpecific, historyMatchesSafrasNpsPeriod } from './safras-
 import { canonicalizeNpsCycle } from '../utils/nps-cycle-labels.mjs';
 import { cycleSortKey } from '../utils/cycle-sort.mjs';
 import { normalizeClientStatus } from '../../../lib/analytics/analytical-active-client.mjs';
+import { aggregateNpsFromResponses, calculateNpsSummary } from '../../../lib/analytics/nps.mjs';
+import {
+  aggregateNpsFromHistoryRows,
+  historyRowToNpsResponse,
+} from '../../../lib/analytics/nps-cohort-nps.mjs';
 
 export { normalizeClientStatus };
 
 export function defaultSafrasFilters() {
   return {
     npsPeriod: 'all',
-    carteira: 'all',
+    carteira: 'active',
     safra: '',
     programa: '',
     ep: '',
@@ -158,7 +163,21 @@ export function applySafrasFilters(customers, filters) {
   return rows;
 }
 
-export function computeSafrasKpis(customers, { npsPeriod = 'all', appUnavailable = false } = {}) {
+function npsAggregateForCustomers(customers, history, npsPeriod, officialBounds = null) {
+  const ids = new Set((customers ?? []).map((c) => String(c.client_id)).filter(Boolean));
+  const hist = (history ?? []).filter(
+    (h) => ids.has(String(h.client_id)) && historyMatchesSafrasNpsPeriod(h, npsPeriod),
+  );
+  return aggregateNpsFromHistoryRows(hist, {
+    clientIds: ids,
+    officialBounds: officialBounds ?? null,
+  });
+}
+
+export function computeSafrasKpis(
+  customers,
+  { npsPeriod = 'all', appUnavailable = false, history = null, officialBounds = null } = {},
+) {
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const n = customers.length;
   const appDataMissing = appUnavailable;
@@ -185,13 +204,31 @@ export function computeSafrasKpis(customers, { npsPeriod = 'all', appUnavailable
           ? (c.app_match === true || c.has_app_access === true) && c.answered_selected_period
           : (c.app_match === true || c.has_app_access === true) && c.ever_answered_nps,
       ).length;
-  const scores = customers
-    .map((c) => (periodSpecific ? c.period_nps_score : c.last_nps_score))
-    .filter((s) => s != null);
-  const prom = scores.filter((s) => s >= 9).length;
-  const det = scores.filter((s) => s <= 6).length;
-  const nps =
-    scores.length > 0 ? Math.round(((100 * prom - 100 * det) / scores.length) * 10) / 10 : null;
+  let nps = null;
+  let npsPromoters = null;
+  let npsNeutrals = null;
+  let npsDetractors = null;
+  let npsValidResponses = null;
+  if (history?.length) {
+    const agg = npsAggregateForCustomers(customers, history, npsPeriod, officialBounds);
+    nps = agg.nps;
+    npsPromoters = agg.promoters;
+    npsNeutrals = agg.neutrals;
+    npsDetractors = agg.detractors;
+    npsValidResponses = agg.responses;
+  } else {
+    const scores = customers
+      .map((c) => (periodSpecific ? c.period_nps_score : c.last_nps_score))
+      .filter((s) => s != null);
+    const summary = scores.length
+      ? calculateNpsSummary(scores.map((score) => ({ score: Number(score) })))
+      : null;
+    nps = summary?.nps ?? null;
+    npsPromoters = summary?.promoters ?? 0;
+    npsNeutrals = summary?.passives ?? 0;
+    npsDetractors = summary?.detractors ?? 0;
+    npsValidResponses = summary?.total ?? 0;
+  }
   const days = customers.map((c) => c.days_entry_to_first_nps_valid).filter((d) => d != null);
   days.sort((a, b) => a - b);
   const medianDays = days.length ? days[Math.floor(days.length / 2)] : null;
@@ -212,20 +249,23 @@ export function computeSafrasKpis(customers, { npsPeriod = 'all', appUnavailable
     appConflicts,
     appInsufficient,
     nps,
+    npsPromoters,
+    npsNeutrals,
+    npsDetractors,
+    npsValidResponses,
     medianDays,
   };
 }
 
-function npsFromCustomerScores(customers, periodSpecific) {
-  const scores = customers
-    .map((c) => (periodSpecific ? c.period_nps_score : c.last_nps_score))
-    .filter((s) => s != null);
-  if (!scores.length) return { nps: null, n: 0 };
-  const prom = scores.filter((s) => s >= 9).length;
-  const det = scores.filter((s) => s <= 6).length;
+function npsFromCustomerHistory(customers, history, npsPeriod, officialBounds = null) {
+  if (!history?.length) return { nps: null, n: 0, promoters: 0, neutrals: 0, detractors: 0 };
+  const agg = npsAggregateForCustomers(customers, history, npsPeriod, officialBounds);
   return {
-    n: scores.length,
-    nps: Math.round(((100 * prom - 100 * det) / scores.length) * 10) / 10,
+    n: agg.responses,
+    nps: agg.nps,
+    promoters: agg.promoters,
+    neutrals: agg.neutrals,
+    detractors: agg.detractors,
   };
 }
 
@@ -242,7 +282,10 @@ function responseRateForGroup(customers, periodSpecific) {
 }
 
 /** NPS e taxa de resposta — com App vs sem App (não causal). */
-export function computeNpsByApp(customers, { npsPeriod = 'all' } = {}) {
+export function computeNpsByApp(
+  customers,
+  { npsPeriod = 'all', history = null, officialBounds = null } = {},
+) {
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const withApp = customers.filter((c) => c.app_match === true || c.has_app_access === true);
   const withoutApp = customers.filter(
@@ -250,11 +293,11 @@ export function computeNpsByApp(customers, { npsPeriod = 'all' } = {}) {
   );
   return {
     withApp: {
-      ...npsFromCustomerScores(withApp, periodSpecific),
+      ...npsFromCustomerHistory(withApp, history, npsPeriod, officialBounds),
       ...responseRateForGroup(withApp, periodSpecific),
     },
     withoutApp: {
-      ...npsFromCustomerScores(withoutApp, periodSpecific),
+      ...npsFromCustomerHistory(withoutApp, history, npsPeriod, officialBounds),
       ...responseRateForGroup(withoutApp, periodSpecific),
     },
   };
@@ -315,20 +358,33 @@ export function buildSafraMedicaoPivot(history, customers, metric = 'nps', npsPe
   const safras = safraOptions(customers, { matrixOnly: true });
   const hist = (history ?? []).filter((h) => historyMatchesSafrasNpsPeriod(h, npsPeriod));
   const cells = {};
+  const cellAgg = {};
   for (const h of hist) {
     const safra = custMap.get(h.client_id)?.safra_trimestre ?? 'Não informado';
     const cicloCanon = canonicalizeNpsCycle(h.ciclo);
     const key = `${safra}||${cicloCanon}`;
     if (!cells[key]) cells[key] = [];
-    if (h.nota_nps != null) cells[key].push(h.nota_nps);
+    const mapped = historyRowToNpsResponse(h);
+    if (mapped) cells[key].push(mapped);
+  }
+  for (const [key, rows] of Object.entries(cells)) {
+    const agg = aggregateNpsFromResponses(rows, { dedupe: true, requireClientId: true });
+    cellAgg[key] = {
+      nps: agg.nps,
+      n: agg.responses,
+      promoters: agg.promoters,
+      neutrals: agg.neutrals,
+      detractors: agg.detractors,
+      average_score: agg.average_score,
+    };
   }
   const ciclos = [...new Set(hist.map((h) => canonicalizeNpsCycle(h.ciclo)).filter(Boolean))].sort(
     (a, b) => cycleSortKey(a) - cycleSortKey(b),
   );
-  return { safras, ciclos, cells, metric };
+  return { safras, ciclos, cells, cellAgg, metric };
 }
 
-export function getSafraCoverageRows(_summaries, customers, _history, npsPeriod, safraFilter) {
+export function getSafraCoverageRows(_summaries, customers, history, npsPeriod, safraFilter, officialBounds = null) {
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const safraSet = new Set(customers.map((c) => c.safra_trimestre).filter(Boolean));
   if (customers.some((c) => !c.safra_trimestre)) safraSet.add('Não informado');
@@ -343,18 +399,29 @@ export function getSafraCoverageRows(_summaries, customers, _history, npsPeriod,
     const responderam = periodSpecific
       ? inSafra.filter((c) => c.answered_selected_period).length
       : inSafra.filter((c) => c.ever_answered_nps).length;
-    const scores = periodSpecific
-      ? inSafra
-          .filter((c) => c.answered_selected_period && c.period_nps_score != null)
-          .map((c) => c.period_nps_score)
-      : inSafra.filter((c) => c.last_nps_score != null).map((c) => c.last_nps_score);
+    let nps_atual = null;
+    let nota_media = null;
+    if (history?.length) {
+      const agg = npsAggregateForCustomers(inSafra, history, npsPeriod, officialBounds);
+      nps_atual = agg.nps;
+      nota_media =
+        agg.average_score != null ? Math.round(Number(agg.average_score) * 10) / 10 : null;
+    } else {
+      const scores = periodSpecific
+        ? inSafra
+            .filter((c) => c.answered_selected_period && c.period_nps_score != null)
+            .map((c) => c.period_nps_score)
+        : inSafra.filter((c) => c.last_nps_score != null).map((c) => c.last_nps_score);
+      nps_atual = cellMetric(scores, 'nps');
+      nota_media = cellMetric(scores, 'nota_media');
+    }
     rows.push({
       safra_trimestre: safra,
       clientes_total: total,
       clientes_que_responderam: responderam,
       pct_que_ja_responderam: total ? Math.round((1000 * responderam) / total) / 10 : 0,
-      nps_atual: cellMetric(scores, 'nps'),
-      nota_media: cellMetric(scores, 'nota_media'),
+      nps_atual,
+      nota_media,
     });
   }
   return rows;
@@ -363,8 +430,9 @@ export function getSafraCoverageRows(_summaries, customers, _history, npsPeriod,
 export function cellMetric(scores, metric) {
   if (!scores?.length) return null;
   if (metric === 'respostas') return scores.length;
-  if (metric === 'nota_media') return Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 10) / 10;
-  const prom = scores.filter((s) => s >= 9).length;
-  const det = scores.filter((s) => s <= 6).length;
-  return Math.round(((100 * prom - 100 * det) / scores.length) * 10) / 10;
+  if (metric === 'nota_media') {
+    return Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 10) / 10;
+  }
+  const summary = calculateNpsSummary(scores.map((score) => ({ score: Number(score) })));
+  return summary.nps;
 }

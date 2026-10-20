@@ -6,17 +6,25 @@ import {
   getHistorico2Doc,
   getPharusAppCustomerMatch,
   getPharusAppMatchAudit,
+  getDataState,
+  getCycles,
+  getCycleSummary,
+  getNpsMeasurementsConsolidatedDoc,
+  getNpsMeasurementsBaseQvDoc,
 } from '../data/analytics-store.js';
+import { getFilters } from '../filters/global-filters.js';
 import {
   safrasCustomersFromHistorico2,
   enrichSafrasRowsWithNpsHistory,
   enrichSafrasRowsWithPharusAppMatch,
-  buildSafrasCohortSummariesFromHistorico2Clients,
-  historico2ClientsForSafrasCohort,
   isSafrasAppUnavailableUsingHistorico2,
 } from '../data/historico2-safras-adapter.mjs';
+import {
+  buildSafrasMeasurementChartSeries,
+  hasSafrasMeasurementRecorte,
+  officialMeasurementKpiFromSeries,
+} from '../data/safras-measurements-view.mjs';
 import { isPharusAppMatchAvailable } from '../data/pharus-app-availability.mjs';
-import { cohortSort } from '../data/historico2-view.mjs';
 import { exportFilteredCsv } from '../utils/export-filtered-csv.mjs';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatNps, formatPct, formatDate } from '../utils/format.js';
@@ -38,7 +46,6 @@ import {
   buildSafraMedicaoPivot,
   enrichCustomersForNpsPeriod,
   getSafraCoverageRows,
-  cellMetric,
   computeNpsByApp,
   enrichCoverageRowsWithApp,
   computeCarteiraAudit,
@@ -52,6 +59,10 @@ import {
 } from '../data/safras-nps-period.mjs';
 import { formatNpsCycleLabel } from '../utils/nps-cycle-labels.mjs';
 import { helpTip } from '../ui/help.js';
+import {
+  mountMeasurementNpsLineChart,
+  mountVerticalBarChart,
+} from '../ui/measurement-series-charts.mjs';
 import {
   stickyFiltersEnabled,
   setStickyFiltersEnabled,
@@ -113,12 +124,30 @@ function renderPageHeader() {
       <p class="eyebrow">PHARUS · Cobertura</p>
       <h1 class="hero__title">Safras & Cobertura</h1>
       <p class="page-header__lead">Entrada de clientes, resposta ao NPS e adoção do App PHARUS.</p>
+      <p class="note-muted safras-page__notice">Os indicadores de NPS por medição utilizam exatamente a mesma série oficial do NPS Histórico. A safra é definida separadamente pela data de entrada do cliente.</p>
     </div>
     <div class="safras-page__actions">
       <button type="button" class="btn btn--secondary btn--sm" data-safras-refresh>Atualizar</button>
       <button type="button" class="btn btn--secondary btn--sm" data-safras-export-csv>↓ Exportar clientes</button>
     </div>
   </header>`;
+}
+
+const NPS_METHODOLOGY_TOOLTIP =
+  'NPS = (% Promotores − % Detratores) × 100. Promotores: 9–10; Neutros: 7–8; Detratores: 0–6.';
+
+function resolveOfficialNpsBounds(cycleDef) {
+  if (cycleDef?.type === 'source_cycle' && (cycleDef.starts_at || cycleDef.ends_at)) {
+    return { starts_at: cycleDef.starts_at ?? null, ends_at: cycleDef.ends_at ?? null };
+  }
+  return null;
+}
+
+function resolveSafrasNpsContext() {
+  const cycleCode = getFilters()?.cycleCode ?? getCycles()?.[0]?.cycle_code;
+  const cycleDef = (getCycles() ?? []).find((c) => c.cycle_code === cycleCode) ?? null;
+  const rawResponses = getDataState()?.responses ?? [];
+  return { cycleDef, officialBounds: resolveOfficialNpsBounds(cycleDef), rawResponses };
 }
 
 const SAFRAS_TIPS = {
@@ -267,7 +296,7 @@ function renderFilters(customers) {
   </div>`;
 }
 
-function renderKpiGrid(kpis, audit, npsPeriod, appUnavailable) {
+function renderKpiGrid(kpis, audit, npsPeriod, appUnavailable, measurementKpiOfficial, measurementRecorte) {
   const appUnavail = appUnavailable || kpis.appDataMissing || isAppSourceUnavailable(audit);
   const periodSpecific = isSafrasPeriodSpecific(npsPeriod);
   const appValue = appUnavail ? '—' : String(kpis.appYes);
@@ -330,10 +359,23 @@ function renderKpiGrid(kpis, audit, npsPeriod, appUnavailable) {
       rawSub: true,
     },
     {
-      label: periodSpecific ? 'NPS do período' : 'NPS (última nota)',
-      tip: 'NPS = % Promotores − % Detratores. Promotores: notas 9–10; Neutros: 7–8; Detratores: 0–6.',
-      value: kpis.nps != null ? formatNps(kpis.nps) : '—',
-      sub: 'Recorte filtrado',
+      label: measurementKpiOfficial
+        ? `NPS (${measurementKpiOfficial.measurement})`
+        : periodSpecific
+          ? 'NPS do período'
+          : 'NPS (última nota)',
+      tip: NPS_METHODOLOGY_TOOLTIP,
+      value:
+        measurementKpiOfficial?.nps != null
+          ? formatNps(measurementKpiOfficial.nps)
+          : kpis.nps != null
+            ? formatNps(kpis.nps)
+            : '—',
+      sub: measurementKpiOfficial
+        ? `Série oficial · n=${measurementKpiOfficial.responses ?? '—'} · ${measurementKpiOfficial.analytical_cycle ?? 'ciclo analítico'}`
+        : measurementRecorte
+          ? 'Recorte filtrado'
+          : 'Agregado no recorte de clientes',
     },
     {
       label: 'Mediana dias → 1º NPS',
@@ -440,7 +482,7 @@ function renderCoberturaTable(coverageRows, npsPeriod, appUnavailable) {
         <th scope="col" class="num">Responderam</th>
         <th scope="col" class="num">${helpTip('% responderam', pctTip)}</th>
         <th scope="col" class="num">${helpTip('% com App', SAFRAS_TIPS.appTooltip)}</th>
-        <th scope="col" class="num">${helpTip('NPS', 'NPS = % Promotores − % Detratores. Promotores: notas 9–10; Neutros: 7–8; Detratores: 0–6.')}</th>
+        <th scope="col" class="num">${helpTip('NPS', NPS_METHODOLOGY_TOOLTIP)}</th>
         <th scope="col" class="num">${helpTip('Nota média', 'Média das notas NPS dos clientes que responderam dentro do recorte selecionado.')}</th>
       </tr></thead>
       <tbody>${body}</tbody>
@@ -450,14 +492,14 @@ function renderCoberturaTable(coverageRows, npsPeriod, appUnavailable) {
 
 function renderMatrix(history, customers, npsPeriod) {
   const pivot = buildSafraMedicaoPivot(history, customers, 'nps', npsPeriod);
-  const { safras, ciclos, cells } = pivot;
+  const { safras, ciclos, cellAgg } = pivot;
   if (!ciclos.length) {
     return '<p class="placeholder-note">Sem histórico para matriz.</p>';
   }
 
   const safraList = [...safras].sort(sortSafraLabel);
   const ni = 'Não informado';
-  if (!safraList.includes(ni) && ciclos.some((c) => (cells[`${ni}||${c}`] ?? []).length)) {
+  if (!safraList.includes(ni) && ciclos.some((c) => (cellAgg?.[`${ni}||${c}`]?.n ?? 0) > 0)) {
     safraList.push(ni);
   }
 
@@ -465,16 +507,18 @@ function renderMatrix(history, customers, npsPeriod) {
   for (const s of safraList) {
     body += `<tr><th scope="row" class="safras-matrix-sticky-col">${escapeHtml(s)}</th>`;
     for (const c of ciclos) {
-      const scores = cells[`${s}||${c}`] ?? [];
-      const val = cellMetric(scores, 'nps');
+      const agg = cellAgg?.[`${s}||${c}`] ?? { nps: null, n: 0, promoters: 0, neutrals: 0, detractors: 0 };
+      const val = agg.nps;
+      const n = agg.n ?? 0;
       const heat = npsHeatClass(val);
       const display = val == null ? '—' : formatNps(val);
-      const small = scores.length > 0 && scores.length < 5 ? ' safras-matrix-cell--small-n' : '';
+      const small = n > 0 && n < 5 ? ' safras-matrix-cell--small-n' : '';
+      const title = `Safra ${s} · Medição ${formatNpsCycleLabel(c)} · NPS ${display} · n=${n} · Promotores ${agg.promoters ?? 0} · Neutros ${agg.neutrals ?? 0} · Detratores ${agg.detractors ?? 0}`;
       const cellBody =
         val == null
           ? '—'
-          : `<span class="safras-matrix-nps">${display}</span><span class="safras-matrix-n">n=${scores.length}</span>${scores.length > 0 && scores.length < 5 ? '<span class="safras-matrix-warn">Amostra pequena</span>' : ''}`;
-      body += `<td class="safras-matrix-cell ${heat}${small}" title="Safra ${s} · Medição ${formatNpsCycleLabel(c)} · NPS ${display} · n=${scores.length}">${cellBody}</td>`;
+          : `<span class="safras-matrix-nps">${display}</span><span class="safras-matrix-n">n=${n}</span>${n > 0 && n < 5 ? '<span class="safras-matrix-warn">Amostra pequena</span>' : ''}`;
+      body += `<td class="safras-matrix-cell ${heat}${small}" title="${escapeAttr(title)}">${cellBody}</td>`;
     }
     body += '</tr>';
   }
@@ -640,6 +684,10 @@ export function renderSafrasCobertura(root) {
   const history = historyAll.filter(
     (h) => clientIds.has(h.client_id) && historyMatchesSafrasNpsPeriod(h, pageFilters.npsPeriod),
   );
+  const { cycleDef, officialBounds, rawResponses } = resolveSafrasNpsContext();
+  const cycleSummaryTemplate = cycleDef?.cycle_code ? getCycleSummary(cycleDef.cycle_code) : null;
+  const kpiOfficialBounds =
+    pageFilters.npsPeriod === 'current' ? officialBounds : null;
   const appUnavailable =
     !isPharusAppMatchAvailable(pharusMatch, pharusAudit) &&
     (isSafrasAppUnavailableUsingHistorico2(historico2, audit, pharusMatch, pharusAudit) ||
@@ -647,31 +695,53 @@ export function renderSafrasCobertura(root) {
   const kpis = computeSafrasKpis(customers, {
     npsPeriod: pageFilters.npsPeriod,
     appUnavailable,
+    history,
+    officialBounds: kpiOfficialBounds,
   });
 
-  let cohortSummaries = [];
-  if (useHistorico2) {
-    const h2ForCohort = historico2ClientsForSafrasCohort(historico2.clients, customers);
-    cohortSummaries = buildSafrasCohortSummariesFromHistorico2Clients(h2ForCohort, { minYear: 2025 });
-  }
+  const consolidatedDoc = getNpsMeasurementsConsolidatedDoc();
+  const baseQvDoc = getNpsMeasurementsBaseQvDoc();
+  const measurementRecorte = hasSafrasMeasurementRecorte(pageFilters);
+  const measurementSeries = useHistorico2
+    ? buildSafrasMeasurementChartSeries({
+        consolidatedDoc,
+        baseQvDoc,
+        responses: rawResponses,
+        cycles: getCycles(),
+        historico2Doc: historico2,
+        filteredSafrasCustomers: customers,
+        pageFilters,
+        cycleSummaryTemplate,
+      })
+    : [];
+  const measurementKpiOfficial =
+    !measurementRecorte && measurementSeries.length
+      ? officialMeasurementKpiFromSeries(measurementSeries, consolidatedDoc)
+      : null;
+
   const coverageRows = enrichCoverageRowsWithApp(
     getSafraCoverageRows(
       summaries,
       customers,
-      historyAll,
+      history,
       pageFilters.npsPeriod,
       pageFilters.safra,
+      kpiOfficialBounds,
     ),
     customers,
   );
-  const appNps = computeNpsByApp(customers, { npsPeriod: pageFilters.npsPeriod });
+  const appNps = computeNpsByApp(customers, {
+    npsPeriod: pageFilters.npsPeriod,
+    history,
+    officialBounds: kpiOfficialBounds,
+  });
   const carteiraAudit = computeCarteiraAudit(customersAll);
 
   root.innerHTML = `<div class="safras-page">
     ${renderPageHeader()}
     ${renderDataSourceNotice('safras-cobertura', { appPharusPending: appUnavailable })}
     ${renderFilters(customersAll)}
-    ${renderKpiGrid(kpis, audit, pageFilters.npsPeriod, appUnavailable)}
+    ${renderKpiGrid(kpis, audit, pageFilters.npsPeriod, appUnavailable, measurementKpiOfficial, measurementRecorte)}
     ${renderAppNpsSection(appNps, appUnavailable, pageFilters.npsPeriod)}
 
     <div class="safras-section-card">
@@ -683,8 +753,15 @@ export function renderSafrasCobertura(root) {
     </div>
 
     <div class="safras-charts-row">
-      <div class="chart-card"><h3 class="safras-section-card__title">% que já respondeu por safra</h3><canvas id="chart-safra-coverage" height="220"></canvas></div>
-      <div class="chart-card"><h3 class="safras-section-card__title">NPS por safra</h3><p class="note-muted">Mesmo helper do NPS Histórico (entry_date BASE0 · demais campos BASE QV).</p><canvas id="chart-safra-nps" height="220"></canvas></div>
+      <div class="chart-card">
+        <h3 class="safras-section-card__title">% que já respondeu por safra</h3>
+        <div class="chart-wrap safras-chart-wrap"><canvas id="chart-safra-coverage"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3 class="safras-section-card__title">NPS por medição</h3>
+        <p class="note-muted">${measurementRecorte ? 'Recorte filtrado — subconjunto de clientes do recorte atual.' : 'Mesma série oficial utilizada no NPS Histórico.'}</p>
+        <div class="chart-wrap safras-chart-wrap"><canvas id="chart-measurement-nps"></canvas></div>
+      </div>
     </div>
 
     <div class="safras-section-card">
@@ -702,115 +779,39 @@ export function renderSafrasCobertura(root) {
   </div>`;
 
   bindSafrasCobertura(root, customersAll, historyAll, customers, appUnavailable);
-  bindCharts(coverageRows, cohortSummaries, pageFilters.safra);
+  bindCharts(coverageRows, measurementSeries);
 }
 
-function bindCharts(coverageRows, cohortSummaries, safraFilter) {
+function bindCharts(coverageRows, measurementSeries) {
+  const ChartRef = typeof window !== 'undefined' ? window.Chart : null;
+  if (!ChartRef) return;
+
   const rows = (coverageRows ?? [])
-    .filter((s) => s.safra_trimestre !== 'Não informado' && (!safraFilter || s.safra_trimestre === safraFilter))
+    .filter((s) => s.safra_trimestre !== 'Não informado')
     .sort((a, b) => sortSafraLabel(a.safra_trimestre, b.safra_trimestre));
   const labels = rows.map((r) => r.safra_trimestre);
   const cov = document.getElementById('chart-safra-coverage');
-  const nps = document.getElementById('chart-safra-nps');
-  if (cov && typeof Chart !== 'undefined') {
-    chartInstances.push(
-      new Chart(cov, {
-        type: 'bar',
-        data: {
-          labels,
-          datasets: [
-            {
-              label: '% responderam',
-              data: rows.map((r) => r.pct_que_ja_responderam),
-              backgroundColor: '#e85d3a',
-              borderRadius: 4,
-            },
-          ],
-        },
-        options: {
-          plugins: { legend: { display: false } },
-          scales: { y: { max: 100, ticks: { callback: (v) => `${v}%` } } },
-        },
-      }),
-    );
-  }
-  if (nps && typeof Chart !== 'undefined') {
-    const cohortRows = (cohortSummaries ?? [])
-      .filter((r) => r.entry_cohort && (!safraFilter || r.entry_cohort === safraFilter))
-      .sort((a, b) => cohortSort(a.entry_cohort, b.entry_cohort));
-    const cohortLabels = cohortRows.map((r) => r.entry_cohort);
-    const npsPlotted = cohortRows.map((r) => r.nps).filter((v) => v != null && !Number.isNaN(v));
-    const yMin = npsPlotted.length && Math.min(...npsPlotted) < 0 ? -100 : 0;
-    chartInstances.push(
-      new Chart(nps, {
-        type: 'bar',
-        data: {
-          labels: cohortLabels,
-          datasets: [
-            {
-              label: 'NPS',
-              data: cohortRows.map((r) => r.nps),
-              backgroundColor: '#c44a2a',
-              borderRadius: 4,
-            },
-          ],
-        },
-        options: {
-          layout: { padding: { top: 18 } },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                title(items) {
-                  const i = items[0]?.dataIndex;
-                  const row = cohortRows[i];
-                  return row ? `Safra ${row.entry_cohort}` : '';
-                },
-                label(ctx) {
-                  const row = cohortRows[ctx.dataIndex];
-                  return row?.nps != null ? `NPS: ${Number(row.nps).toFixed(1)}` : 'NPS: —';
-                },
-                afterBody(items) {
-                  const i = items[0]?.dataIndex;
-                  const row = cohortRows[i];
-                  if (!row) return [];
-                  return [
-                    `n respostas: ${row.nps_responses ?? '—'}`,
-                    `Promotores: ${row.promoters ?? '—'}`,
-                    `Neutros: ${row.neutrals ?? '—'}`,
-                    `Detratores: ${row.detractors ?? '—'}`,
-                    `Nota média: ${row.average_score != null ? row.average_score.toFixed(1) : '—'}`,
-                  ];
-                },
-              },
-            },
-            datalabels: false,
-          },
-          scales: { y: { min: yMin, max: 100 } },
-        },
-        plugins: [
-          {
-            id: 'safrasNpsBarLabels',
-            afterDatasetsDraw(chart) {
-              const { ctx } = chart;
-              const meta = chart.getDatasetMeta(0);
-              ctx.save();
-              ctx.fillStyle = 'rgba(30, 41, 59, 0.85)';
-              ctx.font = '11px system-ui, sans-serif';
-              ctx.textAlign = 'center';
-              meta.data.forEach((bar, i) => {
-                const row = cohortRows[i];
-                if (row?.nps == null) return;
-                const y = bar.y - 6;
-                ctx.fillText(Number(row.nps).toFixed(1), bar.x, y);
-              });
-              ctx.restore();
-            },
-          },
-        ],
-      }),
-    );
-  }
+  const meas = document.getElementById('chart-measurement-nps');
+  const series = measurementSeries ?? [];
+
+  mountVerticalBarChart({
+    ChartRef,
+    canvas: cov,
+    labels,
+    values: rows.map((r) => r.pct_que_ja_responderam),
+    chartInstances,
+    formatKind: 'pct',
+    yMax: 100,
+    yTickFormat: (v) => `${v}%`,
+    barColor: '#e85d3a',
+  });
+
+  mountMeasurementNpsLineChart({
+    ChartRef,
+    canvas: meas,
+    series,
+    chartInstances,
+  });
 }
 
 function exportExplorerCsv(customers, appUnavailable) {

@@ -1,12 +1,11 @@
 import { cycleSortKey } from '../../../lib/analytics/nps-cycle-canonical.mjs';
+import { aggregateMeasurementsFromConsolidatedIndex } from '../../../lib/analytics/nps-measurements-consolidated.mjs';
+import { aggregateMeasurementsFromBaseQvIndex } from '../../../lib/analytics/nps-measurements-baseqv.mjs';
 import {
-  aggregateMeasurementsFromConsolidatedIndex,
-  mapConsolidatedMeasurementsToChart,
-} from '../../../lib/analytics/nps-measurements-consolidated.mjs';
-import {
-  aggregateMeasurementsFromBaseQvIndex,
-  buildNpsMeasurementsBaseQv,
-} from '../../../lib/analytics/nps-measurements-baseqv.mjs';
+  buildCanonicalCurrentCycleNpsPoint,
+  isAuditFullT3MeasurementRow,
+} from './canonical-current-cycle-nps.mjs';
+import { canonicalizeNpsCycle } from '../utils/nps-cycle-labels.mjs';
 import {
   hasExplicitHistorico2Filters,
   clientDisplayName,
@@ -61,47 +60,64 @@ function clientNameKeysForHistoricoFilter(filteredClients) {
   return keys.size ? keys : null;
 }
 
-/** Atualiza só o ciclo corrente com runtime BASE QV (paridade Executivo). */
+/** Substitui o ciclo corrente pelo kernel Executivo (283/61,5), nunca 408/63,7 audit-only. */
 function applyRuntimeCurrentCycle(series, {
   consolidatedDoc,
-  baseQvDoc,
   responses,
   cycles,
-  historico2Doc,
+  cycleSummaryTemplate,
   filteredClients,
   clientFilters,
 }) {
   const current = consolidatedDoc?.meta?.current_cycle_label;
-  if (!current || !baseQvDoc?.analytical_cycles_config?.length || !responses?.length) {
+  if (!current) {
     return series;
   }
 
+  if (!responses?.length) {
+    const snap = consolidatedDoc?.meta?.canonical_current_cycle;
+    if (!snap) return series;
+    const point = {
+      measurement: current,
+      responses: snap.responses,
+      distinct_clients: snap.unique_clients ?? snap.responses,
+      promoters: snap.promoters,
+      neutrals: snap.neutrals,
+      detractors: snap.detractors,
+      nps: snap.nps,
+      average_score: snap.average_score ?? null,
+      source: 'BASE_QV',
+      source_label: 'Ciclo analítico PHARUS',
+      analytical_cycle: snap.analytical_cycle ?? null,
+      source_window: snap.source_window ?? null,
+      universe: snap.universe ?? null,
+      is_canonical_current: true,
+    };
+    const idx = series.findIndex((s) => s.measurement === current);
+    if (idx >= 0) {
+      const next = [...series];
+      next[idx] = point;
+      return next;
+    }
+    return [...series, point].sort(
+      (a, b) => cycleSortKey(a.measurement) - cycleSortKey(b.measurement),
+    );
+  }
+
   const explicit = hasExplicitHistorico2Filters(clientFilters ?? {});
-  const clientIds = explicit
-    ? new Set((filteredClients ?? []).map((c) => c.client_id).filter(Boolean))
-    : null;
+  if (explicit) {
+    return series;
+  }
 
-  const built = buildNpsMeasurementsBaseQv({
+  const cycleDef = resolveSourceCycleDefForMeasurement(cycles, current);
+  const point = buildCanonicalCurrentCycleNpsPoint({
     responses,
-    sourceCycles: sourceCyclesFromStore(cycles),
-    clientsMap: clientsMapFromHistorico2(historico2Doc),
-    analyticalConfig: baseQvDoc.analytical_cycles_config,
-    clientIdsFilter: clientIds?.size ? clientIds : null,
+    cycles,
+    cycleDef,
+    cycleSummaryTemplate,
+    measurementLabel: current,
   });
-  const currentRow = built.measurements.find((m) => m.label === current);
-  if (!currentRow) return series;
-
-  const point = {
-    measurement: current,
-    responses: currentRow.deduped_responses ?? currentRow.valid_responses,
-    distinct_clients: currentRow.unique_clients ?? currentRow.valid_responses,
-    promoters: currentRow.promoters,
-    neutrals: currentRow.neutrals,
-    detractors: currentRow.detractors,
-    nps: currentRow.nps,
-    source: 'BASE_QV',
-    source_label: 'BASE QV',
-  };
+  if (!point) return series;
 
   const idx = series.findIndex((s) => s.measurement === current);
   if (idx >= 0) {
@@ -114,6 +130,52 @@ function applyRuntimeCurrentCycle(series, {
   );
 }
 
+function resolveSourceCycleDefForMeasurement(cycles, measurementLabel) {
+  for (const c of cycles ?? []) {
+    if (c.type === 'source_cycle' && canonicalizeNpsCycle(c.cycle_code) === measurementLabel) {
+      return c;
+    }
+  }
+  return (cycles ?? []).find((c) => c.type === 'source_cycle') ?? null;
+}
+
+function mapConsolidatedMeasurementsToOperationalChart(measurements, currentLabel) {
+  return (measurements ?? [])
+    .filter((m) => {
+      const label = m.cycle ?? m.label;
+      if (label !== currentLabel) return true;
+      return !isAuditFullT3MeasurementRow(m);
+    })
+    .map((m) => {
+      const label = m.cycle ?? m.label;
+      const auditOnly = label === currentLabel && isAuditFullT3MeasurementRow(m);
+      return {
+        measurement: label,
+        responses: m.responses ?? m.valid_responses ?? 0,
+        distinct_clients: m.unique_clients ?? 0,
+        promoters: m.promoters ?? 0,
+        neutrals: m.neutrals ?? 0,
+        detractors: m.detractors ?? 0,
+        nps: m.nps ?? null,
+        average_score: m.average_score ?? null,
+        source: m.source ?? null,
+        source_label: auditOnly
+          ? 'Janela T3 completa BASE QV'
+          : m.source_label ?? (m.source === 'BASE_QV' ? 'BASE QV' : 'Histórico oficial'),
+        operational_role: m.operational_role ?? null,
+        universe: m.universe ?? null,
+      };
+    });
+}
+
+/**
+ * Série oficial NPS por medição — canônica para NPS Histórico e Safras & Cobertura.
+ * @param {object} opts — mesmo contrato de buildMeasurementChartSeriesForPage
+ */
+export function getCanonicalMeasurementSeries(opts) {
+  return buildMeasurementChartSeriesForPage(opts);
+}
+
 export function buildMeasurementChartSeriesForPage({
   consolidatedDoc,
   baseQvDoc,
@@ -122,12 +184,15 @@ export function buildMeasurementChartSeriesForPage({
   historico2Doc,
   filteredClients,
   clientFilters,
+  forceClientScope = false,
+  cycleSummaryTemplate = null,
 }) {
   if (!consolidatedDoc?.measurements?.length) {
     return [];
   }
 
-  const explicit = hasExplicitHistorico2Filters(clientFilters ?? {});
+  const explicit =
+    hasExplicitHistorico2Filters(clientFilters ?? {}) || Boolean(forceClientScope);
   const filters = clientFilters ?? {};
 
   let series;
@@ -157,6 +222,7 @@ export function buildMeasurementChartSeriesForPage({
       neutrals: row.neutrals,
       detractors: row.detractors,
       nps: row.nps,
+      average_score: row.average_score ?? null,
       source: row.source,
       source_label: row.source_label,
     }));
@@ -184,13 +250,16 @@ export function buildMeasurementChartSeriesForPage({
       }
     }
   } else {
-    series = mapConsolidatedMeasurementsToChart(consolidatedDoc.measurements);
+    const currentLabel = consolidatedDoc.meta?.current_cycle_label;
+    series = mapConsolidatedMeasurementsToOperationalChart(
+      consolidatedDoc.measurements,
+      currentLabel,
+    );
     series = applyRuntimeCurrentCycle(series, {
       consolidatedDoc,
-      baseQvDoc,
       responses,
       cycles,
-      historico2Doc,
+      cycleSummaryTemplate,
       filteredClients,
       clientFilters,
     });
@@ -198,3 +267,5 @@ export function buildMeasurementChartSeriesForPage({
 
   return series;
 }
+
+export { buildCanonicalCurrentCycleNpsPoint, canonicalCurrentCycleKpiFromPoint } from './canonical-current-cycle-nps.mjs';

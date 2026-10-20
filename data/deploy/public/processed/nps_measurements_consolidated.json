@@ -1,14 +1,51 @@
 {
   "meta": {
-    "generated_at": "2026-10-19T23:01:56.414Z",
-    "dataset_version": "nps-measurements-consolidated-3c71903c95b9",
-    "build_commit": "3c71903c95b90a0a1584508bc89fd5c92ae67e98",
+    "generated_at": "2026-10-20T19:46:37.350Z",
+    "dataset_version": "nps-measurements-consolidated-46e9ec44c2a7",
+    "build_commit": "46e9ec44c2a7eb73efb288ddb2107082a75cb8f3",
     "source_rule": "Ciclos fechados: nps_historico (respostas + validação medicoes). Ciclo atual: BASE QV (kernel Executivo). Sem somar a mesma medição nas duas fontes.",
     "measurements_since": "2025-Q2",
     "current_cycle_label": "2026-Q3",
     "historico_respostas_rows": 1067,
     "historico_medicoes_rows": 6,
-    "base_qv_dataset_version": "nps-measurements-baseqv-3c71903c95b9"
+    "base_qv_dataset_version": "nps-measurements-baseqv-46e9ec44c2a7",
+    "canonical_current_cycle": {
+      "measurement": "2026-Q3",
+      "responses": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933,
+      "average_score": 8.692579505300353,
+      "analytical_cycle": "NPS-2026-SET-PHARUS",
+      "source_window": "official_source_cycle",
+      "universe": "source_window_geral_dedupe_latest_per_client"
+    },
+    "audit": {
+      "full_t3_base_qv_window": {
+        "cycle": "2026-Q3",
+        "label": "2026-Q3",
+        "cycle_code": "NPS-2026-SET-PHARUS",
+        "start_at": "2026-09-15T03:00:00+00:00",
+        "end_at": "2026-10-16T02:59:59.999Z",
+        "cycle_type": "source_cycle",
+        "aggregation": "official_source_window",
+        "raw_responses": 418,
+        "valid_responses": 408,
+        "unique_clients": 408,
+        "deduped_responses": 408,
+        "promoters": 299,
+        "neutrals": 70,
+        "detractors": 39,
+        "nps": 63.725490196078425,
+        "average_score": 8.757352941176471,
+        "responses": 408,
+        "operational_role": "audit_full_t3",
+        "ui_label": "Janela T3 completa BASE QV",
+        "universe": "full_measurement_label_base_qv",
+        "is_canonical_current": false
+      }
+    }
   },
   "measurements": [
     {
@@ -105,24 +142,30 @@
       "cycle": "2026-Q3",
       "label": "2026-Q3",
       "source": "BASE_QV",
-      "source_label": "BASE QV",
+      "source_label": "Ciclo analítico PHARUS",
       "source_table": "BASE_QV.nps_responses",
       "cycle_code": "NPS-2026-SET-PHARUS",
-      "aggregation": "official_source_window",
-      "raw_responses": 418,
-      "valid_responses": 408,
-      "unique_clients": 408,
-      "responses": 408,
-      "promoters": 299,
-      "neutrals": 70,
-      "detractors": 39,
-      "nps": 63.725490196078425,
-      "average_score": 8.757352941176471,
+      "aggregation": "official_source_cycle",
+      "raw_responses": null,
+      "valid_responses": 283,
+      "unique_clients": 283,
+      "responses": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933,
+      "average_score": 8.692579505300353,
       "historico_medicoes_skipped": {
         "respostas": 282,
         "nps": "59.6",
         "reason": "precedence_current_cycle_base_qv"
-      }
+      },
+      "cycle_type": "source_cycle",
+      "deduped_responses": 283,
+      "operational_role": "canonical_current",
+      "analytical_cycle": "NPS-2026-SET-PHARUS",
+      "source_window": "official_source_cycle",
+      "universe": "source_window_geral_dedupe_latest_per_client"
     }
   ],
   "response_index": [

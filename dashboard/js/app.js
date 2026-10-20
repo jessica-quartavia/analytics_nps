@@ -34,19 +34,6 @@ import {
 } from './filters/global-filters.js';
 import { renderExecutivo, closeDiagnosisDrawer } from './pages/executivo.js';
 import { renderMovimento, closeDrawer } from './pages/movimento.js';
-import { renderEps, closeEpDrawer } from './pages/eps.js';
-import { renderVozDoCliente, closeVocDrawer } from './pages/voz-do-cliente.js';
-import { renderDrivers, closeDriverDrawer } from './pages/drivers.js';
-import {
-  renderPlanoDeAcao,
-  closeActionDrawer,
-  openActionPlanFromHashParams,
-} from './pages/plano-de-acao.js';
-import { renderJornadaPerfil } from './pages/jornada-perfil.js';
-import { renderPrevisaoNpsStub } from './pages/previsao-nps-stub.js';
-import { renderSafrasCobertura, closeSafrasDrawer } from './pages/safras-cobertura.js';
-import { renderSistemaDocumentacao } from './pages/sistema-documentacao.js';
-import { renderSistemaLogs } from './pages/sistema-logs.js';
 import { beginFilterBindings, beginPageBindings } from './utils/page-bindings.js';
 import { escapeHtml, escapeAttr } from './utils/escape-html.js';
 import { formatDate } from './utils/format.js';
@@ -90,94 +77,142 @@ function showDashboardToast(message, { variant = 'neutral' } = {}) {
   refreshToastTimer = setTimeout(() => el.classList.remove('is-visible'), 5000);
 }
 
-const ROUTES = {
-  executivo: { title: 'Executivo', topbar: 'Visão executiva', render: renderExecutivo },
-  movimento: { title: 'Movimento', topbar: 'Movimento', render: renderMovimento },
-  eps: { title: 'Eng. Patrimoniais', topbar: 'Engenheiros Patrimoniais', render: renderEps },
+const STATIC_ROUTE_META = {
+  executivo: { title: 'Executivo', topbar: 'Visão executiva' },
+  movimento: { title: 'Movimento', topbar: 'Movimento' },
+};
+
+/** Rotas carregadas sob demanda — falha de import/render não derruba o boot do SPA. */
+const LAZY_ROUTES = {
+  'historico-nps': {
+    title: 'Histórico NPS',
+    topbar: 'Histórico NPS',
+    loadingLabel: 'Histórico NPS',
+    import: () => import('./pages/historico-nps.js'),
+    render: (mod, root, ctx) => mod.renderHistoricoNps(root, ctx),
+    close: (mod) => mod.closeHistoricoDrawer?.(),
+  },
+  'nps-historico': {
+    title: 'NPS Histórico',
+    topbar: 'NPS Histórico',
+    loadingLabel: 'NPS Histórico',
+    import: () => import('./pages/nps-historico.js'),
+    render: (mod, root) => mod.renderHistorico2(root),
+    close: (mod) => mod.closeHistorico2Drawer?.(),
+  },
+  eps: {
+    title: 'Eng. Patrimoniais',
+    topbar: 'Engenheiros Patrimoniais',
+    loadingLabel: 'Eng. Patrimoniais',
+    import: () => import('./pages/eps.js'),
+    render: (mod, root, ctx) => mod.renderEps(root, ctx),
+    close: (mod) => mod.closeEpDrawer?.(),
+  },
   'voz-do-cliente': {
     title: 'Voz do Cliente',
     topbar: 'Voz do Cliente',
-    render: renderVozDoCliente,
+    loadingLabel: 'Voz do Cliente',
+    import: () => import('./pages/voz-do-cliente.js'),
+    render: (mod, root, ctx) => mod.renderVozDoCliente(root, ctx),
+    close: (mod) => mod.closeVocDrawer?.(),
   },
   'jornada-perfil': {
     title: 'Jornada & Perfil',
     topbar: 'Jornada & Perfil',
-    render: renderJornadaPerfil,
+    loadingLabel: 'Jornada & Perfil',
+    import: () => import('./pages/jornada-perfil.js'),
+    render: (mod, root, ctx) => mod.renderJornadaPerfil(root, ctx),
+    close: () => {},
   },
   'safras-cobertura': {
     title: 'Safras & Cobertura',
     topbar: 'Safras & Cobertura',
-    render: renderSafrasCobertura,
+    loadingLabel: 'Safras & Cobertura',
+    import: () => import('./pages/safras-cobertura.js'),
+    render: (mod, root, ctx) => mod.renderSafrasCobertura(root, ctx),
+    close: (mod) => mod.closeSafrasDrawer?.(),
   },
-  drivers: { title: 'Drivers', topbar: 'Drivers do NPS', render: renderDrivers },
+  drivers: {
+    title: 'Drivers',
+    topbar: 'Drivers do NPS',
+    loadingLabel: 'Drivers',
+    import: () => import('./pages/drivers.js'),
+    render: (mod, root, ctx) => mod.renderDrivers(root, ctx),
+    close: (mod) => mod.closeDriverDrawer?.(),
+  },
   'plano-de-acao': {
     title: 'Plano de Ação',
     topbar: 'Plano de Ação',
-    render: renderPlanoDeAcao,
+    loadingLabel: 'Plano de Ação',
+    import: () => import('./pages/plano-de-acao.js'),
+    render: (mod, root, ctx) => mod.renderPlanoDeAcao(root, ctx),
+    close: (mod) => mod.closeActionDrawer?.(),
   },
   'previsao-nps': {
     title: 'Projeção NPS',
     topbar: 'Projeção NPS',
-    render: renderPrevisaoNpsStub,
+    loadingLabel: 'Projeção NPS',
+    import: () => import('./pages/previsao-nps-stub.js'),
+    render: (mod, root, ctx) => mod.renderPrevisaoNpsStub(root, ctx),
+    close: () => {},
   },
   'sistema/documentacao': {
     title: 'Documentação',
     topbar: 'Sistema · Documentação',
-    render: renderSistemaDocumentacao,
+    loadingLabel: 'Documentação',
+    import: () => import('./pages/sistema-documentacao.js'),
+    render: (mod, root) => mod.renderSistemaDocumentacao(root),
+    close: () => {},
   },
   'sistema/logs': {
     title: 'Logs',
     topbar: 'Sistema · Logs',
-    render: renderSistemaLogs,
+    loadingLabel: 'Logs',
+    import: () => import('./pages/sistema-logs.js'),
+    render: (mod, root, ctx) => mod.renderSistemaLogs(root, ctx),
+    close: () => {},
   },
 };
 
-const LAZY_ROUTE_META = {
-  'historico-nps': { title: 'Histórico NPS', topbar: 'Histórico NPS' },
-  'nps-historico': { title: 'NPS Histórico', topbar: 'NPS Histórico' },
-  'historico-2': { title: 'NPS Histórico', topbar: 'NPS Histórico' },
-};
+/** @type {Map<string, Promise<object>|object>} */
+const pageModuleCache = new Map();
 
-/** @type {import('./pages/historico-nps.js') | null} */
-let historicoNpsModule = null;
+function invalidatePageModule(route) {
+  pageModuleCache.delete(route);
+}
 
-async function ensureHistoricoNpsModule() {
-  if (!historicoNpsModule) {
-    historicoNpsModule = await import('./pages/historico-nps.js');
+async function loadPageModule(route) {
+  const spec = LAZY_ROUTES[route];
+  if (!spec) throw new Error(`Rota lazy desconhecida: ${route}`);
+  const cached = pageModuleCache.get(route);
+  if (cached) {
+    return cached instanceof Promise ? cached : Promise.resolve(cached);
   }
-  return historicoNpsModule;
+  const promise = spec.import().then((mod) => {
+    pageModuleCache.set(route, mod);
+    return mod;
+  }).catch((err) => {
+    pageModuleCache.delete(route);
+    console.error(`[lazy-import] ${route}`, err);
+    throw err;
+  });
+  pageModuleCache.set(route, promise);
+  return promise;
 }
 
-function closeHistoricoDrawer() {
-  historicoNpsModule?.closeHistoricoDrawer?.();
-}
-
-/** @type {import('./pages/nps-historico.js') | null} */
-let historico2Module = null;
-
-async function ensureHistorico2Module() {
-  if (!historico2Module) {
-    const moduleUrl = new URL('./pages/nps-historico.js', import.meta.url).href;
-    try {
-      historico2Module = await import('./pages/nps-historico.js');
-    } catch (err) {
-      console.error('[NPS Histórico import failed]', { moduleUrl, error: err });
-      throw err;
-    }
+function closeLazyRouteDrawers() {
+  for (const [route, mod] of pageModuleCache.entries()) {
+    if (mod instanceof Promise) continue;
+    LAZY_ROUTES[route]?.close?.(mod);
   }
-  return historico2Module;
-}
-
-function closeHistorico2Drawer() {
-  historico2Module?.closeHistorico2Drawer?.();
 }
 
 function routeMeta(route) {
-  return ROUTES[route] ?? LAZY_ROUTE_META[route] ?? ROUTES.executivo;
+  return LAZY_ROUTES[route] ?? STATIC_ROUTE_META[route] ?? STATIC_ROUTE_META.executivo;
 }
 
 function isKnownRoute(routeKey) {
-  return Boolean(ROUTES[routeKey] || LAZY_ROUTE_META[routeKey]);
+  return Boolean(STATIC_ROUTE_META[routeKey] || LAZY_ROUTES[routeKey] || routeKey === 'historico-2');
 }
 
 function parseHashRoute() {
@@ -218,9 +253,11 @@ function applyHashQueryToFilters() {
     });
   }
   if (route === 'plano-de-acao') {
-    openActionPlanFromHashParams(params);
     const cycle = params.get('cycle');
     if (cycle) setFilter('cycleCode', cycle);
+    void loadPageModule('plano-de-acao')
+      .then((mod) => mod.openActionPlanFromHashParams?.(params))
+      .catch((err) => console.error('[plano-de-acao] hash deep-link', err));
   }
 }
 
@@ -485,36 +522,31 @@ function renderFiltersBar() {
 
 function renderPageError(container, route, err) {
   console.error(`[route-render] ${route}`, err);
+  if (err?.stack) console.error(err.stack);
   container.innerHTML = `<div class="gd-status gd-status--error" role="alert">
     <p><strong>Não foi possível carregar esta página.</strong></p>
     <p class="note-muted">${escapeHtml(err?.message ?? String(err))}</p>
     <p class="note-muted">Veja o Console do navegador para o stack trace.</p>
     <button type="button" class="btn btn--secondary" id="route-retry-btn">Tentar novamente</button>
   </div>`;
-  container.querySelector('#route-retry-btn')?.addEventListener('click', () => renderPage());
+  container.querySelector('#route-retry-btn')?.addEventListener('click', () => {
+    invalidatePageModule(route);
+    renderPage();
+  });
 }
 
-async function renderHistoricoNpsLazy(container, { signal } = {}) {
-  container.innerHTML =
-    '<div class="gd-status" role="status"><p>Carregando Histórico NPS…</p></div>';
+async function renderLazyRoute(route, container, { signal } = {}) {
+  const spec = LAZY_ROUTES[route];
+  const label = spec.loadingLabel ?? spec.title ?? route;
+  container.innerHTML = `<div class="gd-status" role="status"><p>Carregando ${escapeHtml(label)}…</p></div>`;
   try {
-    const mod = await ensureHistoricoNpsModule();
+    const mod = await loadPageModule(route);
     if (signal?.aborted) return;
-    mod.renderHistoricoNps(container, { signal });
+    await Promise.resolve(spec.render(mod, container, { signal }));
   } catch (err) {
-    renderPageError(container, 'historico-nps', err);
-  }
-}
-
-async function renderHistorico2Lazy(container, { signal } = {}) {
-  container.innerHTML =
-    '<div class="gd-status" role="status"><p>Carregando NPS Histórico…</p></div>';
-  try {
-    const mod = await ensureHistorico2Module();
     if (signal?.aborted) return;
-    mod.renderHistorico2(container);
-  } catch (err) {
-    renderPageError(container, 'historico-2', err);
+    invalidatePageModule(route);
+    renderPageError(container, route, err);
   }
 }
 
@@ -529,13 +561,7 @@ async function renderPage() {
   document.title = `NPS · ${routeMeta(route).title}`;
   updateTopbar(route);
   closeDrawer();
-  closeSafrasDrawer();
-  closeHistoricoDrawer();
-  closeHistorico2Drawer();
-  closeEpDrawer();
-  closeVocDrawer();
-  closeDriverDrawer();
-  closeActionDrawer();
+  closeLazyRouteDrawers();
   closeDiagnosisDrawer();
   closeMethodologyDrawer();
   const content = document.getElementById('page-content');
@@ -543,19 +569,19 @@ async function renderPage() {
   const signal = beginPageBindings();
   mountFilterScrollWatch(signal);
   try {
-    if (route === 'historico-nps') {
-      await renderHistoricoNpsLazy(content, { signal });
+    if (LAZY_ROUTES[route]) {
+      await renderLazyRoute(route, content, { signal });
       return;
     }
-    if (route === 'nps-historico' || route === 'historico-2') {
-      await renderHistorico2Lazy(content, { signal });
+    if (route === 'executivo') {
+      renderExecutivo(content, { signal });
       return;
     }
-    if (route === 'sistema/logs') {
-      await renderSistemaLogs(content, { signal });
+    if (route === 'movimento') {
+      renderMovimento(content, { signal });
       return;
     }
-    ROUTES[route].render(content, { signal });
+    renderExecutivo(content, { signal });
   } catch (err) {
     renderPageError(content, route, err);
   }

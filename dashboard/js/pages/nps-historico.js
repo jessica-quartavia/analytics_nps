@@ -15,7 +15,7 @@ import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
 import { formatNps, formatDate, formatPct } from '../utils/format.js';
 import { historicoKpiCard } from './historico-nps-render.mjs';
 import { buildHistorico2ExecutiveKpis } from '../data/historico2-executive-kpis.mjs';
-import { buildMeasurementChartSeriesForPage } from '../data/nps-historico-measurements-view.mjs';
+import { getCanonicalMeasurementSeries } from '../data/nps-historico-measurements-view.mjs';
 import { helpTip } from '../ui/help.js';
 import {
   defaultHistorico2Filters,
@@ -39,6 +39,12 @@ import {
 } from '../data/historico2-view.mjs';
 import { renderHistorico2Pagination } from '../ui/historico2-pagination.mjs';
 import { exportFilteredCsv } from '../utils/export-filtered-csv.mjs';
+import { buildValueLabelPlugin } from '../ui/chart-value-labels.mjs';
+import {
+  mountMeasurementNpsLineChart,
+  mountMeasurementResponsesLineChart,
+  mountVerticalBarChart,
+} from '../ui/measurement-series-charts.mjs';
 
 const COLORS = {
   promoter: 'rgba(22, 101, 52, 0.85)',
@@ -56,6 +62,8 @@ let chartInstances = [];
 let pageFilters = defaultHistorico2Filters();
 let tablePage = 1;
 let epPage = 1;
+console.info('[NPS Histórico] módulo carregado');
+
 const EXPLORER_PAGE_SIZE = 20;
 const EP_PAGE_SIZE = 10;
 let sortKey = 'name';
@@ -275,32 +283,9 @@ function renderChartsSection() {
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">Clientes por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-clients"></canvas></div></article>
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">Nota média por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-avg"></canvas></div></article>
     <article class="card chart-card historico2-chart-card"><h2 class="section-title">P/N/D por safra</h2><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-pnd"></canvas></div></article>
+    <article class="card chart-card historico2-chart-card historico2-chart-card--wide"><h2 class="section-title">NPS por medição</h2><p class="note-muted historico2-chart-subtitle">Mesma série oficial utilizada em Safras & Cobertura (histórico fechado + ciclo analítico atual BASE QV).</p><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-measurement-nps"></canvas></div></article>
     <article class="card chart-card historico2-chart-card historico2-chart-card--wide"><h2 class="section-title">Respostas por medição</h2><p class="note-muted historico2-chart-subtitle">Quantidade de respostas NPS por medição, combinando o histórico oficial e os dados atuais da BASE QV.</p><div class="chart-wrap historico2-chart-wrap"><canvas id="h2-chart-responses"></canvas></div></article>
   </section>`;
-}
-
-/** Labels numéricos acima dos pontos (Chart.js plugin). */
-function chartPointValueLabelsPlugin(getValue) {
-  return {
-    id: 'h2PointValueLabels',
-    afterDatasetsDraw(chart) {
-      const { ctx } = chart;
-      const meta = chart.getDatasetMeta(0);
-      if (!meta?.data?.length) return;
-      ctx.save();
-      ctx.font = '11px system-ui, sans-serif';
-      ctx.fillStyle = 'rgba(51, 65, 85, 0.92)';
-      ctx.textAlign = 'center';
-      for (let i = 0; i < meta.data.length; i += 1) {
-        const pt = meta.data[i];
-        const raw = getValue(i, chart);
-        if (raw == null || Number.isNaN(raw)) continue;
-        const label = typeof raw === 'number' ? String(Math.round(raw)) : String(raw);
-        ctx.fillText(label, pt.x, pt.y - 10);
-      }
-      ctx.restore();
-    },
-  };
 }
 
 function renderDimensionTable(title, rows) {
@@ -473,7 +458,10 @@ function openDrawer(client) {
 }
 
 function bindCharts(viewModel, measurementSeries) {
-  if (!window.Chart) return;
+  if (!window.Chart) {
+    console.warn('[NPS Histórico] Chart.js indisponível — gráficos omitidos');
+    return;
+  }
   const rows = (viewModel.cohortSummaries ?? []).sort((a, b) => cohortSort(a.entry_cohort, b.entry_cohort));
   const labels = rows.map((r) => r.entry_cohort);
   const overall = viewModel.overallNps;
@@ -507,6 +495,7 @@ function bindCharts(viewModel, measurementSeries) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -535,11 +524,14 @@ function bindCharts(viewModel, measurementSeries) {
         },
       },
       scales: {
-        y: { min: yMin, max: 100 },
+        y: { min: yMin, max: 100, grace: '10%' },
       },
     },
   };
-  const npsPointLabels = chartPointValueLabelsPlugin((i) => rows[i]?.nps_responses ?? null);
+  const npsPointLabels = buildValueLabelPlugin({
+    getValue: (i) => rows[i]?.nps,
+    formatKind: 'nps',
+  });
   if (overall != null) {
     npsChartConfig.plugins = [
       npsPointLabels,
@@ -572,26 +564,14 @@ function bindCharts(viewModel, measurementSeries) {
   }
   mk('h2-chart-nps', npsChartConfig);
 
-  mk('h2-chart-clients', {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [{ data: rows.map((r) => r.clients), backgroundColor: COLORS.clientsBar }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label(ctx) {
-              return `Clientes com data de entrada: ${ctx.raw}`;
-            },
-          },
-        },
-      },
-    },
+  mountVerticalBarChart({
+    ChartRef: window.Chart,
+    canvas: document.getElementById('h2-chart-clients'),
+    labels,
+    values: rows.map((r) => r.clients),
+    chartInstances,
+    formatKind: 'count',
+    barColor: COLORS.clientsBar,
   });
 
   mk('h2-chart-pnd', {
@@ -641,64 +621,19 @@ function bindCharts(viewModel, measurementSeries) {
     },
   });
 
-  const mLabels = (measurementSeries ?? []).map((r) => r.measurement);
-  const mValues = (measurementSeries ?? []).map((r) => r.responses);
-  const respPointLabels = chartPointValueLabelsPlugin((i) => mValues[i] ?? null);
-  mk('h2-chart-responses', {
-    type: 'line',
-    data: {
-      labels: mLabels,
-      datasets: [
-        {
-          label: 'Respostas',
-          data: mValues,
-          borderColor: COLORS.responsesLine,
-          backgroundColor: COLORS.responsesFill,
-          tension: 0.3,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          fill: true,
-        },
-      ],
-    },
-    plugins: [respPointLabels],
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            title(items) {
-              const i = items[0]?.dataIndex;
-              const m = mLabels[i] ?? '';
-              return m ? `Medição ${m}` : '';
-            },
-            label(ctx) {
-              const row = measurementSeries[ctx.dataIndex];
-              if (!row) return '';
-              return [
-                `Respostas válidas: ${row.responses ?? '—'}`,
-                `Clientes únicos: ${row.distinct_clients ?? '—'}`,
-                `Promotores: ${row.promoters ?? 0}`,
-                `Neutros: ${row.neutrals ?? 0}`,
-                `Detratores: ${row.detractors ?? 0}`,
-                row.nps != null ? `NPS: ${formatNps(row.nps)}` : 'NPS: —',
-                row.source_label ? `Fonte: ${row.source_label}` : '',
-              ].filter(Boolean);
-            },
-          },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { precision: 0 },
-          grid: { color: 'rgba(148, 163, 184, 0.2)' },
-        },
-        x: { grid: { display: false } },
-      },
-    },
+  mountMeasurementNpsLineChart({
+    ChartRef: window.Chart,
+    canvas: document.getElementById('h2-chart-measurement-nps'),
+    series: measurementSeries,
+    chartInstances,
+  });
+
+  mountMeasurementResponsesLineChart({
+    ChartRef: window.Chart,
+    canvas: document.getElementById('h2-chart-responses'),
+    series: measurementSeries,
+    chartInstances,
+    colors: { line: COLORS.responsesLine, fill: COLORS.responsesFill },
   });
 }
 
@@ -843,23 +778,46 @@ function logNpsHistoricoDataset(doc) {
 export function renderHistorico2(container) {
   pageRoot = container;
   destroyCharts();
+  try {
+    renderHistorico2Body(container);
+  } catch (err) {
+    console.error('[NPS Histórico render]', err);
+    container.innerHTML = `<div class="gd-status gd-status--error" role="alert">
+      <p><strong>NPS Histórico — erro ao renderizar</strong></p>
+      <p class="note-muted">${escapeHtml(err?.message ?? String(err))}</p>
+      <pre class="historico2-error-stack">${escapeHtml(err?.stack ?? '')}</pre>
+    </div>`;
+  }
+}
+
+function renderHistorico2Body(container) {
   const doc = getHistorico2Doc();
+  console.info('[NPS Histórico] dataset', {
+    hasDoc: Boolean(doc),
+    clients: Array.isArray(doc?.clients) ? doc.clients.length : doc?.clients,
+    meta: doc?.meta?.dataset_version,
+  });
+  console.info('[NPS Histórico] antes render');
   if (!doc?.clients?.length) {
     container.innerHTML = `<div class="gd-status" role="status">
       <p><strong>NPS Histórico</strong></p>
-      <p class="note-muted">Dataset ainda não gerado. Execute <code>npm run generate:historico2</code> ou <code>npm run build</code>.</p>
+      <p class="note-muted">Dataset <code>historico2_clients_enriched.json</code> indisponível (404 ou vazio). Em dev: confira <code>data/deploy/public/processed/</code> ou rode <code>npm run generate:historico2</code> / <code>npm run build</code>.</p>
     </div>`;
     return;
   }
 
   const allClients = doc.clients;
   const filtered = filterHistorico2Clients(allClients, pageFilters);
-  const viewModel = buildHistorico2ViewModel(filtered);
   const enrichedDoc = getHistoricalNpsEnriched();
   const dataState = getDataState();
   const responses = dataState?.responses ?? [];
   const cycleCode = getFilters().cycleCode ?? getCycles()?.[0]?.cycle_code;
   const cycleDef = (getCycles() ?? []).find((c) => c.cycle_code === cycleCode) ?? null;
+  const officialBounds =
+    cycleDef?.type === 'source_cycle' && (cycleDef.starts_at || cycleDef.ends_at)
+      ? { starts_at: cycleDef.starts_at ?? null, ends_at: cycleDef.ends_at ?? null }
+      : null;
+  const viewModel = buildHistorico2ViewModel(filtered, { responses, officialBounds });
   const cycleSummaryTemplate = cycleCode ? getCycleSummary(cycleCode) : null;
   const officialState = cycleCode ? getCurrentOfficialNpsState(cycleCode) : { status: 'unavailable' };
   const liveOfficial =
@@ -882,7 +840,7 @@ export function renderHistorico2(container) {
   const measurementClientScope = hasExplicitHistorico2Filters(pageFilters)
     ? filtered
     : allClients;
-  const measurementSeries = buildMeasurementChartSeriesForPage({
+  const measurementSeries = getCanonicalMeasurementSeries({
     consolidatedDoc,
     baseQvDoc,
     responses,
@@ -890,6 +848,7 @@ export function renderHistorico2(container) {
     historico2Doc: doc,
     filteredClients: measurementClientScope,
     clientFilters: pageFilters,
+    cycleSummaryTemplate: cycleSummaryTemplate,
   });
   logNpsHistoricoDataset(doc);
 
@@ -911,6 +870,10 @@ export function renderHistorico2(container) {
   bindCharts(viewModel, measurementSeries);
   bindPage(allClients, filtered);
   mountStickyScroll();
+  console.info('[NPS Histórico] depois render', {
+    cohorts: viewModel.cohortSummaries?.length ?? 0,
+    filtered: filtered.length,
+  });
 }
 
 export function closeHistorico2Drawer() {

@@ -11,6 +11,16 @@ import {
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const SAFRAS = ['2025-Q1', '2025-Q2', '2025-Q3', '2025-Q4', '2026-Q1', '2026-Q2', '2026-Q3'];
+const SET = 'NPS-2026-SET-PHARUS';
+
+function officialBoundsFromRepo() {
+  const cycles = JSON.parse(readFileSync(join(ROOT, 'data/processed/cycles.json'), 'utf8'));
+  const cycleDef = cycles.find((c) => c.cycle_code === SET);
+  if (cycleDef?.type === 'source_cycle' && (cycleDef.starts_at || cycleDef.ends_at)) {
+    return { starts_at: cycleDef.starts_at ?? null, ends_at: cycleDef.ends_at ?? null };
+  }
+  return null;
+}
 
 function cohortMap(rows) {
   return new Map(rows.map((r) => [r.entry_cohort, r]));
@@ -20,8 +30,15 @@ test('NPS por safra: buildCohortSummaries idêntico em Histórico e Safras (kern
   const h2 = JSON.parse(
     readFileSync(join(ROOT, 'data/processed/historico2_clients_enriched.json'), 'utf8'),
   );
-  const historico = buildCohortSummaries(h2.clients, { chartsFrom2025: true });
-  const safras = buildSafrasCohortSummariesFromHistorico2Clients(h2.clients, { minYear: 2025 });
+  const responses = JSON.parse(readFileSync(join(ROOT, 'data/processed/responses.json'), 'utf8'));
+  const officialBounds = officialBoundsFromRepo();
+  const opts = { chartsFrom2025: true, responses, officialBounds };
+  const historico = buildCohortSummaries(h2.clients, opts);
+  const safras = buildSafrasCohortSummariesFromHistorico2Clients(h2.clients, {
+    minYear: 2025,
+    responses,
+    officialBounds,
+  });
   assert.equal(JSON.stringify(historico), JSON.stringify(safras));
 });
 
@@ -29,9 +46,17 @@ test('NPS por safra: P, N, D, n e nota média batem por safra (2025-Q1 … 2026-
   const h2 = JSON.parse(
     readFileSync(join(ROOT, 'data/processed/historico2_clients_enriched.json'), 'utf8'),
   );
-  const historico = cohortMap(buildCohortSummaries(h2.clients, { chartsFrom2025: true }));
+  const responses = JSON.parse(readFileSync(join(ROOT, 'data/processed/responses.json'), 'utf8'));
+  const officialBounds = officialBoundsFromRepo();
+  const historico = cohortMap(
+    buildCohortSummaries(h2.clients, { chartsFrom2025: true, responses, officialBounds }),
+  );
   const safras = cohortMap(
-    buildSafrasCohortSummariesFromHistorico2Clients(h2.clients, { minYear: 2025 }),
+    buildSafrasCohortSummariesFromHistorico2Clients(h2.clients, {
+      minYear: 2025,
+      responses,
+      officialBounds,
+    }),
   );
   for (const safra of SAFRAS) {
     const h = historico.get(safra);

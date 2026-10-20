@@ -34,7 +34,7 @@ describe('safras nps period', () => {
       },
     ];
     const enriched = enrichCustomersForNpsPeriod(customers, history, 'current');
-    const kpis = computeSafrasKpis(enriched, { npsPeriod: 'current' });
+    const kpis = computeSafrasKpis(enriched, { npsPeriod: 'current', history });
     assert.equal(kpis.answered, 1);
     assert.equal(kpis.nps, 100);
   });

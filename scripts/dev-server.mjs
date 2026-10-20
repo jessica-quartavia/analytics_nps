@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { upsertTrackingEntry } from '../lib/analytics/action-tracking.mjs';
 import './load-dotenv.mjs';
 import { tryHandleConsolidatedApi } from '../lib/server/http-api-router.mjs';
+import { resolvePublicDataset } from '../lib/deploy/dataset-resolve.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT) || 5173;
@@ -31,6 +32,9 @@ async function resolvePath(urlPath) {
     return join(ROOT, 'dashboard', 'index.html');
   }
   if (clean.startsWith('/data/')) {
+    const dataRel = clean.slice('/data/'.length);
+    const resolved = resolvePublicDataset(ROOT, dataRel);
+    if (resolved?.path) return resolved.path;
     return join(ROOT, clean.slice(1));
   }
   if (clean.startsWith('/lib/')) {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T23:01:31.900Z",
+  "generated_at": "2026-10-20T19:46:10.809Z",
   "pharus_project_ref": "qvtqufdivpbmubooawdm",
   "app_source": "core.personal_info",
   "app_table_column_mapping": {
@@ -46,7 +46,7 @@
       "ok": true,
       "error": null,
       "sample_count": 3,
-      "total_count": 530
+      "total_count": 532
     },
     {
       "schema": "core",
@@ -209,8 +209,8 @@
       "total_count": null
     }
   ],
-  "pharus_records": 530,
-  "app_records": 530,
+  "pharus_records": 532,
+  "app_records": 532,
   "base_clients": 3152,
   "base_with_cpf": 2334,
   "base_with_email": 3092,

@@ -3,8 +3,6 @@ import {
   getPreviousCycle,
   getPairedCycles,
   getCycles,
-  getCsatSummary,
-  hasCsatArtifacts,
   getExecutiveDiagnosis,
   hasExecutiveDiagnosis,
   getGlobalFilterContext,
@@ -19,7 +17,6 @@ import {
   formatDeltaPp,
   formatDate,
   formatDateTime,
-  formatCsatAverageWithScale,
   formatNpsMeanScore,
 } from '../utils/format.js';
 import { escapeHtml, escapeAttr } from '../utils/escape-html.js';
@@ -180,35 +177,6 @@ function compositionCard(label, count, pct, tone, widthPct) {
     </article>`;
 }
 
-function renderCsatComplementary(cycleCode) {
-  if (!hasCsatArtifacts()) return '';
-  const csat = getCsatSummary(cycleCode);
-  if (!csat || !csat.valid_responses) {
-    return `
-      <div class="section-head">
-        <h2 class="section-title">Satisfação complementar</h2>
-        <p class="section-subtitle" title="NPS mede recomendação; CSAT mede satisfação com a experiência avaliada.">Sem respostas CSAT mapeadas para este ciclo.</p>
-      </div>`;
-  }
-  return `
-    <div class="section-head">
-      <h2 class="section-title">Satisfação complementar</h2>
-      <p class="section-subtitle" title="NPS mede recomendação; CSAT mede satisfação com a experiência avaliada.">CSAT por ciclo — métrica separada do NPS (reuniões avaliadas, escala 0–5).</p>
-    </div>
-    <div class="metric-compact-grid metric-compact-grid--secondary">
-      <article class="metric-compact" title="NPS mede recomendação; CSAT mede satisfação com a experiência avaliada.">
-        <div class="metric-compact__label">CSAT médio</div>
-        <div class="metric-compact__value">${escapeHtml(formatCsatAverageWithScale(csat.average_score))}</div>
-        <div class="metric-compact__note">n = ${escapeHtml(String(csat.valid_responses))} respostas · ${escapeHtml(String(csat.distinct_clients ?? '—'))} clientes</div>
-      </article>
-      <article class="metric-compact" title="Satisfeitos: nota ≥ 4 (top-2 box, escala 0–5). Ver csat_summary / reconciliação legado.">
-        <div class="metric-compact__label">CSAT satisfeitos</div>
-        <div class="metric-compact__value">${escapeHtml(formatPct(csat.satisfied_pct, 1))}</div>
-        <div class="metric-compact__note">n = ${escapeHtml(String(csat.satisfied_responses ?? '—'))} satisfeitos / ${escapeHtml(String(csat.valid_responses))} respostas</div>
-      </article>
-    </div>`;
-}
-
 function renderComposition(currentSummary) {
   return `
     <div class="section-head">
@@ -220,23 +188,6 @@ function renderComposition(currentSummary) {
       ${compositionCard('Neutros', currentSummary?.passives ?? 0, currentSummary?.passive_pct, 'passive', currentSummary?.passive_pct ?? 0)}
       ${compositionCard('Detratores', currentSummary?.detractors ?? 0, currentSummary?.detractor_pct, 'detractor', currentSummary?.detractor_pct ?? 0)}
     </div>`;
-}
-
-function renderExecutiveReadingCard({ headline, highlights }) {
-  const bullets =
-    highlights.length > 0
-      ? highlights.map((t) => `<li>${escapeHtml(t)}</li>`).join('')
-      : '<li class="note-muted">Sem sinais adicionais para o recorte atual.</li>';
-  return `
-    <section class="exec-diagnosis card exec-reading exec-reading--compact" aria-labelledby="exec-diagnosis-title">
-      <h2 class="section-title section-title--flush" id="exec-diagnosis-title">Leitura executiva</h2>
-      <p class="exec-diagnosis__headline">${escapeHtml(headline)}</p>
-      <ul class="exec-diagnosis__bullets exec-diagnosis__bullets--compact">${bullets}</ul>
-      <div class="exec-reading__actions">
-        <button type="button" class="btn btn--ghost btn--sm exec-diagnosis__cta" id="btn-diagnosis-full">Ver diagnóstico completo →</button>
-        <button type="button" class="btn btn--ghost btn--sm" id="btn-diagnosis-explore">Explorar diagnóstico</button>
-      </div>
-    </section>`;
 }
 
 export function closeDiagnosisDrawer() {

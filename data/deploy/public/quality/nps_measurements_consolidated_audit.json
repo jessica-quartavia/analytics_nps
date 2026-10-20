@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-19T23:01:56.414Z",
-  "dataset_version": "nps-measurements-consolidated-3c71903c95b9",
-  "build_commit": "3c71903c95b90a0a1584508bc89fd5c92ae67e98",
+  "generated_at": "2026-10-20T19:46:37.350Z",
+  "dataset_version": "nps-measurements-consolidated-46e9ec44c2a7",
+  "build_commit": "46e9ec44c2a7eb73efb288ddb2107082a75cb8f3",
   "current_cycle_label": "2026-Q3",
   "measurement_table": [
     {
@@ -103,17 +103,16 @@
       "cycle": "2026-Q3",
       "source": "BASE_QV",
       "source_table": "BASE_QV.nps_responses",
-      "raw": 418,
-      "valid": 408,
-      "unique_clients": 408,
-      "P": 299,
-      "N": 70,
-      "D": 39,
-      "nps": 63.725490196078425,
+      "valid": 283,
+      "unique_clients": 283,
+      "P": 205,
+      "N": 47,
+      "D": 31,
+      "nps": 61.48409893992933,
       "base_qv_vs_historico_medicoes": {
         "historico_respostas": 282,
-        "base_qv_valid": 408,
-        "delta": 126
+        "base_qv_valid": 283,
+        "delta": 1
       }
     }
   ],

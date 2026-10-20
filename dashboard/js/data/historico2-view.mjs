@@ -155,12 +155,15 @@ function aggregateNpsScores(scores) {
   };
 }
 
-/** NPS por safra — kernel canônico (entry_date + entry_cohort + nps_score BASE QV). */
-export function buildCohortSummaries(clients, { chartsFrom2025 = true } = {}) {
+/** NPS por safra — kernel canônico (entry_date BASE0 + respostas BASE QV + aggregateNpsFromResponses). */
+export function buildCohortSummaries(
+  clients,
+  { chartsFrom2025 = true, responses = null, officialBounds = null } = {},
+) {
   const minYear = chartsFrom2025 ? 2025 : null;
   const rows = buildNpsByEntryCohort(
     (clients ?? []).filter((c) => c.entry_date && c.entry_cohort),
-    { minYear },
+    { minYear, responses, officialBounds },
   );
   return rows.map((r) => ({
     entry_cohort: r.safra,
@@ -218,7 +221,7 @@ function countByMethod(clients) {
 }
 
 /** KPIs + agregações derivadas do mesmo recorte filtrado. */
-export function buildHistorico2ViewModel(clients) {
+export function buildHistorico2ViewModel(clients, { responses = null, officialBounds = null } = {}) {
   const total = clients.length;
   const withEntry = clients.filter((c) => c.entry_date).length;
   const withoutEntry = total - withEntry;
@@ -243,7 +246,11 @@ export function buildHistorico2ViewModel(clients) {
       distinct_entry_cohorts_2025_plus: cohorts2025.size,
     },
     matchQuality: countByMethod(clients),
-    cohortSummaries: buildCohortSummaries(clients, { chartsFrom2025: true }),
+    cohortSummaries: buildCohortSummaries(clients, {
+      chartsFrom2025: true,
+      responses,
+      officialBounds,
+    }),
     programTable: buildDimensionTable(clients, 'program'),
     epTable: buildDimensionTable(clients, 'ep'),
     overallNps,

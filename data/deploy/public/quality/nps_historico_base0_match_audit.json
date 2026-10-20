@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-19T23:01:54.174Z",
-  "dataset_version": "nps-historico-3c71903c95b9",
-  "build_commit": "3c71903c95b90a0a1584508bc89fd5c92ae67e98",
+  "generated_at": "2026-10-20T19:46:34.862Z",
+  "dataset_version": "nps-historico-46e9ec44c2a7",
+  "build_commit": "46e9ec44c2a7eb73efb288ddb2107082a75cb8f3",
   "base_qv_total": 3152,
   "base_qv_distinct_ids": 3152,
   "base0_total": 3447,

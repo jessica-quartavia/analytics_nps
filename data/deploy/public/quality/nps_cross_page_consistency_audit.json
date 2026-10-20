@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T23:01:56.813Z",
+  "generated_at": "2026-10-20T19:46:37.897Z",
   "current_cycle": "NPS-2026-SET-PHARUS",
   "executive_current": {
     "valid_responses": 283,
@@ -220,191 +220,111 @@
       "cycle": "2026-Q3",
       "label": "2026-Q3",
       "source": "BASE_QV",
-      "source_label": "BASE QV",
+      "source_label": "Ciclo analítico PHARUS",
       "source_table": "BASE_QV.nps_responses",
       "cycle_code": "NPS-2026-SET-PHARUS",
-      "aggregation": "official_source_window",
-      "raw_responses": 418,
-      "valid_responses": 408,
-      "unique_clients": 408,
-      "responses": 408,
-      "promoters": 299,
-      "neutrals": 70,
-      "detractors": 39,
-      "nps": 63.725490196078425,
-      "average_score": 8.757352941176471,
+      "aggregation": "official_source_cycle",
+      "raw_responses": null,
+      "valid_responses": 283,
+      "unique_clients": 283,
+      "responses": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933,
+      "average_score": 8.692579505300353,
       "historico_medicoes_skipped": {
         "respostas": 282,
         "nps": "59.6",
         "reason": "precedence_current_cycle_base_qv"
-      }
+      },
+      "cycle_type": "source_cycle",
+      "deduped_responses": 283,
+      "operational_role": "canonical_current",
+      "analytical_cycle": "NPS-2026-SET-PHARUS",
+      "source_window": "official_source_cycle",
+      "universe": "source_window_geral_dedupe_latest_per_client"
     }
   },
   "safra_summary": {
     "cohort_rows_2025_plus": [
       {
-        "safra": "2025-Q1",
         "entry_cohort": "2025-Q1",
         "clients": 386,
-        "n": 21,
-        "nps_responses": 21,
-        "promoters": 18,
+        "nps_responses": 15,
+        "promoters": 13,
         "neutrals": 1,
-        "detractors": 2,
-        "nps": 76.19047619047619,
-        "average_score": 8.9
-      },
-      {
-        "safra": "2025-Q2",
-        "entry_cohort": "2025-Q2",
-        "clients": 425,
-        "n": 30,
-        "nps_responses": 30,
-        "promoters": 25,
-        "neutrals": 4,
         "detractors": 1,
         "nps": 80,
-        "average_score": 9.3
+        "average_score": 9,
+        "promoter_pct": 86.7,
+        "neutral_pct": 6.7,
+        "detractor_pct": 6.7
       },
       {
-        "safra": "2025-Q3",
+        "entry_cohort": "2025-Q2",
+        "clients": 425,
+        "nps_responses": 19,
+        "promoters": 17,
+        "neutrals": 2,
+        "detractors": 0,
+        "nps": 89.47368421052632,
+        "average_score": 9.6,
+        "promoter_pct": 89.5,
+        "neutral_pct": 10.5,
+        "detractor_pct": 0
+      },
+      {
         "entry_cohort": "2025-Q3",
         "clients": 286,
-        "n": 31,
-        "nps_responses": 31,
-        "promoters": 25,
-        "neutrals": 4,
+        "nps_responses": 20,
+        "promoters": 16,
+        "neutrals": 2,
         "detractors": 2,
-        "nps": 74.19354838709677,
-        "average_score": 9.1
-      },
-      {
-        "safra": "2025-Q4",
-        "entry_cohort": "2025-Q4",
-        "clients": 273,
-        "n": 47,
-        "nps_responses": 47,
-        "promoters": 31,
-        "neutrals": 12,
-        "detractors": 4,
-        "nps": 57.446808510638306,
-        "average_score": 8.7
-      },
-      {
-        "safra": "2026-Q1",
-        "entry_cohort": "2026-Q1",
-        "clients": 139,
-        "n": 44,
-        "nps_responses": 44,
-        "promoters": 30,
-        "neutrals": 8,
-        "detractors": 6,
-        "nps": 54.54545454545454,
-        "average_score": 8.5
-      },
-      {
-        "safra": "2026-Q2",
-        "entry_cohort": "2026-Q2",
-        "clients": 334,
-        "n": 123,
-        "nps_responses": 123,
-        "promoters": 86,
-        "neutrals": 16,
-        "detractors": 21,
-        "nps": 52.84552845528455,
-        "average_score": 8.5
-      },
-      {
-        "safra": "2026-Q3",
-        "entry_cohort": "2026-Q3",
-        "clients": 174,
-        "n": 39,
-        "nps_responses": 39,
-        "promoters": 30,
-        "neutrals": 7,
-        "detractors": 2,
-        "nps": 71.7948717948718,
-        "average_score": 9.2
-      }
-    ],
-    "safras_view_cohort_rows": [
-      {
-        "entry_cohort": "2025-Q1",
-        "clients": 386,
-        "nps_responses": 21,
-        "promoters": 18,
-        "neutrals": 1,
-        "detractors": 2,
-        "nps": 76.19047619047619,
+        "nps": 70,
         "average_score": 8.9,
-        "promoter_pct": 85.7,
-        "neutral_pct": 4.8,
-        "detractor_pct": 9.5
-      },
-      {
-        "entry_cohort": "2025-Q2",
-        "clients": 425,
-        "nps_responses": 30,
-        "promoters": 25,
-        "neutrals": 4,
-        "detractors": 1,
-        "nps": 80,
-        "average_score": 9.3,
-        "promoter_pct": 83.3,
-        "neutral_pct": 13.3,
-        "detractor_pct": 3.3
-      },
-      {
-        "entry_cohort": "2025-Q3",
-        "clients": 286,
-        "nps_responses": 31,
-        "promoters": 25,
-        "neutrals": 4,
-        "detractors": 2,
-        "nps": 74.19354838709677,
-        "average_score": 9.1,
-        "promoter_pct": 80.6,
-        "neutral_pct": 12.9,
-        "detractor_pct": 6.5
+        "promoter_pct": 80,
+        "neutral_pct": 10,
+        "detractor_pct": 10
       },
       {
         "entry_cohort": "2025-Q4",
         "clients": 273,
-        "nps_responses": 47,
-        "promoters": 31,
-        "neutrals": 12,
-        "detractors": 4,
-        "nps": 57.446808510638306,
-        "average_score": 8.7,
-        "promoter_pct": 66,
-        "neutral_pct": 25.5,
-        "detractor_pct": 8.5
+        "nps_responses": 22,
+        "promoters": 16,
+        "neutrals": 5,
+        "detractors": 1,
+        "nps": 68.18181818181817,
+        "average_score": 8.8,
+        "promoter_pct": 72.7,
+        "neutral_pct": 22.7,
+        "detractor_pct": 4.5
       },
       {
         "entry_cohort": "2026-Q1",
         "clients": 139,
-        "nps_responses": 44,
-        "promoters": 30,
-        "neutrals": 8,
-        "detractors": 6,
-        "nps": 54.54545454545454,
-        "average_score": 8.5,
-        "promoter_pct": 68.2,
-        "neutral_pct": 18.2,
-        "detractor_pct": 13.6
+        "nps_responses": 23,
+        "promoters": 19,
+        "neutrals": 3,
+        "detractors": 1,
+        "nps": 78.26086956521739,
+        "average_score": 9.3,
+        "promoter_pct": 82.6,
+        "neutral_pct": 13,
+        "detractor_pct": 4.3
       },
       {
         "entry_cohort": "2026-Q2",
         "clients": 334,
-        "nps_responses": 123,
-        "promoters": 86,
-        "neutrals": 16,
-        "detractors": 21,
-        "nps": 52.84552845528455,
-        "average_score": 8.5,
-        "promoter_pct": 69.9,
-        "neutral_pct": 13,
-        "detractor_pct": 17.1
+        "nps_responses": 84,
+        "promoters": 56,
+        "neutrals": 12,
+        "detractors": 16,
+        "nps": 47.61904761904761,
+        "average_score": 8.4,
+        "promoter_pct": 66.7,
+        "neutral_pct": 14.3,
+        "detractor_pct": 19
       },
       {
         "entry_cohort": "2026-Q3",
@@ -420,7 +340,403 @@
         "detractor_pct": 5.1
       }
     ],
-    "safras_doc_meta": null
+    "safras_view_cohort_rows": [
+      {
+        "entry_cohort": "2025-Q1",
+        "clients": 386,
+        "nps_responses": 15,
+        "promoters": 13,
+        "neutrals": 1,
+        "detractors": 1,
+        "nps": 80,
+        "average_score": 9,
+        "promoter_pct": 86.7,
+        "neutral_pct": 6.7,
+        "detractor_pct": 6.7
+      },
+      {
+        "entry_cohort": "2025-Q2",
+        "clients": 425,
+        "nps_responses": 19,
+        "promoters": 17,
+        "neutrals": 2,
+        "detractors": 0,
+        "nps": 89.47368421052632,
+        "average_score": 9.6,
+        "promoter_pct": 89.5,
+        "neutral_pct": 10.5,
+        "detractor_pct": 0
+      },
+      {
+        "entry_cohort": "2025-Q3",
+        "clients": 286,
+        "nps_responses": 20,
+        "promoters": 16,
+        "neutrals": 2,
+        "detractors": 2,
+        "nps": 70,
+        "average_score": 8.9,
+        "promoter_pct": 80,
+        "neutral_pct": 10,
+        "detractor_pct": 10
+      },
+      {
+        "entry_cohort": "2025-Q4",
+        "clients": 273,
+        "nps_responses": 22,
+        "promoters": 16,
+        "neutrals": 5,
+        "detractors": 1,
+        "nps": 68.18181818181817,
+        "average_score": 8.8,
+        "promoter_pct": 72.7,
+        "neutral_pct": 22.7,
+        "detractor_pct": 4.5
+      },
+      {
+        "entry_cohort": "2026-Q1",
+        "clients": 139,
+        "nps_responses": 23,
+        "promoters": 19,
+        "neutrals": 3,
+        "detractors": 1,
+        "nps": 78.26086956521739,
+        "average_score": 9.3,
+        "promoter_pct": 82.6,
+        "neutral_pct": 13,
+        "detractor_pct": 4.3
+      },
+      {
+        "entry_cohort": "2026-Q2",
+        "clients": 334,
+        "nps_responses": 84,
+        "promoters": 56,
+        "neutrals": 12,
+        "detractors": 16,
+        "nps": 47.61904761904761,
+        "average_score": 8.4,
+        "promoter_pct": 66.7,
+        "neutral_pct": 14.3,
+        "detractor_pct": 19
+      },
+      {
+        "entry_cohort": "2026-Q3",
+        "clients": 174,
+        "nps_responses": 39,
+        "promoters": 30,
+        "neutrals": 7,
+        "detractors": 2,
+        "nps": 71.7948717948718,
+        "average_score": 9.2,
+        "promoter_pct": 76.9,
+        "neutral_pct": 17.9,
+        "detractor_pct": 5.1
+      }
+    ],
+    "safras_doc_meta": null,
+    "cohort_by_safra": {
+      "2025-Q1": {
+        "historico": {
+          "n": 15,
+          "promoters": 13,
+          "neutrals": 1,
+          "detractors": 1,
+          "nps": 80
+        },
+        "safras": {
+          "n": 15,
+          "promoters": 13,
+          "neutrals": 1,
+          "detractors": 1,
+          "nps": 80
+        },
+        "status": "MATCH"
+      },
+      "2025-Q2": {
+        "historico": {
+          "n": 19,
+          "promoters": 17,
+          "neutrals": 2,
+          "detractors": 0,
+          "nps": 89.47368421052632
+        },
+        "safras": {
+          "n": 19,
+          "promoters": 17,
+          "neutrals": 2,
+          "detractors": 0,
+          "nps": 89.47368421052632
+        },
+        "status": "MATCH"
+      },
+      "2025-Q3": {
+        "historico": {
+          "n": 20,
+          "promoters": 16,
+          "neutrals": 2,
+          "detractors": 2,
+          "nps": 70
+        },
+        "safras": {
+          "n": 20,
+          "promoters": 16,
+          "neutrals": 2,
+          "detractors": 2,
+          "nps": 70
+        },
+        "status": "MATCH"
+      },
+      "2025-Q4": {
+        "historico": {
+          "n": 22,
+          "promoters": 16,
+          "neutrals": 5,
+          "detractors": 1,
+          "nps": 68.18181818181817
+        },
+        "safras": {
+          "n": 22,
+          "promoters": 16,
+          "neutrals": 5,
+          "detractors": 1,
+          "nps": 68.18181818181817
+        },
+        "status": "MATCH"
+      },
+      "2026-Q1": {
+        "historico": {
+          "n": 23,
+          "promoters": 19,
+          "neutrals": 3,
+          "detractors": 1,
+          "nps": 78.26086956521739
+        },
+        "safras": {
+          "n": 23,
+          "promoters": 19,
+          "neutrals": 3,
+          "detractors": 1,
+          "nps": 78.26086956521739
+        },
+        "status": "MATCH"
+      },
+      "2026-Q2": {
+        "historico": {
+          "n": 84,
+          "promoters": 56,
+          "neutrals": 12,
+          "detractors": 16,
+          "nps": 47.61904761904761
+        },
+        "safras": {
+          "n": 84,
+          "promoters": 56,
+          "neutrals": 12,
+          "detractors": 16,
+          "nps": 47.61904761904761
+        },
+        "status": "MATCH"
+      },
+      "2026-Q3": {
+        "historico": {
+          "n": 39,
+          "promoters": 30,
+          "neutrals": 7,
+          "detractors": 2,
+          "nps": 71.7948717948718
+        },
+        "safras": {
+          "n": 39,
+          "promoters": 30,
+          "neutrals": 7,
+          "detractors": 2,
+          "nps": 71.7948717948718
+        },
+        "status": "MATCH"
+      }
+    }
+  },
+  "measurement_parity": [
+    {
+      "cycle": "2025-Q2",
+      "historico": {
+        "responses": 108,
+        "unique_clients": 108,
+        "promoters": 44,
+        "neutrals": 43,
+        "detractors": 21,
+        "nps": 21.3,
+        "average_score": 7.81481481481482
+      },
+      "safras": {
+        "responses": 108,
+        "unique_clients": 108,
+        "promoters": 44,
+        "neutrals": 43,
+        "detractors": 21,
+        "nps": 21.3,
+        "average_score": 7.81481481481482
+      },
+      "status": "MATCH"
+    },
+    {
+      "cycle": "2025-Q3",
+      "historico": {
+        "responses": 50,
+        "unique_clients": 50,
+        "promoters": 23,
+        "neutrals": 16,
+        "detractors": 11,
+        "nps": 24,
+        "average_score": 8
+      },
+      "safras": {
+        "responses": 50,
+        "unique_clients": 50,
+        "promoters": 23,
+        "neutrals": 16,
+        "detractors": 11,
+        "nps": 24,
+        "average_score": 8
+      },
+      "status": "MATCH"
+    },
+    {
+      "cycle": "2025-Q4",
+      "historico": {
+        "responses": 171,
+        "unique_clients": 171,
+        "promoters": 95,
+        "neutrals": 41,
+        "detractors": 35,
+        "nps": 35.1,
+        "average_score": 7.86549707602339
+      },
+      "safras": {
+        "responses": 171,
+        "unique_clients": 171,
+        "promoters": 95,
+        "neutrals": 41,
+        "detractors": 35,
+        "nps": 35.1,
+        "average_score": 7.86549707602339
+      },
+      "status": "MATCH"
+    },
+    {
+      "cycle": "2026-Q1",
+      "historico": {
+        "responses": 194,
+        "unique_clients": 194,
+        "promoters": 121,
+        "neutrals": 41,
+        "detractors": 32,
+        "nps": 45.9,
+        "average_score": 8
+      },
+      "safras": {
+        "responses": 194,
+        "unique_clients": 194,
+        "promoters": 121,
+        "neutrals": 41,
+        "detractors": 32,
+        "nps": 45.9,
+        "average_score": 8
+      },
+      "status": "MATCH"
+    },
+    {
+      "cycle": "2026-Q2",
+      "historico": {
+        "responses": 262,
+        "unique_clients": 262,
+        "promoters": 205,
+        "neutrals": 32,
+        "detractors": 25,
+        "nps": 68.7,
+        "average_score": 8.88549618320611
+      },
+      "safras": {
+        "responses": 262,
+        "unique_clients": 262,
+        "promoters": 205,
+        "neutrals": 32,
+        "detractors": 25,
+        "nps": 68.7,
+        "average_score": 8.88549618320611
+      },
+      "status": "MATCH"
+    },
+    {
+      "cycle": "2026-Q3",
+      "historico": {
+        "responses": 283,
+        "unique_clients": 283,
+        "promoters": 205,
+        "neutrals": 47,
+        "detractors": 31,
+        "nps": 61.48409893992933,
+        "average_score": 8.692579505300353
+      },
+      "safras": {
+        "responses": 283,
+        "unique_clients": 283,
+        "promoters": 205,
+        "neutrals": 47,
+        "detractors": 31,
+        "nps": 61.48409893992933,
+        "average_score": 8.692579505300353
+      },
+      "status": "MATCH"
+    }
+  ],
+  "2026-Q3": {
+    "executive": {
+      "validResponses": 283,
+      "uniqueClients": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933,
+      "averageScore": 8.692579505300353
+    },
+    "historico": {
+      "validResponses": 283,
+      "uniqueClients": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933,
+      "averageScore": 8.692579505300353
+    },
+    "safras": {
+      "validResponses": 283,
+      "uniqueClients": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933,
+      "averageScore": 8.692579505300353
+    },
+    "historico_consolidated": {
+      "validResponses": 283,
+      "uniqueClients": 283,
+      "promoters": 205,
+      "neutrals": 47,
+      "detractors": 31,
+      "nps": 61.48409893992933,
+      "averageScore": 8.692579505300353
+    },
+    "status": "MATCH",
+    "note": "executive/historico_window = janela oficial BASE QV (responses.json). safras = customer_nps_history source=current mesma janela. consolidated = medição 2026-Q3 materializada. Cohort 2026-Q3 = safra de entrada, não medição T3.",
+    "cohort_entry_2026_q3": {
+      "n": 39,
+      "promoters": 30,
+      "neutrals": 7,
+      "detractors": 2,
+      "nps": 71.7948717948718,
+      "note": "Barra safra 2026-Q3 ≠ KPI medição 2026-Q3 (universos distintos)."
+    }
   },
   "paired_vs_recurring": {
     "in_both": 94,
@@ -636,7 +952,7 @@
       "id": "executive_vs_historico_current_responses",
       "status": "EXPECTED_DIFFERENCE",
       "executive": 283,
-      "historico_consolidated": 408,
+      "historico_consolidated": 283,
       "note": "Executivo = respostas válidas no ciclo analítico PHARUS (ex.: SET). Histórico consolidado 2026-Q3 = medição oficial BASE QV (408). Universos distintos por design."
     },
     {
@@ -667,9 +983,16 @@
     },
     {
       "id": "nps_by_cohort_historico_vs_safras",
-      "status": "ERROR",
+      "status": "MATCH",
       "historico_rows": 7,
-      "safras_view_rows": 7
+      "safras_view_rows": 7,
+      "note": "Coorte por data de entrada — não comparar com NPS por medição de mesmo rótulo (ex.: safra 2026-Q3 ≠ medição 2026-Q3)."
+    },
+    {
+      "id": "measurement_series_historico_vs_safras",
+      "status": "MATCH",
+      "cycles": 6,
+      "mismatches": []
     },
     {
       "id": "safra_2026_q3_clients",
@@ -677,7 +1000,7 @@
       "clients_entry_cohort_2026_q3": 174,
       "with_nps_score_on_pack": 39,
       "cohort_helper_n_responses": 39,
-      "note": "Clientes da safra = entry_cohort; n NPS = clientes com nota considerada no pack (última/ciclo)."
+      "note": "Clientes da safra = entry_cohort; n = respostas válidas após dedupe no kernel oficial."
     }
   ],
   "paired_vs_recurring_diff": {

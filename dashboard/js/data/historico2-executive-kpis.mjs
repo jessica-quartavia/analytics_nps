@@ -76,11 +76,20 @@ export function buildHistorico2ExecutiveKpis({
     computedOfficial ??
     (!explicitFilters && liveOfficialSummary ? liveOfficialSummary : null);
 
-  let officialNps = lastOff?.nps_oficial ?? null;
-  let officialCycleLabel = lastOff?.ciclo ? formatNpsCycleLabel(lastOff.ciclo) : currentCanonical ?? '—';
+  let officialNps = null;
+  let officialCycleLabel = currentCanonical
+    ? formatNpsCycleLabel(currentCanonical)
+    : currentCycleCode
+      ? formatNpsCycleLabel(currentCycleCode)
+      : '—';
 
   if (cycleOfficial?.nps != null && !Number.isNaN(Number(cycleOfficial.nps))) {
     officialNps = Number(cycleOfficial.nps);
+    if (currentCycleCode) {
+      officialCycleLabel = formatNpsCycleLabel(currentCycleCode);
+    }
+  } else if (!explicitFilters && liveOfficialSummary?.nps != null) {
+    officialNps = Number(liveOfficialSummary.nps);
     if (currentCycleCode) {
       officialCycleLabel = formatNpsCycleLabel(currentCycleCode);
     }

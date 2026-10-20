@@ -94,6 +94,8 @@ export function enrichSafrasRowsWithNpsHistory(customers, historyRows) {
 export function buildSafrasCohortSummariesFromHistorico2Clients(h2Clients, opts = {}) {
   return buildCohortSummaries(h2Clients ?? [], {
     chartsFrom2025: opts.minYear == null || opts.minYear >= 2025,
+    responses: opts.responses ?? null,
+    officialBounds: opts.officialBounds ?? null,
   });
 }
 
