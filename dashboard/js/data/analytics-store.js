@@ -108,6 +108,8 @@ const PATHS = {
   npsMeasurementsConsolidated: '/data/processed/nps_measurements_consolidated.json',
   pharusAppCustomerMatch: '/data/processed/pharus_app_customer_match.json',
   pharusAppMatchAudit: '/data/quality/pharus_app_match_audit.json',
+  promotores5Estrelas: '/data/processed/promotores_5_estrelas.json',
+  promotores5EstrelasAudit: '/data/quality/promotores_5_estrelas_audit.json',
 };
 
 function logStoreError(message, detail) {
@@ -322,6 +324,8 @@ async function fetchAllAnalyticsDatasets({ bust = false } = {}) {
     fetchJsonOptional(PATHS.npsMeasurementsConsolidated, fetchOpts),
     fetchJsonOptional(PATHS.pharusAppCustomerMatch, fetchOpts),
     fetchJsonOptional(PATHS.pharusAppMatchAudit, fetchOpts),
+    fetchJsonOptional(PATHS.promotores5Estrelas, fetchOpts),
+    fetchJsonOptional(PATHS.promotores5EstrelasAudit, fetchOpts),
   ]);
 }
 
@@ -377,6 +381,8 @@ function applyAnalyticsPayload(datasets) {
     npsMeasurementsConsolidatedDoc,
     pharusAppCustomerMatchDoc,
     pharusAppMatchAuditDoc,
+    promotores5EstrelasDoc,
+    promotores5EstrelasAuditDoc,
   ] = datasets;
 
   const actionQueueEnrichedBase = actionQueueEnrichedDoc?.entries ?? [];
@@ -443,6 +449,8 @@ function applyAnalyticsPayload(datasets) {
     npsMeasurementsConsolidatedDoc: npsMeasurementsConsolidatedDoc ?? null,
     pharusAppCustomerMatchDoc: pharusAppCustomerMatchDoc ?? null,
     pharusAppMatchAuditDoc: pharusAppMatchAuditDoc ?? null,
+    promotores5EstrelasDoc: promotores5EstrelasDoc ?? null,
+    promotores5EstrelasAuditDoc: promotores5EstrelasAuditDoc ?? null,
     dataCutoff: cycleSummaryDoc?.data_cutoff ?? snapshot?.at ?? null,
   };
   summaryMap = buildSummaryMap(cycleSummaryDoc);
@@ -1035,6 +1043,18 @@ export function getPharusAppCustomerMatch() {
 
 export function getPharusAppMatchAudit() {
   return state?.pharusAppMatchAuditDoc ?? null;
+}
+
+export function getPromotores5Estrelas() {
+  return state?.promotores5EstrelasDoc ?? null;
+}
+
+export function hasPromotores5Estrelas() {
+  return state?.promotores5EstrelasDoc != null;
+}
+
+export function getPromotores5EstrelasAudit() {
+  return state?.promotores5EstrelasAuditDoc ?? null;
 }
 
 export function getHistoricalNpsSummary() {

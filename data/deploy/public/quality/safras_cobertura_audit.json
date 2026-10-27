@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T20:01:42.492Z",
+  "generated_at": "2026-10-27T17:34:46.435Z",
   "safra_entry_field_chosen": "clients.data_inicio_ciclo",
   "safra_fallback_chain": [
     "clients.data_inicio_ciclo",
@@ -58,18 +58,18 @@
     }
   ],
   "app_source": "core.personal_info",
-  "app_clients_matched": 415,
+  "app_clients_matched": 421,
   "app_unknown": 0,
   "app_match_status_counts": {
-    "unmatched": 2695,
-    "matched": 415,
+    "unmatched": 2689,
+    "matched": 421,
     "insufficient_identifiers": 42
   },
   "nps_app_vs_no_app": {
-    "with_app_n": 130,
-    "without_app_n": 559,
-    "with_app_nps": 60.8,
-    "without_app_nps": 39.5,
+    "with_app_n": 132,
+    "without_app_n": 557,
+    "with_app_nps": 61.4,
+    "without_app_nps": 39.3,
     "note": "Associação descritiva; diferença não implica causalidade."
   },
   "days_entry_to_first_nps": {

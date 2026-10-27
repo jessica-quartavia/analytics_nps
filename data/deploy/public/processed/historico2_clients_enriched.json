@@ -1,17 +1,17 @@
 {
   "meta": {
-    "generated_at": "2026-10-20T20:01:52.902Z",
-    "as_of_date": "2026-10-20",
+    "generated_at": "2026-10-27T17:34:57.596Z",
+    "as_of_date": "2026-10-27",
     "nps_source": "base_qv.processed/responses.json",
     "entry_date_source": "base0.clientes.data_entrada",
     "attributes_source": "base_qv",
     "page_key": "nps-historico",
     "page_title": "NPS Histórico",
-    "dataset_version": "nps-historico-78bb96351eee",
-    "build_commit": "78bb96351eeee5663275e3fdaa6dd85fcbc888a6",
+    "dataset_version": "nps-historico-835affc145b9",
+    "build_commit": "835affc145b9e989f7cc62d8a3bffe295663f72c",
     "responses_source": "BASE_QV:nps_responses (>=2025-01-01) + processed/responses.json",
-    "measurements_responses_rows": 712,
-    "responses_source_max_updated_at": "2026-10-20T20:01:52.902Z",
+    "measurements_responses_rows": 713,
+    "responses_source_max_updated_at": "2026-10-27T17:34:57.596Z",
     "measurement_dedupe_rule": "Última resposta válida por client_id dentro de cada medição canônica (BASE QV)."
   },
   "kpis": {
@@ -77890,14 +77890,14 @@
       },
       {
         "measurement": "2026-Q4",
-        "raw_responses": 61,
-        "valid_responses": 61,
-        "distinct_clients": 61,
-        "deduped_responses": 61,
-        "promoters": 52,
+        "raw_responses": 62,
+        "valid_responses": 62,
+        "distinct_clients": 62,
+        "deduped_responses": 62,
+        "promoters": 53,
         "neutrals": 7,
         "detractors": 2,
-        "nps": 81.9672131147541
+        "nps": 82.25806451612904
       }
     ],
     "response_index": [
@@ -82976,6 +82976,15 @@
         "score": 4,
         "nps_category": null,
         "submitted_at": "2026-10-14T15:50:38+00:00"
+      },
+      {
+        "response_id": "92a16e5e-ce93-4901-b5f1-209604418bcb",
+        "client_id": "07186f59-0021-4131-ac8d-a368c1f506eb",
+        "measurement": "2026-Q4",
+        "analytical_cycle_code": null,
+        "score": 9,
+        "nps_category": null,
+        "submitted_at": "2026-10-22T11:10:55+00:00"
       }
     ]
   }

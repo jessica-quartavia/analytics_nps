@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T20:01:23.537Z",
+  "generated_at": "2026-10-27T17:34:29.494Z",
   "app_source": "core.personal_info",
   "entries": [
     {
@@ -1794,8 +1794,8 @@
     },
     {
       "client_id": "1c9f3a06-cdfe-4357-a3ff-b9f1badb86b4",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "1cd4a3a0-f29f-4259-904a-d105df5daff2",
@@ -2509,8 +2509,8 @@
     },
     {
       "client_id": "29f60209-74fb-41be-84c7-1e3bec37ba0e",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "29f609a5-50b2-4716-b66e-ac1ba7692358",
@@ -3919,8 +3919,8 @@
     },
     {
       "client_id": "3dfd7f5d-73f2-45a3-af0c-38838c786f89",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "3e08d40b-1a7d-41d9-a7a9-e703135eb0c5",
@@ -8584,8 +8584,8 @@
     },
     {
       "client_id": "88a9fa56-aa1a-40d0-b647-9d945e143cef",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "88b27857-7b64-4744-b1ca-9eeb205ee34a",
@@ -12444,8 +12444,8 @@
     },
     {
       "client_id": "c7b6ff1a-9ceb-4587-885d-68904d0803cb",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "c7bb7433-8594-42e1-87b5-11c2be5b672f",
@@ -15029,8 +15029,8 @@
     },
     {
       "client_id": "f14ebf86-2e96-46c4-a7f9-17cc3a810fe8",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "f15fa5c4-9dfc-4bc0-9bf5-ab3845dab652",

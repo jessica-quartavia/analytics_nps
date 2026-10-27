@@ -304,6 +304,12 @@ async function main() {
   }
 
   try {
+    await import('./generate-promotores-5-estrelas.mjs');
+  } catch (e) {
+    console.warn('generate-promotores-5-estrelas:', e.message);
+  }
+
+  try {
     const { generateHistorico2Pack } = await import('./generate-historico2.mjs');
     await generateHistorico2Pack();
   } catch (e) {

@@ -50,6 +50,7 @@
     "voc:migration:print": "node scripts/apply-voc-migration-business-data.mjs",
     "audit:voc-ai": "node scripts/audit-voc-ai.mjs",
     "generate:nps-milestones": "node scripts/generate-nps-milestones.mjs",
+    "generate:promotores-5-estrelas": "node scripts/generate-promotores-5-estrelas.mjs",
     "generate:nps-change-drivers": "node scripts/generate-nps-change-drivers.mjs",
     "generate:nps-financial-profile": "node scripts/generate-nps-financial-profile.mjs",
     "generate:nps-management-insights": "node scripts/generate-nps-management-insights.mjs",

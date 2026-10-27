@@ -1,0 +1,154 @@
+{
+  "generated_at": "2026-10-27T17:34:50.372Z",
+  "data_source": "base_qv_live",
+  "rule": {
+    "id": "nps_derived_promotor_5_estrelas",
+    "description": "≥2 respostas NPS válidas; as duas mais recentes são Promotor (9–10); a mais recente tem score = 10.",
+    "sort": "submitted_at DESC, response_id DESC",
+    "does_not_use": [
+      "clients.segmentacao"
+    ]
+  },
+  "total_clients": 3177,
+  "active_clients": 1352,
+  "clients_with_2_valid_nps": 94,
+  "last_two_promoters": 77,
+  "latest_score_10": 248,
+  "eligible_total": 62,
+  "eligible_active": 61,
+  "qa_eligible_samples": [
+    {
+      "client_id": "03493d05-bf24-4326-bce7-fd29ad2c242b",
+      "previous_score": 9,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "03ed7e77-4e5b-4309-9330-dd8d8b112db8",
+      "previous_score": 10,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "0899e909-4949-4cfc-9f76-6ebb2bf62a81",
+      "previous_score": 10,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "09ed4608-b617-40ce-b43a-88b99043e3b3",
+      "previous_score": 10,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "0f9a6f3e-dedb-4f13-bb03-7fcdab528522",
+      "previous_score": 9,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "137f8cc6-cd0b-472c-a936-29a694f41095",
+      "previous_score": 9,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "1c9f3a06-cdfe-4357-a3ff-b9f1badb86b4",
+      "previous_score": 10,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "2412cd30-4001-4d4f-ad09-edbf468bc620",
+      "previous_score": 9,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "29f7a69f-c4a7-40d3-9fd5-77edb6af1d74",
+      "previous_score": 10,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    },
+    {
+      "client_id": "2c964b79-16d6-45d6-b79b-7b0b67bd45c6",
+      "previous_score": 10,
+      "latest_score": 10,
+      "previous_cycle": "NPS-2026-JUN-JUL-PHARUS",
+      "latest_cycle": "NPS-2026-SET-PHARUS"
+    }
+  ],
+  "qa_negative_samples": [
+    {
+      "client_id": "0942e480-77a7-4850-baba-2eccbc6aa13f",
+      "pair": "10 → 8",
+      "reason": "last_two_not_both_promoter"
+    },
+    {
+      "client_id": "11316935-c4a8-4169-a65e-f5d70b27674b",
+      "pair": "9 → 8",
+      "reason": "last_two_not_both_promoter"
+    },
+    {
+      "client_id": "236e0064-237f-4e71-890d-bda08ea02b63",
+      "pair": "9 → 9",
+      "reason": "latest_not_10"
+    },
+    {
+      "client_id": "302362a5-f038-4bb3-b011-b69c9371533e",
+      "pair": "10 → 9",
+      "reason": "latest_not_10"
+    },
+    {
+      "client_id": "338f7a09-d30f-4933-b6da-036748743132",
+      "pair": "10 → 5",
+      "reason": "last_two_not_both_promoter"
+    },
+    {
+      "client_id": "3ec83343-a645-463d-8b7a-d71c1844c5f7",
+      "pair": "9 → 9",
+      "reason": "latest_not_10"
+    },
+    {
+      "client_id": "477ecb4d-83e3-4ff3-a390-e7354d5f0f63",
+      "pair": "9 → 7",
+      "reason": "last_two_not_both_promoter"
+    },
+    {
+      "client_id": "4c22dad4-93ce-4775-868a-c620880dc949",
+      "pair": "10 → 9",
+      "reason": "latest_not_10"
+    },
+    {
+      "client_id": "576fb0f8-6e72-4abf-8a58-058850cfb1be",
+      "pair": "9 → 9",
+      "reason": "latest_not_10"
+    },
+    {
+      "client_id": "6dcd82ce-97f3-4b25-9784-2104ad4ffc8e",
+      "pair": "10 → 8",
+      "reason": "last_two_not_both_promoter"
+    }
+  ],
+  "profile": {
+    "profession_coverage_pct": 29.03225806451613,
+    "state_coverage_pct": 93.54838709677419,
+    "city_coverage_pct": 95.16129032258065
+  },
+  "mechanisms": {
+    "clients_with_mechanisms": 56,
+    "clients_with_mechanisms_pct": 90.32258064516128,
+    "avg_mechanisms": 2.5161290322580645
+  },
+  "eligible_rows_materialized": 62
+}

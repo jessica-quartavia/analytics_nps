@@ -74,7 +74,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 11.11111111111111,
           "pct_churn_requested": 0,
-          "pct_app_access": 0,
+          "pct_app_access": 16.666666666666664,
           "engagement_distribution": {
             "(sem dado)": 198
           },
@@ -99,7 +99,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 22.58064516129032,
           "pct_churn_requested": 0,
-          "pct_app_access": 0,
+          "pct_app_access": 3.225806451612903,
           "engagement_distribution": {
             "(sem dado)": 31
           },
@@ -122,7 +122,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 12,
           "pct_churn_requested": 0,
-          "pct_app_access": 0,
+          "pct_app_access": 16,
           "engagement_distribution": {
             "(sem dado)": 25
           },
@@ -267,16 +267,16 @@
           "label": "Com cadastro no App Pharus",
           "categories": {
             "Promotor": {
-              "n": 0,
-              "pct": 0
+              "n": 33,
+              "pct": 16.666666666666664
             },
             "Neutro": {
-              "n": 0,
-              "pct": 0
+              "n": 1,
+              "pct": 3.225806451612903
             },
             "Detrator": {
-              "n": 0,
-              "pct": 0
+              "n": 4,
+              "pct": 16
             }
           }
         },
@@ -322,7 +322,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 1.4634146341463417,
           "pct_churn_requested": 0,
-          "pct_app_access": 0,
+          "pct_app_access": 38.53658536585366,
           "engagement_distribution": {
             "(sem dado)": 205
           },
@@ -347,7 +347,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 0,
           "pct_churn_requested": 0,
-          "pct_app_access": 0,
+          "pct_app_access": 31.914893617021278,
           "engagement_distribution": {
             "(sem dado)": 47
           },
@@ -371,7 +371,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 0,
           "pct_churn_requested": 0,
-          "pct_app_access": 0,
+          "pct_app_access": 45.16129032258064,
           "engagement_distribution": {
             "(sem dado)": 31
           },
@@ -516,16 +516,16 @@
           "label": "Com cadastro no App Pharus",
           "categories": {
             "Promotor": {
-              "n": 0,
-              "pct": 0
+              "n": 79,
+              "pct": 38.53658536585366
             },
             "Neutro": {
-              "n": 0,
-              "pct": 0
+              "n": 15,
+              "pct": 31.914893617021278
             },
             "Detrator": {
-              "n": 0,
-              "pct": 0
+              "n": 14,
+              "pct": 45.16129032258064
             }
           }
         },

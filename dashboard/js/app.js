@@ -132,6 +132,14 @@ const LAZY_ROUTES = {
     render: (mod, root, ctx) => mod.renderSafrasCobertura(root, ctx),
     close: (mod) => mod.closeSafrasDrawer?.(),
   },
+  'promotores-5-estrelas': {
+    title: 'Promotores 5 Estrelas',
+    topbar: 'Promotores 5 Estrelas',
+    loadingLabel: 'Promotores 5 Estrelas',
+    import: () => import('./pages/promotores-5-estrelas.js'),
+    render: (mod, root) => mod.renderPromotores5Estrelas(root),
+    close: (mod) => mod.closePromotoresDrawer?.(),
+  },
   drivers: {
     title: 'Drivers',
     topbar: 'Drivers do NPS',

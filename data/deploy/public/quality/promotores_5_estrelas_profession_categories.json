@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-10-27T17:34:50.372Z",
+  "entries": [
+    {
+      "raw_profession": "(vazio)",
+      "normalized_profession": "",
+      "category": "Não informado",
+      "count": 44
+    },
+    {
+      "raw_profession": "Médica",
+      "normalized_profession": "medica",
+      "category": "Medicina / Saúde",
+      "count": 2
+    },
+    {
+      "raw_profession": "Médico",
+      "normalized_profession": "medico",
+      "category": "Medicina / Saúde",
+      "count": 2
+    },
+    {
+      "raw_profession": "Aposentada",
+      "normalized_profession": "aposentada",
+      "category": "Aposentado",
+      "count": 1
+    },
+    {
+      "raw_profession": "Auditor Fiscal",
+      "normalized_profession": "auditor fiscal",
+      "category": "Contabilidade / Economia",
+      "count": 1
+    },
+    {
+      "raw_profession": "Bancária e Psicanalista",
+      "normalized_profession": "bancaria e psicanalista",
+      "category": "Financeiro / Bancário",
+      "count": 1
+    },
+    {
+      "raw_profession": "Empresário no setor de tecnologia e software",
+      "normalized_profession": "empresario no setor de tecnologia e software",
+      "category": "Tecnologia",
+      "count": 1
+    },
+    {
+      "raw_profession": "Engenheiro Civil",
+      "normalized_profession": "engenheiro civil",
+      "category": "Engenharia",
+      "count": 1
+    },
+    {
+      "raw_profession": "Engenheiro Civil Aposentado",
+      "normalized_profession": "engenheiro civil aposentado",
+      "category": "Engenharia",
+      "count": 1
+    },
+    {
+      "raw_profession": "Engenheiro Civil e Empresário",
+      "normalized_profession": "engenheiro civil e empresario",
+      "category": "Engenharia",
+      "count": 1
+    },
+    {
+      "raw_profession": "Funcionária Pública",
+      "normalized_profession": "funcionaria publica",
+      "category": "Servidor público",
+      "count": 1
+    },
+    {
+      "raw_profession": "Medica",
+      "normalized_profession": "medica",
+      "category": "Medicina / Saúde",
+      "count": 1
+    },
+    {
+      "raw_profession": "Médico Cardiologista.",
+      "normalized_profession": "medico cardiologista.",
+      "category": "Medicina / Saúde",
+      "count": 1
+    },
+    {
+      "raw_profession": "Médico Ortopedista",
+      "normalized_profession": "medico ortopedista",
+      "category": "Medicina / Saúde",
+      "count": 1
+    },
+    {
+      "raw_profession": "Médico Otorrino",
+      "normalized_profession": "medico otorrino",
+      "category": "Medicina / Saúde",
+      "count": 1
+    },
+    {
+      "raw_profession": "Professora",
+      "normalized_profession": "professora",
+      "category": "Educação",
+      "count": 1
+    },
+    {
+      "raw_profession": "Rentista",
+      "normalized_profession": "rentista",
+      "category": "Outros",
+      "count": 1
+    }
+  ]
+}

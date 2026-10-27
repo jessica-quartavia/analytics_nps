@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-20T20:01:53.302Z",
-  "dataset_version": "nps-measurements-baseqv-78bb96351eee",
-  "build_commit": "78bb96351eeee5663275e3fdaa6dd85fcbc888a6",
+  "generated_at": "2026-10-27T17:34:57.854Z",
+  "dataset_version": "nps-measurements-baseqv-835affc145b9",
+  "build_commit": "835affc145b9e989f7cc62d8a3bffe295663f72c",
   "source": "BASE_QV:nps_responses+nps_cycles",
   "base_qv_cycles": [
     {
@@ -17,7 +17,7 @@
       "cycle_code": "NPS 2026-T3",
       "label": "NPS 2026-T3",
       "start_at": "2026-09-15T03:00:00+00:00",
-      "end_at": null,
+      "end_at": "2026-10-26T17:29:57.997+00:00",
       "status": null
     }
   ],
