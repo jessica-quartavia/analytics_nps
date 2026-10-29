@@ -1,20 +1,17 @@
-.executivo-cycle-snapshot__body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+.metric-hero--historical {
+  border: 1px dashed color-mix(in srgb, var(--border) 85%, var(--text-muted) 15%);
+  background: color-mix(in srgb, var(--surface) 94%, var(--text-muted) 6%);
+  box-shadow: none;
 }
 
-.executivo-cycle-snapshot__date {
-  margin: 0;
-  font-size: 1.05rem;
+.metric-hero--historical:hover {
+  transform: none;
+  box-shadow: var(--shadow-xs);
 }
 
-.executivo-cycle-snapshot__nps {
-  margin: 0;
-}
-
-.executivo-cycle-snapshot__note {
-  margin: 0.25rem 0 0;
+.metric-hero--historical .metric-hero__value {
+  font-size: 1.75rem;
+  color: var(--text-muted);
 }
 
 .safras-matrix-cell {

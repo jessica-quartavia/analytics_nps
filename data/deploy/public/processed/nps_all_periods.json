@@ -5,7 +5,7 @@
       "nps_atual": "processed/responses.json",
       "dedupe": "current wins on base_qv_id+date+score+cycle match"
     },
-    "generated_at": "2026-10-27T17:34:46.869Z",
+    "generated_at": "2026-10-29T15:39:17.635Z",
     "current_cycle_label": "Jun–Jul/2026"
   },
   "audit": {

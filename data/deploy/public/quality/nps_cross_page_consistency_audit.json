@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T17:34:59.813Z",
+  "generated_at": "2026-10-29T15:39:28.302Z",
   "current_cycle": "NPS-2026-SET-PHARUS",
   "pages": {
     "executivo": {
@@ -47,8 +47,8 @@
           "total": 283
         },
         "app_pharus_access": {
-          "true": 108,
-          "false": 175,
+          "true": 109,
+          "false": 174,
           "null": 0,
           "total": 283
         }
@@ -786,8 +786,8 @@
       "total": 283
     },
     "app_pharus_access": {
-      "true": 108,
-      "false": 175,
+      "true": 109,
+      "false": 174,
       "null": 0,
       "total": 283
     }
@@ -874,8 +874,8 @@
       "total": 283
     },
     "app_pharus_access": {
-      "true": 108,
-      "false": 175,
+      "true": 109,
+      "false": 174,
       "null": 0,
       "total": 283
     },

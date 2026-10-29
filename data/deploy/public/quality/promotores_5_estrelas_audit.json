@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T17:34:50.372Z",
+  "generated_at": "2026-10-29T15:39:20.834Z",
   "data_source": "base_qv_live",
   "rule": {
     "id": "nps_derived_promotor_5_estrelas",
@@ -148,7 +148,7 @@
   "mechanisms": {
     "clients_with_mechanisms": 56,
     "clients_with_mechanisms_pct": 90.32258064516128,
-    "avg_mechanisms": 2.5161290322580645
+    "avg_mechanisms": 2.5483870967741935
   },
   "eligible_rows_materialized": 62
 }

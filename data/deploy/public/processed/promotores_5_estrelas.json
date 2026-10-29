@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-27T17:34:50.372Z",
+    "generated_at": "2026-10-29T15:39:20.834Z",
     "rule": {
       "id": "nps_derived_promotor_5_estrelas",
       "description": "≥2 respostas NPS válidas; as duas mais recentes são Promotor (9–10); a mais recente tem score = 10.",
@@ -153,7 +153,7 @@
   "mechanisms": {
     "clients_with_mechanisms": 56,
     "clients_with_mechanisms_pct": 90.32258064516128,
-    "avg_mechanisms": 2.5161290322580645
+    "avg_mechanisms": 2.5483870967741935
   },
   "clients": [
     {
@@ -304,14 +304,15 @@
       "previous_nps_cycle": "NPS-2026-JUN-JUL-PHARUS",
       "nps_latest_category": "Promotor",
       "nps_previous_category": "Promotor",
-      "mechanism_count": 3,
-      "mechanism_bucket": "3",
+      "mechanism_count": 4,
+      "mechanism_bucket": "4",
       "mechanisms": [
         "Autoconstrução",
+        "Fundo de Investimento (QVRA11)",
         "Leilão Serial (Flipping de Leilão)",
         "Trava de Inflação"
       ],
-      "mechanisms_top": "Autoconstrução, Leilão Serial (Flipping de Leilão), Trava de Inflação"
+      "mechanisms_top": "Autoconstrução, Fundo de Investimento (QVRA11), Leilão Serial (Flipping de Leilão)"
     },
     {
       "client_id": "137f8cc6-cd0b-472c-a936-29a694f41095",
@@ -2003,13 +2004,14 @@
       "previous_nps_cycle": "NPS-2026-JUN-JUL-PHARUS",
       "nps_latest_category": "Promotor",
       "nps_previous_category": "Promotor",
-      "mechanism_count": 2,
-      "mechanism_bucket": "2",
+      "mechanism_count": 3,
+      "mechanism_bucket": "3",
       "mechanisms": [
+        "ARCADIA",
         "Leilão Serial (Flipping de Leilão)",
         "Renda Fixa Escalonada"
       ],
-      "mechanisms_top": "Leilão Serial (Flipping de Leilão), Renda Fixa Escalonada"
+      "mechanisms_top": "ARCADIA, Leilão Serial (Flipping de Leilão), Renda Fixa Escalonada"
     },
     {
       "client_id": "f53decbd-a8df-4269-9a6b-24290231dcfc",

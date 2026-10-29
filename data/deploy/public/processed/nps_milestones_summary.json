@@ -74,7 +74,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 11.11111111111111,
           "pct_churn_requested": 0,
-          "pct_app_access": 16.666666666666664,
+          "pct_app_access": 17.67676767676768,
           "engagement_distribution": {
             "(sem dado)": 198
           },
@@ -267,8 +267,8 @@
           "label": "Com cadastro no App Pharus",
           "categories": {
             "Promotor": {
-              "n": 33,
-              "pct": 16.666666666666664
+              "n": 35,
+              "pct": 17.67676767676768
             },
             "Neutro": {
               "n": 1,
@@ -322,7 +322,7 @@
           "pct_ever_frozen": 0,
           "pct_frozen_at_response": 1.4634146341463417,
           "pct_churn_requested": 0,
-          "pct_app_access": 38.53658536585366,
+          "pct_app_access": 39.02439024390244,
           "engagement_distribution": {
             "(sem dado)": 205
           },
@@ -516,8 +516,8 @@
           "label": "Com cadastro no App Pharus",
           "categories": {
             "Promotor": {
-              "n": 79,
-              "pct": 38.53658536585366
+              "n": 80,
+              "pct": 39.02439024390244
             },
             "Neutro": {
               "n": 15,

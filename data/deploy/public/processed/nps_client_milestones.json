@@ -693,7 +693,7 @@
       "churn_quality": "unavailable",
       "engagement_at_response": null,
       "engagement_quality": "unavailable",
-      "app_pharus_access": false,
+      "app_pharus_access": true,
       "app_quality": "pharus_identity_match",
       "field_quality": {
         "meetings": "point_in_time",
@@ -746,7 +746,7 @@
       "churn_quality": "unavailable",
       "engagement_at_response": null,
       "engagement_quality": "unavailable",
-      "app_pharus_access": false,
+      "app_pharus_access": true,
       "app_quality": "pharus_identity_match",
       "field_quality": {
         "meetings": "point_in_time",
@@ -14261,7 +14261,7 @@
       "churn_quality": "unavailable",
       "engagement_at_response": null,
       "engagement_quality": "unavailable",
-      "app_pharus_access": false,
+      "app_pharus_access": true,
       "app_quality": "pharus_identity_match",
       "field_quality": {
         "meetings": "point_in_time",

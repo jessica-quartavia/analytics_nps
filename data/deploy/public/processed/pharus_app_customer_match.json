@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T17:34:29.494Z",
+  "generated_at": "2026-10-29T15:39:03.507Z",
   "app_source": "core.personal_info",
   "entries": [
     {
@@ -14374,8 +14374,8 @@
     },
     {
       "client_id": "e7c359cd-8c05-486d-bcf8-76a338b96058",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "e809b66d-22aa-4d83-8859-d6e801a23cdf",
@@ -15234,8 +15234,8 @@
     },
     {
       "client_id": "f53decbd-a8df-4269-9a6b-24290231dcfc",
-      "app_match": false,
-      "app_match_method": "none"
+      "app_match": true,
+      "app_match_method": "multiple"
     },
     {
       "client_id": "f5481ca0-b8c3-4c16-b118-2624df3de743",

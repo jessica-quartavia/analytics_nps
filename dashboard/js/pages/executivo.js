@@ -27,7 +27,7 @@ import {
 import { EXECUTIVE_KPI_LABELS, POPULATION_TIPS } from '../data/population-transparency.mjs';
 import { bindRespondentsDrawer, closeRespondentsDrawer } from '../ui/respondents-drawer.js';
 import { renderDataSourceNotice } from '../ui/data-source-notice.mjs';
-import { renderExecutivoCycleSnapshot } from '../ui/executivo-cycle-snapshot.mjs';
+import { renderExecutivoHistoricalNpsClosedKpi } from '../ui/executivo-cycle-snapshot.mjs';
 
 let charts = [];
 
@@ -132,6 +132,7 @@ function renderKpiRow(currentSummary, previousSummary, currentCycle, prevCycle) 
         <div class="metric-hero__value">${escapeHtml(formatDeltaPts(nps, prevNps))}</div>
         <div class="metric-delta__hint">${escapeHtml(deltaHint(nps, prevNps))}</div>
       </article>
+      ${renderExecutivoHistoricalNpsClosedKpi()}
     </div>`;
 }
 
@@ -506,7 +507,6 @@ export function renderExecutivo(root, ctx = {}) {
       ${chartSection('Distribuição das notas', 'Frequência de 0 a 10', 'chart-dist', '#/movimento', 'Distribuição das notas')}
     </section>
     ${renderTotalVsPaired(currentSummary, previousSummary, pairedForView, recorteActive)}
-    ${renderExecutivoCycleSnapshot()}
     ${renderQualityNotes(officialSummary, prevCycle ? getCycleSummary(prevCycle.cycle_code) : null)}
     </div>
   `;
